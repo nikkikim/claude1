@@ -6,6 +6,9 @@ on:
     - cron: "30 22 * * *"
   workflow_dispatch: {}   # Actions 탭에서 수동 실행 가능
 
+permissions:
+  contents: read
+
 jobs:
   send:
     runs-on: ubuntu-latest
@@ -17,14 +20,25 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Send digest
+      - name: Install Claude SDK (Claude API 키를 쓸 때만)
+        if: ${{ env.ANTHROPIC_API_KEY != '' }}
+        run: pip install anthropic
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Send digest
+        env:
+          # --- 요약 엔진 (둘 다 없으면 AI 없이 헤드라인만 발송: 비용 0원) ---
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
+          # --- 이메일 ---
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
           SMTP_PORT: ${{ vars.SMTP_PORT || '465' }}
+          # --- 텔레그램 ---
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python news_digest.py

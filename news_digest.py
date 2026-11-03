@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""매일 주요 뉴스를 수집 → Claude로 요약 → 이메일 / 텔레그램 발송.
+"""매일 주요 뉴스를 수집 → AI로 요약 → 이메일 / 텔레그램 발송.
 
 사용법:
     python news_digest.py              # 설정된 채널(이메일/텔레그램)로 모두 발송
     python news_digest.py --dry-run    # 발송 대신 digest.html 파일로 저장
-    python news_digest.py --no-llm     # Claude 호출 없이 헤드라인만 (테스트용)
+    python news_digest.py --no-llm     # AI 호출 없이 헤드라인만 (비용 0원)
 
-환경변수:
-    ANTHROPIC_API_KEY   Claude API 키
-    CLAUDE_MODEL        기본 claude-sonnet-5-5
+환경변수 (요약 엔진 — 아래 중 하나, 아무것도 없으면 헤드라인만 발송):
+    LLM_PROVIDER        anthropic | gemini | none (생략 시 키가 있는 쪽을 자동 선택)
+    ANTHROPIC_API_KEY   Claude API 키 (유료, 종량제)   CLAUDE_MODEL 기본 claude-sonnet-5-5
+    GEMINI_API_KEY      Google Gemini API 키 (무료 티어 있음)   GEMINI_MODEL 기본 gemini-3.8-flash
+    ※ AI 호출이 실패하면 메일이 끊기지 않도록 헤드라인만으로 대체해 발송합니다.
 
   [이메일] 아래가 모두 있으면 이메일 발송
     SMTP_HOST / SMTP_PORT  (기본 smtp.gmail.com / 465)
@@ -35,6 +37,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
@@ -52,7 +55,7 @@ CATEGORIES = ["정치", "경제", "사회", "국제", "IT·과학", "문화·스
 @dataclass
 class Article:
     outlet: str      # 신문사
-    region: str      # 국내 / 해외
+    region: str      # 국내 / 미국 / 영국 / 기타 해외
     category: str    # 피드에 지정된 카테고리 힌트 (종합이면 LLM이 분류)
     title: str
     link: str
@@ -73,45 +76,62 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
     now = now or datetime.now(timezone.utc)
     cutoff = now - timedelta(hours=config.get("max_age_hours", 26))
     per_feed = config.get("max_items_per_feed", 15)
+    max_total = config.get("max_total_articles", 350)
     seen: set[str] = set()
-    articles: list[Article] = []
     socket.setdefaulttimeout(20)  # 응답 없는 피드 하나가 전체를 막지 않도록
 
-    for feed in config["feeds"]:
+    def _parse(feed: dict):
         outlet = feed.get("outlet") or feed.get("name", "")
         try:
             parsed = feedparser.parse(feed["url"], agent="news-digest/1.0")
         except Exception as e:  # 한 피드가 죽어도 전체는 계속
             print(f"[warn] {outlet}: {e}", file=sys.stderr)
-            continue
+            return None
         if parsed.get("bozo") and not parsed.entries:
             print(f"[warn] {outlet}: 피드를 읽지 못했습니다", file=sys.stderr)
-            continue
-        count = 0
-        for entry in parsed.entries:
-            title = (entry.get("title") or "").strip()
-            link = entry.get("link") or ""
-            if not title or not link:
-                continue
-            published = _entry_time(entry)
-            if published and published < cutoff:
-                continue
-            key = link.split("?")[0]
-            if key in seen or title in seen:
-                continue
-            seen.update({key, title})
-            articles.append(Article(
-                outlet=outlet,
-                region=feed.get("region", ""),
-                category=feed.get("category", "종합"),
-                title=title,
-                link=link,
-                summary=_strip_html(entry.get("summary", ""))[:200],
-                published=published,
-            ))
-            count += 1
-            if count >= per_feed:
-                break
+            return None
+        return parsed
+
+    # 병렬로 내려받되 결과는 feeds.json 순서대로 처리 (Actions 실행 시간 절약)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        parsed_feeds = list(pool.map(_parse, config["feeds"]))
+
+    per_feed_lists: list[list[Article]] = []
+    for feed, parsed in zip(config["feeds"], parsed_feeds):
+        items: list[Article] = []
+        if parsed is not None:
+            outlet = feed.get("outlet") or feed.get("name", "")
+            for entry in parsed.entries:
+                title = (entry.get("title") or "").strip()
+                link = entry.get("link") or ""
+                if not title or not link:
+                    continue
+                published = _entry_time(entry)
+                if published and published < cutoff:
+                    continue
+                key = link.split("?")[0]
+                if key in seen or title in seen:
+                    continue
+                seen.update({key, title})
+                items.append(Article(
+                    outlet=outlet,
+                    region=feed.get("region", ""),
+                    category=feed.get("category", "종합"),
+                    title=title,
+                    link=link,
+                    summary=_strip_html(entry.get("summary", ""))[:200],
+                    published=published,
+                ))
+                if len(items) >= per_feed:
+                    break
+        per_feed_lists.append(items)
+
+    # 상한을 넘으면 한 매체가 독식하지 않도록 피드별로 한 건씩 번갈아 채택
+    articles: list[Article] = []
+    for rank in range(per_feed):
+        for items in per_feed_lists:
+            if rank < len(items) and len(articles) < max_total:
+                articles.append(items[rank])
     return articles
 
 
@@ -123,7 +143,7 @@ def _strip_html(text: str) -> str:
 # ---------- 요약 ----------
 
 SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
-국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
+국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/미국/영국/기타 해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
 오늘 가장 중요한 뉴스를 골라 카테고리별로 한국어로 요약하세요.
 
 규칙:
@@ -131,7 +151,7 @@ SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
   '카테고리힌트'는 참고만 하고, 내용에 맞게 직접 분류하세요('종합'은 직접 판단).
 - 카테고리마다 중요도 순으로 3~5개 항목. 전체 20~30개.
 - 같은 사건을 여러 신문사가 다뤘으면 하나로 묶고, source에 보도한 신문사를 모두(최대 3곳) 적으세요.
-  국내·해외 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
+  국내·미국·영국 등 여러 나라 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
 - 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
 - 해외 기사는 한국어로 번역해 요약하세요.
@@ -139,22 +159,64 @@ SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
 {{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
 
 
-def summarize(articles: list[Article], model: str) -> dict:
-    import anthropic
+def pick_provider() -> str:
+    """LLM_PROVIDER가 있으면 그대로, 없으면 설정된 API 키로 자동 선택. 키가 없으면 none."""
+    explicit = os.environ.get("LLM_PROVIDER", "").strip().lower()
+    if explicit in ("anthropic", "gemini", "none"):
+        return explicit
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return "anthropic"
+    if os.environ.get("GEMINI_API_KEY"):
+        return "gemini"
+    return "none"
 
+
+def _call_anthropic(system: str, user: str) -> str:
+    import anthropic  # 이 엔진을 쓸 때만 필요
+
+    msg = anthropic.Anthropic().messages.create(
+        model=os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
+        max_tokens=8192,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    )
+    return "".join(b.text for b in msg.content if b.type == "text").strip()
+
+
+def _call_gemini(system: str, user: str) -> str:
+    model = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    body = json.dumps({
+        "systemInstruction": {"parts": [{"text": system}]},
+        "contents": [{"role": "user", "parts": [{"text": user}]}],
+        "generationConfig": {"responseMimeType": "application/json",
+                             "maxOutputTokens": 8192, "temperature": 0.2},
+    }).encode()
+    # 키는 URL이 아닌 헤더로 보내 로그/예외에 노출되지 않게 함
+    req = urllib.request.Request(url, data=body, headers={
+        "Content-Type": "application/json", "x-goog-api-key": os.environ["GEMINI_API_KEY"]})
+    for attempt in range(3):  # 무료 티어의 일시적 한도(429)/과부하(503)는 잠시 후 재시도
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = json.load(r)
+            break
+        except urllib.error.HTTPError as err:
+            if err.code in (429, 503) and attempt < 2:
+                time.sleep(30 * (attempt + 1))
+                continue
+            raise RuntimeError(f"Gemini API 오류 (HTTP {err.code}): "
+                               f"{err.read().decode('utf-8', 'replace')[:300]}") from None
+    parts = data["candidates"][0]["content"]["parts"]
+    return "".join(p.get("text", "") for p in parts).strip()
+
+
+def summarize(articles: list[Article], provider: str) -> dict:
     lines = [
         f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
         for i, a in enumerate(articles, 1)
     ]
-    client = anthropic.Anthropic()
-    msg = client.messages.create(
-        model=model,
-        max_tokens=8192,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": "\n".join(lines)}],
-    )
-    text = "".join(b.text for b in msg.content if b.type == "text").strip()
-    return parse_json(text)
+    call = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider]
+    return parse_json(call(SYSTEM_PROMPT, "\n".join(lines)))
 
 
 def parse_json(text: str) -> dict:
@@ -168,18 +230,27 @@ def parse_json(text: str) -> dict:
     return json.loads(text[start:end + 1])
 
 
-def headlines_only(articles: list[Article]) -> dict:
-    """LLM 없이 카테고리별 헤드라인만 묶는 폴백."""
-    by_cat: dict[str, list[dict]] = {}
+def headlines_only(articles: list[Article], per_category: int = 6,
+                   headline: str = "AI 요약 없이 헤드라인만 제공합니다") -> dict:
+    """AI 없이(비용 0원) 카테고리별 헤드라인만 묶는 모드. 신문사가 고르게 섞이도록 번갈아 채택."""
+    queues: dict[str, dict[str, list[Article]]] = {}
     for a in articles:
-        by_cat.setdefault(a.category, []).append(
+        queues.setdefault(a.category, {}).setdefault(a.outlet, []).append(a)
+    sections = []
+    order = CATEGORIES + [c for c in queues if c not in CATEGORIES]
+    for cat in order:
+        if cat not in queues:
+            continue
+        picked: list[Article] = []
+        lists = list(queues[cat].values())
+        for rank in range(max(len(x) for x in lists)):
+            for lst in lists:
+                if rank < len(lst) and len(picked) < per_category:
+                    picked.append(lst[rank])
+        sections.append({"topic": cat, "items": [
             {"title": a.title, "summary": a.summary[:120], "source": a.outlet, "link": a.link}
-        )
-    order = CATEGORIES + [c for c in by_cat if c not in CATEGORIES]
-    return {
-        "headline": "요약 없이 헤드라인만 제공합니다",
-        "sections": [{"topic": c, "items": by_cat[c][:5]} for c in order if c in by_cat],
-    }
+            for a in picked]})
+    return {"headline": headline, "sections": sections}
 
 
 def outlets_by_region(articles: list[Article]) -> dict[str, list[str]]:
@@ -347,11 +418,16 @@ def main(argv: list[str] | None = None) -> int:
         print("기사가 없어 발송하지 않습니다.", file=sys.stderr)
         return 1
 
-    if args.no_llm:
+    provider = "none" if args.no_llm else pick_provider()
+    if provider == "none":
         digest = headlines_only(articles)
     else:
-        model = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
-        digest = summarize(articles, model)
+        try:
+            digest = summarize(articles, provider)
+        except Exception as err:  # 한도 초과·키 만료 등이어도 오늘 메일은 보낸다
+            print(f"[warn] {provider} 요약 실패 → 헤드라인만 발송: {err}", file=sys.stderr)
+            digest = headlines_only(
+                articles, headline="AI 요약에 실패해 헤드라인만 제공합니다 (키/한도를 확인하세요)")
 
     digest["outlets"] = outlets_by_region(articles)
     now = datetime.now(KST)

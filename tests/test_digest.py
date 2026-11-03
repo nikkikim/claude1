@@ -1,3 +1,4 @@
+import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -103,3 +104,70 @@ def test_render_html_lists_outlets():
     d = {"headline": "h", "sections": [], "outlets": {"국내": ["연합뉴스"], "해외": ["BBC", "NYT"]}}
     out = nd.render_html(d, datetime(2026, 11, 4))
     assert "참고한 신문사" in out and "BBC, NYT" in out and "2026년 11월 4일" in out
+
+
+def test_pick_provider(monkeypatch):
+    for k in ("LLM_PROVIDER", "ANTHROPIC_API_KEY", "GEMINI_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    assert nd.pick_provider() == "none"
+    monkeypatch.setenv("GEMINI_API_KEY", "g")
+    assert nd.pick_provider() == "gemini"
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "a")
+    assert nd.pick_provider() == "anthropic"
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    assert nd.pick_provider() == "none"
+
+
+def test_gemini_call_sends_key_in_header_and_parses(monkeypatch):
+    import io
+    seen = {}
+    body = {"candidates": [{"content": {"parts": [{"text": '{"headline": "h", "sections": []}'}]}}]}
+
+    class _Resp:
+        def __enter__(self):
+            return io.StringIO(json.dumps(body))
+
+        def __exit__(self, *a):
+            pass
+
+    def fake_urlopen(req, timeout=0):
+        seen["req"] = req
+        return _Resp()
+
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setenv("GEMINI_API_KEY", "SECRETKEY")
+    monkeypatch.setenv("GEMINI_MODEL", "m1")
+    out = nd.summarize([_art("A", "국내", "정치")], "gemini")
+    assert out == {"headline": "h", "sections": []}
+    req = seen["req"]
+    assert "SECRETKEY" not in req.full_url and "m1:generateContent" in req.full_url
+    assert req.get_header("X-goog-api-key") == "SECRETKEY"
+
+
+def test_main_falls_back_to_headlines_when_llm_fails(monkeypatch, tmp_path, capsys):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
+    monkeypatch.setenv("GEMINI_API_KEY", "x")
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+
+    def boom(*a, **k):
+        raise RuntimeError("quota")
+    monkeypatch.setattr(nd, "summarize", boom)
+    assert nd.main(["--dry-run"]) == 0
+    assert "헤드라인만" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "요약 실패" in capsys.readouterr().err
+
+
+def test_fetch_caps_total_and_interleaves(tmp_path):
+    def feed(name, n):
+        items = "".join(f"<item><title>{name}{i}</title><link>https://ex.com/{name}{i}</link>"
+                        f"<pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>" for i in range(n))
+        f = tmp_path / f"{name}.xml"
+        f.write_text(f'<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>{items}</channel></rss>',
+                     encoding="utf-8")
+        return {"outlet": name, "region": "국내", "category": "정치", "url": str(f)}
+    cfg = {"feeds": [feed("A", 5), feed("B", 5)], "max_items_per_feed": 5,
+           "max_total_articles": 4, "max_age_hours": 26}
+    arts = nd.fetch_articles(cfg, now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
+    assert [a.outlet for a in arts] == ["A", "B", "A", "B"]
