@@ -1,0 +1,14 @@
+{
+  "feeds": [
+    {"name": "연합뉴스 주요뉴스", "url": "https://www.yna.co.kr/rss/news.xml"},
+    {"name": "연합뉴스 경제", "url": "https://www.yna.co.kr/rss/economy.xml"},
+    {"name": "연합뉴스 IT/과학", "url": "https://www.yna.co.kr/rss/industry.xml"},
+    {"name": "한겨레", "url": "https://www.hani.co.kr/rss/"},
+    {"name": "BBC World", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
+    {"name": "NYT World", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"},
+    {"name": "NYT Business", "url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"},
+    {"name": "TechCrunch", "url": "https://techcrunch.com/feed/"}
+  ],
+  "max_age_hours": 26,
+  "max_items_per_feed": 15
+}
