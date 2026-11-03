@@ -34,3 +34,49 @@ def test_render_escapes_html_and_unsafe_links():
     out = nd.render_html(digest, datetime(2026, 11, 3))
     assert "<script>" not in out and "&lt;script&gt;" in out
     assert "javascript:" not in out
+
+
+def _big_digest(n=60):
+    items = [{"title": f"제목{i} <&>", "summary": "요약 " * 40, "source": "S",
+              "link": f"https://ex.com/{i}"} for i in range(n)]
+    return {"headline": "h", "sections": [{"topic": "t", "items": items}]}
+
+
+def test_telegram_messages_respect_limit_and_escape():
+    msgs = nd.render_telegram(_big_digest(), datetime(2026, 11, 3))
+    assert len(msgs) > 1
+    assert all(len(m) <= 4096 for m in msgs)
+    assert "&lt;&amp;&gt;" in msgs[0] and "<&>" not in msgs[0]
+
+
+def test_telegram_unsafe_link_neutralised():
+    d = {"headline": "h", "sections": [{"topic": "t", "items": [
+        {"title": "x", "summary": "s", "source": "S", "link": "javascript:alert(1)"}]}]}
+    assert "javascript:" not in nd.render_telegram(d, datetime(2026, 11, 3))[0]
+
+
+def test_configured_channels(monkeypatch):
+    for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
+        monkeypatch.delenv(k, raising=False)
+    assert nd.configured_channels() == []
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "t")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "1")
+    assert nd.configured_channels() == ["telegram"]
+    for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO"):
+        monkeypatch.setenv(k, "x")
+    assert nd.configured_channels() == ["email", "telegram"]
+
+
+def test_send_telegram_posts_to_each_chat(monkeypatch):
+    sent = []
+
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): pass
+
+    monkeypatch.setattr(nd.urllib.request, "urlopen", lambda req, timeout=0: sent.append(req) or R())
+    monkeypatch.setattr(nd.time, "sleep", lambda s: None)
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "TOK")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "1, 2")
+    nd.send_telegram(["a", "b"])
+    assert len(sent) == 4 and "botTOK/sendMessage" in sent[0].full_url

@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-"""매일 주요 뉴스를 수집 → Claude로 요약 → 이메일 발송.
+"""매일 주요 뉴스를 수집 → Claude로 요약 → 이메일 / 텔레그램 발송.
 
 사용법:
-    python news_digest.py              # 수집·요약 후 메일 발송
-    python news_digest.py --dry-run    # 메일 대신 digest.html 파일로 저장
+    python news_digest.py              # 설정된 채널(이메일/텔레그램)로 모두 발송
+    python news_digest.py --dry-run    # 발송 대신 digest.html 파일로 저장
     python news_digest.py --no-llm     # Claude 호출 없이 헤드라인만 (테스트용)
 
 환경변수:
     ANTHROPIC_API_KEY   Claude API 키
+    CLAUDE_MODEL        기본 claude-sonnet-5-5
+
+  [이메일] 아래가 모두 있으면 이메일 발송
     SMTP_HOST / SMTP_PORT  (기본 smtp.gmail.com / 465)
     SMTP_USER / SMTP_PASSWORD  SMTP 계정 (Gmail은 앱 비밀번호)
     MAIL_TO             수신자 (쉼표로 여러 명)
     MAIL_FROM           발신자 (기본 SMTP_USER)
-    CLAUDE_MODEL        기본 claude-sonnet-5-5
+
+  [텔레그램] 아래가 모두 있으면 텔레그램 발송
+    TELEGRAM_BOT_TOKEN  @BotFather에서 받은 봇 토큰
+    TELEGRAM_CHAT_ID    받을 채팅 ID (쉼표로 여러 개 가능)
 """
 from __future__ import annotations
 
@@ -25,6 +31,9 @@ import smtplib
 import ssl
 import sys
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
@@ -231,11 +240,71 @@ def send_email(subject: str, html_body: str, text_body: str) -> None:
             s.send_message(msg)
 
 
+TELEGRAM_LIMIT = 4000  # API 한도는 4096자, 여유를 둠
+
+
+def render_telegram(digest: dict, date: datetime) -> list[str]:
+    """텔레그램 HTML 형식(<b>, <a>만 지원) 메시지 목록. 4096자 한도에 맞춰 분할."""
+    e = html.escape
+    blocks = [f"📰 <b>{date:%Y년 %m월 %d일} 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
+    for sec in digest.get("sections", []):
+        blocks.append(f"\n<b>■ {e(sec.get('topic', ''))}</b>")
+        for it in sec.get("items", []):
+            link = _safe_url(it.get("link", ""))
+            blocks.append(
+                f'• <a href="{e(link)}">{e(it.get("title", ""))}</a>\n'
+                f'{e(it.get("summary", ""))} <i>({e(it.get("source", ""))})</i>'
+            )
+    messages: list[str] = []
+    cur = ""
+    for b in blocks:
+        b = b[:TELEGRAM_LIMIT]
+        if cur and len(cur) + len(b) + 2 > TELEGRAM_LIMIT:
+            messages.append(cur)
+            cur = b
+        else:
+            cur = f"{cur}\n\n{b}" if cur else b
+    if cur:
+        messages.append(cur)
+    return messages
+
+
+def send_telegram(messages: list[str]) -> None:
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
+    chat_ids = [x.strip() for x in os.environ["TELEGRAM_CHAT_ID"].split(",") if x.strip()]
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    for chat_id in chat_ids:
+        for text in messages:
+            data = urllib.parse.urlencode({
+                "chat_id": chat_id,
+                "text": text,
+                "parse_mode": "HTML",
+                "disable_web_page_preview": "true",
+            }).encode()
+            try:
+                with urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=30):
+                    pass
+            except urllib.error.HTTPError as err:
+                # 토큰이 URL에 들어 있으므로 예외 메시지를 그대로 노출하지 않음
+                detail = err.read().decode("utf-8", "replace")[:300]
+                raise RuntimeError(f"텔레그램 전송 실패 (HTTP {err.code}): {detail}") from None
+            time.sleep(0.5)  # 연속 전송 제한 회피
+
+
+def configured_channels() -> list[str]:
+    channels = []
+    if all(os.environ.get(k) for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO")):
+        channels.append("email")
+    if all(os.environ.get(k) for k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")):
+        channels.append("telegram")
+    return channels
+
+
 # ---------- main ----------
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true", help="메일 대신 digest.html로 저장")
+    ap.add_argument("--dry-run", action="store_true", help="발송 대신 digest.html로 저장")
     ap.add_argument("--no-llm", action="store_true", help="Claude 없이 헤드라인만")
     ap.add_argument("--config", default=str(CONFIG_PATH))
     args = ap.parse_args(argv)
@@ -260,11 +329,30 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.dry_run:
         Path("digest.html").write_text(html_body, encoding="utf-8")
-        print("digest.html 저장 완료 (메일은 발송하지 않음)")
-    else:
-        send_email(subject, html_body, text_body)
-        print(f"발송 완료 → {os.environ['MAIL_TO']}")
-    return 0
+        print("digest.html 저장 완료 (발송하지 않음)")
+        for i, m in enumerate(render_telegram(digest, now), 1):
+            print(f"--- 텔레그램 메시지 {i} ({len(m)}자) ---\n{m}")
+        return 0
+
+    channels = configured_channels()
+    if not channels:
+        print("발송 채널이 설정되지 않았습니다. 이메일(SMTP_*, MAIL_TO) 또는 "
+              "텔레그램(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) 환경변수를 설정하세요.",
+              file=sys.stderr)
+        return 2
+
+    failed = False
+    for ch in channels:  # 한 채널이 실패해도 나머지는 계속 시도
+        try:
+            if ch == "email":
+                send_email(subject, html_body, text_body)
+            else:
+                send_telegram(render_telegram(digest, now))
+            print(f"발송 완료: {ch}")
+        except Exception as err:
+            failed = True
+            print(f"[error] {ch} 발송 실패: {err}", file=sys.stderr)
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
