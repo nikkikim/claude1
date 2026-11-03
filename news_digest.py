@@ -28,6 +28,7 @@ import html
 import json
 import os
 import smtplib
+import socket
 import ssl
 import sys
 import time
@@ -45,9 +46,14 @@ KST = timezone(timedelta(hours=9))
 CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
 
+CATEGORIES = ["정치", "경제", "사회", "국제", "IT·과학", "문화·스포츠"]
+
+
 @dataclass
 class Article:
-    source: str
+    outlet: str      # 신문사
+    region: str      # 국내 / 해외
+    category: str    # 피드에 지정된 카테고리 힌트 (종합이면 LLM이 분류)
     title: str
     link: str
     summary: str
@@ -69,15 +75,17 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
     per_feed = config.get("max_items_per_feed", 15)
     seen: set[str] = set()
     articles: list[Article] = []
+    socket.setdefaulttimeout(20)  # 응답 없는 피드 하나가 전체를 막지 않도록
 
     for feed in config["feeds"]:
+        outlet = feed.get("outlet") or feed.get("name", "")
         try:
             parsed = feedparser.parse(feed["url"], agent="news-digest/1.0")
         except Exception as e:  # 한 피드가 죽어도 전체는 계속
-            print(f"[warn] {feed['name']}: {e}", file=sys.stderr)
+            print(f"[warn] {outlet}: {e}", file=sys.stderr)
             continue
         if parsed.get("bozo") and not parsed.entries:
-            print(f"[warn] {feed['name']}: 피드를 읽지 못했습니다", file=sys.stderr)
+            print(f"[warn] {outlet}: 피드를 읽지 못했습니다", file=sys.stderr)
             continue
         count = 0
         for entry in parsed.entries:
@@ -93,10 +101,12 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 continue
             seen.update({key, title})
             articles.append(Article(
-                source=feed["name"],
+                outlet=outlet,
+                region=feed.get("region", ""),
+                category=feed.get("category", "종합"),
                 title=title,
                 link=link,
-                summary=_strip_html(entry.get("summary", ""))[:400],
+                summary=_strip_html(entry.get("summary", ""))[:200],
                 published=published,
             ))
             count += 1
@@ -112,30 +122,34 @@ def _strip_html(text: str) -> str:
 
 # ---------- 요약 ----------
 
-SYSTEM_PROMPT = """당신은 바쁜 독자를 위한 뉴스 에디터입니다.
-주어진 기사 목록에서 오늘 가장 중요한 뉴스를 골라 한국어로 요약하세요.
+SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
+국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
+오늘 가장 중요한 뉴스를 골라 카테고리별로 한국어로 요약하세요.
 
 규칙:
-- 같은 사건을 다룬 기사는 하나로 묶고, 가장 대표적인 기사 링크를 사용하세요.
-- 주제별로 분류하세요 (예: 정치, 경제, 국제, 사회, IT/과학, 문화 등 — 필요한 것만).
-- 전체 8~15개 항목, 각 항목은 1~2문장. 사실 위주로, 과장·추측 금지.
-- 기사 목록에 없는 내용은 절대 만들어내지 마세요.
+- 카테고리는 다음 순서로 고정: {", ".join(CATEGORIES)}. 해당 기사가 없는 카테고리는 생략.
+  '카테고리힌트'는 참고만 하고, 내용에 맞게 직접 분류하세요('종합'은 직접 판단).
+- 카테고리마다 중요도 순으로 3~5개 항목. 전체 20~30개.
+- 같은 사건을 여러 신문사가 다뤘으면 하나로 묶고, source에 보도한 신문사를 모두(최대 3곳) 적으세요.
+  국내·해외 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
+- 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
+- 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
 - 해외 기사는 한국어로 번역해 요약하세요.
 - 반드시 아래 JSON만 출력하세요 (설명, 코드펜스 없이):
-{"headline": "오늘의 한 줄 요약", "sections": [{"topic": "주제", "items": [{"title": "제목", "summary": "요약", "source": "언론사", "link": "URL"}]}]}"""
+{{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
 
 
 def summarize(articles: list[Article], model: str) -> dict:
     import anthropic
 
     lines = [
-        f"[{i}] ({a.source}) {a.title} | {a.summary} | {a.link}"
+        f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
         for i, a in enumerate(articles, 1)
     ]
     client = anthropic.Anthropic()
     msg = client.messages.create(
         model=model,
-        max_tokens=4096,
+        max_tokens=8192,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": "\n".join(lines)}],
     )
@@ -155,16 +169,27 @@ def parse_json(text: str) -> dict:
 
 
 def headlines_only(articles: list[Article]) -> dict:
-    """LLM 없이 소스별 헤드라인만 묶는 폴백."""
-    by_source: dict[str, list[dict]] = {}
+    """LLM 없이 카테고리별 헤드라인만 묶는 폴백."""
+    by_cat: dict[str, list[dict]] = {}
     for a in articles:
-        by_source.setdefault(a.source, []).append(
-            {"title": a.title, "summary": a.summary[:120], "source": a.source, "link": a.link}
+        by_cat.setdefault(a.category, []).append(
+            {"title": a.title, "summary": a.summary[:120], "source": a.outlet, "link": a.link}
         )
+    order = CATEGORIES + [c for c in by_cat if c not in CATEGORIES]
     return {
         "headline": "요약 없이 헤드라인만 제공합니다",
-        "sections": [{"topic": s, "items": items[:5]} for s, items in by_source.items()],
+        "sections": [{"topic": c, "items": by_cat[c][:5]} for c in order if c in by_cat],
     }
+
+
+def outlets_by_region(articles: list[Article]) -> dict[str, list[str]]:
+    """실제로 기사를 가져온 신문사 목록 (지역별, 입력 순서 유지)."""
+    out: dict[str, list[str]] = {}
+    for a in articles:
+        names = out.setdefault(a.region or "기타", [])
+        if a.outlet not in names:
+            names.append(a.outlet)
+    return out
 
 
 # ---------- 렌더링 ----------
@@ -178,7 +203,7 @@ def render_html(digest: dict, date: datetime) -> str:
     parts = [
         '<div style="max-width:640px;margin:0 auto;font-family:-apple-system,'
         "'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#222;line-height:1.6\">",
-        f'<h1 style="font-size:20px;margin:0 0 4px">📰 {date:%Y년 %m월 %d일} 뉴스 브리핑</h1>',
+        f'<h1 style="font-size:20px;margin:0 0 4px">📰 {date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</h1>',
         f'<p style="margin:0 0 20px;color:#555">{e(digest.get("headline", ""))}</p>',
     ]
     for sec in digest.get("sections", []):
@@ -195,8 +220,14 @@ def render_html(digest: dict, date: datetime) -> str:
                 f'<div style="font-size:12px;color:#888">{e(it.get("source", ""))}</div>'
                 "</div>"
             )
+    outlets = digest.get("outlets") or {}
+    if outlets:
+        parts.append('<div style="font-size:12px;color:#666;margin-top:28px;border-top:1px solid #ddd;padding-top:10px">'
+                     "<b>참고한 신문사</b><br>")
+        parts.extend(f"{e(region)}: {e(', '.join(names))}<br>" for region, names in outlets.items())
+        parts.append("</div>")
     parts.append(
-        '<p style="font-size:11px;color:#aaa;margin-top:32px">'
+        '<p style="font-size:11px;color:#aaa;margin-top:16px">'
         "AI가 자동 요약한 내용이므로 중요한 사항은 원문을 확인하세요.</p></div>"
     )
     return "".join(parts)
@@ -246,7 +277,7 @@ TELEGRAM_LIMIT = 4000  # API 한도는 4096자, 여유를 둠
 def render_telegram(digest: dict, date: datetime) -> list[str]:
     """텔레그램 HTML 형식(<b>, <a>만 지원) 메시지 목록. 4096자 한도에 맞춰 분할."""
     e = html.escape
-    blocks = [f"📰 <b>{date:%Y년 %m월 %d일} 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
+    blocks = [f"📰 <b>{date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
     for sec in digest.get("sections", []):
         blocks.append(f"\n<b>■ {e(sec.get('topic', ''))}</b>")
         for it in sec.get("items", []):
@@ -322,6 +353,7 @@ def main(argv: list[str] | None = None) -> int:
         model = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
         digest = summarize(articles, model)
 
+    digest["outlets"] = outlets_by_region(articles)
     now = datetime.now(KST)
     html_body = render_html(digest, now)
     text_body = render_text(digest)

@@ -35,9 +35,23 @@ GitHub Actions로 돌아가므로 서버가 필요 없습니다.
 기본 발송 시각은 매일 07:30 KST (`.github/workflows/daily-news.yml`의 cron 수정).
 참고: GitHub 스케줄은 수 분~수십 분 늦을 수 있고, 기본 브랜치에 있어야 동작합니다.
 
+## 참고하는 신문사 / 카테고리
+
+**국내 (8)**: 연합뉴스, 조선일보, 한겨레, 경향신문, 한국경제, 매일경제, 오마이뉴스, 전자신문
+**해외 (12)**: BBC, NYT, The Guardian, Al Jazeera, DW, Financial Times, Japan Times, SCMP, Nikkei Asia, TechCrunch, The Verge, Ars Technica
+
+**카테고리 (고정 순서)**: 정치 · 경제 · 사회 · 국제 · IT·과학 · 문화·스포츠
+같은 사건을 여러 신문사가 다루면 하나로 묶고 보도한 신문사를 함께 표시하며, 메일 하단에 그날 실제로 수집된 신문사 목록이 붙습니다.
+
+`samples/2026-11-04.html` 은 이 구성으로 만든 샘플 메일입니다
+(API 키 없이 수집한 기사를 직접 요약해 만든 예시이며, 실제 발송분은 Claude API가 같은 프롬프트로 생성합니다).
+
+일부 피드는 제외했습니다: 중앙일보(RSS 중단), WSJ·CNN(갱신 중단), The Economist(주간), 동아일보(응답 없음), 한국일보·서울신문·NPR·Washington Post(접근 불가).
+조선일보 RSS는 연예·스포츠·일본어판 기사가 많이 섞여 있어 요약 품질에 한계가 있습니다.
+
 ## 뉴스 소스 바꾸기
 
-`feeds.json`의 `feeds`에 `{ "name": "...", "url": "RSS 주소" }`를 추가/삭제하세요.
+`feeds.json`의 `feeds`에 `{ "outlet": "신문사", "region": "국내|해외", "category": "정치|경제|사회|국제|IT·과학|문화·스포츠|종합", "url": "RSS 주소" }`를 추가/삭제하세요. `category`는 힌트이며 Claude가 내용에 맞게 최종 분류합니다.
 (일부 사이트는 http RSS를 막으므로 https 주소를 쓰세요.)
 
 ## 로컬 실행

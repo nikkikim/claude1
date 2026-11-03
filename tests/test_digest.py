@@ -80,3 +80,26 @@ def test_send_telegram_posts_to_each_chat(monkeypatch):
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "1, 2")
     nd.send_telegram(["a", "b"])
     assert len(sent) == 4 and "botTOK/sendMessage" in sent[0].full_url
+
+
+def _art(outlet, region, category):
+    return nd.Article(outlet=outlet, region=region, category=category,
+                      title="t", link="https://ex.com/" + outlet, summary="s", published=None)
+
+
+def test_outlets_by_region_keeps_order_and_dedupes():
+    arts = [_art("연합뉴스", "국내", "정치"), _art("BBC", "해외", "국제"),
+            _art("연합뉴스", "국내", "경제"), _art("NYT", "해외", "국제")]
+    assert nd.outlets_by_region(arts) == {"국내": ["연합뉴스"], "해외": ["BBC", "NYT"]}
+
+
+def test_headlines_only_groups_by_category_in_fixed_order():
+    arts = [_art("A", "국내", "경제"), _art("B", "국내", "정치"), _art("C", "해외", "기타")]
+    topics = [s["topic"] for s in nd.headlines_only(arts)["sections"]]
+    assert topics == ["정치", "경제", "기타"]
+
+
+def test_render_html_lists_outlets():
+    d = {"headline": "h", "sections": [], "outlets": {"국내": ["연합뉴스"], "해외": ["BBC", "NYT"]}}
+    out = nd.render_html(d, datetime(2026, 11, 4))
+    assert "참고한 신문사" in out and "BBC, NYT" in out and "2026년 11월 4일" in out
