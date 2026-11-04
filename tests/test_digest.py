@@ -271,3 +271,90 @@ def test_no_overview_block_in_headlines_mode():
 
 def test_prompt_requires_overview_in_schema():
     assert '"overview"' in nd.SYSTEM_PROMPT and "overview를 반드시" in nd.SYSTEM_PROMPT
+
+
+def _http_error(code, body):
+    import io
+    import urllib.error
+    return urllib.error.HTTPError("http://x", code, "err", {}, io.BytesIO(body.encode()))
+
+
+def _gemini_failing(monkeypatch, code, body):
+    calls = []
+
+    def fake_urlopen(req, timeout=0):
+        calls.append(1)
+        raise _http_error(code, body)
+
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(nd.time, "sleep", lambda s: None)
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    return calls
+
+
+def test_gemini_daily_quota_is_not_retried(monkeypatch):
+    import pytest
+    calls = _gemini_failing(monkeypatch, 429,
+                            '{"error": {"message": "quota", "details": ["GenerateRequestsPerDayPerProjectPerModel-FreeTier"]}}')
+    with pytest.raises(nd.QuotaExceeded):
+        nd._call_gemini("s", "u")
+    assert len(calls) == 1                     # 하루 한도는 기다려도 소용없으므로 즉시 포기
+
+
+def test_gemini_minute_quota_is_retried_then_quota_error(monkeypatch):
+    import pytest
+    calls = _gemini_failing(monkeypatch, 429, '{"error": {"message": "Resource exhausted per minute"}}')
+    with pytest.raises(nd.QuotaExceeded):
+        nd._call_gemini("s", "u")
+    assert len(calls) == 3                     # 분당 한도는 잠시 후 재시도
+
+
+def test_gemini_free_tier_unavailable_is_detected(monkeypatch):
+    import pytest
+    _gemini_failing(monkeypatch, 403, '{"error": {"message": "The Gemini API free tier is not available for this project."}}')
+    with pytest.raises(nd.FreeTierUnavailable):
+        nd._call_gemini("s", "u")
+
+
+def test_gemini_other_403_is_generic_error(monkeypatch):
+    import pytest
+    _gemini_failing(monkeypatch, 403, '{"error": {"message": "API key not valid"}}')
+    with pytest.raises(RuntimeError) as ei:
+        nd._call_gemini("s", "u")
+    assert not isinstance(ei.value, (nd.QuotaExceeded, nd.FreeTierUnavailable))
+
+
+def test_quota_exceeded_today_then_summary_returns_when_quota_refills(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
+    monkeypatch.setenv("GEMINI_API_KEY", "x")
+    for k in ("LLM_PROVIDER", "ANTHROPIC_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+
+    # 1일차: 한도 초과 → 헤드라인만 + 이유 표시, 그래도 정상 종료(메일은 발송됨)
+    def over(*a, **k):
+        raise nd.QuotaExceeded("429")
+    monkeypatch.setattr(nd, "summarize", over)
+    assert nd.main(["--dry-run"]) == 0
+    day1 = (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "무료 사용 한도를 초과" in day1 and "카테고리별 오늘의 핵심" not in day1
+
+    # 2일차: 한도가 다시 채워짐 → 별도 조치 없이 요약(핵심 블록 포함)이 돌아온다
+    good = {"headline": "정상 요약", "sections": [{"topic": "정치", "overview": "핵심 흐름", "items": [
+        {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/1"}]}]}
+    monkeypatch.setattr(nd, "summarize", lambda articles, provider: good)
+    assert nd.main(["--dry-run"]) == 0
+    day2 = (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "정상 요약" in day2 and "카테고리별 오늘의 핵심" in day2 and "한도를 초과" not in day2
+
+
+def test_free_tier_unavailable_note_in_digest(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
+    monkeypatch.setenv("GEMINI_API_KEY", "x")
+
+    def nofree(*a, **k):
+        raise nd.FreeTierUnavailable("403")
+    monkeypatch.setattr(nd, "summarize", nofree)
+    assert nd.main(["--dry-run"]) == 0
+    assert "무료 티어를 쓸 수 없어" in (tmp_path / "digest.html").read_text(encoding="utf-8")

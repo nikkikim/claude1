@@ -191,6 +191,19 @@ def _call_anthropic(system: str, user: str) -> str:
     return "".join(b.text for b in msg.content if b.type == "text").strip()
 
 
+class QuotaExceeded(RuntimeError):
+    """무료 사용 한도(요청 수/토큰 수)를 초과했다. 한도가 다시 채워지면 다음 실행부터 정상 동작한다."""
+
+
+class FreeTierUnavailable(RuntimeError):
+    """이 키가 속한 Google 프로젝트에는 Gemini 무료 티어가 제공되지 않는다(HTTP 403)."""
+
+
+NO_FREE_NOTE = "이 키의 Google 프로젝트에서는 Gemini 무료 티어를 쓸 수 없어 헤드라인만 제공합니다 (새 프로젝트에서 키를 다시 발급해 보세요)"
+QUOTA_NOTE = "무료 사용 한도를 초과해 오늘은 헤드라인만 제공합니다 (한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아옵니다)"
+FAIL_NOTE = "AI 요약에 실패해 헤드라인만 제공합니다 (키/모델 설정을 확인하세요)"
+
+
 def _call_gemini(system: str, user: str) -> str:
     model = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
@@ -209,11 +222,19 @@ def _call_gemini(system: str, user: str) -> str:
                 data = json.load(r)
             break
         except urllib.error.HTTPError as err:
-            if err.code in (429, 503) and attempt < 2:
+            detail = err.read().decode("utf-8", "replace")[:600]
+            # '하루 한도'를 다 쓴 경우는 기다려도 소용없으므로 재시도하지 않는다
+            daily = "perday" in detail.lower().replace(" ", "").replace("_", "")
+            if err.code in (429, 503) and not (err.code == 429 and daily) and attempt < 2:
                 time.sleep(30 * (attempt + 1))
                 continue
-            raise RuntimeError(f"Gemini API 오류 (HTTP {err.code}): "
-                               f"{err.read().decode('utf-8', 'replace')[:300]}") from None
+            if err.code == 429:
+                exc = QuotaExceeded
+            elif err.code == 403 and "free tier is not available" in detail.lower():
+                exc = FreeTierUnavailable
+            else:
+                exc = RuntimeError
+            raise exc(f"Gemini API 오류 (HTTP {err.code}): {detail[:300]}") from None
     parts = data["candidates"][0]["content"]["parts"]
     return "".join(p.get("text", "") for p in parts).strip()
 
@@ -534,8 +555,13 @@ def main(argv: list[str] | None = None) -> int:
             digest = summarize(articles, provider)
         except Exception as err:  # 한도 초과·키 만료 등이어도 오늘 메일은 보낸다
             print(f"[warn] {provider} 요약 실패 → 헤드라인만 발송: {err}", file=sys.stderr)
-            digest = headlines_only(
-                articles, headline="AI 요약에 실패해 헤드라인만 제공합니다 (키/한도를 확인하세요)")
+            if isinstance(err, QuotaExceeded) or type(err).__name__ == "RateLimitError":
+                note = QUOTA_NOTE
+            elif isinstance(err, FreeTierUnavailable):
+                note = NO_FREE_NOTE
+            else:
+                note = FAIL_NOTE
+            digest = headlines_only(articles, headline=note)
 
     digest["outlets"] = outlets_by_region(articles)
     now = datetime.now(KST)

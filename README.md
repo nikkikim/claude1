@@ -29,7 +29,7 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 5. Actions → Daily News Digest → Run workflow로 실행해 이슈 맨 위에 "📌 카테고리별 오늘의 핵심"이 나오는지 확인합니다.
 
 문제가 생기면: 이슈 제목이 "AI 요약에 실패해 헤드라인만 제공합니다"이면 Actions 실행 로그의 *Send digest* 단계에서 `Gemini API 오류 (HTTP …)`를 확인하세요.
-`429`는 무료 한도 초과(다음 날 자동 재시도), `400/403`은 키 오류, `404`는 모델 이름 문제입니다. 404면 저장소 Settings → Secrets and variables → Actions → **Variables** 탭에서 `GEMINI_MODEL`을 `gemini-3.6-flash` 등 다른 무료 모델로 지정하세요.
+`429`는 무료 한도 초과(한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아오며, 그 사이에는 헤드라인만 발송), `403 ... free tier is not available for this project`는 이 키가 속한 Google 프로젝트에 무료 티어가 없다는 뜻(AI Studio에서 새 프로젝트로 키를 다시 발급), 그 밖의 `400/403`은 키 오류, `404`는 모델 이름 문제입니다. 404면 저장소 Settings → Secrets and variables → Actions → **Variables** 탭에서 `GEMINI_MODEL`을 `gemini-3.6-flash` 등 다른 무료 모델로 지정하세요.
 
 ### Claude 구독을 끊어도 계속 오나요?
 네. 이 시스템은 GitHub에서 독립적으로 돌고 Claude 구독과 무관합니다. 단, **코드가 GitHub 저장소에 올라가 있어야** 하고, 요약 엔진은 위 1·2번이면 0원, 3번이면 API 크레딧이 필요합니다.
