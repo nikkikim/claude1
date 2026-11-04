@@ -121,7 +121,7 @@ def test_pick_provider(monkeypatch):
 def test_gemini_call_sends_key_in_header_and_parses(monkeypatch):
     import io
     seen = {}
-    body = {"candidates": [{"content": {"parts": [{"text": '{"headline": "h", "sections": []}'}]}}]}
+    body = {"candidates": [{"content": {"parts": [{"text": json.dumps(GOOD_DIGEST, ensure_ascii=False)}]}}]}
 
     class _Resp:
         def __enter__(self):
@@ -138,7 +138,7 @@ def test_gemini_call_sends_key_in_header_and_parses(monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", "SECRETKEY")
     monkeypatch.setenv("GEMINI_MODEL", "m1")
     out = nd.summarize([_art("A", "국내", "정치")], "gemini")
-    assert out == {"headline": "h", "sections": []}
+    assert out["headline"] == "h" and out["sections"][0]["items"][0]["link"] == "https://ex.com/A"
     req = seen["req"]
     assert "SECRETKEY" not in req.full_url and "m1:generateContent" in req.full_url
     assert req.get_header("X-goog-api-key") == "SECRETKEY"
@@ -509,7 +509,7 @@ def test_footer_does_not_claim_ai_summary_in_headlines_mode():
 
 
 GOOD_DIGEST = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "핵심", "items": [
-    {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/1"}]}]}
+    {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/A"}]}]}
 
 
 def _or_fake(monkeypatch, outcomes, seen=None, sleeps=None):
@@ -732,8 +732,6 @@ def test_openrouter_requests_turn_reasoning_off(monkeypatch):
 def test_openrouter_retries_without_reasoning_option_if_model_rejects_it(monkeypatch):
     seen = []
     good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
-    calls = {"n": 0}
-
     import io
 
     def fake(req, timeout=0):
@@ -785,3 +783,89 @@ def test_auth_errors_are_not_retried(monkeypatch):
     with pytest.raises(RuntimeError, match="401"):
         nd._call_openrouter("s", "u")
     assert len(seen) == 1 and sleeps == []
+
+
+# ---------- AI 결과 검증(validate_digest) ----------
+
+def _arts(n, outlet="A"):
+    return [nd.Article(outlet=outlet, region="국내", category="세계 이슈", title=f"t{i}",
+                       link=f"https://news.example/{outlet}/{i}", summary="s", published=None) for i in range(n)]
+
+
+def _item(i, outlet="A", link=None):
+    return {"title": f"t{i}", "summary": "s", "source": outlet, "link": link or f"https://news.example/{outlet}/{i}"}
+
+
+def test_validate_drops_links_not_in_collected_articles():
+    d = {"sections": [{"topic": "세계 이슈", "items": [_item(0), _item(1, link="https://evil.example/phish"),
+                                                       _item(2, link="https://news.example/A/999")]}]}
+    out = nd.validate_digest(d, _arts(3))
+    assert [i["link"] for i in out["sections"][0]["items"]] == ["https://news.example/A/0"]   # 지어낸 링크 2개 제거
+
+
+def test_validate_tolerates_query_string_and_trailing_slash_differences():
+    arts = [nd.Article("A", "국내", "경제·증시", "t", "https://news.example/a/1?utm_source=rss", "s", None)]
+    d = {"sections": [{"topic": "경제·증시", "items": [_item(1, link="https://news.example/a/1/")]}]}
+    assert len(nd.validate_digest(d, arts)["sections"][0]["items"]) == 1
+
+
+def test_validate_keeps_a_link_only_in_the_first_category():
+    d = {"sections": [{"topic": "코인", "items": [_item(0)]}, {"topic": "IT·과학", "items": [_item(0), _item(1)]}]}
+    out = nd.validate_digest(d, _arts(2))
+    assert [(s["topic"], len(s["items"])) for s in out["sections"]] == [("코인", 1), ("IT·과학", 1)]
+
+
+def test_validate_enforces_category_limits_and_drops_empty_sections():
+    cap = nd.CATEGORY_LIMITS["IT·과학"]
+    d = {"sections": [{"topic": "IT·과학", "items": [_item(i) for i in range(cap + 3)]},
+                      {"topic": "스포츠", "items": [_item(900)]}]}                      # 스포츠는 유효 항목이 없음
+    out = nd.validate_digest(d, _arts(cap + 3))
+    assert len(out["sections"]) == 1 and len(out["sections"][0]["items"]) == cap
+
+
+def test_validate_rejects_too_thin_answer_for_a_large_collection():
+    import pytest
+    d = {"sections": [{"topic": "세계 이슈", "items": [_item(0), _item(1)]}]}
+    with pytest.raises(ValueError, match="부실"):
+        nd.validate_digest(d, _arts(450))                     # 기사 450건인데 2개만 담은 응답은 거절
+    nd.validate_digest(d, _arts(5))                            # 기사가 적을 땐 적게 담아도 정상
+
+
+def test_validate_survives_malformed_structures():
+    d = {"sections": ["문자열", {"topic": "세계 이슈", "items": ["x", None, _item(0)]}, None]}
+    assert len(nd.validate_digest(d, _arts(1))["sections"][0]["items"]) == 1
+
+
+def test_openrouter_moves_to_next_model_when_answer_has_only_fake_links(monkeypatch):
+    seen = []
+    fake = {"headline": "h", "sections": [{"topic": "세계 이슈", "items": [
+        {"title": "t", "summary": "s", "source": "A", "link": "https://hallucinated.example/x"}]}]}
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(fake)), "m2": _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
+    out = nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")
+    assert [p["model"] for _, p in seen] == ["m1", "m2"]      # 링크가 전부 가짜인 모델의 답은 버리고 다음 모델 사용
+    assert out["sections"][0]["items"][0]["link"] == "https://ex.com/A"
+
+
+def test_prompt_has_anti_hallucination_rules_and_low_temperature(monkeypatch):
+    for needle in ("승패나 원인을 추정하지", "예정", "덧붙이지 마세요", "한 카테고리에만"):
+        assert needle in nd.SYSTEM_PROMPT
+    seen = []
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    nd._call_openrouter("s", "u")
+    assert seen[0][1]["temperature"] <= 0.1
+
+
+def test_feeds_json_is_well_formed():
+    cfg = json.loads((Path(__file__).resolve().parent.parent / "feeds.json").read_text(encoding="utf-8"))
+    cats = set(nd.CATEGORIES) | {"종합"}
+    regions = {"국내", "미국", "영국", "기타 해외"}
+    urls = [f["url"] for f in cfg["feeds"]]
+    assert len(urls) == len(set(urls)), "중복된 피드 주소가 있습니다"
+    for f in cfg["feeds"]:
+        assert f["outlet"] and f["url"].startswith(("http://", "https://"))
+        assert f["category"] in cats and f["region"] in regions, f
+        assert 0 < f.get("max_items", 1) <= 50 and 0 < f.get("max_age_hours", 1) <= 168
+    arts = {f["outlet"] for f in cfg["feeds"]}
+    assert {"The Art Newspaper", "ARTnews", "Hyperallergic", "Artforum", "Artnet News"} <= arts   # 미술 핵심 매체 포함

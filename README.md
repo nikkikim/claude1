@@ -93,12 +93,13 @@ GitHub는 **공개 저장소**에서 60일간 활동(푸시 등)이 없으면 �
 | 세계 이슈 (전쟁·국가 간 관계) | 연합뉴스 국제·북한, BBC, NYT, The Guardian, Al Jazeera, DW, Euronews, CNA, Kyiv Independent, The Diplomat, Foreign Policy, Al-Monitor, Middle East Eye, Japan Times, SCMP, Korea Times, Yonhap English |
 | 경제·증시 | 한국경제·매일경제 증권면, 머니투데이, 연합뉴스, 한겨레, 경향신문, Bloomberg, MarketWatch, Investing.com, Financial Times, NYT·BBC·Guardian 경제면, Nikkei Asia |
 | 코인 | CoinDesk, Cointelegraph, Decrypt, The Block, Bitcoin Magazine, 블록미디어, 토큰포스트 |
-| 문화예술 (해외) | ARTnews, Artforum, Hyperallergic, Artnet News, Artsy, Colossal, ArtAsiaPacific, Dezeen, Designboom, ArchDaily, NYT Art & Design·Arts, Guardian Art·Stage·Books, BBC Arts |
-| 문화예술 (국내) | 연합뉴스 문화, 뉴시스 문화, 매일경제 문화, 한국경제 라이프, 한겨레 문화, 경향신문 문화 |
+| 문화예술 (해외) | **The Art Newspaper**, ARTnews(+미술시장), Artforum, Hyperallergic, Artnet News, Artsy, Colossal, ArtAsiaPacific, Dezeen, Designboom, ArchDaily, NYT Art & Design·Arts, Guardian Art·Stage·Books, BBC Arts |
+| 문화예술 (국내) | 연합뉴스 문화, 뉴시스 문화, 매일경제 문화, 한국경제 라이프, 한겨레 문화, 경향신문 문화, 조선일보 문화, 헤럴드경제 문화 |
 | 정치·사회·IT·스포츠 등 | 조선일보, 오마이뉴스, 전자신문, CBS·NBC·ABC·Fox News, The Hill, Politico, LA Times, Axios, Sky News, The Independent, Daily Mail, TechCrunch, The Verge, Wired, Ars Technica, New Scientist 등 |
 
 - **AI 요약 모드**: 위 관심사와 비중이 프롬프트에 들어 있어, 문화예술은 미술계 소식을 최우선으로 국내·해외를 함께 담고 연예 가십은 뺍니다.
 - **헤드라인 모드(AI 없음)**: 카테고리별 키워드(전쟁·제재, 증시·환율·금리, 비트코인, 미술·전시·비엔날레 등)로 관련 기사를 우선 고릅니다. 문화예술은 연예 가십을 제외하고 **국내 소식 자리를 최소 3건 확보**합니다. 코인 기사는 어느 피드에 있어도 '코인'으로 모읍니다.
+- **AI 결과 검증(코드)**: AI가 쓴 요약을 그대로 믿지 않고 후처리합니다. 수집한 기사 목록에 **없는 링크의 항목은 버리고**(지어낸·조작된 링크 차단), 같은 링크가 여러 카테고리에 나오면 첫 번째만 남기고, 카테고리별 항목 수 상한을 지키며, 유효 항목이 너무 적은 부실한 응답이면 다음 모델로 넘어갑니다. 지시문에는 승패·수치·인용을 추정하지 말고 예고성 기사를 완료형으로 쓰지 말라는 규칙을 넣고 온도(temperature)를 0.1로 낮췄습니다. 그래도 AI 요약에는 틀린 내용이 섞일 수 있으니 중요한 건 원문을 확인하세요.
 - **중복 제거**: 같은 사건의 `(종합)`·`(종합2보)`·`[속보]` 기사는 하나로 처리합니다. 매일 **자동 실행**에서는 전날 브리핑에 이미 실린 기사를 빼고(수동 실행은 전체 표시), 업데이트가 느린 미술 매체는 48~72시간 이내 기사까지 봅니다.
 
 한계: 국내 미술 전문 매체(월간미술은 2020년 이후 갱신 없음, 아트인컬처·아트뉴스코리아 등은 RSS 불가)는 쓸 수 없어서 **국내 미술 소식은 일반 신문 문화면에 의존**합니다. 그 밖에 중앙일보(RSS 중단), WSJ·CNN(갱신 중단), The Economist(주간), 동아일보(응답 없음), The Art Newspaper·Frieze·ArtReview·Artbasel(접근 불가) 등은 제외했습니다.

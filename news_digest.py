@@ -286,6 +286,10 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 - 같은 사건을 여러 신문사가 다뤘으면 하나로 묶고, source에 보도한 신문사를 모두(최대 3곳) 적으세요.
   국내·미국·영국 등 여러 나라 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
 - 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
+- 경기 결과(승패·점수), 수치, 따옴표 인용은 제목·발췌문에 명시된 것만 쓰세요. 승패나 원인을 추정하지 마세요.
+- '~할 예정', 'to give', 'will', 'plans to'처럼 예고·계획을 다룬 기사는 이미 일어난 일처럼 쓰지 말고 '예정', '추진'으로 표현하세요.
+- 제목·발췌문에 없는 세부 묘사(장소·원인·평가·배경)를 덧붙이지 마세요. 발췌문이 짧아 내용이 불분명하면 제목에 있는 사실만 쓰세요.
+- 같은 기사(링크)는 한 카테고리에만 넣으세요.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
 - 해외 기사는 한국어로 번역해 요약하세요. 작가·전시·기관 이름은 원어를 병기하세요(예: 쿠사마 야요이(Yayoi Kusama)).
 - 각 카테고리에는 overview를 반드시 넣으세요. 그 분야에서 오늘 가장 큰 이슈가 무엇이고 항목들이
@@ -346,7 +350,7 @@ def _call_gemini(system: str, user: str) -> str:
         "systemInstruction": {"parts": [{"text": system}]},
         "contents": [{"role": "user", "parts": [{"text": user}]}],
         "generationConfig": {"responseMimeType": "application/json",
-                             "maxOutputTokens": 12000, "temperature": 0.2},
+                             "maxOutputTokens": 12000, "temperature": 0.1},
     }).encode()
     # 키는 URL이 아닌 헤더로 보내 로그/예외에 노출되지 않게 함
     req = urllib.request.Request(url, data=body, headers={
@@ -417,7 +421,7 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
 OPENROUTER_RETRY_WAITS = (20,)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 1회 재시도(실측: 더 기다려도 풀리지 않음)
 
 
-def _call_openrouter(system: str, user: str) -> str:
+def _call_openrouter(system: str, user: str, check=None) -> str:
     key = os.environ["OPENROUTER_API_KEY"]
     models = [m.strip() for m in os.environ.get("OPENROUTER_MODELS", "").split(",") if m.strip()] \
         or list(OPENROUTER_DEFAULT_MODELS)
@@ -432,7 +436,7 @@ def _call_openrouter(system: str, user: str) -> str:
     def make_req(model: str, reasoning_off: bool) -> urllib.request.Request:
         payload = {"model": model,
                    "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-                   "temperature": 0.2, "max_tokens": 12000}
+                   "temperature": 0.1, "max_tokens": 12000}
         if reasoning_off:
             payload["reasoning"] = OPENROUTER_REASONING_OFF
         return urllib.request.Request("https://openrouter.ai/api/v1/chat/completions",
@@ -482,9 +486,11 @@ def _call_openrouter(system: str, user: str) -> str:
                                    f"error={str(data.get('error'))[:150]}")
             continue
         try:
-            if not parse_json(text).get("sections"):
+            if check:
+                check(text)  # 형식·링크·항목 수 검증(부실하면 ValueError)
+            elif not parse_json(text).get("sections"):
                 raise ValueError("sections 없음")
-        except ValueError as err:  # 형식을 못 맞추는 모델이면 다음 모델로
+        except ValueError as err:  # 형식을 못 맞추거나 부실한 응답이면 다음 모델로
             last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
             continue
         print(f"OpenRouter 모델 사용: {model} → 실제 {data.get('model')} ({time.monotonic() - t0:.0f}초)")
@@ -492,13 +498,68 @@ def _call_openrouter(system: str, user: str) -> str:
     raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
 
 
+MIN_AI_ITEMS = 8  # 기사가 충분할 때 AI 요약이 최소한 담아야 하는 항목 수(이보다 적으면 부실한 응답으로 보고 다음 모델/공급자로)
+
+
+def _link_key(url: str) -> str:
+    return url.split("?")[0].rstrip("/").lower()
+
+
+def validate_digest(digest: dict, articles: list[Article], verbose: bool = False) -> dict:
+    """AI가 만든 요약을 코드로 검증·정리한다(지시문만으로는 막을 수 없는 오류 방지).
+    - 수집한 기사 목록에 없는 링크의 항목은 버린다 → 지어낸/조작된 링크 차단
+    - 같은 링크는 먼저 나온 카테고리에만 남긴다
+    - 카테고리별 항목 수를 CATEGORY_LIMITS로 제한한다
+    - 항목이 하나도 없는 카테고리는 뺀다
+    정리 후 항목이 너무 적으면 ValueError(호출한 쪽이 다음 모델/공급자로 넘어간다)."""
+    known = {_link_key(a.link) for a in articles}
+    seen: set[str] = set()
+    dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0}
+    sections = []
+    for sec in digest.get("sections") or []:
+        if not isinstance(sec, dict):
+            continue
+        limit = CATEGORY_LIMITS.get(str(sec.get("topic", "")), 5)
+        items = []
+        for it in sec.get("items") or []:
+            if not isinstance(it, dict):
+                continue
+            key = _link_key(str(it.get("link", "")))
+            if key not in known:
+                dropped["없는 링크"] += 1
+            elif key in seen:
+                dropped["중복"] += 1
+            elif len(items) >= limit:
+                dropped["상한 초과"] += 1
+            else:
+                seen.add(key)
+                items.append(it)
+        if items:
+            sections.append({**sec, "items": items})
+    total = sum(len(x["items"]) for x in sections)
+    need = min(MIN_AI_ITEMS, max(1, len(articles) // 20))
+    if total < need:
+        raise ValueError(f"AI 요약이 부실합니다: 유효 항목 {total}개 (최소 {need}개 필요, 제거 {dropped})")
+    if verbose and any(dropped.values()):
+        print(f"AI 요약 정리: 항목 {total}개 유지, 제거 {dropped}")
+    return {**digest, "sections": sections}
+
+
 def summarize(articles: list[Article], provider: str) -> dict:
     lines = [
         f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
         for i, a in enumerate(articles, 1)
     ]
-    call = {"anthropic": _call_anthropic, "gemini": _call_gemini, "openrouter": _call_openrouter}[provider]
-    return parse_json(call(SYSTEM_PROMPT, "\n".join(lines)))
+    user = "\n".join(lines)
+
+    def check(text: str) -> dict:
+        return validate_digest(parse_json(text), articles)
+
+    if provider == "openrouter":  # 무료 모델은 품질 편차가 커서, 검증에 실패하면 다음 모델로 넘어가도록 검사 함수를 넘김
+        text = _call_openrouter(SYSTEM_PROMPT, user, check)
+    else:
+        text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
+    return validate_digest(parse_json(text), articles, verbose=True)
 
 
 def parse_json(text: str) -> dict:
