@@ -1,0 +1,377 @@
+{
+ "headline": "무료 사용 한도를 초과해 오늘은 헤드라인만 제공합니다 (한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아옵니다)",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "items": [
+    {
+     "title": "Israel election commission rejects Netanyahu charges of fraud",
+     "summary": "Israeli electoral authorities on Wednesday rejected allegations promoted by Prime Minister Benjamin Netanyahu of fraud b…",
+     "source": "Al-Monitor",
+     "link": "https://www.al-monitor.com/originals/2026/11/israel-election-commission-rejects-netanyahu-charges-fraud"
+    },
+    {
+     "title": "Iran Strikes and Israel Aid Cuts Shake Up Election Day",
+     "summary": "Two last-minute foreign-policy developments could impact U.S. voters’ midterm decisions.",
+     "source": "Foreign Policy",
+     "link": "https://foreignpolicy.com/2026/11/03/us-iran-strikes-midterms-israel-aid-ukraine-russia-agoa-australia/"
+    },
+    {
+     "title": "General Staff: Russia has lost 1,597,010 troops in Ukraine since Feb. 24, 2022",
+     "summary": "The number includes 2,180 casualties that Russian forces suffered over the past day.",
+     "source": "Kyiv Independent",
+     "link": "https://kyivindependent.com/general-staff-russia-has-lost-1-597-010-troops-in-ukraine-since-feb-24-2022/"
+    },
+    {
+     "title": "Ukrainian-born US lawmaker Victoria Spartz loses congressional seat to Democrat",
+     "summary": "In April 2025, Spartz said Ukraine should cede territory to Russia and called for Zelensky's resignation.",
+     "source": "Kyiv Independent",
+     "link": "https://kyivindependent.com/ukrainian-born-us-lawmaker-victoria-spartz-loses-congressional-seat-to-democrat/"
+    },
+    {
+     "title": "中외교부 \"미중러 정상회담 관련국들과 소통\"…회담 가능성 언급",
+     "summary": "중국이 아시아태평양경제협력체(APEC) 정상회의를 계기로 열릴 가능성이 거론되는 '미중러 정상회담'에 관해...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104157100083"
+    },
+    {
+     "title": "North Korea fires several missiles into Sea of Japan",
+     "summary": "South Korea's Joint Chiefs of Staff said its military \"detected several missiles launched from the Sondok area of North…",
+     "source": "CNA",
+     "link": "https://www.channelnewsasia.com/east-asia/north-korea-fires-missiles-sea-japan-6522721"
+    },
+    {
+     "title": "北, 美중간선거 당일 '대화 선택지' 언급하더니 '미사일 도발'(종합2보)",
+     "summary": "북한이 4일 오전 동해상으로 미사일 여러 발을 발사했다고 합동참모본부가 밝혔다.",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104055152504"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "items": [
+    {
+     "title": "홍콩ELS 과징금, 은행·증권사에 3700억 확정…금융위 부과 최대 규모",
+     "summary": "홍콩H지수ELS피해자모임과 금융정의연대 등 시민단체 회원들이 지난 2024년 2월 15일 서울 종로구 감사원 앞에서 금융당국 대상 ‘감사원 공익감사 청구’ 기자회견을 열고 있다. 김창길 기자금융당국이 홍콩 H지수 주…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611041707001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "How the Stock Market Is Reacting to the Midterm Elections",
+     "summary": "U.S. stock futures and Asian semiconductor shares dropped as investors weighed the future of the artificial intelligence…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/04/business/midterm-elections-stock-market.html"
+    },
+    {
+     "title": "미 ‘블루웨이브’가 한국 경제에 미칠 영향···“셧다운 나면 금융시장과 환율 위험”",
+     "summary": "미국 중간선거가 진행된 3일(현지시간) 밤 미국 워싱턴 백악관의 모습. AP연합뉴스미국 중간선거 결과 민주당이 상·하원 모두 과반을 차지하면서 한국 경제도 미 의회의 ‘여소야대’ 구도가 큰 변수로 떠올랐다. 전문가들…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611041653001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "It's Time for an Unloved Stock Rally: Market Analysis",
+     "summary": "Anna Edwards, Guy Johnson, and Mark Cudmore break down today's key themes for analysts and investors on \"Bloomberg: The…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/videos/2026-11-04/it-s-time-for-an-unloved-stock-rally-3-minutes-mliv-video"
+    },
+    {
+     "title": "Dollar Slides, Stocks Waver, Bonds Rise on US Vote: Markets Wrap",
+     "summary": "A Democratic sweep of Congress rippled across global markets, sending the dollar lower and boosting Treasuries while sto…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/articles/2026-11-03/stock-market-today-dow-s-p-live-updates"
+    },
+    {
+     "title": "What analysts are telling us while Apple’s stock falls after earnings report",
+     "summary": "Shares in Apple declined nearly 2% on Tuesday after investors were left feeling disappointed about the company’s gross m…",
+     "source": "MarketWatch",
+     "link": "https://www.marketwatch.com/story/what-analysts-are-saying-as-apples-stock-falls-after-earnings-report-f0afa357?mod=mw_rss_topstories"
+    },
+    {
+     "title": "Shopify’s stock slides after earnings. This is what’s worrying Wall Street.",
+     "summary": "The company missed revenue expectations, a tough outcome in today’s less-forgiving tech market.",
+     "source": "MarketWatch",
+     "link": "https://www.marketwatch.com/story/shopifys-stock-slides-after-earnings-this-is-whats-worrying-wall-street-e2e8d52b?mod=mw_rss_topstories"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "items": [
+    {
+     "title": "[영상] 노트북 뚫리더니 8조원 증발…범인으로 북한이 지목된 이유",
+     "summary": "세계 최대 가상화폐 거래소 바이낸스(Binance) 해킹 사건의 전말이 하나둘 드러나고 있습니다.",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104153900797"
+    },
+    {
+     "title": "Binance Says Hackers Plotted $6.3 Billion Crypto Heist for Months",
+     "summary": "A report from the cryptocurrency exchange described a monthslong campaign involving fake job interviews that exploited a…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/03/technology/binance-hack-report.html"
+    },
+    {
+     "title": "Binance battles to save its brand after record $6.3bn crypto hack",
+     "summary": "World’s largest crypto exchange faces fallout from angry customers, and Lula wins with WhatsApp This was originally publ…",
+     "source": "The Guardian",
+     "link": "https://www.theguardian.com/technology/2026/nov/02/binance-cryptocurrency-exchange-hack"
+    },
+    {
+     "title": "Here’s what happened in crypto today",
+     "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price,…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "items": [
+    {
+     "title": "5 Standout Shows to See at Small Galleries This November",
+     "summary": "Y el agua cae otra vez/And the Water Falls Again〈水再次落下〉, 2026 Ana Teresa Barboza NUNU FINE ART In this monthly roundup,…",
+     "source": "Artsy",
+     "link": "https://www.artsy.net/article/artsy-editorial-5-standout-small-galleries-november-11-03-26"
+    },
+    {
+     "title": "M+, Centre Pompidou, and MoMA Unite in Cultural Alliance",
+     "summary": "Hong Kong’s M+, the Centre Pompidou in Paris, and the Museum of Modern Art (MoMA) in New York have announced a “cultural…",
+     "source": "ArtAsiaPacific",
+     "link": "https://www.artasiapacific.com/news/m-centre-pompidou-and-moma-unite-in-cultural-alliance/"
+    },
+    {
+     "title": "강릉시립미술관, 두 차례 고배 딛고 평가인증 '통과'",
+     "summary": "강원 강릉시립미술관이 문화체육관광부가 주관하는 '2026년 공립미술관 평가인증'에서 최종 인증을 통과했다.",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104154500062"
+    },
+    {
+     "title": "French Museum’s ‘Wanted’ Poster Campaign for Stolen Art Leads to Return of Missing 17th-Century Dutch Painting",
+     "summary": "Thanks to an inventive “Wanted” campaign by the Musée des Beaux-Arts d’Orléans in France, aimed at tracking down hundred…",
+     "source": "ARTnews",
+     "link": "https://www.artnews.com/art-news/news/french-museum-wanted-poster-campaign-for-stolen-paintings-successful-1234804603/"
+    },
+    {
+     "title": "판소리·도자기에 빠진 美 현대미술 거장",
+     "summary": "세계적인 명성을 얻고 있는 미국 현대미술가 티에스터 게이츠는 판소리 소리꾼이 목청을 끌어올리는 대목에서 흑인 교회의 가스펠을 떠올렸다. 한국 도자기의 고요하고 절제된 미학은 자신이..",
+     "source": "매일경제",
+     "link": "https://www.mk.co.kr/news/culture/12196602"
+    },
+    {
+     "title": "“작업하다 떠나는 게 꿈”…91세 김윤신의 끝나지 않는 예술[문화人터뷰]",
+     "summary": "“백 살 넘게는 해야 되는데, 그때까지 못 갈까 봐 걱정이에요.” 올해 91세. 조각가 김윤신에게는 아직도 작업할 시간이 부족하다. “가장 중요한 것을 놓고 왔어요. 보청기…잘 못 들으시니 왼쪽 귀에 대고 말씀하세요…",
+     "source": "뉴시스",
+     "link": "https://www.newsis.com/view/NISX20261104_0003854764"
+    },
+    {
+     "title": "India Art Fair Announces Exhibitors for 2027 Edition",
+     "summary": "The organizers of the India Art Fair have named more than 120 participants in its eighteenth iteration, set to run Febru…",
+     "source": "Artforum",
+     "link": "https://www.artforum.com/news/india-art-fair-names-exhibitors-for-2027-edition-1234762920/"
+    },
+    {
+     "title": "Why Mary Cassatt was more than just a painter of the 'modern Madonna'",
+     "summary": "The curator Mary G. Morton tells us about her new publication that paints the Impressionist artist in a new light",
+     "source": "The Art Newspaper",
+     "link": "https://www.theartnewspaper.com/2026/11/03/why-mary-cassatt-was-more-than-just-a-painter-of-the-modern-madonna"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "items": [
+    {
+     "title": "여야, '조작기소 특검' 법안 평행선…\"내일 상정\"·\"필리버스터\"",
+     "summary": "여야는 4일 '조작 기소 특검법(안)' 등 쟁점 법안 처리 문제를 놓고 협상했으나 합의에 이르지...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104151700001"
+    },
+    {
+     "title": "주진우 ‘내란 징역 12년’ 김현태에 “너무 응원드려요”",
+     "summary": "",
+     "source": "한겨레",
+     "link": "https://www.hani.co.kr/arti/politics/politics_general/1285766.html"
+    },
+    {
+     "title": "통계는 죄가 없다…정권마다 반복되는 집값 통계 논란",
+     "summary": "이재명 대통령이 3일 청와대에서 열린 국무회의에서 발언하고 있다. 연합뉴스이재명 대통령이 집값 통계 문제를 거론하면서 공공과 민간 부동산 통계간 차이가 다시 논란이 되고 있다. 서울 강남3구 아파트값을 놓고 공공 통…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611041730001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "生後6カ月で自分で食べる？「赤ちゃん主導の離乳食」総まとめ",
+     "summary": "",
+     "source": "조선일보",
+     "link": "https://www.chosun.com/jp/medical-jp/2026/11/04/LMXLMZDQYND57FENXDGS6Q3CJI/"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "items": [
+    {
+     "title": "Food suppliers in UK hit by cyber-attacks after freezers targeted in Europe",
+     "summary": "Cybersecurity experts say national impact ‘minimal’ but incidents may represent the ‘foothills’ of a wider threat Food s…",
+     "source": "The Guardian",
+     "link": "https://www.theguardian.com/technology/2026/nov/03/uk-meat-processing-firms-fridges-heat-up-cyber-attacks"
+    },
+    {
+     "title": "Ukraine’s drone strikes spur hasty Russian plans for underground data centers",
+     "summary": "Russia tries to fix exposed digital infrastructure as data center war backfires.",
+     "source": "Ars Technica",
+     "link": "https://arstechnica.com/ai/2026/11/russia-looks-to-hide-data-centers-underground-as-ukrainian-drones-strike-back/"
+    },
+    {
+     "title": "Data centers are turning to old jet engines as the wait for power grows",
+     "summary": "The years-long wait for access to the grid and new turbines is causing data center builders to turn to an unusual, less-…",
+     "source": "TechCrunch",
+     "link": "https://techcrunch.com/2026/11/03/data-centers-are-turning-to-old-jet-engines-as-the-wait-for-power-grows/"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "items": [
+    {
+     "title": "좌타자 7명 도배한 박진만 삼성 감독 \"고영표만 내리면…\"",
+     "summary": "프로야구 삼성 라이온즈 박진만 감독이 2026 신한 SOL KBO 포스트시즌 한국시리즈(KS·7전 4승제) 2...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261104157600007"
+    },
+    {
+     "title": "A half-time speech, a retaken penalty - and a win to save Carrick's job?",
+     "summary": "At 2-0 down Michael Carrick's position as Manchester United head coach looked terminal - but will the win over Roma prov…",
+     "source": "BBC",
+     "link": "https://www.bbc.co.uk/sport/football/articles/c6q8n98y4023o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  }
+ ],
+ "ai": false,
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "영국": [
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-04",
+   "sky": "흐림",
+   "now": "14°",
+   "lo": "7°",
+   "hi": "17°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 +2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "이슬비 9°/16°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-04",
+   "sky": "흐림",
+   "now": "14°",
+   "lo": "8°",
+   "hi": "15°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −2°, 최저 +1°",
+   "precip": "강수 가능성 낮음(6%)",
+   "tomorrow": "강한 비 11°/15°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-04",
+   "sky": "맑음",
+   "now": "15°",
+   "lo": "13°",
+   "hi": "25°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 0°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 13°/27°"
+  }
+ ],
+ "message": {
+  "ko": "몸과 마음이 지친 날에도, 그 자리에서도 당신은 충분히 아름다워요. 잘 다녀와요.",
+  "en": "Even on a day when body and mind are tired, you are beautiful enough right where you are. Go well."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 450,
+  "outlets": 65,
+  "failed_feeds": [
+   "France 24"
+  ]
+ },
+ "sent": true
+}
