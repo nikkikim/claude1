@@ -4,7 +4,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import pytest
+
 import news_digest as nd
+
+_REAL_REFINE = nd.refine_overviews
+
+
+@pytest.fixture(autouse=True)
+def _no_refine_by_default(monkeypatch):
+    """대부분의 시험은 1차 요약만 본다. 2차(핵심 요약 재작성)는 전용 시험에서 _REAL_REFINE으로 따로 확인."""
+    monkeypatch.setattr(nd, "refine_overviews", lambda digest, articles, provider: digest)
 
 RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
 <item><title>새 기사</title><link>https://ex.com/a?x=1</link>
@@ -931,3 +941,216 @@ def test_art_articles_use_longer_body_excerpt_but_other_categories_do_not(tmp_pa
     other = nd.fetch_articles({"feeds": [{"outlet": "X", "region": "미국", "category": "경제·증시", "url": str(f)}]}, now=NOW)[0]
     assert len(art.summary) > 200 and len(art.summary) <= nd.ART_EXCERPT_CHARS + 1     # 미술: 본문 앞부분(최대 320자)
     assert other.summary == "짧은 인용구"                                               # 그 외: 기존대로 RSS 요약
+
+
+# ---------- 마무리 보완: 깨진 글자·근거 없는 숫자·국내 미술·2차 핵심 요약·모델 안내·실행 정보 ----------
+
+def _art2(outlet="A", region="국내", category="세계 이슈", title="t", summary="s", link=None):
+    return nd.Article(outlet=outlet, region=region, category=category, title=title,
+                      link=link or f"https://ex.com/{outlet}", summary=summary, published=None)
+
+
+def _digest(items, topic="세계 이슈", overview="핵심 요약입니다 충분히 길게 씁니다", headline="h"):
+    return {"headline": headline, "sections": [{"topic": topic, "overview": overview, "items": items}]}
+
+
+def _it(link, title="제목", summary="요약", source="A"):
+    return {"title": title, "summary": summary, "source": source, "link": link}
+
+
+def test_garbled_detection_allows_parenthesized_original_names_and_single_hanja():
+    assert nd._garbled("미국과 中国国家主席 회담")
+    assert nd._garbled("ヤヨイ 쿠사마 전시")
+    assert not nd._garbled("무라카미 다카시(村上隆) 개인전")
+    assert not nd._garbled("美·中 정상회담, 北 미사일")
+
+
+def test_validate_drops_garbled_item_and_rejects_when_many():
+    arts = [_art2("A"), _art2("B"), _art2("C"), _art2("D")]
+    items = [_it("https://ex.com/A"), _it("https://ex.com/B", title="中国国家主席 发表")]
+    out = nd.validate_digest(_digest(items), arts[:2] and arts)
+    assert [i["link"] for i in out["sections"][0]["items"]] == ["https://ex.com/A"]
+    bad = [_it(f"https://ex.com/{x}", title="中国国家主席 发表") for x in "BCD"] + [_it("https://ex.com/A")]
+    with pytest.raises(ValueError, match="한자·일본어"):
+        nd.validate_digest(_digest(bad), arts)
+
+
+def test_validate_blanks_overview_and_headline_with_invented_numbers():
+    arts = [_art2("A", title="맨유 경기", summary="맨유가 경기를 치렀다")]
+    items = [_it("https://ex.com/A", title="맨유 경기", summary="맨유가 경기를 치렀다")]
+    out = nd.validate_digest(_digest(items, overview="맨유가 0-3으로 패했다", headline="맨유 0-3 패배"), arts)
+    assert out["sections"][0]["overview"] == ""            # 근거 없는 점수 → 비움
+    assert "0-3" not in out["headline"] and out["headline"]
+    ok = nd.validate_digest(_digest(items, overview="맨유가 2026년 경기를 치렀다"), arts)
+    assert ok["sections"][0]["overview"]                   # 연도는 허용
+
+
+def test_validate_accepts_numbers_found_in_source_article():
+    arts = [_art2("A", title="지수", summary="코스피 2,650선 마감")]
+    items = [_it("https://ex.com/A", title="지수", summary="코스피 마감")]
+    out = nd.validate_digest(_digest(items, topic="경제·증시", overview="코스피가 2650선에서 마감했다"), arts)
+    assert out["sections"][0]["overview"]
+
+
+def _art_dom(i, outlet="국내매체", category="문화예술", title=None):
+    return _art2(outlet, "국내", category, title or f"전시 개최 미술관 {i}", "미술관 전시 작가", f"https://dom.example/{i}")
+
+
+def test_ensure_domestic_art_adds_domestic_when_ai_picked_only_foreign():
+    arts = [_art2("ARTnews", "미국", "문화예술", "Exhibition", "museum exhibition artist", "https://f.example/1")] + \
+           [_art_dom(i, outlet=f"매체{i}") for i in range(5)]
+    d = _digest([_it("https://f.example/1")], topic="문화예술")
+    out = nd.ensure_domestic_art(d, arts)
+    links = [i["link"] for i in out["sections"][0]["items"]]
+    assert links[0] == "https://f.example/1"
+    assert sum(1 for l in links if l.startswith("https://dom.example/")) == nd.MIN_DOMESTIC_ART
+
+
+def test_ensure_domestic_art_noop_when_enough_and_trims_foreign_when_full():
+    arts = [_art_dom(i, outlet=f"매체{i}") for i in range(5)]
+    enough = _digest([_it(f"https://dom.example/{i}") for i in range(3)], topic="문화예술")
+    assert nd.ensure_domestic_art(enough, arts) is enough
+    foreign = [_art2(f"F{i}", "미국", "문화예술", f"f{i}", "x", f"https://f.example/{i}") for i in range(8)]
+    full = _digest([_it(f"https://f.example/{i}") for i in range(8)], topic="문화예술")
+    out = nd.ensure_domestic_art(full, foreign + arts)
+    items = out["sections"][0]["items"]
+    assert len(items) <= nd.CATEGORY_LIMITS["문화예술"]
+    assert sum(1 for i in items if i["link"].startswith("https://dom.example/")) == 3
+
+
+def test_ensure_domestic_art_creates_section_in_order():
+    arts = [_art_dom(i, outlet=f"매체{i}") for i in range(4)] + [_art2("A")]
+    d = _digest([_it("https://ex.com/A")])
+    out = nd.ensure_domestic_art(d, arts)
+    assert [s["topic"] for s in out["sections"]] == ["세계 이슈", "문화예술"]
+
+
+def test_prompt_requires_domestic_art():
+    assert "국내(한국) 매체의 국내 소식을 최소 3건" in nd.SYSTEM_PROMPT
+
+
+def _refine_setup(monkeypatch, response):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    calls = []
+
+    def fake(system, user, check=None, budget=None, request_seconds=None):
+        calls.append((system, user, budget))
+        if isinstance(response, Exception):
+            raise response
+        check(response)
+        nd.LAST_MODEL_USED = "REFINE-MODEL"
+        return response
+    monkeypatch.setattr(nd, "_call_openrouter", fake)
+    return calls
+
+
+def test_refine_overviews_rewrites_from_final_items_only(monkeypatch):
+    arts = [_art2("A", summary="s")]
+    d = _digest([_it("https://ex.com/A", title="제목", summary="요약")])
+    resp = json.dumps({"overviews": {"세계 이슈": "새로 쓴 핵심 요약입니다. 항목만 근거로 합니다."}}, ensure_ascii=False)
+    calls = _refine_setup(monkeypatch, resp)
+    nd.LAST_MODEL_USED = "FIRST-MODEL"
+    out = _REAL_REFINE(d, arts, "openrouter")
+    assert out["sections"][0]["overview"].startswith("새로 쓴")
+    assert "제목 – 요약" in calls[0][1] and calls[0][2] == nd.REFINE_BUDGET_SECONDS
+    assert nd.LAST_MODEL_USED == "FIRST-MODEL"            # 1차에 쓴 모델 이름이 유지됨
+
+
+def test_refine_overviews_failure_keeps_first_pass(monkeypatch):
+    arts = [_art2("A")]
+    d = _digest([_it("https://ex.com/A")])
+    _refine_setup(monkeypatch, RuntimeError("boom"))
+    assert _REAL_REFINE(d, arts, "openrouter") == d
+
+
+def test_refine_overviews_rejects_invented_numbers_and_skips_backfilled(monkeypatch):
+    arts = [_art2("A"), _art2("B", category="스포츠")]
+    d = {"headline": "h", "sections": [
+        {"topic": "세계 이슈", "overview": "원래 요약입니다 충분히 길게", "items": [_it("https://ex.com/A", summary="요약")]},
+        {"topic": "스포츠", "overview": "보충", "backfilled": True, "items": [_it("https://ex.com/B")]}]}
+    resp = json.dumps({"overviews": {"세계 이슈": "맨유가 0-3으로 패배했다고 합니다 정말로요",
+                                     "스포츠": "스포츠 새 요약인데 쓰이면 안 됩니다 절대"}}, ensure_ascii=False)
+    _refine_setup(monkeypatch, resp)
+    out = _REAL_REFINE(d, arts, "openrouter")
+    assert out["sections"][0]["overview"] == "원래 요약입니다 충분히 길게"
+    assert out["sections"][1]["overview"] == "보충"
+
+
+def test_refine_skipped_when_run_is_already_long(monkeypatch):
+    calls = _refine_setup(monkeypatch, "{}")
+    monkeypatch.setattr(nd, "_RUN_START", nd.time.monotonic() - nd.REFINE_DEADLINE - 1)
+    d = _digest([_it("https://ex.com/A")])
+    assert _REAL_REFINE(d, [_art2("A")], "openrouter") is d and not calls
+
+
+def test_summarize_runs_refine_and_records_model(monkeypatch):
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    monkeypatch.setattr(nd, "refine_overviews", lambda digest, a, p: {**digest, "refined": True})
+    out = nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")
+    assert out["refined"] and out["model"] == "m1"
+
+
+def test_default_models_retry_nemotron_and_budget_fits_workflow():
+    models = nd.OPENROUTER_DEFAULT_MODELS
+    assert models[0] == models[2] and "nemotron-3-ultra" in models[0] and len(models) == 4
+    assert nd.OPENROUTER_BUDGET_SECONDS + nd.OPENROUTER_REQUEST_SECONDS + \
+        nd.REFINE_BUDGET_SECONDS + nd.REFINE_REQUEST_SECONDS + 150 < 20 * 60
+
+
+def test_openrouter_404_moves_on_and_reports_model_unavailable(monkeypatch):
+    seen = []
+    _or_fake(monkeypatch, {"gone": _http_error(404, "No endpoints found for gone"),
+                           "m2": _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "gone,m2")
+    assert nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")["headline"] == "h"
+    assert [p["model"] for _, p in seen][:2] == ["gone", "m2"]
+    _or_fake(monkeypatch, {"gone": _http_error(404, "No endpoints found"), "gone2": _http_error(404, "x")})
+    monkeypatch.setenv("OPENROUTER_MODELS", "gone,gone2")
+    with pytest.raises(nd.ModelUnavailable, match="gone"):
+        nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")
+
+
+def test_main_model_unavailable_note_and_meta_line(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "o")
+    nd.FEED_FAILURES[:] = ["머니"]
+
+    def fake_summarize(articles, provider):
+        raise nd.ModelUnavailable("gone")
+    monkeypatch.setattr(nd, "summarize", fake_summarize)
+    assert nd.main(["--dry-run"]) == 0
+    out = (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "OPENROUTER_MODELS" in out and "AI 요약 없음" in out and "읽지 못한 매체: 머니" in out
+    nd.FEED_FAILURES.clear()
+
+
+def test_meta_line_in_html_and_markdown():
+    d = {"headline": "h", "sections": [], "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+         "meta": {"articles": 400, "outlets": 90, "failed_feeds": ["A", "B"]}}
+    day = datetime(2026, 11, 5)
+    for out in (nd.render_html(d, day), nd.render_markdown(d, day)):
+        assert "기사 400건" in out and "매체 90곳" in out and "nemotron-3-ultra-550b-a55b" in out
+        assert ":free" not in out and "읽지 못한 매체: A, B" in out
+    assert nd._meta_line({"headline": "h"}) == ""
+
+
+def test_fetch_records_failed_feeds(tmp_path):
+    good = tmp_path / "g.xml"
+    good.write_text(RSS, encoding="utf-8")
+    cfg = {"feeds": [{"outlet": "Good", "url": str(good)},
+                     {"outlet": "Broken", "url": str(tmp_path / "missing.xml")}], "max_age_hours": 26}
+    nd.fetch_articles(cfg, now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
+    assert nd.FEED_FAILURES == ["Broken"]
+
+
+def test_workflow_has_concurrency_and_feeds_drop_flaky_outlet():
+    wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
+    assert "concurrency:" in wf and "cancel-in-progress: false" in wf
+    feeds = json.loads((Path(__file__).resolve().parent.parent / "feeds.json").read_text(encoding="utf-8"))
+    assert "머니투데이" not in [f["outlet"] for f in feeds["feeds"]]

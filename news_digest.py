@@ -62,6 +62,9 @@ CONFIG_PATH = Path(__file__).with_name("feeds.json")
 CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8,
                    "정치·사회": 4, "IT·과학": 3, "스포츠": 2}
 CATEGORIES = list(CATEGORY_LIMITS)
+MIN_DOMESTIC_ART = 3          # 문화예술에 국내 소식이 최소 몇 건 들어가야 하는지
+FEED_FAILURES: list[str] = []  # 이번 실행에서 읽지 못한 매체(발송 하단에 표시)
+LAST_MODEL_USED = ""           # 이번 요약에 실제 쓰인 AI 모델 이름(발송 하단에 표시)
 
 # 헤드라인 모드(AI 없음)에서 카테고리별로 '관련 기사'를 우선 고르기 위한 키워드. (한글, 영어) 순이며
 # 핵심어(core)는 가중치 3, 보조어(other)는 1. 영어는 단어 경계로, 한글은 부분 일치로 찾는다.
@@ -195,6 +198,7 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule":  # 수동 실행은 전체를 보여주고, 매일 자동 실행만 어제와 겹침을 제외
         seen |= previous_digest_keys()
     socket.setdefaulttimeout(20)  # 응답 없는 피드 하나가 전체를 막지 않도록
+    FEED_FAILURES.clear()
 
     def _parse(feed: dict):
         outlet = feed.get("outlet") or feed.get("name", "")
@@ -202,9 +206,11 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
             parsed = feedparser.parse(feed["url"], agent="news-digest/1.0")
         except Exception as e:  # 한 피드가 죽어도 전체는 계속
             print(f"[warn] {outlet}: {e}", file=sys.stderr)
+            FEED_FAILURES.append(outlet)
             return None
         if parsed.get("bozo") and not parsed.entries:
             print(f"[warn] {outlet}: 피드를 읽지 못했습니다", file=sys.stderr)
+            FEED_FAILURES.append(outlet)
             return None
         return parsed
 
@@ -299,6 +305,7 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 3. 문화예술: 국내외 미술계 소식을 최우선(전시, 미술관·갤러리, 비엔날레·아트페어, 옥션·미술시장, 작가·큐레이터 동정,
    수상·공모, 소장품·반환·복원 이슈)으로 하고, 그다음 공연·영화·문학·건축·디자인. 국내 소식과 해외 소식을 모두 담으세요.
    아이돌·연예인 가십, 방송 화제성 기사는 예술계 맥락이 없으면 제외합니다.
+   문화예술에는 **국내(한국) 매체의 국내 소식을 최소 3건** 반드시 포함하세요(목록에 있다면).
 
 규칙:
 - 카테고리는 다음 순서로 고정: {", ".join(CATEGORIES)}. 기사 목록에 해당 기사가 있으면 **모든 카테고리를 빠짐없이 포함**하세요
@@ -358,12 +365,18 @@ class QuotaExceeded(RuntimeError):
     """무료 사용 한도(요청 수/토큰 수)를 초과했다. 한도가 다시 채워지면 다음 실행부터 정상 동작한다."""
 
 
+class ModelUnavailable(RuntimeError):
+    """지정한 AI 모델이 없어졌거나 이름이 바뀌었다(HTTP 404 등). 모델 목록(OPENROUTER_MODELS)을 고쳐야 한다."""
+
+
 class FreeTierUnavailable(RuntimeError):
     """이 키가 속한 Google 프로젝트에는 Gemini 무료 티어가 제공되지 않는다(HTTP 403)."""
 
 
 NO_FREE_NOTE = "이 키의 Google 프로젝트에서는 Gemini 무료 티어를 쓸 수 없어 헤드라인만 제공합니다 (새 프로젝트에서 키를 다시 발급해 보세요)"
 QUOTA_NOTE = "무료 사용 한도를 초과해 오늘은 헤드라인만 제공합니다 (한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아옵니다)"
+MODEL_NOTE = ("지정된 무료 AI 모델이 OpenRouter에서 사라졌거나 이름이 바뀌어 헤드라인만 제공합니다 "
+              "(저장소 Settings → Secrets and variables → Actions → Variables 의 OPENROUTER_MODELS 를 지우거나 새 모델 이름으로 바꾸세요)")
 FAIL_NOTE = "AI 요약에 실패해 헤드라인만 제공합니다 (키/모델 설정을 확인하세요)"
 
 
@@ -410,14 +423,16 @@ def _call_gemini(system: str, user: str) -> str:
 #  - openrouter/free(자동 라우터) : 위 모델로 연결될 수 있고 추론 모델로 빠지는 일이 잦아 제외
 #  - thinkingmachines/inkling*:free : 에이전트 앱 전용(403) → 제외
 # 추론을 끌 수 없는 모델(liquid/lfm, recursive/flint, stealth/crouton)도 쓰지 않는다.
+# 순서: Nemotron → Gemma 31B → Nemotron(일시 오류 대비 한 번 더) → Gemma 26B. 전체 시간 상한(420초)이 넘으면 남은 시도는 건너뛴다.
 OPENROUTER_DEFAULT_MODELS = (
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
     "google/gemma-4-26b-a4b-it:free",
 )
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 150   # 모델 1개당 최대 대기 시간(응답 전체 기준)
-OPENROUTER_BUDGET_SECONDS = 420    # 모든 모델을 합친 최대 시도 시간(워크플로 제한 15분 이내)
+OPENROUTER_BUDGET_SECONDS = 360    # 모든 모델을 합친 최대 시도 시작 시한(이후엔 새 시도를 시작하지 않음)
 
 
 def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
@@ -445,7 +460,12 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
 OPENROUTER_RETRY_WAITS = (20,)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 1회 재시도(실측: 더 기다려도 풀리지 않음)
 
 
-def _call_openrouter(system: str, user: str, check=None) -> str:
+def _call_openrouter(system: str, user: str, check=None, budget: float | None = None,
+                     request_seconds: float | None = None) -> str:
+    global LAST_MODEL_USED
+    budget = OPENROUTER_BUDGET_SECONDS if budget is None else budget
+    request_seconds = OPENROUTER_REQUEST_SECONDS if request_seconds is None else request_seconds
+    unavailable: list[str] = []
     key = os.environ["OPENROUTER_API_KEY"]
     models = [m.strip() for m in os.environ.get("OPENROUTER_MODELS", "").split(",") if m.strip()] \
         or list(OPENROUTER_DEFAULT_MODELS)
@@ -473,18 +493,22 @@ def _call_openrouter(system: str, user: str, check=None) -> str:
         req = make_req(model, reasoning_off)
         data, t0 = None, time.monotonic()
         for attempt in range(len(OPENROUTER_RETRY_WAITS) + 2):  # +1: 재시도, +1: 추론 옵션 제외 재요청
-            if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+            if time.monotonic() - start > budget:
                 print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 시도는 건너뜁니다", file=sys.stderr)
                 break
             t0 = time.monotonic()
             try:
-                data = _post_with_deadline(req, OPENROUTER_REQUEST_SECONDS)
+                data = _post_with_deadline(req, request_seconds)
                 break
             except urllib.error.HTTPError as err:
                 detail = err.read().decode("utf-8", "replace")[:300]
                 last = fail(model, t0, f"HTTP {err.code} {detail}", QuotaExceeded if err.code == 429 else RuntimeError)
                 if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
                     raise last from None
+                if err.code == 404 or (err.code == 400 and "model" in detail.lower() and
+                                       any(w in detail.lower() for w in ("not a valid", "not found", "no endpoints"))):
+                    unavailable.append(model)  # 모델이 사라졌거나 이름이 바뀜 → 다음 모델로
+                    break
                 if err.code == 400 and reasoning_off and "reasoning" in detail.lower():
                     reasoning_off = False  # 이 모델이 '추론 끄기'를 거부하면 그 옵션만 빼고 같은 모델로 다시
                     req = make_req(model, reasoning_off)
@@ -498,7 +522,7 @@ def _call_openrouter(system: str, user: str, check=None) -> str:
                 last = fail(model, t0, f"{type(err).__name__}: {err}")
                 break  # 느린 모델/연결 오류는 재시도하지 않고 다음 모델로
         if data is None:
-            if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+            if time.monotonic() - start > budget:
                 break
             continue
         choice = (data.get("choices") or [{}])[0] if isinstance(data, dict) else {}
@@ -518,7 +542,10 @@ def _call_openrouter(system: str, user: str, check=None) -> str:
             last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
             continue
         print(f"OpenRouter 모델 사용: {model} → 실제 {data.get('model')} ({time.monotonic() - t0:.0f}초)")
+        LAST_MODEL_USED = str(data.get("model") or model)
         return text
+    if unavailable:
+        raise ModelUnavailable(f"OpenRouter 모델을 찾을 수 없습니다: {', '.join(dict.fromkeys(unavailable))}")
     raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
 
 
@@ -529,16 +556,43 @@ def _link_key(url: str) -> str:
     return url.split("?")[0].rstrip("/").lower()
 
 
+_CJK_RUN = re.compile(r"[\u4e00-\u9fff]{3,}")
+_KANA = re.compile(r"[\u3040-\u30ff]")
+_CJK_ANY = re.compile(r"[\u4e00-\u9fff]")
+_PAREN = re.compile(r"[\(（][^\)）]*[\)）]")
+_NUM = re.compile(r"\d[\d,.]*\d|\d")
+
+
+def _garbled(text: str) -> bool:
+    """한국어 요약에 한자·일본어가 섞여 나온 경우(무료 모델의 오역 징후). 괄호 안의 원어 병기(村上隆 등)와
+    '美·中'처럼 한 글자짜리 약칭은 허용한다."""
+    t = _PAREN.sub(" ", text)
+    return bool(_CJK_RUN.search(t) or _KANA.search(t) or len(_CJK_ANY.findall(t)) >= 6)
+
+
+def _unsupported_numbers(text: str, source: str) -> list[str]:
+    """text에 나온 숫자 중 근거 글(source)에 없는 것. 모델이 지어낸 점수·금액을 걸러낸다(연도 20xx는 허용)."""
+    src = source.replace(",", "")
+    bad = []
+    for n in _NUM.findall(text):
+        n = n.replace(",", "").rstrip(".")
+        if n and not re.fullmatch(r"20\d\d", n) and n not in src:
+            bad.append(n)
+    return bad
+
+
 def validate_digest(digest: dict, articles: list[Article], verbose: bool = False) -> dict:
     """AI가 만든 요약을 코드로 검증·정리한다(지시문만으로는 막을 수 없는 오류 방지).
     - 수집한 기사 목록에 없는 링크의 항목은 버린다 → 지어낸/조작된 링크 차단
     - 같은 링크는 먼저 나온 카테고리에만 남긴다
     - 카테고리별 항목 수를 CATEGORY_LIMITS로 제한한다
+    - 한자·일본어가 섞인 항목은 버린다(오역 징후)
+    - 핵심 요약(overview)·한 줄 요약에 근거 없는 숫자(점수·금액 등)가 있으면 그 문장을 비운다
     - 항목이 하나도 없는 카테고리는 뺀다
     정리 후 항목이 너무 적으면 ValueError(호출한 쪽이 다음 모델/공급자로 넘어간다)."""
-    known = {_link_key(a.link) for a in articles}
+    by_key = {_link_key(a.link): a for a in articles}
     seen: set[str] = set()
-    dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0}
+    dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0, "깨진 문자": 0, "근거 없는 숫자": 0}
     sections = []
     for sec in digest.get("sections") or []:
         if not isinstance(sec, dict):
@@ -549,10 +603,12 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
             if not isinstance(it, dict):
                 continue
             key = _link_key(str(it.get("link", "")))
-            if key not in known:
+            if key not in by_key:
                 dropped["없는 링크"] += 1
             elif key in seen:
                 dropped["중복"] += 1
+            elif _garbled(f"{it.get('title', '')} {it.get('summary', '')}"):
+                dropped["깨진 문자"] += 1
             elif len(items) >= limit:
                 dropped["상한 초과"] += 1
             else:
@@ -560,14 +616,28 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
                 srcs = [x.strip() for x in str(it.get("source", "")).split(",") if x.strip()]
                 items.append({**it, "source": ", ".join(srcs[:3])})  # 출처는 최대 3곳
         if items:
-            sections.append({**sec, "items": items})
+            ov = str(sec.get("overview") or "").strip()
+            evidence = " ".join(f"{it.get('title', '')} {it.get('summary', '')} "
+                                f"{by_key[_link_key(str(it.get('link', '')))].title} "
+                                f"{by_key[_link_key(str(it.get('link', '')))].summary}" for it in items)
+            if ov and (_garbled(ov) or _unsupported_numbers(ov, evidence)):
+                dropped["근거 없는 숫자"] += 1
+                ov = ""  # 틀릴 위험이 있는 문장은 쓰지 않는다(2차 재작성에서 다시 쓰게 함)
+            sections.append({**sec, "overview": ov, "items": items})
+    if dropped["깨진 문자"] >= 3:
+        raise ValueError(f"AI 요약에 한자·일본어가 섞인 항목이 {dropped['깨진 문자']}개 있어 오역으로 판단합니다")
     total = sum(len(x["items"]) for x in sections)
     need = min(MIN_AI_ITEMS, max(1, len(articles) // 20))
     if total < need:
         raise ValueError(f"AI 요약이 부실합니다: 유효 항목 {total}개 (최소 {need}개 필요, 제거 {dropped})")
+    headline = str(digest.get("headline") or "").strip()
+    all_text = " ".join(f"{it.get('title', '')} {it.get('summary', '')}" for x in sections for it in x["items"])
+    if not headline or _garbled(headline) or _unsupported_numbers(headline, all_text):
+        first = sections[0]["items"][0].get("title", "") if sections else ""
+        headline = _clip(first, 60) or "오늘의 주요 뉴스"
     if verbose and any(dropped.values()):
         print(f"AI 요약 정리: 항목 {total}개 유지, 제거 {dropped}")
-    return {**digest, "sections": sections}
+    return {**digest, "headline": headline, "sections": sections}
 
 
 def backfill_missing_categories(digest: dict, articles: list[Article]) -> dict:
@@ -583,13 +653,135 @@ def backfill_missing_categories(digest: dict, articles: list[Article]) -> dict:
             continue
         items = [it for it in sec["items"] if _link_key(it["link"]) not in used]
         if items:
-            extra.append({"topic": sec["topic"], "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.", "items": items})
+            extra.append({"topic": sec["topic"], "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+                          "backfilled": True, "items": items})
     order = {c: i for i, c in enumerate(CATEGORIES)}
     sections = sorted(digest["sections"] + extra, key=lambda x: order.get(x.get("topic"), len(order)))
     return {**digest, "sections": sections}
 
 
+def ensure_domestic_art(digest: dict, articles: list[Article], minimum: int = MIN_DOMESTIC_ART) -> dict:
+    """문화예술에 국내 소식이 minimum건보다 적으면, 국내 매체의 미술·문화 기사를 원문 헤드라인으로 채운다
+    (독자가 국내 예술계 소식을 꼭 봐야 하므로 AI가 해외 기사만 고르는 날을 막는다)."""
+    by_key = {_link_key(a.link): a for a in articles}
+    sections = [dict(x) for x in digest.get("sections", [])]
+    sec = next((x for x in sections if x.get("topic") == "문화예술"), None)
+    items = list(sec["items"]) if sec else []
+
+    def domestic(it: dict) -> bool:
+        a = by_key.get(_link_key(str(it.get("link", ""))))
+        return bool(a and a.region == "국내")
+
+    have = sum(1 for it in items if domestic(it))
+    if have >= minimum:
+        return digest
+    used = {_link_key(str(it.get("link", ""))) for x in sections for it in x.get("items", [])}
+    cands = sorted((a for a in articles if a.region == "국내" and _link_key(a.link) not in used
+                    and ((a.category == "문화예술" and art_score(a) > 0) or art_score(a) >= 6)),
+                   key=lambda a: -art_score(a))
+    added, per_outlet = [], {}
+    for a in cands:
+        if have + len(added) >= minimum:
+            break
+        if per_outlet.get(a.outlet, 0) >= 2:
+            continue
+        per_outlet[a.outlet] = per_outlet.get(a.outlet, 0) + 1
+        added.append({"title": html.unescape(a.title), "summary": _clip(a.summary, 120),
+                      "source": a.outlet, "link": a.link})
+    if not added:
+        return digest
+    limit = CATEGORY_LIMITS["문화예술"]
+    while len(items) + len(added) > limit:  # 자리가 모자라면 뒤쪽의 해외 항목부터 덜어낸다
+        idx = next((i for i in range(len(items) - 1, -1, -1) if not domestic(items[i])), None)
+        if idx is None:
+            break
+        items.pop(idx)
+    if sec:
+        sec["items"] = items + added
+    else:
+        sections.append({"topic": "문화예술", "overview": "", "items": added})
+    order = {c: i for i, c in enumerate(CATEGORIES)}
+    sections.sort(key=lambda x: order.get(x.get("topic"), len(order)))
+    return {**digest, "sections": sections}
+
+
+REFINE_PROMPT = """당신은 뉴스 에디터입니다. 아래는 이미 확정된 카테고리별 뉴스 항목입니다
+(각 줄: - [국내/미국/영국/기타 해외] 제목 – 요약 (출처)).
+각 카테고리마다 **그 항목들만 근거로** 오늘의 핵심을 2~3문장으로 쓰세요.
+- 항목에 적힌 사실만 쓰세요. 점수·금액·날짜·인용 같은 숫자는 항목에 있는 것만 쓰고,
+  항목에 없는 배경·원인·전망·결과를 덧붙이지 마세요.
+- 항목 제목을 그대로 나열하지 말고, 큰 흐름과 항목 사이의 연결을 설명하세요.
+- 문화예술은 [국내] 소식과 해외 소식을 나누어 설명하세요.
+- 한국어로만 쓰세요(한자·일본어 금지). 외국 이름은 한글로 쓰세요.
+- 입력된 카테고리를 모두 포함하고, 카테고리 이름은 그대로 쓰세요.
+- 반드시 아래 JSON만 출력하세요 (설명, 코드펜스 없이):
+{"overviews": {"카테고리 이름": "핵심 요약 2~3문장"}}"""
+REFINE_BUDGET_SECONDS = 90
+REFINE_REQUEST_SECONDS = 90
+REFINE_DEADLINE = 600   # 실행 시작 후 이 시간(초)이 지났으면 2차 작업은 건너뛴다(워크플로 제한 대비)
+_RUN_START = time.monotonic()
+
+
+def refine_overviews(digest: dict, articles: list[Article], provider: str) -> dict:
+    """2차 작업: 항목이 확정된 뒤, 그 항목들만 보고 카테고리별 '오늘의 핵심'을 다시 쓰게 한다.
+    1차 응답의 핵심 요약은 항목에 없는 사실이 섞이는 일이 실측으로 확인되어(없는 경기 결과 등) 따로 한 번 더 쓰게 한다.
+    실패하면 1차 결과를 그대로 쓴다(최선 노력)."""
+    targets = [x for x in digest.get("sections", []) if not x.get("backfilled") and x.get("items")]
+    if not targets or time.monotonic() - _RUN_START > REFINE_DEADLINE:
+        return digest
+    by_key = {_link_key(a.link): a for a in articles}
+    blocks = []
+    for sec in targets:
+        lines = [f"## {sec['topic']}"]
+        for it in sec["items"]:
+            a = by_key.get(_link_key(str(it.get("link", ""))))
+            lines.append(f"- [{a.region if a else ''}] {it.get('title', '')} – {it.get('summary', '')} ({it.get('source', '')})")
+        blocks.append("\n".join(lines))
+    user = "\n\n".join(blocks)
+    topics = [x["topic"] for x in targets]
+
+    def check(text: str) -> dict:
+        ov = parse_json(text).get("overviews")
+        if not isinstance(ov, dict):
+            raise ValueError("overviews 없음")
+        good = {str(t).strip(): v.strip() for t, v in ov.items() if isinstance(v, str) and len(v.strip()) >= 20}
+        missing = [t for t in topics if t not in good]
+        if len(missing) > len(topics) // 3:
+            raise ValueError(f"핵심 요약이 빠진 카테고리가 많습니다: {missing}")
+        return good
+
+    global LAST_MODEL_USED
+    keep_model = LAST_MODEL_USED
+    try:
+        if provider == "openrouter":
+            text = _call_openrouter(REFINE_PROMPT, user, check, budget=REFINE_BUDGET_SECONDS,
+                                    request_seconds=REFINE_REQUEST_SECONDS)
+        else:
+            text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](REFINE_PROMPT, user)
+        good = check(text)
+    except Exception as err:  # noqa: BLE001 - 2차 작업 실패는 치명적이지 않다
+        print(f"[warn] 핵심 요약 재작성 실패, 1차 결과를 그대로 씁니다: {err}", file=sys.stderr)
+        return digest
+    finally:
+        LAST_MODEL_USED = keep_model
+    sections, changed = [], 0
+    for sec in digest["sections"]:
+        new = good.get(sec.get("topic", ""))
+        if new and not sec.get("backfilled"):
+            evidence = " ".join(f"{it.get('title', '')} {it.get('summary', '')}" for it in sec["items"])
+            if _garbled(new) or _unsupported_numbers(new, evidence):
+                print(f"[warn] {sec['topic']}: 재작성한 핵심 요약에 근거 없는 내용이 있어 쓰지 않습니다", file=sys.stderr)
+            else:
+                sec = {**sec, "overview": new}
+                changed += 1
+        sections.append(sec)
+    print(f"핵심 요약 재작성: {changed}/{len(targets)}개 카테고리 반영")
+    return {**digest, "sections": sections}
+
+
 def summarize(articles: list[Article], provider: str) -> dict:
+    global LAST_MODEL_USED
+    LAST_MODEL_USED = ""
     lines = [
         f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
         for i, a in enumerate(articles, 1)
@@ -603,8 +795,13 @@ def summarize(articles: list[Article], provider: str) -> dict:
         text = _call_openrouter(SYSTEM_PROMPT, user, check)
     else:
         text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
+        LAST_MODEL_USED = {"anthropic": os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
+                           "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")}[provider]
     digest = validate_digest(parse_json(text), articles, verbose=True)
-    return backfill_missing_categories(digest, articles)
+    digest = backfill_missing_categories(digest, articles)
+    digest = ensure_domestic_art(digest, articles)
+    digest = refine_overviews(digest, articles, provider)
+    return {**digest, "model": LAST_MODEL_USED or provider}
 
 
 def parse_json(text: str) -> dict:
@@ -721,6 +918,22 @@ def _footer(digest: dict) -> str:
     return "AI 요약 없이 각 신문사의 제목과 발췌문을 모은 목록입니다. 자세한 내용은 원문을 확인하세요."
 
 
+def _meta_line(digest: dict) -> str:
+    """발송 하단의 실행 정보(몇 건·어느 모델·읽지 못한 매체). 문제가 생겼을 때 원인을 바로 알 수 있게 한다."""
+    meta = digest.get("meta") or {}
+    if not meta:
+        return ""
+    parts = [f"기사 {meta.get('articles', 0)}건", f"매체 {meta.get('outlets', 0)}곳"]
+    if digest.get("ai", True):
+        parts.append("요약 모델: " + (str(digest.get("model") or "").replace(":free", "") or "알 수 없음"))
+    else:
+        parts.append("AI 요약 없음")
+    failed = meta.get("failed_feeds") or []
+    if failed:
+        parts.append("읽지 못한 매체: " + ", ".join(failed))
+    return " · ".join(parts)
+
+
 def _overviews(digest: dict) -> list[tuple[str, str]]:
     """카테고리별 핵심 요약(overview) 목록. AI 요약이 없는 헤드라인 모드에서는 비어 있다."""
     return [(s.get("topic", ""), s["overview"].strip())
@@ -761,9 +974,10 @@ def render_html(digest: dict, date: datetime) -> str:
                      "<b>참고한 신문사</b><br>")
         parts.extend(f"{e(region)}: {e(', '.join(names))}<br>" for region, names in outlets.items())
         parts.append("</div>")
+    meta = _meta_line(digest)
     parts.append(
         '<p style="font-size:11px;color:#aaa;margin-top:16px">'
-        f"{_footer(digest)}</p></div>"
+        f"{e(_footer(digest))}" + (f"<br>{e(meta)}" if meta else "") + "</p></div>"
     )
     return "".join(parts)
 
@@ -897,7 +1111,10 @@ def render_markdown(digest: dict, date: datetime) -> str:
         out.append("**참고한 신문사**  ")
         out.extend(f"{_md(region)}: {_md(', '.join(names))}  " for region, names in outlets.items())
     out.append("")
-    out.append(f"_{_footer(digest)}_")
+    out.append(f"_{_md(_footer(digest))}_")
+    meta = _meta_line(digest)
+    if meta:
+        out.append(f"  \n_{_md(meta)}_")
     return "\n".join(out)[:ISSUE_BODY_LIMIT]
 
 
@@ -985,7 +1202,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"[warn] {provider} 요약 실패: {err}", file=sys.stderr)
         if digest is None:  # 모두 실패해도 오늘 메일은 보낸다
             print("[warn] 모든 AI 공급자가 실패해 헤드라인만 발송합니다", file=sys.stderr)
-            if isinstance(last_err, QuotaExceeded) or type(last_err).__name__ == "RateLimitError":
+            if isinstance(last_err, ModelUnavailable):
+                note = MODEL_NOTE
+            elif isinstance(last_err, QuotaExceeded) or type(last_err).__name__ == "RateLimitError":
                 note = QUOTA_NOTE
             elif isinstance(last_err, FreeTierUnavailable):
                 note = NO_FREE_NOTE
@@ -994,6 +1213,8 @@ def main(argv: list[str] | None = None) -> int:
             digest = headlines_only(articles, headline=note)
 
     digest["outlets"] = outlets_by_region(articles)
+    digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
+                      "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
     now = datetime.now(KST)
     html_body = render_html(digest, now)
     text_body = render_text(digest)

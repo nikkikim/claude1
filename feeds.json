@@ -17,7 +17,6 @@
     {"outlet": "매일경제", "region": "국내", "category": "경제·증시", "url": "https://www.mk.co.kr/rss/50200011/"},
     {"outlet": "매일경제", "region": "국내", "category": "경제·증시", "url": "https://www.mk.co.kr/rss/30100041/", "max_items": 5},
     {"outlet": "매일경제", "region": "국내", "category": "문화예술", "url": "https://www.mk.co.kr/rss/30000023/", "max_items": 10},
-    {"outlet": "머니투데이", "region": "국내", "category": "경제·증시", "url": "https://rss.mt.co.kr/mt_news.xml", "max_items": 6},
     {"outlet": "뉴시스", "region": "국내", "category": "문화예술", "url": "https://www.newsis.com/RSS/culture.xml", "max_items": 10},
     {"outlet": "헤럴드경제", "region": "국내", "category": "문화예술", "url": "https://biz.heraldcorp.com/rss/google/culture", "max_items": 10, "max_age_hours": 36},
     {"outlet": "한겨레", "region": "국내", "category": "문화예술", "url": "https://www.hani.co.kr/rss/culture/", "max_items": 8},

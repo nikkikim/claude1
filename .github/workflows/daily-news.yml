@@ -20,10 +20,14 @@ permissions:
   contents: read
   issues: write   # GitHub 알림 방식: 뉴스를 이슈로 올려 메일 알림을 받음
 
+concurrency:
+  group: daily-news          # 같은 시각에 두 번 실행돼 이슈가 중복 생성되는 것을 막음
+  cancel-in-progress: false
+
 jobs:
   send:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
