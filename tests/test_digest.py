@@ -755,13 +755,14 @@ def test_openrouter_retries_without_reasoning_option_if_model_rejects_it(monkeyp
     assert seen[0]["model"] == seen[1]["model"] == "m1"
 
 
-def test_default_openrouter_models_are_free_and_start_with_a_non_reasoning_model():
+def test_default_openrouter_models_are_free_verified_ones_only():
     ms = nd.OPENROUTER_DEFAULT_MODELS
-    assert ms[0] == "google/gemma-4-31b-it:free"                      # 추론이 기본 꺼진 모델 우선
-    assert all(m.endswith(":free") or m == "openrouter/free" for m in ms)
-    for mandatory_reasoning in ("liquid/lfm-2.5-2.6b:free", "recursive/flint-v1.0:free", "stealth/crouton-alpha"):
-        assert mandatory_reasoning not in ms                          # 추론을 끌 수 없는 모델은 제외
-
+    assert ms[0] == "nvidia/nemotron-3-ultra-550b-a55b:free"          # 실측에서 품질·안정성이 확인된 모델이 1순위
+    assert all(m.endswith(":free") for m in ms)
+    # 품질 불량(중국어 혼입·허위 서술)·추론 폭주·접근 불가·추론을 끌 수 없는 모델은 기본 목록에서 제외
+    for bad in ("dots-studio/dots-3-note-preview:free", "openrouter/free", "thinkingmachines/inkling-small:free",
+                "liquid/lfm-2.5-2.6b:free", "recursive/flint-v1.0:free", "stealth/crouton-alpha"):
+        assert bad not in ms
 
 def test_openrouter_empty_response_log_has_diagnostics(monkeypatch, capsys):
     import pytest

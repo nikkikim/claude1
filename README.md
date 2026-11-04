@@ -15,7 +15,7 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 **요약 엔진 선택** (키를 여러 개 등록하면 claude → gemini → openrouter 순으로 시도하고, 앞이 실패하면 다음으로 자동 전환합니다)
 
 1. **없음 (0원, 기본값)** — 키를 하나도 등록하지 않으면 AI 없이 카테고리별 헤드라인만 보냅니다. 해외 기사는 영어 원문 제목 그대로입니다.
-2. **OpenRouter 무료 모델 (0원 가능, 한국어 요약 포함)** — [openrouter.ai](https://openrouter.ai)에서 키를 발급해 `OPENROUTER_API_KEY`로 등록. 무료(`:free`) 모델은 공식 문서상 분당 20회, **하루 50회**까지(누적 10크레딧 이상 구매 시 1,000회)라 하루 1회 호출에는 충분합니다. 무료 모델 목록은 수시로 바뀌어서 위에서부터 차례로 시도하며(`OPENROUTER_MODELS` 변수로 변경 가능), 한국어 품질과 JSON 형식 준수는 모델마다 다를 수 있습니다. 카드 등록이 필요한지는 문서에 명시돼 있지 않습니다.
+2. **OpenRouter 무료 모델 (0원 가능, 한국어 요약 포함)** — [openrouter.ai](https://openrouter.ai)에서 키를 발급해 `OPENROUTER_API_KEY`로 등록. 무료(`:free`) 모델은 공식 문서상 분당 20회, **하루 50회**까지(누적 10크레딧 이상 구매 시 1,000회)라 하루 1회 호출에는 충분합니다. 기본 모델은 실측으로 고른 **Nemotron 3 Ultra → Gemma 4 31B → Gemma 4 26B** 순서이고(`OPENROUTER_MODELS` 변수로 변경 가능), 모든 요청에 **추론 끄기**를 넣습니다(끄지 않으면 추론 모델이 토큰을 다 쓰고 빈 응답을 내는 일이 잦았음). 실측(2026-11-04): Nemotron 3 Ultra는 약 100초에 자연스러운 한국어 요약을 냈고, Gemma는 구글 쪽 한도(429)로 자주 막히며, dots-3는 중국어 혼입·지명 오류·없는 사건 서술이 있어 제외했고, 자동 라우터(`openrouter/free`)는 추론 모델로 연결돼 제외했습니다. 무료 모델은 공유 자원이라 어느 날은 실패할 수 있고, 그 경우 헤드라인만 발송됩니다(실행 시간은 최대 약 7분). 카드 등록이 필요한지는 문서에 명시돼 있지 않습니다.
 3. **Google Gemini** — [AI Studio](https://aistudio.google.com/apikey)에서 키 발급 후 `GEMINI_API_KEY`. 단, 무료 티어는 **Google Cloud 프로젝트 단위로 자격이 평가**되어 일부 프로젝트/계정에서는 `403 free tier is not available for this project`로 쓸 수 없고(같은 프로젝트에서 키만 다시 만들어도 해결되지 않음), 그 경우 유료 결제 연결이 필요합니다.
 4. **Claude API (유료, 종량제)** — `ANTHROPIC_API_KEY` 등록. **Claude.ai 구독(Pro/Max)과는 별개 상품·별개 결제**입니다. [console.anthropic.com](https://console.anthropic.com)에서 크레딧을 충전해야 하며, 구독을 해지해도 API는 영향이 없지만 구독이 API를 대신해 주지도 않습니다.
 

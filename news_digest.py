@@ -375,16 +375,17 @@ def _call_gemini(system: str, user: str) -> str:
 
 
 # OpenRouter 무료(:free) 모델. 무료 모델 목록은 수시로 바뀌므로 위에서부터 차례로 시도하고,
-# OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다.
-# 자동 라우터(openrouter/free)에만 맡기면 '추론(생각)' 모델이 걸려 추론에 토큰을 다 쓰고 답을 못 내는 일이 잦았다(실측).
-# 그래서 (1) 모든 요청에 추론 끄기를 넣고 (2) 추론을 끌 수 있는 모델(reasoning.mandatory=false)을 직접 지정한다.
-# 같은 공급자(구글)에서 막히는 Gemma 두 개는 사이에 다른 계열을 끼워 넣었다. 마지막 라우터는 최후의 수단.
+# OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다. 실측 결과(2026-11-04, 같은 기사 450건·추론 끄기):
+#  - nvidia/nemotron-3-ultra-550b-a55b:free : 98초, 자연스러운 한국어·정확한 요약 → 1순위
+#  - google/gemma-4-31b-it:free, gemma-4-26b-a4b-it:free : 구글 쪽 429(한도)로 자주 막히지만 열려 있으면 빠름 → 2·3순위
+#  - dots-studio/dots-3-note-preview:free : 중국어 혼입·지명 오류·없는 사건 서술 → 제외(오역·허위 요약은 헤드라인 모드보다 나쁨)
+#  - openrouter/free(자동 라우터) : 위 모델로 연결될 수 있고 추론 모델로 빠지는 일이 잦아 제외
+#  - thinkingmachines/inkling*:free : 에이전트 앱 전용(403) → 제외
+# 추론을 끌 수 없는 모델(liquid/lfm, recursive/flint, stealth/crouton)도 쓰지 않는다.
 OPENROUTER_DEFAULT_MODELS = (
-    "google/gemma-4-31b-it:free",
     "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "dots-studio/dots-3-note-preview:free",
+    "google/gemma-4-31b-it:free",
     "google/gemma-4-26b-a4b-it:free",
-    "openrouter/free",
 )
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 150   # 모델 1개당 최대 대기 시간(응답 전체 기준)
