@@ -229,7 +229,7 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                     category=feed.get("category", "종합"),
                     title=title,
                     link=link,
-                    summary=_strip_html(entry.get("summary", ""))[:200],
+                    summary=_clip(_clean_summary(_strip_html(entry.get("summary", ""))), 200),
                     published=published,
                 ))
                 if len(items) >= per_feed:
@@ -246,8 +246,19 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
 
 
 def _strip_html(text: str) -> str:
-    import re
     return html.unescape(re.sub(r"<[^>]+>", " ", text)).strip()
+
+
+def _clean_summary(text: str) -> str:
+    """연합·뉴시스 등의 기사 앞머리 '(서울=연합뉴스) 홍길동 기자 =' 같은 바이라인을 제거하고 공백을 정리한다."""
+    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"^[\(\[][^\)\]]{1,40}[\)\]]\s*", "", text)                       # (서울=연합뉴스) / [서울=뉴시스]
+    text = re.sub(r"^(?:[가-힣A-Za-z· ]{2,25}\s)?[가-힣]{2,4}(?:\s[가-힣]{2,8})?\s?(?:기자|특파원)\s*=\s*", "", text)  # 홍길동 (미술전문) 기자 =
+    return text.strip()
+
+
+def _clip(text: str, n: int) -> str:
+    return text if len(text) <= n else text[:n].rstrip() + "…"
 
 
 # ---------- 요약 ----------
@@ -451,9 +462,9 @@ def headlines_only(articles: list[Article], headline: str = "AI 요약 없이 �
                         picked.append(lst[rank])
         if picked:
             sections.append({"topic": cat, "items": [
-                {"title": html.unescape(a.title), "summary": a.summary[:120], "source": a.outlet, "link": a.link}
+                {"title": html.unescape(a.title), "summary": _clip(a.summary, 120), "source": a.outlet, "link": a.link}
                 for a in picked]})
-    return {"headline": headline, "sections": sections}
+    return {"headline": headline, "sections": sections, "ai": False}
 
 
 def outlets_by_region(articles: list[Article]) -> dict[str, list[str]]:
@@ -470,6 +481,12 @@ def outlets_by_region(articles: list[Article]) -> dict[str, list[str]]:
 
 def _safe_url(url: str) -> str:
     return url if url.startswith(("http://", "https://")) else "#"
+
+
+def _footer(digest: dict) -> str:
+    if digest.get("ai", True):
+        return "AI가 자동 요약한 내용이므로 중요한 사항은 원문을 확인하세요."
+    return "AI 요약 없이 각 신문사의 제목과 발췌문을 모은 목록입니다. 자세한 내용은 원문을 확인하세요."
 
 
 def _overviews(digest: dict) -> list[tuple[str, str]]:
@@ -514,7 +531,7 @@ def render_html(digest: dict, date: datetime) -> str:
         parts.append("</div>")
     parts.append(
         '<p style="font-size:11px;color:#aaa;margin-top:16px">'
-        "AI가 자동 요약한 내용이므로 중요한 사항은 원문을 확인하세요.</p></div>"
+        f"{_footer(digest)}</p></div>"
     )
     return "".join(parts)
 
@@ -648,7 +665,7 @@ def render_markdown(digest: dict, date: datetime) -> str:
         out.append("**참고한 신문사**  ")
         out.extend(f"{_md(region)}: {_md(', '.join(names))}  " for region, names in outlets.items())
     out.append("")
-    out.append("_AI가 자동 요약한 내용이므로 중요한 사항은 원문을 확인하세요._")
+    out.append(f"_{_footer(digest)}_")
     return "\n".join(out)[:ISSUE_BODY_LIMIT]
 
 

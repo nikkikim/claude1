@@ -481,3 +481,28 @@ def test_prompt_states_reader_focus_and_limits():
     for needle in ("예술가", "세계 이슈", "코인", "문화예술", "국내와 해외", "아이돌"):
         assert needle in nd.SYSTEM_PROMPT
     assert "문화예술 8개" in nd.SYSTEM_PROMPT and "세계 이슈 7개" in nd.SYSTEM_PROMPT
+
+
+def test_clean_summary_strips_bylines_but_keeps_normal_text():
+    assert nd._clean_summary("(서울=연합뉴스) 전명훈 기자 = 북한이 4일 미사일을") == "북한이 4일 미사일을"
+    assert nd._clean_summary("[서울=뉴시스] 박현주 미술전문 기자 = 회화는 어떤 의미를") == "회화는 어떤 의미를"
+    assert nd._clean_summary("[서울=뉴시스]이수지 기자 = 전통 재료와") == "전통 재료와"
+    assert nd._clean_summary("[블록미디어 함지현 기자] 미국 중간선거에서") == "미국 중간선거에서"
+    assert nd._clean_summary("(카이로=연합뉴스) 김상훈 특파원 = 이란이") == "이란이"
+    assert nd._clean_summary("Israel's president begins   talks") == "Israel's president begins talks"
+    assert nd._clean_summary("일반 문장입니다. 기자 = 이 아닌 경우") == "일반 문장입니다. 기자 = 이 아닌 경우"
+
+
+def test_clip_adds_ellipsis_only_when_truncated():
+    assert nd._clip("짧은 글", 120) == "짧은 글"
+    assert nd._clip("a" * 130, 120) == "a" * 120 + "…"
+
+
+def test_footer_does_not_claim_ai_summary_in_headlines_mode():
+    day = datetime(2026, 11, 4)
+    heads = nd.headlines_only([_art("A", "국내", "세계 이슈")])
+    assert heads["ai"] is False
+    for out in (nd.render_html(heads, day), nd.render_markdown(heads, day)):
+        assert "AI 요약 없이" in out and "AI가 자동 요약한" not in out
+    ai = {"headline": "h", "sections": []}
+    assert "AI가 자동 요약한" in nd.render_html(ai, day) and "AI가 자동 요약한" in nd.render_markdown(ai, day)
