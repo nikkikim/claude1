@@ -1264,36 +1264,50 @@ def render_markdown(digest: dict, date: datetime) -> str:
 
 def send_github_issue(title: str, body: str) -> None:
     """저장소에 이슈를 하나 만든다. 이슈 담당자(기본: 저장소 주인)에게 GitHub가 메일로 알려준다.
-    GitHub Actions에서는 별도의 키 없이 자동 제공되는 GITHUB_TOKEN으로 동작한다."""
+    GitHub Actions에서는 별도의 키 없이 자동 제공되는 GITHUB_TOKEN으로 동작한다.
+    만든 이슈는 댓글을 잠가(저장소 협력자만 댓글 가능) 낯선 사람의 댓글 알림을 막는다. 끄려면 ISSUE_LOCK=false."""
     repo = os.environ["GITHUB_REPOSITORY"]
     token = os.environ["GITHUB_TOKEN"]
     who = os.environ.get("ISSUE_ASSIGNEES") or os.environ.get("GITHUB_REPOSITORY_OWNER", "")
     assignees = [x.strip() for x in who.split(",") if x.strip()]
+    headers = {"Authorization": f"Bearer {token}",
+               "Accept": "application/vnd.github+json",
+               "X-GitHub-Api-Version": "2022-11-28",
+               "Content-Type": "application/json",
+               "User-Agent": "news-digest"}
 
-    def post(payload: dict) -> None:
-        req = urllib.request.Request(
-            f"https://api.github.com/repos/{repo}/issues",
-            data=json.dumps(payload).encode(),
-            method="POST",
-            headers={"Authorization": f"Bearer {token}",
-                     "Accept": "application/vnd.github+json",
-                     "X-GitHub-Api-Version": "2022-11-28",
-                     "Content-Type": "application/json",
-                     "User-Agent": "news-digest"})
-        with urllib.request.urlopen(req, timeout=30):
-            pass
+    def post(payload: dict) -> int | None:
+        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/issues",
+                                     data=json.dumps(payload).encode(), method="POST", headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as r:
+            try:
+                return int(json.load(r).get("number"))
+            except Exception:  # noqa: BLE001 - 번호를 못 읽으면 잠금만 건너뜀
+                return None
+
+    def lock(number: int | None) -> None:
+        if number is None or os.environ.get("ISSUE_LOCK", "").strip().lower() in ("0", "false", "no"):
+            return
+        try:  # 잠금 실패는 발송 성공에 영향을 주지 않는다
+            req = urllib.request.Request(f"https://api.github.com/repos/{repo}/issues/{number}/lock",
+                                         data=b"{}", method="PUT", headers=headers)
+            with urllib.request.urlopen(req, timeout=30):
+                pass
+            print(f"이슈 #{number} 댓글 잠금 완료")
+        except Exception as err:  # noqa: BLE001
+            print(f"[warn] 이슈 #{number} 댓글 잠금 실패(무시): {err}", file=sys.stderr)
 
     payload = {"title": title, "body": body}
     if assignees:
         payload["assignees"] = assignees
     try:
-        post(payload)
+        lock(post(payload))
     except urllib.error.HTTPError as err:
         detail = err.read().decode("utf-8", "replace")[:300]
         if err.code == 422 and assignees:  # 담당자로 지정할 수 없는 계정(조직 등)이면 담당자 없이 재시도
             payload.pop("assignees")
             try:
-                post(payload)
+                lock(post(payload))
                 return
             except urllib.error.HTTPError as err2:
                 err, detail = err2, err2.read().decode("utf-8", "replace")[:300]

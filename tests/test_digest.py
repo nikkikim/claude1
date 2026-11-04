@@ -1409,3 +1409,36 @@ def test_workflow_deploys_pages_with_minimal_permissions():
     top = wf.split("jobs:")[0]
     assert "contents: read" in top and "contents: write" not in top           # 쓰기 권한은 send 작업에만
     assert wf.count("contents: write") == 1
+
+
+def test_issue_is_locked_after_creation_and_lock_failure_is_harmless(monkeypatch, capsys):
+    import io
+    import urllib.error
+    calls = []
+
+    class R:
+        def __init__(self, data=b""): self.data = data
+        def __enter__(self): return self
+        def __exit__(self, *a): pass
+        def read(self, *a): return self.data
+
+    def fake(req, timeout=0):
+        calls.append((req.get_method(), req.full_url))
+        if req.get_method() == "POST":
+            return R(b'{"number": 42}')
+        if fake.fail:
+            raise urllib.error.HTTPError(req.full_url, 403, "no", {}, io.BytesIO(b"forbidden"))
+        return R()
+    fake.fail = False
+    _gh_env(monkeypatch)
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    nd.send_github_issue("t", "b")
+    assert calls[-1] == ("PUT", "https://api.github.com/repos/me/news/issues/42/lock")
+    assert "잠금 완료" in capsys.readouterr().out
+    fake.fail = True
+    nd.send_github_issue("t", "b")                          # 잠금이 실패해도 예외 없이 끝남(발송은 성공)
+    assert "잠금 실패" in capsys.readouterr().err
+    n = len(calls)
+    monkeypatch.setenv("ISSUE_LOCK", "false")
+    nd.send_github_issue("t", "b")
+    assert len(calls) == n + 1                              # 끄면 POST만 하고 PUT 없음
