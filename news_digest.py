@@ -54,6 +54,8 @@ from pathlib import Path
 
 import feedparser
 
+import daily_messages
+
 KST = timezone(timedelta(hours=9))
 CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
@@ -377,73 +379,8 @@ def _weather_lines(digest: dict) -> list[str]:
     return lines
 
 
-# 오늘의 한마디: 직접 쓴 짧은 응원 문장(인용이 아니라서 출처 오류가 없음). 날짜에 따라 하나씩 돌아가며 나온다.
-DAILY_MESSAGES = (
-    ("오늘 하루, 작은 한 걸음이면 충분해요.", "One small step is enough for today."),
-    ("당신의 속도는 틀리지 않았어요.", "Your pace is not wrong."),
-    ("오늘도 당신만의 방식으로 빛나면 돼요.", "Shine today in your own way."),
-    ("시작하는 용기가 이미 절반의 성공이에요.", "The courage to begin is already half the work."),
-    ("어제의 나보다 조금만 다정하게 시작해요.", "Start today a little kinder than yesterday."),
-    ("좋은 일은 천천히, 그러나 분명히 오고 있어요.", "Good things are arriving, slowly but surely."),
-    ("오늘의 작은 시도가 내일의 큰 길이 돼요.", "Today's small attempt becomes tomorrow's wide road."),
-    ("서두르지 않아도 도착할 곳에는 도착해요.", "You don't have to rush to arrive where you're headed."),
-    ("완벽하지 않아도 괜찮아요. 시작이 중요해요.", "It doesn't have to be perfect. Starting is what matters."),
-    ("오늘 만나는 모든 순간에 호기심을 가져 봐요.", "Meet every moment today with curiosity."),
-    ("당신의 창작은 세상에 꼭 필요한 이야기예요.", "What you create is a story the world needs."),
-    ("숨을 깊게 쉬고, 천천히 시작해 봐요.", "Take a deep breath and begin slowly."),
-    ("오늘은 나를 믿어 주는 날로 해요.", "Let today be a day you trust yourself."),
-    ("작은 기쁨 하나를 찾는 하루가 되길 바라요.", "May you find one small joy today."),
-    ("실수해도 괜찮아요. 거기서 새로운 길이 열려요.", "Mistakes are okay. New paths open from them."),
-    ("지금 있는 그 자리에서 충분히 잘하고 있어요.", "You're doing well right where you are."),
-    ("오늘의 햇살은 오직 오늘만 비춰요. 마음껏 누려요.", "Today's light shines only today. Enjoy it."),
-    ("하고 싶은 일을 향해 한 가지만 해 보세요.", "Do just one thing toward what you want."),
-    ("당신 안에는 아직 꺼내지 않은 아이디어가 많아요.", "There are many ideas in you not yet brought out."),
-    ("느리게 가도 멈추지 않으면 괜찮아요.", "Going slowly is fine as long as you keep going."),
-    ("오늘은 어제보다 한 뼘 더 자유로워요.", "Today you are a little freer than yesterday."),
-    ("마음이 가는 쪽으로 한 발만 내디뎌 봐요.", "Take one step toward what your heart leans to."),
-    ("당신의 시선은 세상을 새롭게 보게 해요.", "Your way of seeing helps the world look new."),
-    ("오늘의 걱정은 오늘의 나보다 작아요.", "Today's worries are smaller than today's you."),
-    ("차분히 시작하면 하루가 부드럽게 흘러가요.", "Begin calmly and the day flows gently."),
-    ("당신은 이미 많은 것을 해냈어요. 오늘도 해낼 거예요.", "You've already done so much. You'll do it again today."),
-    ("작은 친절 하나가 하루를 바꿔요.", "One small kindness can change a day."),
-    ("오늘은 잘 쉬는 것도 중요한 일이에요.", "Resting well is important work too."),
-    ("떠오르는 생각을 믿고 한 줄 적어 봐요.", "Trust the thought that arises and jot down a line."),
-    ("아침이 와서 다시 시작할 수 있다는 건 선물이에요.", "That morning comes and you can begin again is a gift."),
-    ("당신의 꾸준함은 조용하지만 강한 힘이에요.", "Your steadiness is quiet but strong."),
-    ("오늘 할 수 있는 만큼만, 마음을 다해서.", "Do what you can today, with your whole heart."),
-    ("좋은 하루는 좋은 마음에서 시작돼요.", "A good day begins with a good heart."),
-    ("당신이 만드는 모든 선은 당신만의 목소리예요.", "Every line you make is your own voice."),
-    ("바람이 불어도 나는 내 길을 갈 수 있어요.", "Even when the wind blows, I can walk my own path."),
-    ("오늘도 세상은 당신의 색을 기다리고 있어요.", "The world is waiting for your colors today."),
-    ("괜찮아요, 천천히 해도 돼요.", "It's okay. You can take your time."),
-    ("한 번 웃고 시작하면 하루가 가벼워져요.", "Start with one smile and the day feels lighter."),
-    ("지금의 노력은 반드시 어딘가에 쌓이고 있어요.", "Your effort now is surely adding up somewhere."),
-    ("오늘 하루도 당신답게, 충분히 멋지게.", "Be yourself today, and that is wonderful enough."),
-    ("새로운 하루는 새로운 가능성이에요.", "A new day is a new possibility."),
-    ("마음에 여백을 두면 좋은 생각이 들어와요.", "Leave space in your mind and good ideas will come in."),
-    ("할 수 있다는 믿음이 첫 번째 재료예요.", "Believing you can is the first ingredient."),
-    ("오늘 만나는 사람에게 따뜻한 말 한마디를 건네 봐요.", "Offer one warm word to someone you meet today."),
-    ("당신의 하루는 당신이 그리는 한 장의 그림이에요.", "Your day is a picture you are painting."),
-    ("조금 흔들려도 괜찮아요. 균형은 움직이며 찾는 거예요.", "A little wobble is fine. Balance is found in motion."),
-    ("오늘의 나에게 수고했다고 미리 말해 줘요.", "Tell today's you 'well done' in advance."),
-    ("가장 좋은 작품은 아직 만들어지지 않았어요.", "Your best work hasn't been made yet."),
-    ("어떤 날에도 당신의 가치는 그대로예요.", "Your worth stays the same on any day."),
-    ("깊은 숨 한 번, 가벼운 마음 한 번.", "One deep breath, one lighter heart."),
-    ("오늘도 힘차게, 하지만 다정하게.", "Be strong today, and gentle too."),
-    ("꿈은 매일 조금씩 가까워지고 있어요.", "Your dream gets a little closer every day."),
-    ("당신이 오늘 보는 풍경이 누군가의 영감이 될 거예요.", "What you see today may inspire someone."),
-    ("지금 이 순간도 충분히 아름다워요.", "This very moment is beautiful enough."),
-    ("용기는 크지 않아도 돼요. 한 뼘이면 돼요.", "Courage needn't be big. An inch is enough."),
-    ("오늘도 호기심 하나를 주머니에 넣고 나가요.", "Step out today with one curiosity in your pocket."),
-    ("힘들면 잠깐 쉬어가요. 길은 그대로 있어요.", "If it's hard, pause. The road will still be there."),
-    ("당신은 생각보다 훨씬 잘 해내고 있어요.", "You're doing much better than you think."),
-    ("좋은 하루 보내세요. 당신은 그럴 자격이 있어요.", "Have a good day. You deserve it."),
-)
-
-
 def daily_message(date: datetime) -> dict:
-    ko, en = DAILY_MESSAGES[date.toordinal() % len(DAILY_MESSAGES)]
-    return {"ko": ko, "en": en}
+    return daily_messages.message_for(date.toordinal())
 
 
 # ---------- 요약 ----------

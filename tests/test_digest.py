@@ -1225,12 +1225,29 @@ def test_weather_is_placed_above_core_summary():
         assert out.index("오늘의 날씨") < out.index("오늘의 한마디") < out.index("카테고리별 오늘의 핵심")
 
 
-def test_daily_messages_are_bilingual_unique_and_rotate():
-    assert len(nd.DAILY_MESSAGES) >= 50
-    assert len({ko for ko, _ in nd.DAILY_MESSAGES}) == len(nd.DAILY_MESSAGES)
-    assert all(ko.strip() and en.strip() and en.isascii() for ko, en in nd.DAILY_MESSAGES)
+def test_daily_messages_pool_is_huge_and_never_repeats_for_decades():
+    import math
+    import daily_messages as dm
+    assert dm.TOTAL >= 60000 and math.gcd(dm.STRIDE, dm.TOTAL) == 1      # 서로소 → TOTAL일 동안 반복 없음
+    base = datetime(2026, 11, 4).toordinal()
+    days = 365 * 100
+    seen = {dm.message_for(base + i)["ko"] for i in range(days)}
+    assert len(seen) == days                                                # 100년간 같은 문장 0번
     a, b = nd.daily_message(datetime(2026, 11, 4)), nd.daily_message(datetime(2026, 11, 5))
     assert a != b and set(a) == {"ko", "en"}
+
+
+def test_daily_message_parts_are_clean_and_bilingual():
+    import daily_messages as dm
+    for part in (dm._A, dm._B, dm._C, dm.SINGLES):
+        assert all(en.isascii() for _, en in part)
+        assert all(bool(ko) == bool(en) for ko, en in part)                 # 한쪽만 비어 있는 조각 없음
+    assert all(ko and en for ko, en in dm._A + dm._B)
+    assert all(len(set(x)) == len(x) for x in (dm._A, dm._B, dm._C, dm.SINGLES))   # 조각이 겹치면 같은 문장이 반복됨
+    for i in range(0, 4000, 7):
+        m = dm.message_for(i)
+        assert m["ko"].endswith(("요.", "요. ", "!", ".")) and m["en"].strip()
+        assert "  " not in m["ko"] and "  " not in m["en"] and not m["ko"].endswith(" ")
 
 
 def test_main_adds_weather_and_message(monkeypatch, tmp_path):
