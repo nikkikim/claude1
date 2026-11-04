@@ -375,8 +375,18 @@ def _call_gemini(system: str, user: str) -> str:
 
 
 # OpenRouter 무료(:free) 모델. 무료 모델 목록은 수시로 바뀌므로 위에서부터 차례로 시도하고,
-# OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다. 마지막의 openrouter/free는 그때그때 가능한 무료 모델로 자동 연결해 주는 라우터.
-OPENROUTER_DEFAULT_MODELS = ("google/gemma-4-31b-it:free", "nvidia/nemotron-3-ultra-550b-a55b:free", "openrouter/free")
+# OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다.
+# 자동 라우터(openrouter/free)에만 맡기면 '추론(생각)' 모델이 걸려 추론에 토큰을 다 쓰고 답을 못 내는 일이 잦았다(실측).
+# 그래서 (1) 모든 요청에 추론 끄기를 넣고 (2) 추론을 끌 수 있는 모델(reasoning.mandatory=false)을 직접 지정한다.
+# 같은 공급자(구글)에서 막히는 Gemma 두 개는 사이에 다른 계열을 끼워 넣었다. 마지막 라우터는 최후의 수단.
+OPENROUTER_DEFAULT_MODELS = (
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "dots-studio/dots-3-note-preview:free",
+    "google/gemma-4-26b-a4b-it:free",
+    "openrouter/free",
+)
+OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 150   # 모델 1개당 최대 대기 시간(응답 전체 기준)
 OPENROUTER_BUDGET_SECONDS = 420    # 모든 모델을 합친 최대 시도 시간(워크플로 제한 15분 이내)
 
@@ -403,7 +413,7 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
     return box["data"]
 
 
-OPENROUTER_RETRY_WAITS = (20, 45)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 재시도
+OPENROUTER_RETRY_WAITS = (20,)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 1회 재시도(실측: 더 기다려도 풀리지 않음)
 
 
 def _call_openrouter(system: str, user: str) -> str:
@@ -418,17 +428,22 @@ def _call_openrouter(system: str, user: str) -> str:
         print(f"[warn] {msg}", file=sys.stderr)  # 모델마다 이유를 모두 남겨 원인을 추적할 수 있게 함
         return exc_type(msg)
 
-    for model in models:
-        body = json.dumps({
-            "model": model,
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            "temperature": 0.2, "max_tokens": 12000,
-        }).encode()
-        req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=body, headers={
+    def make_req(model: str, reasoning_off: bool) -> urllib.request.Request:
+        payload = {"model": model,
+                   "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                   "temperature": 0.2, "max_tokens": 12000}
+        if reasoning_off:
+            payload["reasoning"] = OPENROUTER_REASONING_OFF
+        return urllib.request.Request("https://openrouter.ai/api/v1/chat/completions",
+                                      data=json.dumps(payload).encode(), headers={
             "Authorization": f"Bearer {key}", "Content-Type": "application/json",
             "HTTP-Referer": "https://github.com", "X-OpenRouter-Title": "news-digest"})  # 키는 헤더로만 전송
+
+    for model in models:
+        reasoning_off, retries = True, 0
+        req = make_req(model, reasoning_off)
         data, t0 = None, time.monotonic()
-        for attempt in range(len(OPENROUTER_RETRY_WAITS) + 1):
+        for attempt in range(len(OPENROUTER_RETRY_WAITS) + 2):  # +1: 재시도, +1: 추론 옵션 제외 재요청
             if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
                 print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 시도는 건너뜁니다", file=sys.stderr)
                 break
@@ -441,8 +456,13 @@ def _call_openrouter(system: str, user: str) -> str:
                 last = fail(model, t0, f"HTTP {err.code} {detail}", QuotaExceeded if err.code == 429 else RuntimeError)
                 if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
                     raise last from None
-                if err.code in (429, 500, 502, 503, 504) and attempt < len(OPENROUTER_RETRY_WAITS):
-                    time.sleep(OPENROUTER_RETRY_WAITS[attempt])  # 잠시 후 같은 모델로 재시도
+                if err.code == 400 and reasoning_off and "reasoning" in detail.lower():
+                    reasoning_off = False  # 이 모델이 '추론 끄기'를 거부하면 그 옵션만 빼고 같은 모델로 다시
+                    req = make_req(model, reasoning_off)
+                    continue
+                if err.code in (429, 500, 502, 503, 504) and retries < len(OPENROUTER_RETRY_WAITS):
+                    time.sleep(OPENROUTER_RETRY_WAITS[retries])  # 잠시 후 같은 모델로 재시도
+                    retries += 1
                     continue
                 break
             except (urllib.error.URLError, TimeoutError, OSError, ValueError) as err:

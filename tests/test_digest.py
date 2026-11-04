@@ -566,7 +566,7 @@ def test_openrouter_falls_through_models_on_429_bad_json_and_empty(monkeypatch):
     monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2,m3,m4,m5")
     out = nd._call_openrouter("s", "u")
     assert json.loads(out.strip("`").split("\n", 1)[1].rsplit("```", 1)[0])["headline"] == "h"
-    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1", "m2", "m3", "m4", "m5"]   # m1은 429라 재시도 후 포기
+    assert [p["model"] for _, p in seen] == ["m1", "m1", "m2", "m3", "m4", "m5"]   # m1은 429라 1회 재시도 후 포기
 
 
 def test_openrouter_auth_error_stops_immediately(monkeypatch):
@@ -701,24 +701,66 @@ def test_openrouter_logs_every_failed_model_with_reason(monkeypatch, capsys):
 def test_openrouter_retries_same_model_on_temporary_429_then_succeeds(monkeypatch, capsys):
     sleeps, seen = [], []
     good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
-    _or_fake(monkeypatch, {"m1": [_http_error(429, "temporarily rate-limited upstream"), _http_error(503, "busy"), good],
-                           "m2": good}, seen, sleeps)
+    _or_fake(monkeypatch, {"m1": [_http_error(429, "temporarily rate-limited upstream"), good], "m2": good}, seen, sleeps)
     monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
     out = nd._call_openrouter("s", "u")
     assert json.loads(out)["headline"] == "h"
-    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1"]        # 같은 모델로 재시도해서 성공(m2는 쓰지 않음)
-    assert sleeps == list(nd.OPENROUTER_RETRY_WAITS)                  # 20초, 45초 대기
+    assert [p["model"] for _, p in seen] == ["m1", "m1"]              # 같은 모델로 재시도해서 성공(m2는 쓰지 않음)
+    assert sleeps == list(nd.OPENROUTER_RETRY_WAITS)                  # 20초 대기
     assert "모델 사용: m1" in capsys.readouterr().out
 
 
-def test_openrouter_gives_up_on_model_after_retries_then_moves_on(monkeypatch):
+def test_openrouter_gives_up_on_model_after_retry_then_moves_on(monkeypatch):
     sleeps, seen = [], []
     good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
     _or_fake(monkeypatch, {"m1": _http_error(429, "limit"), "m2": good}, seen, sleeps)
     monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
     nd._call_openrouter("s", "u")
-    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1", "m2"]   # m1은 3번 시도 후 포기
-    assert len(sleeps) == 2
+    assert [p["model"] for _, p in seen] == ["m1", "m1", "m2"]        # m1은 2번 시도 후 포기
+    assert len(sleeps) == 1
+
+
+def test_openrouter_requests_turn_reasoning_off(monkeypatch):
+    seen = []
+    good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
+    _or_fake(monkeypatch, {"m1": good}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    nd._call_openrouter("s", "u")
+    assert seen[0][1]["reasoning"] == {"effort": "none"}              # 추론에 토큰을 다 쓰고 빈 응답이 나오는 문제 방지
+
+
+def test_openrouter_retries_without_reasoning_option_if_model_rejects_it(monkeypatch):
+    seen = []
+    good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
+    calls = {"n": 0}
+
+    import io
+
+    def fake(req, timeout=0):
+        payload = json.loads(req.data)
+        seen.append(payload)
+        if "reasoning" in payload:
+            raise _http_error(400, '{"error":{"message":"reasoning effort none is not supported for this model"}}')
+
+        class _R:
+            def __enter__(self): return io.StringIO(json.dumps(good))
+            def __exit__(self, *a): pass
+        return _R()
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setattr(nd.time, "sleep", lambda sec: None)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    nd._call_openrouter("s", "u")
+    assert ["reasoning" in p for p in seen] == [True, False]          # 같은 모델에 옵션만 빼고 재요청해 성공
+    assert seen[0]["model"] == seen[1]["model"] == "m1"
+
+
+def test_default_openrouter_models_are_free_and_start_with_a_non_reasoning_model():
+    ms = nd.OPENROUTER_DEFAULT_MODELS
+    assert ms[0] == "google/gemma-4-31b-it:free"                      # 추론이 기본 꺼진 모델 우선
+    assert all(m.endswith(":free") or m == "openrouter/free" for m in ms)
+    for mandatory_reasoning in ("liquid/lfm-2.5-2.6b:free", "recursive/flint-v1.0:free", "stealth/crouton-alpha"):
+        assert mandatory_reasoning not in ms                          # 추론을 끌 수 없는 모델은 제외
 
 
 def test_openrouter_empty_response_log_has_diagnostics(monkeypatch, capsys):
