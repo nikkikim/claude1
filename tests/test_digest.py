@@ -1442,3 +1442,55 @@ def test_issue_is_locked_after_creation_and_lock_failure_is_harmless(monkeypatch
     monkeypatch.setenv("ISSUE_LOCK", "false")
     nd.send_github_issue("t", "b")
     assert len(calls) == n + 1                              # 끄면 POST만 하고 PUT 없음
+
+
+# ---------- 6개월마다 하는 설정 알림 ----------
+
+def test_interaction_limit_notice_window_and_cycle(monkeypatch):
+    from datetime import date
+    monkeypatch.delenv("INTERACTION_LIMIT_SET_ON", raising=False)          # 기본 기준일: 2026-11-05 → 만료 2027-05-05
+    assert nd.interaction_limit_notice(date(2026, 11, 5)) is None
+    assert nd.interaction_limit_notice(date(2027, 4, 20)) is None            # 15일 전: 아직 아님
+    n = nd.interaction_limit_notice(date(2027, 4, 21))                       # 14일 전부터 알림
+    assert n and "14일 뒤(2027년 5월 5일)" in n["lines"][0]
+    text = " ".join(n["lines"])
+    for needle in ("Settings", "Moderation options", "Interaction limits", "6 months", "INTERACTION_LIMIT_SET_ON", "2027-04-21", "off"):
+        assert needle in text                                                # 구체적인 방법이 모두 들어 있음
+    assert "끝났" in nd.interaction_limit_notice(date(2027, 6, 1))["lines"][0]    # 만료 후에도 날짜를 고칠 때까지 계속
+    monkeypatch.setenv("INTERACTION_LIMIT_SET_ON", "2027-05-05")             # 갱신 후엔 사라지고 다음 주기는 6개월 뒤
+    assert nd.interaction_limit_notice(date(2027, 6, 1)) is None
+    assert nd.interaction_limit_notice(date(2027, 10, 22)) is not None
+    monkeypatch.setenv("INTERACTION_LIMIT_SET_ON", "off")
+    assert nd.interaction_limit_notice(date(2027, 6, 1)) is None
+    monkeypatch.setenv("INTERACTION_LIMIT_SET_ON", "아무말")
+    assert nd.interaction_limit_notice(date(2027, 6, 1)) is None             # 잘못된 값이어도 오류 없이 무시
+    assert nd._add_months(date(2026, 8, 31), 6) == date(2027, 2, 28)         # 말일 보정
+
+
+def test_notices_render_at_top_of_every_format():
+    notice = {"title": "🔔 제목 <b>", "lines": ["설명입니다", "① 단계 하나"]}
+    d = {"headline": "h", "sections": [], "notices": [notice], "weather": [nd.parse_weather("서울", SEOUL_RAW)]}
+    day = datetime(2027, 4, 21)
+    for out in (nd.render_html(d, day), nd.render_markdown(d, day), nd.render_text(d), "\n".join(nd.render_telegram(d, day))):
+        assert "설명입니다" in out and "① 단계 하나" in out
+        assert out.index("설명입니다") < out.index("서울")                  # 날씨보다 위
+    assert "&lt;b&gt;" in nd.render_html(d, day) and "<b>" not in nd.render_html(d, day).split("🔔")[1].split("</div>")[0]
+    assert "알림" not in nd.render_html({"headline": "h", "sections": []}, day)   # 알림이 없으면 아무것도 안 나옴
+
+
+def test_main_includes_notice_when_due(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    monkeypatch.setenv("INTERACTION_LIMIT_SET_ON", (nd.datetime.now(nd.KST).date() - nd.timedelta(days=175)).isoformat())
+    assert nd.main(["--dry-run"]) == 0
+    assert "이슈·댓글 제한" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+    monkeypatch.setenv("INTERACTION_LIMIT_SET_ON", "off")
+    assert nd.main(["--dry-run"]) == 0
+    assert "이슈·댓글 제한" not in (tmp_path / "digest.html").read_text(encoding="utf-8")
+
+
+def test_workflow_passes_limit_and_lock_variables():
+    wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
+    assert "INTERACTION_LIMIT_SET_ON: ${{ vars.INTERACTION_LIMIT_SET_ON }}" in wf
+    assert wf.count("ISSUE_LOCK: ${{ vars.ISSUE_LOCK }}") == 2          # 정규 발송과 재발송 모두

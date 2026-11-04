@@ -48,7 +48,7 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, replace
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -377,6 +377,50 @@ def _weather_lines(digest: dict) -> list[str]:
         tomorrow = f" · 내일 {w['tomorrow']}" if w.get("tomorrow") else ""
         lines.append(f"{w['city']}{tag}: {w['sky']}{now} · 최저 {w['lo']} / 최고 {w['hi']} · {w['mood']}({w['diff']}) · {w['precip']}{tomorrow}")
     return lines
+
+
+# ---------- 정기 알림(6개월마다 해야 하는 저장소 설정 등) ----------
+
+LIMIT_DEFAULT_SET_ON = "2026-11-05"   # Interaction limits를 처음 건 날(기본 가정). 다른 날 걸었으면 Variables의 INTERACTION_LIMIT_SET_ON 에 날짜 입력
+LIMIT_REMIND_DAYS = 14                # 만료 며칠 전부터 알림을 띄울지
+
+
+def _add_months(d: date, months: int) -> date:
+    y, m = divmod(d.month - 1 + months, 12)
+    y, m = d.year + y, m + 1
+    last = calendar.monthrange(y, m)[1]
+    return date(y, m, min(d.day, last))
+
+
+def interaction_limit_notice(today: date) -> dict | None:
+    """GitHub의 Interaction limits(낯선 사람의 이슈·댓글 제한)는 최대 6개월이라 기간이 끝나면 다시 걸어야 한다.
+    이 설정은 GitHub 쪽에서 코드가 읽을 수 없으므로, 건 날짜(INTERACTION_LIMIT_SET_ON)에서 6개월을 계산해
+    만료 14일 전부터(그리고 날짜를 갱신할 때까지) 브리핑 맨 위에 알림을 띄운다. 'off'로 두면 알림을 끈다."""
+    raw = os.environ.get("INTERACTION_LIMIT_SET_ON", "").strip() or LIMIT_DEFAULT_SET_ON
+    if raw.lower() in ("off", "none", "false", "0"):
+        return None
+    try:
+        set_on = datetime.strptime(raw, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+    expires = _add_months(set_on, 6)
+    left = (expires - today).days
+    if left > LIMIT_REMIND_DAYS:
+        return None
+    when = f"{expires.year}년 {expires.month}월 {expires.day}일"
+    head = (f"낯선 사람의 이슈·댓글 제한이 {left}일 뒤({when})에 끝납니다." if left > 0 else
+            f"낯선 사람의 이슈·댓글 제한 기간({when})이 끝났거나 오늘 끝납니다.")
+    return {"title": "🔔 6개월마다 하는 설정 — 이슈·댓글 제한 다시 걸기", "lines": [
+        head + " 아래 순서로 다시 걸어 주세요(약 2분).",
+        "① 저장소 맨 위 Settings 탭 → 왼쪽 메뉴 Moderation options → Interaction limits 를 누릅니다.",
+        "② Limit to repository collaborators(가장 강함)를 고르고, 기간을 6 months 로 선택해 적용합니다.",
+        "③ 같은 Settings 에서 Secrets and variables → Actions → Variables 탭으로 가서 INTERACTION_LIMIT_SET_ON 의 값을 "
+        f"오늘 날짜(예: {today:%Y-%m-%d})로 고칩니다(없으면 New repository variable 로 만들기). 이 날짜를 고치면 이 알림이 사라지고 다음 알림은 6개월 뒤에 나옵니다.",
+        "이 알림을 더 받고 싶지 않으면 INTERACTION_LIMIT_SET_ON 값을 off 로 두세요."]}
+
+
+def collect_notices(today: date) -> list[dict]:
+    return [n for n in (interaction_limit_notice(today),) if n]
 
 
 def daily_message(date: datetime) -> dict:
@@ -1058,6 +1102,11 @@ def render_html(digest: dict, date: datetime) -> str:
         f'<h1 style="font-size:20px;margin:0 0 4px">📰 {date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</h1>',
         f'<p style="margin:0 0 20px;color:#555">{e(digest.get("headline", ""))}</p>',
     ]
+    for n in digest.get("notices") or []:
+        parts.append('<div style="background:#fff3cd;border:1px solid #f0d78c;border-radius:8px;padding:12px 16px;margin:0 0 8px">'
+                     f'<div style="font-weight:700;margin-bottom:4px">{e(n.get("title", ""))}</div>')
+        parts.extend(f'<p style="margin:4px 0;font-size:14px">{e(x)}</p>' for x in n.get("lines", []))
+        parts.append("</div>")
     weather = _weather_lines(digest)
     if weather:
         parts.append('<div style="background:#eef6ff;border-radius:8px;padding:12px 16px;margin:0 0 8px">'
@@ -1106,6 +1155,10 @@ def render_html(digest: dict, date: datetime) -> str:
 
 def render_text(digest: dict) -> str:
     out = [digest.get("headline", ""), ""]
+    for n in digest.get("notices") or []:
+        out.append(f"[{n.get('title', '')}]")
+        out.extend(f"- {x}" for x in n.get("lines", []))
+        out.append("")
     weather = _weather_lines(digest)
     if weather:
         out.append("[오늘의 날씨]")
@@ -1162,6 +1215,8 @@ def render_telegram(digest: dict, date: datetime) -> list[str]:
     """텔레그램 HTML 형식(<b>, <a>만 지원) 메시지 목록. 4096자 한도에 맞춰 분할."""
     e = html.escape
     blocks = [f"📰 <b>{date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
+    for n in digest.get("notices") or []:
+        blocks.append(f"<b>{e(n.get('title', ''))}</b>\n" + "\n".join(e(x) for x in n.get("lines", [])))
     weather = _weather_lines(digest)
     if weather:
         blocks.append("🌤 <b>오늘의 날씨</b>\n" + "\n".join(e(x) for x in weather))
@@ -1229,6 +1284,10 @@ def _md(text: str) -> str:
 def render_markdown(digest: dict, date: datetime) -> str:
     """GitHub 이슈 본문(마크다운). 이슈가 올라오면 GitHub가 알림 메일을 보내준다."""
     out = [f"**{_md(digest.get('headline', ''))}**", ""]
+    for n in digest.get("notices") or []:
+        out.append(f"> **{_md(n.get('title', ''))}**  ")
+        out.extend(f"> {_md(x)}  " for x in n.get("lines", []))
+        out.append("")
     weather = _weather_lines(digest)
     if weather:
         out.append("## 🌤 오늘의 날씨")
@@ -1449,6 +1508,7 @@ def main(argv: list[str] | None = None) -> int:
     now = datetime.now(KST)
     digest["weather"] = fetch_weather()
     digest["message"] = daily_message(now)
+    digest["notices"] = collect_notices(now.date())
     digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
                       "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]

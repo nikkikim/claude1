@@ -75,6 +75,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hero .badge{display:inline-block;margin-top:10px;font-size:12.5px;padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:700}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:16px}
 .panel h2{margin:0 0 12px;font-size:16px;letter-spacing:-.01em}
+.notice{background:#fff3cd;color:#3d3200;border:1px solid #f0d78c;border-radius:var(--radius);padding:14px 18px;margin-bottom:16px}
+.notice h2{margin:0 0 8px;font-size:16px}
+.notice p{margin:6px 0;font-size:14.5px}
+:root[data-theme="dark"] .notice{background:#3a3217;color:#f5e7b0;border-color:#6b5a1c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .notice{background:#3a3217;color:#f5e7b0;border-color:#6b5a1c}}
 .weather{background:var(--sky-bg)}
 .wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
 .wcard{background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line);border-radius:12px;padding:14px}

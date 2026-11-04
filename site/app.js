@@ -136,6 +136,11 @@
     newer.addEventListener("click", function () { go(state.dates[idx - 1]); });
     nav.appendChild(older); nav.appendChild(newer); v.appendChild(nav);
 
+    (d.notices || []).forEach(function (n) {
+      var box = el("section", "notice"); box.appendChild(el("h2", null, n.title || "알림"));
+      (n.lines || []).forEach(function (x) { box.appendChild(el("p", null, x)); });
+      v.appendChild(box);
+    });
     var hero = el("section", "hero");
     hero.appendChild(el("div", "date", longDate(date)));
     hero.appendChild(el("h1", null, d.headline || "뉴스 브리핑"));

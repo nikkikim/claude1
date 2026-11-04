@@ -66,6 +66,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NOTIFY: ${{ vars.ISSUE_NOTIFY }}
           ISSUE_ASSIGNEES: ${{ vars.ISSUE_ASSIGNEES }}
+          ISSUE_LOCK: ${{ vars.ISSUE_LOCK }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
@@ -89,6 +90,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NOTIFY: ${{ vars.ISSUE_NOTIFY }}
           ISSUE_ASSIGNEES: ${{ vars.ISSUE_ASSIGNEES }}
+          ISSUE_LOCK: ${{ vars.ISSUE_LOCK }}
+          # 이슈·댓글 제한(Interaction limits)을 건 날짜 YYYY-MM-DD. 6개월 뒤 만료 14일 전부터 브리핑 맨 위에 다시 걸라는 알림이 나옴(off=끔)
+          INTERACTION_LIMIT_SET_ON: ${{ vars.INTERACTION_LIMIT_SET_ON }}
           # --- 이메일 ---
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
