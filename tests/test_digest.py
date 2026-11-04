@@ -869,3 +869,65 @@ def test_feeds_json_is_well_formed():
         assert 0 < f.get("max_items", 1) <= 50 and 0 < f.get("max_age_hours", 1) <= 168
     arts = {f["outlet"] for f in cfg["feeds"]}
     assert {"The Art Newspaper", "ARTnews", "Hyperallergic", "Artforum", "Artnet News"} <= arts   # 미술 핵심 매체 포함
+
+
+# ---------- 빠진 카테고리 보충 / 출처 제한 / 미술 발췌 확대 ----------
+
+def _cat_arts():
+    out = []
+    for cat, outlet in (("세계 이슈", "W"), ("정치·사회", "P"), ("IT·과학", "T"), ("스포츠", "S")):
+        out += [nd.Article(outlet, "국내", cat, f"{outlet}제목{i}", f"https://news.example/{outlet}/{i}", "발췌", None) for i in range(3)]
+    return out
+
+
+def test_missing_categories_are_backfilled_with_headlines_in_canonical_order(monkeypatch):
+    arts = _cat_arts()
+    ai = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "핵심", "items": [
+        {"title": "AI요약", "summary": "s", "source": "W", "link": "https://news.example/W/0"}]}]}   # 나머지 카테고리 누락
+    monkeypatch.setattr(nd, "MIN_AI_ITEMS", 1)
+    out = nd.backfill_missing_categories(nd.validate_digest(ai, arts), arts)
+    topics = [s["topic"] for s in out["sections"]]
+    assert topics == ["세계 이슈", "정치·사회", "IT·과학", "스포츠"]                 # 정해진 순서
+    filled = {s["topic"]: s for s in out["sections"]}
+    assert filled["스포츠"]["overview"].startswith("AI 요약에서 빠져")             # 보충된 곳은 그렇다고 표시
+    assert filled["세계 이슈"]["items"][0]["title"] == "AI요약"                    # 원래 AI 결과는 그대로
+    links = [it["link"] for s in out["sections"] for it in s["items"]]
+    assert len(links) == len(set(links))                                          # AI가 쓴 기사와 중복되지 않음
+
+
+def test_backfill_does_nothing_when_all_categories_present():
+    ai = {"sections": [{"topic": c, "items": []} for c in nd.CATEGORIES]}
+    assert nd.backfill_missing_categories(ai, _cat_arts()) is ai
+
+
+def test_summarize_returns_all_categories_even_if_model_omits_some(monkeypatch):
+    arts = _cat_arts()
+    ai = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "핵심", "items": [
+        {"title": "t", "summary": "s", "source": "W", "link": "https://news.example/W/0"}]}]}
+    monkeypatch.setattr(nd, "MIN_AI_ITEMS", 1)
+    monkeypatch.setattr(nd, "_call_gemini", lambda system, user: json.dumps(ai, ensure_ascii=False))
+    out = nd.summarize(arts, "gemini")
+    assert [s["topic"] for s in out["sections"]] == ["세계 이슈", "정치·사회", "IT·과학", "스포츠"]
+
+
+def test_validate_limits_sources_to_three():
+    d = {"sections": [{"topic": "세계 이슈", "items": [dict(_item(0), source="가, 나, 다, 라, 마")]}]}
+    assert nd.validate_digest(d, _arts(1))["sections"][0]["items"][0]["source"] == "가, 나, 다"
+
+
+def test_prompt_demands_every_category_and_no_outside_knowledge():
+    for needle in ("빠짐없이", "생략하지 말고", "지식으로 보충하지"):
+        assert needle in nd.SYSTEM_PROMPT
+
+
+def test_art_articles_use_longer_body_excerpt_but_other_categories_do_not(tmp_path):
+    long_body = "본문 " + "가나다라마바사 " * 80
+    xml = ('<?xml version="1.0"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>t</title>'
+           f'<item><title>art</title><link>https://ex.com/a</link><description>짧은 인용구</description>'
+           f'<content:encoded><![CDATA[<p>{long_body}</p>]]></content:encoded><pubDate>{D_NEW}</pubDate></item></channel></rss>')
+    f = tmp_path / "f.xml"
+    f.write_text(xml, encoding="utf-8")
+    art = nd.fetch_articles({"feeds": [{"outlet": "ARTnews", "region": "미국", "category": "문화예술", "url": str(f)}]}, now=NOW)[0]
+    other = nd.fetch_articles({"feeds": [{"outlet": "X", "region": "미국", "category": "경제·증시", "url": str(f)}]}, now=NOW)[0]
+    assert len(art.summary) > 200 and len(art.summary) <= nd.ART_EXCERPT_CHARS + 1     # 미술: 본문 앞부분(최대 320자)
+    assert other.summary == "짧은 인용구"                                               # 그 외: 기존대로 RSS 요약

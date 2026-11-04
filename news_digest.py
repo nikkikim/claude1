@@ -98,6 +98,13 @@ KEYWORDS = {
              "coinbase", "solana", "ripple", "xrp", "defi", "blockchain", "tokens?", "altcoins?", "dogecoin",
              "tether", "nfts?")),
         _kw(("거래소", "ETF", "해킹", "NFT"), ("etf", "exchange", "wallet", "mining", "halving"))),
+    "IT·과학": (
+        _kw(("인공지능", "반도체", "로봇", "우주", "위성", "발사체", "데이터센터", "해킹", "사이버", "스마트폰", "클라우드",
+             "양자", "챗GPT", "생성형", "과학", "연구진", "엔비디아", "오픈AI"),
+            ("artificial intelligence", "chips?", "semiconductors?", "robots?", "robotics", "satellites?", "rockets?", "nasa",
+             r"data ?centers?", "cyber\\w*", "hack\\w*", "quantum", "openai", "nvidia", "software", "researchers?", "scientists?")),
+        _kw(("AI", "기술", "개발", "출시", "공개", "스타트업", "플랫폼", "앱", "통신", "전자"),
+            ("ai", "tech", "technology", "startups?", "app", "launch\\w*", "model", "platform"))),
     "문화예술": (
         _kw(("미술", "전시", "갤러리", "화랑", "화가", "조각", "설치미술", "회화", "비엔날레", "트리엔날레", "아트페어", "옥션",
              "경매", "컬렉", "큐레이", "미술관", "박물관", "사진전", "판화", "도예", "공예"),
@@ -231,7 +238,7 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                     category=feed.get("category", "종합"),
                     title=title,
                     link=link,
-                    summary=_clip(_clean_summary(_strip_html(entry.get("summary", ""))), 200),
+                    summary=_excerpt(entry, feed.get("category", "종합")),
                     published=published,
                 ))
                 if len(items) >= per_feed:
@@ -249,6 +256,21 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
 
 def _strip_html(text: str) -> str:
     return html.unescape(re.sub(r"<[^>]+>", " ", text)).strip()
+
+
+ART_EXCERPT_CHARS = 320   # 문화예술 기사의 발췌 길이(일반은 200자). 짧으면 모델이 없는 내용을 기억으로 채우는 일이 실측으로 확인됨
+
+
+def _excerpt(entry, category: str) -> str:
+    """기사 발췌. 문화예술은 RSS 요약이 인용구 한 줄뿐인 경우가 많아, 본문(content)이 더 길면 그 앞부분을 쓴다."""
+    raw = _strip_html(entry.get("summary", "") or "")
+    if category == "문화예술":
+        content = entry.get("content") or []
+        if content:
+            alt = _strip_html(content[0].get("value", "") or "")
+            if len(alt) > len(raw):
+                raw = alt
+    return _clip(_clean_summary(raw), ART_EXCERPT_CHARS if category == "문화예술" else 200)
 
 
 def _clean_summary(text: str) -> str:
@@ -279,7 +301,8 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
    아이돌·연예인 가십, 방송 화제성 기사는 예술계 맥락이 없으면 제외합니다.
 
 규칙:
-- 카테고리는 다음 순서로 고정: {", ".join(CATEGORIES)}. 해당 기사가 없는 카테고리는 생략.
+- 카테고리는 다음 순서로 고정: {", ".join(CATEGORIES)}. 기사 목록에 해당 기사가 있으면 **모든 카테고리를 빠짐없이 포함**하세요
+  (정치·사회, IT·과학, 스포츠도 생략하지 말고 상한 이내로 짧게). 기사가 전혀 없을 때만 생략합니다.
   '카테고리힌트'는 참고만 하고, 내용에 맞게 직접 분류하세요('종합'은 직접 판단).
 - 카테고리별 항목 수 상한: {", ".join(f"{c} {n}개" for c, n in CATEGORY_LIMITS.items())}. 중요한 기사가 부족하면 적게 담고,
   정치·사회/IT·과학/스포츠는 짧게 유지하세요. 전체 25~35개.
@@ -288,7 +311,8 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 - 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
 - 경기 결과(승패·점수), 수치, 따옴표 인용은 제목·발췌문에 명시된 것만 쓰세요. 승패나 원인을 추정하지 마세요.
 - '~할 예정', 'to give', 'will', 'plans to'처럼 예고·계획을 다룬 기사는 이미 일어난 일처럼 쓰지 말고 '예정', '추진'으로 표현하세요.
-- 제목·발췌문에 없는 세부 묘사(장소·원인·평가·배경)를 덧붙이지 마세요. 발췌문이 짧아 내용이 불분명하면 제목에 있는 사실만 쓰세요.
+- 제목·발췌문에 없는 세부 묘사(장소·원인·평가·배경)를 덧붙이지 마세요. 작품명·인물 직함·위치 같은 정보를 당신이 알고 있는 지식으로 보충하지 마세요.
+  발췌문이 짧아 내용이 불분명하면 제목에 있는 사실만 쓰세요.
 - 같은 기사(링크)는 한 카테고리에만 넣으세요.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
 - 해외 기사는 한국어로 번역해 요약하세요. 작가·전시·기관 이름은 원어를 병기하세요(예: 쿠사마 야요이(Yayoi Kusama)).
@@ -533,7 +557,8 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
                 dropped["상한 초과"] += 1
             else:
                 seen.add(key)
-                items.append(it)
+                srcs = [x.strip() for x in str(it.get("source", "")).split(",") if x.strip()]
+                items.append({**it, "source": ", ".join(srcs[:3])})  # 출처는 최대 3곳
         if items:
             sections.append({**sec, "items": items})
     total = sum(len(x["items"]) for x in sections)
@@ -542,6 +567,25 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
         raise ValueError(f"AI 요약이 부실합니다: 유효 항목 {total}개 (최소 {need}개 필요, 제거 {dropped})")
     if verbose and any(dropped.values()):
         print(f"AI 요약 정리: 항목 {total}개 유지, 제거 {dropped}")
+    return {**digest, "sections": sections}
+
+
+def backfill_missing_categories(digest: dict, articles: list[Article]) -> dict:
+    """AI가 일부 카테고리를 통째로 빠뜨렸으면(실측: 정치·사회/IT·과학/스포츠 생략) 그 카테고리를 원문 헤드라인으로 보충한다."""
+    have = {x.get("topic") for x in digest.get("sections", [])}
+    missing = [c for c in CATEGORIES if c not in have]
+    if not missing:
+        return digest
+    used = {_link_key(it.get("link", "")) for x in digest["sections"] for it in x.get("items", [])}
+    extra = []
+    for sec in headlines_only(articles)["sections"]:
+        if sec["topic"] not in missing:
+            continue
+        items = [it for it in sec["items"] if _link_key(it["link"]) not in used]
+        if items:
+            extra.append({"topic": sec["topic"], "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.", "items": items})
+    order = {c: i for i, c in enumerate(CATEGORIES)}
+    sections = sorted(digest["sections"] + extra, key=lambda x: order.get(x.get("topic"), len(order)))
     return {**digest, "sections": sections}
 
 
@@ -559,7 +603,8 @@ def summarize(articles: list[Article], provider: str) -> dict:
         text = _call_openrouter(SYSTEM_PROMPT, user, check)
     else:
         text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
-    return validate_digest(parse_json(text), articles, verbose=True)
+    digest = validate_digest(parse_json(text), articles, verbose=True)
+    return backfill_missing_categories(digest, articles)
 
 
 def parse_json(text: str) -> dict:
