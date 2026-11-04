@@ -171,3 +171,70 @@ def test_fetch_caps_total_and_interleaves(tmp_path):
            "max_total_articles": 4, "max_age_hours": 26}
     arts = nd.fetch_articles(cfg, now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
     assert [a.outlet for a in arts] == ["A", "B", "A", "B"]
+
+
+def _gh_env(monkeypatch, **extra):
+    for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID",
+              "ISSUE_NOTIFY", "ISSUE_ASSIGNEES"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("GITHUB_TOKEN", "TOK")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "me/news")
+    monkeypatch.setenv("GITHUB_REPOSITORY_OWNER", "me")
+    for k, v in extra.items():
+        monkeypatch.setenv(k, v)
+
+
+def test_github_channel_auto_when_no_other_channel(monkeypatch):
+    _gh_env(monkeypatch)
+    assert nd.configured_channels() == ["github"]
+    monkeypatch.setenv("ISSUE_NOTIFY", "false")
+    assert nd.configured_channels() == []
+
+
+def test_github_channel_not_auto_when_email_set_unless_forced(monkeypatch):
+    _gh_env(monkeypatch, SMTP_USER="a", SMTP_PASSWORD="b", MAIL_TO="c")
+    assert nd.configured_channels() == ["email"]
+    monkeypatch.setenv("ISSUE_NOTIFY", "true")
+    assert nd.configured_channels() == ["email", "github"]
+
+
+def test_github_channel_off_outside_actions(monkeypatch):
+    _gh_env(monkeypatch)
+    monkeypatch.delenv("GITHUB_ACTIONS")
+    assert nd.configured_channels() == []
+
+
+def test_render_markdown_neutralises_mentions_and_markup():
+    d = {"headline": "@elon says *hi*", "sections": [{"topic": "정치", "items": [
+        {"title": "[x](http://evil) @bob #1", "summary": "<img src=x> a_b", "source": "S",
+         "link": "https://ex.com/a(b)"}]}], "outlets": {"국내": ["연합뉴스"]}}
+    md = nd.render_markdown(d, datetime(2026, 11, 4))
+    assert "@bob" not in md and "@elon" not in md          # 멘션 무력화
+    assert "[x](http://evil)" not in md                    # 제목 속 링크 문법 무력화
+    assert "\\<img" in md and "\n<img" not in md and " <img" not in md   # < 앞에 \가 붙어 글자로만 표시됨
+    assert "https://ex.com/a(b%29" in md                   # URL 속 ')' 가 링크를 깨지 않게 인코딩됨
+    assert "참고한 신문사" in md and "### 정치" in md
+
+
+def test_send_github_issue_payload_and_retry_without_assignee(monkeypatch):
+    import io
+    import urllib.error
+    calls = []
+
+    def fake_urlopen(req, timeout=0):
+        payload = json.loads(req.data)
+        calls.append(payload)
+        if "assignees" in payload:
+            raise urllib.error.HTTPError(req.full_url, 422, "bad", {}, io.BytesIO(b"invalid assignee"))
+
+        class R:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+        return R()
+
+    _gh_env(monkeypatch)
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake_urlopen)
+    nd.send_github_issue("제목", "본문")
+    assert calls[0]["assignees"] == ["me"] and calls[0]["title"] == "제목"
+    assert "assignees" not in calls[1]          # 422 → 담당자 없이 재시도

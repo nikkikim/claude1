@@ -21,6 +21,11 @@
   [텔레그램] 아래가 모두 있으면 텔레그램 발송
     TELEGRAM_BOT_TOKEN  @BotFather에서 받은 봇 토큰
     TELEGRAM_CHAT_ID    받을 채팅 ID (쉼표로 여러 개 가능)
+
+  [GitHub 알림] GitHub Actions 안에서, 위 두 채널이 없으면 자동으로 사용 (입력할 키 없음)
+    저장소에 이슈를 올리면 GitHub가 담당자(기본: 저장소 주인)에게 알림 메일을 보냄
+    ISSUE_NOTIFY        true=다른 채널과 함께 사용 / false=끄기
+    ISSUE_ASSIGNEES     알림받을 GitHub 사용자명 (쉼표로 여러 명, 저장소 접근 권한 필요)
 """
 from __future__ import annotations
 
@@ -393,12 +398,86 @@ def send_telegram(messages: list[str]) -> None:
             time.sleep(0.5)  # 연속 전송 제한 회피
 
 
+ISSUE_BODY_LIMIT = 60000  # GitHub 이슈 본문 한도는 65,536자
+
+
+def _md(text: str) -> str:
+    """마크다운 특수문자를 무력화하고, @멘션이 엉뚱한 사람에게 알림을 보내지 않게 한다."""
+    import re
+    text = text.replace("@", "@​")
+    return re.sub(r"([\\`*_\[\]<>|~#])", r"\\\1", text)
+
+
+def render_markdown(digest: dict, date: datetime) -> str:
+    """GitHub 이슈 본문(마크다운). 이슈가 올라오면 GitHub가 알림 메일을 보내준다."""
+    out = [f"**{_md(digest.get('headline', ''))}**", ""]
+    for sec in digest.get("sections", []):
+        out.append(f"### {_md(sec.get('topic', ''))}")
+        for it in sec.get("items", []):
+            url = _safe_url(it.get("link", "")).replace(")", "%29").replace(" ", "%20")
+            out.append(f"- **[{_md(it.get('title', ''))}]({url})**  \n"
+                       f"  {_md(it.get('summary', ''))} _({_md(it.get('source', ''))})_")
+        out.append("")
+    outlets = digest.get("outlets") or {}
+    if outlets:
+        out.append("---")
+        out.append("**참고한 신문사**  ")
+        out.extend(f"{_md(region)}: {_md(', '.join(names))}  " for region, names in outlets.items())
+    out.append("")
+    out.append("_AI가 자동 요약한 내용이므로 중요한 사항은 원문을 확인하세요._")
+    return "\n".join(out)[:ISSUE_BODY_LIMIT]
+
+
+def send_github_issue(title: str, body: str) -> None:
+    """저장소에 이슈를 하나 만든다. 이슈 담당자(기본: 저장소 주인)에게 GitHub가 메일로 알려준다.
+    GitHub Actions에서는 별도의 키 없이 자동 제공되는 GITHUB_TOKEN으로 동작한다."""
+    repo = os.environ["GITHUB_REPOSITORY"]
+    token = os.environ["GITHUB_TOKEN"]
+    who = os.environ.get("ISSUE_ASSIGNEES") or os.environ.get("GITHUB_REPOSITORY_OWNER", "")
+    assignees = [x.strip() for x in who.split(",") if x.strip()]
+
+    def post(payload: dict) -> None:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{repo}/issues",
+            data=json.dumps(payload).encode(),
+            method="POST",
+            headers={"Authorization": f"Bearer {token}",
+                     "Accept": "application/vnd.github+json",
+                     "X-GitHub-Api-Version": "2022-11-28",
+                     "Content-Type": "application/json",
+                     "User-Agent": "news-digest"})
+        with urllib.request.urlopen(req, timeout=30):
+            pass
+
+    payload = {"title": title, "body": body}
+    if assignees:
+        payload["assignees"] = assignees
+    try:
+        post(payload)
+    except urllib.error.HTTPError as err:
+        detail = err.read().decode("utf-8", "replace")[:300]
+        if err.code == 422 and assignees:  # 담당자로 지정할 수 없는 계정(조직 등)이면 담당자 없이 재시도
+            payload.pop("assignees")
+            try:
+                post(payload)
+                return
+            except urllib.error.HTTPError as err2:
+                err, detail = err2, err2.read().decode("utf-8", "replace")[:300]
+        raise RuntimeError(f"GitHub 이슈 생성 실패 (HTTP {err.code}): {detail}") from None
+
+
 def configured_channels() -> list[str]:
     channels = []
     if all(os.environ.get(k) for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO")):
         channels.append("email")
     if all(os.environ.get(k) for k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")):
         channels.append("telegram")
+    # GitHub 알림: Actions 안에서만 가능. 이메일/텔레그램이 하나도 없으면 자동으로 켜지고,
+    # 다른 채널과 함께 쓰려면 ISSUE_NOTIFY=true, 끄려면 ISSUE_NOTIFY=false
+    in_actions = all(os.environ.get(k) for k in ("GITHUB_ACTIONS", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+    flag = os.environ.get("ISSUE_NOTIFY", "").strip().lower()
+    if in_actions and (flag in ("1", "true", "yes") or (not channels and flag not in ("0", "false", "no"))):
+        channels.append("github")
     return channels
 
 
@@ -444,9 +523,9 @@ def main(argv: list[str] | None = None) -> int:
 
     channels = configured_channels()
     if not channels:
-        print("발송 채널이 설정되지 않았습니다. 이메일(SMTP_*, MAIL_TO) 또는 "
-              "텔레그램(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) 환경변수를 설정하세요.",
-              file=sys.stderr)
+        print("발송 채널이 설정되지 않았습니다. GitHub Actions에서 실행하면 GitHub 알림이 자동으로 쓰이고, "
+              "로컬에서는 이메일(SMTP_*, MAIL_TO) 또는 텔레그램(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) "
+              "환경변수를 설정하세요.", file=sys.stderr)
         return 2
 
     failed = False
@@ -454,8 +533,10 @@ def main(argv: list[str] | None = None) -> int:
         try:
             if ch == "email":
                 send_email(subject, html_body, text_body)
-            else:
+            elif ch == "telegram":
                 send_telegram(render_telegram(digest, now))
+            else:
+                send_github_issue(subject, render_markdown(digest, now))
             print(f"발송 완료: {ch}")
         except Exception as err:
             failed = True

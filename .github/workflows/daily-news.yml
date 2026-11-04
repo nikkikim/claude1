@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  issues: write   # GitHub 알림 방식: 뉴스를 이슈로 올려 메일 알림을 받음
 
 jobs:
   send:
@@ -32,6 +33,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
+          # --- GitHub 알림 (키 입력 불필요: GitHub가 자동 제공하는 토큰 사용) ---
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NOTIFY: ${{ vars.ISSUE_NOTIFY }}
+          ISSUE_ASSIGNEES: ${{ vars.ISSUE_ASSIGNEES }}
           # --- 이메일 ---
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}

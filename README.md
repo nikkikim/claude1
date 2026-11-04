@@ -26,7 +26,19 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 ### ⚠️ 60일 규칙 (공개 저장소만 해당)
 GitHub는 **공개 저장소**에서 60일간 활동(푸시 등)이 없으면 예약 실행을 자동 중지합니다([공식 문서](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows)). **비공개(Private) 저장소로 만들면 이 문제가 없고** 월 2,000분 무료로 충분합니다. 공개로 둘 거라면 두 달에 한 번 아무 커밋이나 올리거나 Actions 탭에서 워크플로를 다시 켜 주세요.
 
-## 설정 (한 번만)
+## ✅ 가장 쉬운 방법: GitHub 알림 (입력할 값 0개)
+
+이메일·텔레그램 설정을 **하나도 하지 않으면**, 실행될 때마다 이 저장소에 **이슈(글) 하나**로 뉴스를 올리고 GitHub가 저장소 주인에게 **알림 메일**을 보냅니다. 비밀번호나 키를 넣을 필요가 없습니다.
+
+1. 저장소 → **Actions** → **Daily News Digest** → **Run workflow**
+2. 1~2분 뒤 **Issues** 탭에 글이 올라오고, GitHub 계정의 이메일로 알림이 옵니다 (보낸 사람: GitHub).
+
+메일이 안 오면: GitHub 우측 상단 프로필 → Settings → Notifications에서 이메일 알림이 켜져 있는지 확인하고, 저장소 상단 **Watch** → *All Activity*로 바꿔 보세요.
+
+한계: 보낸 사람이 GitHub이고 서식이 단순하며, **GitHub 계정에 등록된 이메일로만** 받습니다. 다른 사람이 받으려면 그 사람도 GitHub 계정이 있어야 하고 저장소에 접근할 수 있어야 합니다(`ISSUE_ASSIGNEES` 변수에 사용자명을 쉼표로 적으면 담당자로 지정되어 알림이 갑니다). 하루에 이슈가 1개씩 쌓입니다.
+다른 방식(이메일·텔레그램)을 하나라도 설정하면 GitHub 알림은 자동으로 꺼지며, 함께 쓰려면 변수 `ISSUE_NOTIFY`를 `true`로 두세요.
+
+## 설정 (이메일/텔레그램을 쓰고 싶을 때)
 
 1. 이 코드를 **비공개 GitHub 저장소**에 올립니다 (기본 브랜치에 있어야 스케줄이 동작).
 2. 저장소 → Settings → Secrets and variables → Actions → **Secrets**에 필요한 것만 등록:
