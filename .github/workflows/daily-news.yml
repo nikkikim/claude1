@@ -4,7 +4,12 @@ on:
   schedule:
     # 매일 07:30 KST (= 22:30 UTC 전날). GitHub cron은 수 분~수십 분 지연될 수 있음
     - cron: "30 22 * * *"
-  workflow_dispatch: {}   # Actions 탭에서 수동 실행 가능
+  workflow_dispatch:      # Actions 탭에서 수동 실행 가능
+    inputs:
+      openrouter_models:
+        description: "(시험용) OpenRouter 모델을 쉼표로 지정. 비워 두면 기본값"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -32,7 +37,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODELS: ${{ vars.OPENROUTER_MODELS }}
+          OPENROUTER_MODELS: ${{ inputs.openrouter_models || vars.OPENROUTER_MODELS }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
           # --- GitHub 알림 (키 입력 불필요: GitHub가 자동 제공하는 토큰 사용) ---

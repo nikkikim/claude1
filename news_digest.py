@@ -41,6 +41,7 @@ import smtplib
 import socket
 import ssl
 import sys
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -376,7 +377,30 @@ def _call_gemini(system: str, user: str) -> str:
 # OpenRouter 무료(:free) 모델. 무료 모델 목록은 수시로 바뀌므로 위에서부터 차례로 시도하고,
 # OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다. 마지막의 openrouter/free는 그때그때 가능한 무료 모델로 자동 연결해 주는 라우터.
 OPENROUTER_DEFAULT_MODELS = ("google/gemma-4-31b-it:free", "nvidia/nemotron-3-ultra-550b-a55b:free", "openrouter/free")
-OPENROUTER_BUDGET_SECONDS = 420  # 무료 모델은 느릴 수 있어 전체 시도 시간을 제한(워크플로 제한 10분 이내)
+OPENROUTER_REQUEST_SECONDS = 150   # 모델 1개당 최대 대기 시간(응답 전체 기준)
+OPENROUTER_BUDGET_SECONDS = 420    # 모든 모델을 합친 최대 시도 시간(워크플로 제한 15분 이내)
+
+
+def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
+    """urllib의 timeout은 '소켓이 조용한 시간'만 재서, 느리게 이어지는 응답은 오래 매달릴 수 있다.
+    그래서 응답 전체에 걸리는 시간을 직접 제한한다(시간이 지나면 포기하고 다음 모델로)."""
+    box: dict = {}
+
+    def run() -> None:
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                box["data"] = json.load(r)
+        except BaseException as err:  # noqa: BLE001 - 호출한 쪽으로 그대로 전달
+            box["err"] = err
+
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"{seconds:.0f}초 안에 응답이 없어 중단했습니다")
+    if "err" in box:
+        raise box["err"]
+    return box["data"]
 
 
 def _call_openrouter(system: str, user: str) -> str:
@@ -385,9 +409,17 @@ def _call_openrouter(system: str, user: str) -> str:
         or list(OPENROUTER_DEFAULT_MODELS)
     start = time.monotonic()
     last: Exception | None = None
+
+    def fail(model: str, t0: float, reason: str, exc_type: type = RuntimeError) -> Exception:
+        msg = f"OpenRouter 실패 ({model}, {time.monotonic() - t0:.0f}초): {reason}"
+        print(f"[warn] {msg}", file=sys.stderr)  # 모델마다 이유를 모두 남겨 원인을 추적할 수 있게 함
+        return exc_type(msg)
+
     for model in models:
         if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+            print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 모델은 건너뜁니다", file=sys.stderr)
             break
+        t0 = time.monotonic()
         body = json.dumps({
             "model": model,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
@@ -397,32 +429,30 @@ def _call_openrouter(system: str, user: str) -> str:
             "Authorization": f"Bearer {key}", "Content-Type": "application/json",
             "HTTP-Referer": "https://github.com", "X-OpenRouter-Title": "news-digest"})  # 키는 헤더로만 전송
         try:
-            with urllib.request.urlopen(req, timeout=150) as r:
-                data = json.load(r)
+            data = _post_with_deadline(req, OPENROUTER_REQUEST_SECONDS)
         except urllib.error.HTTPError as err:
             detail = err.read().decode("utf-8", "replace")[:300]
-            exc = QuotaExceeded if err.code == 429 else RuntimeError
-            last = exc(f"OpenRouter 오류 ({model}, HTTP {err.code}): {detail}")
+            last = fail(model, t0, f"HTTP {err.code} {detail}", QuotaExceeded if err.code == 429 else RuntimeError)
             if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
                 raise last from None
             continue
-        except (urllib.error.URLError, TimeoutError, OSError) as err:
-            last = RuntimeError(f"OpenRouter 연결 실패 ({model}): {err}")
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as err:
+            last = fail(model, t0, f"{type(err).__name__}: {err}")
             continue
         try:
             text = (data["choices"][0]["message"]["content"] or "").strip()
         except (KeyError, IndexError, TypeError):
             text = ""
         if not text:  # 200이어도 본문에 error만 오거나 비어 있는 경우
-            last = RuntimeError(f"OpenRouter 빈 응답 ({model}): {str(data)[:200]}")
+            last = fail(model, t0, f"빈 응답 {str(data)[:200]}")
             continue
         try:
             if not parse_json(text).get("sections"):
                 raise ValueError("sections 없음")
         except ValueError as err:  # 형식을 못 맞추는 모델이면 다음 모델로
-            last = RuntimeError(f"OpenRouter 응답 형식 오류 ({model}): {err}")
+            last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
             continue
-        print(f"OpenRouter 모델 사용: {model}")
+        print(f"OpenRouter 모델 사용: {model} ({time.monotonic() - t0:.0f}초)")
         return text
     raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
 
@@ -437,14 +467,14 @@ def summarize(articles: list[Article], provider: str) -> dict:
 
 
 def parse_json(text: str) -> dict:
-    if text.startswith("```"):
-        text = text.strip("`")
-        text = text.split("\n", 1)[1] if "\n" in text else text
-        text = text.rsplit("```", 1)[0]
-    start, end = text.find("{"), text.rfind("}")
-    if start == -1 or end == -1:
+    """응답에서 첫 번째 JSON 객체를 읽는다. 앞의 설명이나 ```json 코드펜스, 뒤에 붙은 군더더기(두 번째 객체·설명)는 무시."""
+    start = text.find("{")
+    if start == -1:
         raise ValueError(f"JSON을 찾을 수 없습니다: {text[:200]}")
-    return json.loads(text[start:end + 1])
+    obj, _ = json.JSONDecoder().raw_decode(text, start)
+    if not isinstance(obj, dict):
+        raise ValueError("JSON 객체가 아닙니다")
+    return obj
 
 
 def topic_score(cat: str, a: Article) -> int:

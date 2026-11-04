@@ -637,3 +637,58 @@ def test_main_all_providers_fail_uses_last_error_note(monkeypatch, tmp_path):
     monkeypatch.setattr(nd, "summarize", fake_summarize)
     assert nd.main(["--dry-run"]) == 0
     assert "무료 사용 한도를 초과" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+
+
+def test_parse_json_ignores_trailing_text_and_second_object():
+    # 실제 실패 사례: 첫 JSON 뒤에 군더더기가 붙어 'Extra data' 오류가 났음
+    assert nd.parse_json('{"a": 1}\n{"b": 2}') == {"a": 1}
+    assert nd.parse_json('```json\n{"a": 1}\n```\n\n참고: {이것은} 설명입니다') == {"a": 1}
+    assert nd.parse_json('여기 결과입니다.\n{"a": {"b": [1, 2]}} 이상입니다.') == {"a": {"b": [1, 2]}}
+    import pytest
+    with pytest.raises(ValueError):
+        nd.parse_json("JSON 없음")
+    with pytest.raises(ValueError):
+        nd.parse_json("{깨진 json")
+
+
+def test_openrouter_accepts_response_with_trailing_garbage(monkeypatch):
+    text = json.dumps(GOOD_DIGEST, ensure_ascii=False) + "\n\n위 요약은 기사 목록만 사용했습니다. {끝}"
+    _or_fake(monkeypatch, {"m1": _chat(text)})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    assert nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")["headline"] == "h"
+
+
+def test_openrouter_slow_model_is_abandoned_and_next_model_used(monkeypatch):
+    import io
+    import time as _time
+    monkeypatch.setattr(nd, "OPENROUTER_REQUEST_SECONDS", 0.2)
+    calls = []
+
+    def fake(req, timeout=0):
+        model = json.loads(req.data)["model"]
+        calls.append(model)
+        if model == "slow":
+            _time.sleep(1.5)      # 응답이 오지 않는 모델
+
+        class _R:
+            def __enter__(self): return io.StringIO(json.dumps(_chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))))
+            def __exit__(self, *a): pass
+        return _R()
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "slow,fast")
+    t0 = _time.monotonic()
+    out = nd._call_openrouter("s", "u")
+    assert calls == ["slow", "fast"] and json.loads(out)["headline"] == "h"
+    assert _time.monotonic() - t0 < 1.2          # 느린 모델을 끝까지 기다리지 않음
+
+
+def test_openrouter_logs_every_failed_model_with_reason(monkeypatch, capsys):
+    import pytest
+    _or_fake(monkeypatch, {"m1": _http_error(429, "limit"), "m2": _chat("그냥 글입니다"), "m3": _chat("")})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2,m3")
+    with pytest.raises(RuntimeError):
+        nd._call_openrouter("s", "u")
+    err = capsys.readouterr().err
+    for needle in ("m1", "HTTP 429", "m2", "형식 오류", "그냥 글입니다", "m3", "빈 응답"):
+        assert needle in err                      # 모델별 원인이 모두 로그에 남는다
