@@ -73,24 +73,30 @@ GitHub는 **공개 저장소**에서 60일간 활동(푸시 등)이 없으면 �
 
 ## 참고하는 신문사 / 카테고리
 
-| 구분 | 신문사 |
+독자 관심사에 맞춰 **세계 이슈 · 경제·증시 · 코인 · 문화예술**에 비중을 둡니다. 카테고리 순서가 곧 우선순위이고, 괄호는 하루 최대 항목 수입니다.
+**세계 이슈(7) → 경제·증시(7) → 코인(4) → 문화예술(8) → 정치·사회(4) → IT·과학(3) → 스포츠(2)**
+
+| 영역 | 매체 |
 |---|---|
-| 국내 (8) | 연합뉴스, 조선일보, 한겨레, 경향신문, 한국경제, 매일경제, 오마이뉴스, 전자신문 |
-| 미국 (14) | NYT, Bloomberg, CBS News, NBC News, ABC News, Fox News, The Hill, Politico, LA Times, Axios, TechCrunch, The Verge, Wired, Ars Technica |
-| 영국 (7) | BBC, The Guardian, Financial Times, Sky News, The Independent, Daily Mail, New Scientist |
-| 기타 해외 (5) | Al Jazeera, DW, Japan Times, SCMP, Nikkei Asia |
+| 세계 이슈 (전쟁·국가 간 관계) | 연합뉴스 국제·북한, BBC, NYT, The Guardian, Al Jazeera, DW, Euronews, CNA, Kyiv Independent, The Diplomat, Foreign Policy, Al-Monitor, Middle East Eye, Japan Times, SCMP, Korea Times, Yonhap English |
+| 경제·증시 | 한국경제·매일경제 증권면, 머니투데이, 연합뉴스, 한겨레, 경향신문, Bloomberg, MarketWatch, Investing.com, Financial Times, NYT·BBC·Guardian 경제면, Nikkei Asia |
+| 코인 | CoinDesk, Cointelegraph, Decrypt, The Block, Bitcoin Magazine, 블록미디어, 토큰포스트 |
+| 문화예술 (해외) | ARTnews, Artforum, Hyperallergic, Artnet News, Artsy, Colossal, ArtAsiaPacific, Dezeen, Designboom, ArchDaily, NYT Art & Design·Arts, Guardian Art·Stage·Books, BBC Arts |
+| 문화예술 (국내) | 연합뉴스 문화, 뉴시스 문화, 매일경제 문화, 한국경제 라이프, 한겨레 문화, 경향신문 문화 |
+| 정치·사회·IT·스포츠 등 | 조선일보, 오마이뉴스, 전자신문, CBS·NBC·ABC·Fox News, The Hill, Politico, LA Times, Axios, Sky News, The Independent, Daily Mail, TechCrunch, The Verge, Wired, Ars Technica, New Scientist 등 |
 
-**카테고리 (고정 순서)**: 정치 · 경제 · 사회 · 국제 · IT·과학 · 문화·스포츠
-(AI 요약 시) 같은 사건을 여러 신문사가 다루면 하나로 묶고 보도한 신문사를 함께 표시합니다. 메일 하단에는 그날 실제로 수집된 신문사가 지역별로 나옵니다.
+- **AI 요약 모드**: 위 관심사와 비중이 프롬프트에 들어 있어, 문화예술은 미술계 소식을 최우선으로 국내·해외를 함께 담고 연예 가십은 뺍니다.
+- **헤드라인 모드(AI 없음)**: 카테고리별 키워드(전쟁·제재, 증시·환율·금리, 비트코인, 미술·전시·비엔날레 등)로 관련 기사를 우선 고릅니다. 문화예술은 연예 가십을 제외하고 **국내 소식 자리를 최소 3건 확보**합니다. 코인 기사는 어느 피드에 있어도 '코인'으로 모읍니다.
+- **중복 제거**: 같은 사건의 `(종합)`·`(종합2보)`·`[속보]` 기사는 하나로 처리합니다. 매일 **자동 실행**에서는 전날 브리핑에 이미 실린 기사를 빼고(수동 실행은 전체 표시), 업데이트가 느린 미술 매체는 48~72시간 이내 기사까지 봅니다.
 
-제외한 곳: 중앙일보(RSS 중단), WSJ·CNN(갱신 중단), The Economist(주간), 동아일보(응답 없음), 한국일보·서울신문·NPR·Washington Post·USA Today·CNBC(접근 불가), The Telegraph(유료 차단), The Times(RSS 없음).
-조선일보 RSS는 연예·스포츠·일본어판 기사가 많이 섞여 있어 품질에 한계가 있습니다. RSS 주소는 언제든 바뀔 수 있으니 한동안 안 오는 신문사가 있으면 `feeds.json`을 점검하세요.
+한계: 국내 미술 전문 매체(월간미술은 2020년 이후 갱신 없음, 아트인컬처·아트뉴스코리아 등은 RSS 불가)는 쓸 수 없어서 **국내 미술 소식은 일반 신문 문화면에 의존**합니다. 그 밖에 중앙일보(RSS 중단), WSJ·CNN(갱신 중단), The Economist(주간), 동아일보(응답 없음), The Art Newspaper·Frieze·ArtReview·Artbasel(접근 불가) 등은 제외했습니다.
+RSS 주소는 언제든 바뀔 수 있으니 한동안 안 오는 매체가 있으면 `feeds.json`을 점검하세요.
 
-`samples/2026-11-04.html`은 AI 요약이 켜졌을 때의 메일 모양을 보여주는 샘플입니다 (이전 구성(국내 8·해외 12곳)으로 수집한 기사를 직접 요약한 예시이며, 맨 위에 카테고리별 핵심 요약이 들어갑니다).
+`samples/2026-11-04.html`은 **이전 카테고리 구성**(AI 요약 모드)으로 만든 샘플이라 현재 구성과 다릅니다.
 
 ## 뉴스 소스 바꾸기
 
-`feeds.json`의 `feeds`에 `{ "outlet": "신문사", "region": "국내|미국|영국|기타 해외", "category": "정치|경제|사회|국제|IT·과학|문화·스포츠|종합", "url": "RSS 주소" }`를 추가/삭제하세요. `category`는 힌트이며 AI가 내용에 맞게 최종 분류합니다. `max_total_articles`(기본 350)는 AI에 보내는 기사 수 상한입니다.
+`feeds.json`의 `feeds`에 `{ "outlet": "신문사", "region": "국내|미국|영국|기타 해외", "category": "카테고리", "url": "RSS 주소" }`를 추가/삭제하세요. `category`는 `세계 이슈|경제·증시|코인|문화예술|정치·사회|IT·과학|스포츠|종합` 중 하나이며 힌트로 쓰입니다(AI가 최종 분류). 선택 항목: `max_items`(이 피드에서 가져올 최대 기사 수), `max_age_hours`(이 피드만 더 긴 기간 허용). `max_total_articles`(기본 450)는 AI에 보내는 기사 수 상한입니다.
 
 ## 로컬 실행
 

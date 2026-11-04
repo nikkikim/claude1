@@ -95,9 +95,9 @@ def test_outlets_by_region_keeps_order_and_dedupes():
 
 
 def test_headlines_only_groups_by_category_in_fixed_order():
-    arts = [_art("A", "국내", "경제"), _art("B", "국내", "정치"), _art("C", "해외", "기타")]
+    arts = [_art("A", "국내", "정치·사회"), _art("B", "국내", "세계 이슈"), _art("C", "해외", "기타")]
     topics = [s["topic"] for s in nd.headlines_only(arts)["sections"]]
-    assert topics == ["정치", "경제", "기타"]
+    assert topics == ["세계 이슈", "정치·사회", "기타"]
 
 
 def test_render_html_lists_outlets():
@@ -358,3 +358,126 @@ def test_free_tier_unavailable_note_in_digest(monkeypatch, tmp_path):
     monkeypatch.setattr(nd, "summarize", nofree)
     assert nd.main(["--dry-run"]) == 0
     assert "무료 티어를 쓸 수 없어" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+
+
+def _a(outlet, region, category, title, summary=""):
+    return nd.Article(outlet=outlet, region=region, category=category, title=title,
+                      link=f"https://ex.com/{outlet}/{abs(hash(title))}", summary=summary, published=None)
+
+
+def _titles(digest, topic):
+    return [it["title"] for sec in digest["sections"] if sec["topic"] == topic for it in sec["items"]]
+
+
+def test_focus_categories_come_first_with_art_prioritised():
+    assert nd.CATEGORIES[:4] == ["세계 이슈", "경제·증시", "코인", "문화예술"]
+    assert nd.CATEGORY_LIMITS["문화예술"] >= nd.CATEGORY_LIMITS["정치·사회"]
+
+
+def test_art_headlines_drop_gossip_and_reserve_domestic_slots():
+    arts = [_a("ARTnews", "미국", "문화예술", f"Museum exhibition of painter {i}") for i in range(6)]
+    arts += [_a("Hyperallergic", "미국", "문화예술", f"Gallery auction curator {i}") for i in range(6)]
+    arts += [_a("뉴시스", "국내", "문화예술", "서울시립미술관 기획전 개막")]
+    arts += [_a("매일경제", "국내", "문화예술", "한국 현대미술 50년 전시")]
+    arts += [_a("연합뉴스", "국내", "문화예술", "리센느 신곡 멜론 1위 직행")]   # 연예 가십
+    titles = _titles(nd.headlines_only(arts), "문화예술")
+    assert "서울시립미술관 기획전 개막" in titles and "한국 현대미술 50년 전시" in titles   # 국내 슬롯 확보
+    assert "리센느 신곡 멜론 1위 직행" not in titles                                      # 가십 제외
+    assert len(titles) <= nd.CATEGORY_LIMITS["문화예술"]
+    assert sum(t.startswith("Museum") for t in titles) <= 3                              # 한 매체 독식 방지
+
+
+def test_economy_headlines_keep_market_news_and_drop_unrelated():
+    arts = [_a("연합뉴스", "국내", "경제·증시", "스마트팩토리 설비 확대"),
+            _a("한국경제", "국내", "경제·증시", "코스피 급락…환율 1400원 돌파"),
+            _a("Bloomberg", "미국", "경제·증시", "Stocks slide as Fed signals higher rates")]
+    titles = _titles(nd.headlines_only(arts), "경제·증시")
+    assert "스마트팩토리 설비 확대" not in titles and len(titles) == 2
+
+
+def test_crypto_news_in_any_feed_moves_to_coin_and_general_feeds_get_classified():
+    arts = [_a("NYT", "미국", "IT·과학", "Binance says hackers plotted $6.3 billion crypto heist"),
+            _a("CBS News", "미국", "종합", "Ceasefire talks resume as Russia strikes Ukraine"),
+            _a("Fox News", "미국", "종합", "Local school board votes on bus routes")]
+    d = nd.headlines_only(arts)
+    assert any("Binance" in t for t in _titles(d, "코인"))
+    assert any("Ceasefire" in t for t in _titles(d, "세계 이슈"))
+    assert any("school board" in t for t in _titles(d, "정치·사회"))
+    assert "종합" not in [sec["topic"] for sec in d["sections"]]
+
+
+def test_entry_time_parses_formats_feedparser_misses():
+    utc = nd.timezone.utc
+    assert nd._entry_time({"published": "2026-11-04T10:20:00+09:00"}) == datetime(2026, 11, 4, 1, 20, tzinfo=utc)
+    assert nd._entry_time({"published": "Wed,4 Nov 2026 07:18:49 +0900"}) == datetime(2026, 11, 3, 22, 18, 49, tzinfo=utc)
+    assert nd._entry_time({"updated": "2026-11-04 08:15:00"}) == datetime(2026, 11, 3, 23, 15, tzinfo=utc)  # 표기 없으면 KST
+    assert nd._entry_time({}) is None
+
+
+def _rss_file(tmp_path, name, items):
+    body = "".join(f"<item><title>{t}</title><link>{l}</link><pubDate>{d}</pubDate></item>" for t, l, d in items)
+    f = tmp_path / f"{name}.xml"
+    f.write_text(f'<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>{body}</channel></rss>',
+                 encoding="utf-8")
+    return str(f)
+
+
+NOW = datetime(2026, 11, 4, 3, 0, tzinfo=timezone.utc)
+D_NEW, D_36H, D_OLD = ("Wed, 04 Nov 2026 01:00:00 GMT", "Mon, 02 Nov 2026 15:00:00 GMT", "Fri, 30 Oct 2026 00:00:00 GMT")
+
+
+def test_per_feed_age_and_item_overrides(tmp_path):
+    url = _rss_file(tmp_path, "art", [("new", "https://ex.com/1", D_NEW), ("old-ish", "https://ex.com/2", D_36H),
+                                      ("ancient", "https://ex.com/3", D_OLD)])
+    base = {"outlet": "ARTnews", "region": "미국", "category": "문화예술", "url": url}
+    short = nd.fetch_articles({"feeds": [base], "max_age_hours": 26}, now=NOW)
+    long_ = nd.fetch_articles({"feeds": [{**base, "max_age_hours": 48}], "max_age_hours": 26}, now=NOW)
+    capped = nd.fetch_articles({"feeds": [{**base, "max_age_hours": 48, "max_items": 1}]}, now=NOW)
+    assert [a.title for a in short] == ["new"]
+    assert [a.title for a in long_] == ["new", "old-ish"]       # 미술 매체는 더 긴 기간 허용
+    assert len(capped) == 1
+
+
+def test_same_story_with_jonghap_suffix_is_deduplicated(tmp_path):
+    url = _rss_file(tmp_path, "y", [("北 미사일 도발(종합2보)", "https://ex.com/a", D_NEW),
+                                    ("北 미사일 도발(종합)", "https://ex.com/b", D_NEW),
+                                    ("[속보] 北 미사일 도발", "https://ex.com/c", D_NEW)])
+    arts = nd.fetch_articles({"feeds": [{"outlet": "연합", "region": "국내", "category": "세계 이슈", "url": url}]}, now=NOW)
+    assert len(arts) == 1
+
+
+def test_scheduled_run_skips_links_from_previous_digest_but_manual_run_does_not(tmp_path, monkeypatch):
+    import io
+    issues = [{"title": "[뉴스 브리핑] 11/03 x", "body": "- **[어제 기사](https://ex.com/a?utm=1)** 요약"},
+              {"title": "[뉴스 브리핑] 11/02 y", "body": "[더 옛날](https://ex.com/z)"},   # 최신 1개만 사용
+              ]
+
+    class _Resp:
+        def __enter__(self): return io.StringIO(json.dumps(issues))
+        def __exit__(self, *a): pass
+
+    monkeypatch.setattr(nd.urllib.request, "urlopen", lambda req, timeout=0: _Resp())
+    monkeypatch.setenv("GITHUB_REPOSITORY", "me/news")
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    url = _rss_file(tmp_path, "d", [("어제 기사", "https://ex.com/a?utm=2", D_NEW), ("오늘 기사", "https://ex.com/b", D_NEW),
+                                    ("더 옛날 기사", "https://ex.com/z", D_NEW)])
+    cfg = {"feeds": [{"outlet": "A", "region": "국내", "category": "세계 이슈", "url": url}]}
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "schedule")
+    assert [a.title for a in nd.fetch_articles(cfg, now=NOW)] == ["오늘 기사", "더 옛날 기사"]
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "workflow_dispatch")      # 수동 실행은 전체 표시
+    assert len(nd.fetch_articles(cfg, now=NOW)) == 3
+
+
+def test_previous_digest_failure_is_non_fatal(monkeypatch):
+    def boom(req, timeout=0):
+        raise OSError("network")
+    monkeypatch.setattr(nd.urllib.request, "urlopen", boom)
+    monkeypatch.setenv("GITHUB_REPOSITORY", "me/news")
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    assert nd.previous_digest_keys() == set()
+
+
+def test_prompt_states_reader_focus_and_limits():
+    for needle in ("예술가", "세계 이슈", "코인", "문화예술", "국내와 해외", "아이돌"):
+        assert needle in nd.SYSTEM_PROMPT
+    assert "문화예술 8개" in nd.SYSTEM_PROMPT and "세계 이슈 7개" in nd.SYSTEM_PROMPT

@@ -31,9 +31,11 @@ from __future__ import annotations
 
 import argparse
 import calendar
+import email.utils
 import html
 import json
 import os
+import re
 import smtplib
 import socket
 import ssl
@@ -43,7 +45,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
@@ -54,7 +56,59 @@ KST = timezone(timedelta(hours=9))
 CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
 
-CATEGORIES = ["정치", "경제", "사회", "국제", "IT·과학", "문화·스포츠"]
+# 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인 → 문화예술)이며, 값은 카테고리별 최대 항목 수
+CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8,
+                   "정치·사회": 4, "IT·과학": 3, "스포츠": 2}
+CATEGORIES = list(CATEGORY_LIMITS)
+
+# 헤드라인 모드(AI 없음)에서 카테고리별로 '관련 기사'를 우선 고르기 위한 키워드. (한글, 영어) 순이며
+# 핵심어(core)는 가중치 3, 보조어(other)는 1. 영어는 단어 경계로, 한글은 부분 일치로 찾는다.
+def _kw(ko: tuple, en: tuple) -> re.Pattern:
+    pattern = "|".join(re.escape(k) for k in ko)
+    if en:
+        pattern += ("|" if pattern else "") + r"\b(?:" + "|".join(en) + r")\b"
+    return re.compile(pattern, re.I)
+
+
+KEYWORDS = {
+    "세계 이슈": (
+        _kw(("전쟁", "휴전", "종전", "정전", "미사일", "공습", "폭격", "제재", "정상회담", "외교", "안보", "침공", "점령",
+             "분쟁", "우크라이나", "러시아", "이란", "이스라엘", "가자", "하마스", "헤즈볼라", "북한", "대만", "나토",
+             "유엔", "중동", "호르무즈", "쿠데타", "파병", "국방", "핵"),
+            ("war", "ceasefire", "truce", "strikes?", "missiles?", "sanctions", "summit", r"diplomat\w*", "treaty",
+             "troops", "invasion", "nato", "ukraine", "russia", "iran", "israel", "gaza", "hamas", "taiwan",
+             "north korea", "kremlin", "putin", r"zelensk\w*", "netanyahu", "hormuz", "military", "nuclear")),
+        _kw(("대통령", "총리", "선거", "정상", "협상", "대사", "중국", "미중", "한미", "한일", "한중", "美", "中", "日", "北"),
+            ("president", "minister", "election", "talks", "border", "tensions", "china", "g7", "g20", "eu"))),
+    "경제·증시": (
+        _kw(("증시", "코스피", "코스닥", "주가", "주식", "환율", "금리", "나스닥", "다우", "연준", "국채", "시황", "증권",
+             "채권", "달러", "원화", "유가", "인플레", "물가", "상장", "공모주", "배당", "시총", "금융시장"),
+            ("stocks?", "wall street", "fed", "nasdaq", r"s&p", "dow", "yields?", "inflation", "earnings", "shares",
+             "equities", "bonds?", r"interest rates?", "gdp", "recession", "ipo", "dollar", "oil")),
+        _kw(("투자", "실적", "영업이익", "매출", "수출", "무역", "관세", "부동산", "집값", "대출", "고용", "경기", "성장률",
+             "은행", "반도체", "펀드"),
+            ("markets?", "investors?", "profit", "revenue", "tariffs?", "trade", "bank", "economy", "economic",
+             "prices?", "rally", "selloff", "rates?"))),
+    "코인": (
+        _kw(("비트코인", "이더리움", "코인", "가상자산", "암호화폐", "블록체인", "리플", "솔라나", "스테이블", "바이낸스",
+             "업비트", "빗썸", "디파이", "토큰", "알트코인", "도지"),
+            ("bitcoin", "btc", "ethereum", "ether", "eth", "crypto", "cryptocurrency", "stablecoins?", "binance",
+             "coinbase", "solana", "ripple", "xrp", "defi", "blockchain", "tokens?", "altcoins?", "dogecoin",
+             "tether", "nfts?")),
+        _kw(("거래소", "ETF", "해킹", "NFT"), ("etf", "exchange", "wallet", "mining", "halving"))),
+    "문화예술": (
+        _kw(("미술", "전시", "갤러리", "화랑", "화가", "조각", "설치미술", "회화", "비엔날레", "트리엔날레", "아트페어", "옥션",
+             "경매", "컬렉", "큐레이", "미술관", "박물관", "사진전", "판화", "도예", "공예"),
+            ("art", "arts", "artists?", "artworks?", "galler(?:y|ies)", "museums?", "exhibitions?", "biennale",
+             "biennial", "auction", "curators?", r"sculpt\w*", r"paint\w*", "installation", "photography",
+             "ceramics?", "collectors?", "frieze", "moma", "louvre", "tate", "guggenheim")),
+        _kw(("아트", "작가", "건축", "디자인", "공연", "연극", "뮤지컬", "오페라", "무용", "발레", "국악", "클래식", "오케스트라",
+             "영화제", "영화", "문학", "소설", "시집", "시인", "출판", "레지던시", "문화재", "유물", "개관", "거장", "음악회"),
+            ("theatre", "theater", "opera", "ballet", "dance", "orchestra", "symphony", "film", "novel", "poet",
+             "poetry", "literature", "book", "design", r"architect\w*", "heritage", "concert", "music"))),
+}
+# 키워드로 가려 뽑을 때 점수 0인 기사를 버릴지(True) 채워 넣을지(False)
+STRICT_CATEGORIES = {"경제·증시", "코인", "문화예술"}
 
 
 @dataclass
@@ -72,17 +126,65 @@ class Article:
 
 def _entry_time(entry) -> datetime | None:
     parsed = entry.get("published_parsed") or entry.get("updated_parsed")
-    if not parsed:
-        return None
-    return datetime.fromtimestamp(calendar.timegm(parsed), tz=timezone.utc)
+    if parsed:
+        return datetime.fromtimestamp(calendar.timegm(parsed), tz=timezone.utc)
+    # feedparser가 못 읽는 형식(예: 2026-11-04T10:20:00+09:00, 'Wed,4 Nov 2026 ...')은 직접 해석
+    for key in ("published", "updated"):
+        raw = (entry.get(key) or "").strip()
+        if not raw:
+            continue
+        try:
+            dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            try:
+                dt = email.utils.parsedate_to_datetime(raw)
+            except (TypeError, ValueError):
+                continue
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=KST)  # 시간대 표기가 없으면 국내 피드가 대부분이라 KST로 간주
+        return dt.astimezone(timezone.utc)
+    return None
+
+
+def _norm_title(title: str) -> str:
+    """'(종합)', '(종합2보)', '[속보]' 같은 접미사를 떼어 같은 사건의 속보/종합 기사를 중복으로 본다."""
+    t = re.sub(r"\((?:종합|속보|\d보)[^)]*\)|\[(?:속보|단독|종합)\]", "", title)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def previous_digest_keys() -> set[str]:
+    """가장 최근 브리핑 이슈에 이미 실린 기사 링크 (예약 실행에서 어제와 겹치는 기사를 빼는 데 사용)."""
+    repo, token = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GITHUB_TOKEN")
+    if not (repo and token):
+        return set()
+    try:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{repo}/issues?state=all&per_page=5&sort=created&direction=desc",
+            headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
+                     "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "news-digest"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            issues = json.load(r)
+    except Exception as err:  # 중복 제거는 부가 기능이므로 실패해도 계속
+        print(f"[warn] 이전 브리핑을 불러오지 못해 중복 제거를 건너뜁니다: {err}", file=sys.stderr)
+        return set()
+    keys: set[str] = set()
+    for it in issues:
+        if "pull_request" in it or not str(it.get("title", "")).startswith("[뉴스 브리핑]"):
+            continue
+        for url in re.findall(r"\]\((https?://[^)\s]+)\)", it.get("body") or ""):
+            keys.add(url.replace("%29", ")").split("?")[0])
+        break  # 가장 최근 브리핑 하나만
+    return keys
 
 
 def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
     now = now or datetime.now(timezone.utc)
-    cutoff = now - timedelta(hours=config.get("max_age_hours", 26))
-    per_feed = config.get("max_items_per_feed", 15)
-    max_total = config.get("max_total_articles", 350)
+    default_age = config.get("max_age_hours", 26)
+    per_feed_default = config.get("max_items_per_feed", 15)
+    max_total = config.get("max_total_articles", 450)
     seen: set[str] = set()
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule":  # 수동 실행은 전체를 보여주고, 매일 자동 실행만 어제와 겹침을 제외
+        seen |= previous_digest_keys()
     socket.setdefaulttimeout(20)  # 응답 없는 피드 하나가 전체를 막지 않도록
 
     def _parse(feed: dict):
@@ -106,6 +208,8 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
         items: list[Article] = []
         if parsed is not None:
             outlet = feed.get("outlet") or feed.get("name", "")
+            per_feed = feed.get("max_items", per_feed_default)
+            cutoff = now - timedelta(hours=feed.get("max_age_hours", default_age))  # 업데이트가 느린 미술 매체는 더 길게
             for entry in parsed.entries:
                 title = (entry.get("title") or "").strip()
                 link = entry.get("link") or ""
@@ -115,9 +219,10 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 if published and published < cutoff:
                     continue
                 key = link.split("?")[0]
-                if key in seen or title in seen:
+                tkey = _norm_title(title)
+                if key in seen or tkey in seen:
                     continue
-                seen.update({key, title})
+                seen.update({key, tkey})
                 items.append(Article(
                     outlet=outlet,
                     region=feed.get("region", ""),
@@ -133,7 +238,7 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
 
     # 상한을 넘으면 한 매체가 독식하지 않도록 피드별로 한 건씩 번갈아 채택
     articles: list[Article] = []
-    for rank in range(per_feed):
+    for rank in range(max((len(x) for x in per_feed_lists), default=0)):
         for items in per_feed_lists:
             if rank < len(items) and len(articles) < max_total:
                 articles.append(items[rank])
@@ -147,21 +252,32 @@ def _strip_html(text: str) -> str:
 
 # ---------- 요약 ----------
 
-SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
+SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에디터입니다. 독자는 **예술가(현대미술 작가)**이며
+세계 정세, 경제·시장, 예술계 소식을 꾸준히 알고 있어야 합니다.
 국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/미국/영국/기타 해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
 오늘 가장 중요한 뉴스를 골라 카테고리별로 한국어로 요약하세요.
+
+독자가 가장 중요하게 보는 세 영역 (분량도 이 순서·비중으로 배분):
+1. 세계 이슈: 전쟁·분쟁, 국가 간 관계·외교·제재·안보, 선거 등 세계 정세. 한반도·동아시아 관련 소식도 포함.
+2. 경제·시장: 국제·국내 경제, 주식(지수·환율·금리·주요 종목·실적)과 코인(비트코인·이더리움·규제·거래소·ETF)의 시장 동향.
+   코인 기사는 '코인' 카테고리로, 주식·거시경제는 '경제·증시'로 나눕니다.
+3. 문화예술: 국내외 미술계 소식을 최우선(전시, 미술관·갤러리, 비엔날레·아트페어, 옥션·미술시장, 작가·큐레이터 동정,
+   수상·공모, 소장품·반환·복원 이슈)으로 하고, 그다음 공연·영화·문학·건축·디자인. 국내 소식과 해외 소식을 모두 담으세요.
+   아이돌·연예인 가십, 방송 화제성 기사는 예술계 맥락이 없으면 제외합니다.
 
 규칙:
 - 카테고리는 다음 순서로 고정: {", ".join(CATEGORIES)}. 해당 기사가 없는 카테고리는 생략.
   '카테고리힌트'는 참고만 하고, 내용에 맞게 직접 분류하세요('종합'은 직접 판단).
-- 카테고리마다 중요도 순으로 3~5개 항목. 전체 20~30개.
+- 카테고리별 항목 수 상한: {", ".join(f"{c} {n}개" for c, n in CATEGORY_LIMITS.items())}. 중요한 기사가 부족하면 적게 담고,
+  정치·사회/IT·과학/스포츠는 짧게 유지하세요. 전체 25~35개.
 - 같은 사건을 여러 신문사가 다뤘으면 하나로 묶고, source에 보도한 신문사를 모두(최대 3곳) 적으세요.
   국내·미국·영국 등 여러 나라 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
 - 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
-- 해외 기사는 한국어로 번역해 요약하세요.
+- 해외 기사는 한국어로 번역해 요약하세요. 작가·전시·기관 이름은 원어를 병기하세요(예: 쿠사마 야요이(Yayoi Kusama)).
 - 각 카테고리에는 overview를 반드시 넣으세요. 그 분야에서 오늘 가장 큰 이슈가 무엇이고 항목들이
   어떻게 이어지는지를 2~3문장으로 설명하는 종합 요약입니다(항목 제목을 그대로 나열하지 말 것).
+  문화예술의 overview는 국내와 해외 소식을 구분해서 설명하세요.
   items에 담은 내용과 기사 목록에 있는 사실만 쓰고, 목록에 없는 배경·전망을 지어내지 마세요.
 - 반드시 아래 JSON만 출력하세요 (설명, 코드펜스 없이):
 {{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "overview": "카테고리 핵심 요약 2~3문장", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
@@ -184,7 +300,7 @@ def _call_anthropic(system: str, user: str) -> str:
 
     msg = anthropic.Anthropic().messages.create(
         model=os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
-        max_tokens=8192,
+        max_tokens=12000,
         system=system,
         messages=[{"role": "user", "content": user}],
     )
@@ -211,7 +327,7 @@ def _call_gemini(system: str, user: str) -> str:
         "systemInstruction": {"parts": [{"text": system}]},
         "contents": [{"role": "user", "parts": [{"text": user}]}],
         "generationConfig": {"responseMimeType": "application/json",
-                             "maxOutputTokens": 8192, "temperature": 0.2},
+                             "maxOutputTokens": 12000, "temperature": 0.2},
     }).encode()
     # 키는 URL이 아닌 헤더로 보내 로그/예외에 노출되지 않게 함
     req = urllib.request.Request(url, data=body, headers={
@@ -259,26 +375,84 @@ def parse_json(text: str) -> dict:
     return json.loads(text[start:end + 1])
 
 
-def headlines_only(articles: list[Article], per_category: int = 6,
-                   headline: str = "AI 요약 없이 헤드라인만 제공합니다") -> dict:
-    """AI 없이(비용 0원) 카테고리별 헤드라인만 묶는 모드. 신문사가 고르게 섞이도록 번갈아 채택."""
-    queues: dict[str, dict[str, list[Article]]] = {}
-    for a in articles:
-        queues.setdefault(a.category, {}).setdefault(a.outlet, []).append(a)
+def topic_score(cat: str, a: Article) -> int:
+    """해당 카테고리와 얼마나 관련 있는 기사인지 점수 (0이면 무관)."""
+    core, other = KEYWORDS[cat]
+    text = f"{a.title} {a.summary}"
+    return 3 * len({m.lower() for m in core.findall(text)}) + len({m.lower() for m in other.findall(text)})
+
+
+def art_score(a: Article) -> int:
+    return topic_score("문화예술", a)
+
+
+def _reclassify(a: Article) -> Article:
+    """헤드라인 모드 전용: 피드 카테고리가 부정확한 기사를 키워드로 바로잡는다.
+    - 어느 피드에 있든 코인 핵심어가 있으면 '코인'
+    - '종합' 피드 기사는 가장 관련 높은 카테고리로, 해당 없으면 '정치·사회'"""
+    if a.category != "코인" and topic_score("코인", a) >= 3:
+        return replace(a, category="코인")
+    if a.category == "종합":
+        best, score = "정치·사회", 2
+        for cat in ("세계 이슈", "경제·증시", "문화예술"):
+            sc = topic_score(cat, a)
+            if sc > score:
+                best, score = cat, sc
+        return replace(a, category=best)
+    return a
+
+
+def _pick_scored(items: list[Article], cat: str, limit: int) -> list[Article]:
+    """키워드 점수 순으로 고르되 한 신문사가 3건을 넘지 않게 한다. 문화예술은 국내 소식을 먼저 최대 3건 확보."""
+    strict = cat in STRICT_CATEGORIES
+    ranked = [a for a in sorted(items, key=lambda x: -topic_score(cat, x)) if topic_score(cat, a) > 0 or not strict]
+    picked: list[Article] = []
+    per_outlet: dict[str, int] = {}
+
+    def take(a: Article) -> None:
+        picked.append(a)
+        per_outlet[a.outlet] = per_outlet.get(a.outlet, 0) + 1
+
+    if cat == "문화예술":
+        for a in [x for x in ranked if x.region == "국내"][:3]:
+            take(a)
+    for a in ranked:
+        if len(picked) >= limit:
+            break
+        if a not in picked and per_outlet.get(a.outlet, 0) < 3:
+            take(a)
+    # 정렬은 '점수 순'이 아니라 읽기 좋게 원래 수집 순서(신문사 섞임)로 되돌림
+    order = {id(a): i for i, a in enumerate(items)}
+    return sorted(picked, key=lambda a: order[id(a)])
+
+
+def headlines_only(articles: list[Article], headline: str = "AI 요약 없이 헤드라인만 제공합니다") -> dict:
+    """AI 없이(비용 0원) 카테고리별 헤드라인만 묶는 모드. 카테고리별 비중은 CATEGORY_LIMITS를 따르고,
+    세계 이슈·경제·코인·문화예술은 키워드로 관련 기사를 우선 고른다."""
+    by_cat: dict[str, list[Article]] = {}
+    for a in map(_reclassify, articles):
+        by_cat.setdefault(a.category, []).append(a)
     sections = []
-    order = CATEGORIES + [c for c in queues if c not in CATEGORIES]
-    for cat in order:
-        if cat not in queues:
+    for cat in CATEGORIES + [c for c in by_cat if c not in CATEGORIES]:
+        items = by_cat.get(cat)
+        if not items:
             continue
-        picked: list[Article] = []
-        lists = list(queues[cat].values())
-        for rank in range(max(len(x) for x in lists)):
-            for lst in lists:
-                if rank < len(lst) and len(picked) < per_category:
-                    picked.append(lst[rank])
-        sections.append({"topic": cat, "items": [
-            {"title": a.title, "summary": a.summary[:120], "source": a.outlet, "link": a.link}
-            for a in picked]})
+        limit = CATEGORY_LIMITS.get(cat, 4)
+        if cat in KEYWORDS:
+            picked = _pick_scored(items, cat, limit)
+        else:  # 정치·사회, IT·과학, 스포츠: 신문사가 고르게 섞이도록 번갈아 채택
+            picked, queues = [], {}
+            for a in items:
+                queues.setdefault(a.outlet, []).append(a)
+            lists = list(queues.values())
+            for rank in range(max(len(x) for x in lists)):
+                for lst in lists:
+                    if rank < len(lst) and len(picked) < limit:
+                        picked.append(lst[rank])
+        if picked:
+            sections.append({"topic": cat, "items": [
+                {"title": html.unescape(a.title), "summary": a.summary[:120], "source": a.outlet, "link": a.link}
+                for a in picked]})
     return {"headline": headline, "sections": sections}
 
 
