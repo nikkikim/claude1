@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Daily News Digest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📰%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" class="icon-btn only-mobile" aria-label="달력 열기" aria-expanded="false">📅</button>
+  <a class="brand" href="#" id="brand"><span class="brand-ico">📰</span><span class="brand-txt">Daily News Digest</span></a>
+  <div class="top-actions">
+    <button id="themeBtn" class="icon-btn" aria-label="밝게/어둡게 전환" title="밝게/어둡게">🌓</button>
+    <button id="mailBtn" class="primary-btn">✉ <span>이메일 보내기</span></button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="날짜 선택">
+    <section class="cal" aria-label="달력">
+      <div class="cal-head">
+        <button id="prevMonth" class="icon-btn" aria-label="이전 달">‹</button>
+        <div id="calTitle" class="cal-title"></div>
+        <button id="nextMonth" class="icon-btn" aria-label="다음 달">›</button>
+      </div>
+      <div id="calGrid" class="cal-grid" role="grid"></div>
+      <div class="cal-foot">
+        <button id="latestBtn" class="ghost-btn">최신 브리핑 보기</button>
+        <span id="calCount" class="muted"></span>
+      </div>
+    </section>
+    <section class="recent" aria-label="이달의 브리핑">
+      <h2>이 달의 브리핑</h2>
+      <ul id="monthList"></ul>
+    </section>
+  </aside>
+
+  <main class="content" id="content" tabindex="-1">
+    <div id="view"><p class="muted center">불러오는 중…</p></div>
+    <noscript><p>이 페이지는 JavaScript가 필요합니다.</p></noscript>
+  </main>
+</div>
+
+<dialog id="mailDialog" class="dialog">
+  <form method="dialog" class="dialog-close"><button aria-label="닫기" class="icon-btn">✕</button></form>
+  <h2>✉ 이메일 보내기</h2>
+  <p class="muted" id="mailTarget"></p>
+
+  <section class="mail-card">
+    <h3>내 메일로 다시 받기</h3>
+    <p>저장된 브리핑을 GitHub 알림 메일로 다시 보냅니다. <b>AI를 쓰지 않아서</b> 몇 번이든 보낼 수 있고, 1~2분 안에 도착합니다.</p>
+    <div class="row">
+      <button id="sendNow" class="primary-btn">지금 보내기</button>
+      <a id="openActions" class="ghost-btn" target="_blank" rel="noopener">GitHub에서 직접 실행</a>
+    </div>
+    <p id="sendStatus" class="status" role="status"></p>
+    <details id="tokenBox" class="token">
+      <summary>버튼 한 번으로 보내려면 (처음 한 번만 설정)</summary>
+      <ol>
+        <li>GitHub <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b></li>
+        <li><b>Repository access</b>: Only select repositories → 이 저장소만 선택</li>
+        <li><b>Permissions → Actions: Read and write</b> (다른 권한은 필요 없음) 후 생성</li>
+        <li>만든 토큰(<code>github_pat_…</code>)을 아래에 붙여 넣고 저장</li>
+      </ol>
+      <div class="row">
+        <input id="tokenInput" type="password" autocomplete="off" placeholder="github_pat_...">
+        <button id="saveToken" class="ghost-btn">저장</button>
+        <button id="clearToken" class="ghost-btn">지우기</button>
+      </div>
+      <p class="muted small">토큰은 <b>이 브라우저에만</b> 저장되며 어디에도 전송되지 않습니다(GitHub로 실행 요청을 보낼 때만 사용). 공용 컴퓨터에서는 저장하지 마세요.</p>
+    </details>
+  </section>
+
+  <section class="mail-card">
+    <h3>메일 앱으로 보내기 (다른 사람에게 공유)</h3>
+    <p>내 메일 앱이 열리고, 오늘의 핵심 요약과 이 페이지 링크가 본문에 채워집니다.</p>
+    <div class="row"><a id="mailtoLink" class="ghost-btn">메일 앱 열기</a></div>
+  </section>
+</dialog>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

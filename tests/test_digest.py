@@ -1299,35 +1299,112 @@ def test_main_archive_saves_json_but_not_in_dry_run(monkeypatch, tmp_path):
     assert saved["sections"] and saved["message"]["ko"] and "meta" in saved
 
 
-def test_build_site_pages_nav_and_escaping(tmp_path):
+def test_build_site_writes_data_index_and_assets(tmp_path, monkeypatch):
     import build_site
+    monkeypatch.setenv("GITHUB_REPOSITORY", "me/repo")
+    monkeypatch.setenv("GITHUB_REF_NAME", "my-branch")
     src, out = tmp_path / "archive", tmp_path / "_site"
     src.mkdir()
     for day in ("2026-11-04", "2026-11-05", "2026-11-06"):
-        (src / f"{day}.json").write_text(json.dumps(_site_digest(), ensure_ascii=False), encoding="utf-8")
-    (src / "broken.json").write_text("{", encoding="utf-8")        # 깨진 파일은 건너뜀
-    (src / "2026-11-07.json").write_text("{깨짐", encoding="utf-8")
+        (src / f"{day}.json").write_text(json.dumps(_site_digest(f"{day} 헤드라인"), ensure_ascii=False), encoding="utf-8")
+    (src / "broken.json").write_text("{", encoding="utf-8")        # 이름이 날짜가 아닌 파일은 건너뜀
+    (src / "2026-11-07.json").write_text("{깨짐", encoding="utf-8")  # 내용이 깨진 파일도 건너뜀
     assert build_site.build(src, out) == 3
-    assert {p.name for p in out.glob("*.html")} == {"index.html", "archive.html", "2026-11-04.html", "2026-11-05.html", "2026-11-06.html"}
-    index = (out / "index.html").read_text(encoding="utf-8")
-    mid = (out / "2026-11-05.html").read_text(encoding="utf-8")
-    assert "2026년 11월 6일" in index and "지난 브리핑" in index and 'href="2026-11-05.html"' in index
-    assert 'href="2026-11-04.html"' in mid and 'href="2026-11-06.html"' in mid        # 이전/다음 날 링크
-    assert 'name="robots" content="noindex' in index and 'name="viewport"' in index
-    assert "헤드라인 &lt;b&gt;" in index
-    assert "전체 브리핑 (3개)" in (out / "archive.html").read_text(encoding="utf-8")
+    for name in ("index.html", "style.css", "app.js", "config.js"):
+        assert (out / name).is_file()
+    index = json.loads((out / "data" / "index.json").read_text(encoding="utf-8"))
+    assert [x["d"] for x in index] == ["2026-11-06", "2026-11-05", "2026-11-04"]      # 최신순
+    assert index[0]["h"] == "2026-11-06 헤드라인"
+    day = json.loads((out / "data" / "2026-11-05.json").read_text(encoding="utf-8"))
+    assert day["sections"][0]["items"][0]["link"] == "https://ex.com/A"
+    cfg = (out / "config.js").read_text(encoding="utf-8")
+    assert '"me/repo"' in cfg and '"my-branch"' in cfg and "daily-news.yml" in cfg
+    html_ = (out / "index.html").read_text(encoding="utf-8")
+    assert 'name="robots" content="noindex' in html_ and 'name="viewport"' in html_
+    for ident in ("calGrid", "mailBtn", "mailDialog", "view"):                         # 화면 뼈대(달력·이메일 버튼)
+        assert f'id="{ident}"' in html_
 
 
-def test_build_site_empty_archive_shows_placeholder(tmp_path):
+def test_build_site_empty_archive_and_rebuild_cleans_old_files(tmp_path):
     import build_site
-    assert build_site.build(tmp_path / "none", tmp_path / "_site") == 0
-    assert "아직 보관된 브리핑이 없습니다" in (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
+    out = tmp_path / "_site"
+    (out / "data").mkdir(parents=True)
+    (out / "data" / "2000-01-01.json").write_text("{}", encoding="utf-8")                # 예전 잔여물
+    assert build_site.build(tmp_path / "none", out) == 0
+    assert json.loads((out / "data" / "index.json").read_text(encoding="utf-8")) == []
+    assert not (out / "data" / "2000-01-01.json").exists()
+
+
+def test_site_script_is_valid_and_never_uses_innerhtml():
+    import shutil
+    import subprocess
+    root = Path(__file__).resolve().parent.parent / "site"
+    js = (root / "app.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in js and "document.write" not in js and "eval(" not in js    # 기사 내용이 HTML로 해석되지 않게
+    if shutil.which("node"):
+        assert subprocess.run(["node", "--check", str(root / "app.js")], capture_output=True).returncode == 0
+
+
+def test_resend_sends_archived_digest_without_fetching(monkeypatch, tmp_path):
+    arch = tmp_path / "arch"
+    arch.mkdir()
+    (arch / "2026-11-03.json").write_text(json.dumps(_site_digest("옛날"), ensure_ascii=False), encoding="utf-8")
+    (arch / "2026-11-04.json").write_text(json.dumps(_site_digest("최신"), ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: (_ for _ in ()).throw(AssertionError("수집하면 안 됨")))
+    sent = []
+    monkeypatch.setattr(nd, "send_github_issue", lambda title, body: sent.append((title, body)))
+    for k in ("GITHUB_ACTIONS", "GITHUB_TOKEN", "GITHUB_REPOSITORY"):
+        monkeypatch.setenv(k, "x")
+    for k in ("SMTP_USER", "TELEGRAM_BOT_TOKEN"):
+        monkeypatch.delenv(k, raising=False)
+    assert nd.main(["--resend", str(arch)]) == 0                          # 날짜를 안 주면 가장 최근
+    assert "최신" in sent[-1][0] and sent[-1][0].startswith("[뉴스 브리핑·재발송] 11/04")
+    assert nd.main(["--resend", str(arch), "--resend-date", "2026-11-03"]) == 0
+    assert "옛날" in sent[-1][0] and len(sent) == 2                       # 여러 번 보낼 수 있음
+    assert not sent[-1][0].startswith("[뉴스 브리핑]")                    # 다음 날 중복 제거 기준(정규 브리핑)과 구분
+    for bad in ("2026-13-45x", "../etc/passwd", "2020-01-01"):
+        assert nd.main(["--resend", str(arch), "--resend-date", bad]) == 1
+    assert nd.main(["--resend", str(tmp_path / "empty")]) == 1
+    monkeypatch.setenv("RESEND_DATE", "2026-11-03")
+    assert nd.main(["--resend", str(arch)]) == 0 and "옛날" in sent[-1][0]
+
+
+def test_archive_marks_sent_and_backup_run_skips_when_already_sent(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    fetches = []
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: fetches.append(1) or [_art("A", "국내", "세계 이슈")])
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    monkeypatch.setattr(nd, "send_github_issue", lambda *a: None)
+    for k in ("GITHUB_ACTIONS", "GITHUB_TOKEN", "GITHUB_REPOSITORY"):
+        monkeypatch.setenv(k, "x")
+    today = nd.datetime.now(nd.KST).strftime("%Y-%m-%d")
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and len(fetches) == 1     # 오늘 것이 없으면 정상 실행
+    assert json.loads((tmp_path / "arch" / f"{today}.json").read_text(encoding="utf-8"))["sent"] is True
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and len(fetches) == 1     # 이미 발송 → 건너뜀
+    assert nd.main(["--archive", "arch"]) == 0 and len(fetches) == 2                          # 정규 실행은 항상 새로 발송
+
+
+def test_failed_send_keeps_archive_unsent_so_backup_run_retries(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+
+    def boom(*a):
+        raise RuntimeError("down")
+    monkeypatch.setattr(nd, "send_github_issue", boom)
+    for k in ("GITHUB_ACTIONS", "GITHUB_TOKEN", "GITHUB_REPOSITORY"):
+        monkeypatch.setenv(k, "x")
+    assert nd.main(["--archive", "arch"]) == 1
+    saved = next((tmp_path / "arch").glob("*.json"))
+    assert json.loads(saved.read_text(encoding="utf-8"))["sent"] is False        # 웹사이트에는 남지만 '미발송'으로 표시
 
 
 def test_workflow_deploys_pages_with_minimal_permissions():
     wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
     for needle in ("actions/deploy-pages@v4", "actions/upload-pages-artifact@v3", "actions/configure-pages@v5",
-                   "pages: write", "id-token: write", "--archive archive", "python build_site.py", "site_only"):
+                   "pages: write", "id-token: write", "--archive archive", "python build_site.py", "site_only",
+                   "--resend archive", "resend_date", "--only-if-missing", 'cron: "30 22 * * *"', 'cron: "30 1 * * *"',
+                   "daily-news-resend"):
         assert needle in wf
     top = wf.split("jobs:")[0]
     assert "contents: read" in top and "contents: write" not in top           # 쓰기 권한은 send 작업에만

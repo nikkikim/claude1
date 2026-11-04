@@ -1317,13 +1317,87 @@ def configured_channels() -> list[str]:
 
 # ---------- main ----------
 
+def _deliver(channels: list[str], subject: str, digest: dict, date: datetime) -> list[str]:
+    """채널마다 발송을 시도하고(하나가 실패해도 나머지는 계속), 성공한 채널 이름 목록을 돌려준다."""
+    ok = []
+    for ch in channels:
+        try:
+            if ch == "email":
+                send_email(subject, render_html(digest, date), render_text(digest))
+            elif ch == "telegram":
+                send_telegram(render_telegram(digest, date))
+            else:
+                send_github_issue(subject, render_markdown(digest, date))
+            print(f"발송 완료: {ch}")
+            ok.append(ch)
+        except Exception as err:  # noqa: BLE001
+            print(f"[error] {ch} 발송 실패: {err}", file=sys.stderr)
+    return ok
+
+
+NO_CHANNEL_MSG = ("발송 채널이 설정되지 않았습니다. GitHub Actions에서 실행하면 GitHub 알림이 자동으로 쓰이고, "
+                  "로컬에서는 이메일(SMTP_*, MAIL_TO) 또는 텔레그램(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) 환경변수를 설정하세요.")
+
+
+def _save_archive(path: Path, digest: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(digest, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def resend_archived(archive_dir: str, date_str: str = "") -> int:
+    """보관된 브리핑을 다시 발송한다(수집·AI 없이, 몇 번이든 가능). date_str가 비어 있거나 'latest'면 가장 최근 것."""
+    src = Path(archive_dir)
+    date_str = (date_str or "").strip()
+    if date_str in ("", "latest"):
+        files = sorted(src.glob("*.json"))
+        if not files:
+            print("보관된 브리핑이 없어 재발송할 수 없습니다.", file=sys.stderr)
+            return 1
+        path = files[-1]
+    else:
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date_str):
+            print(f"날짜 형식이 올바르지 않습니다: {date_str!r} (예: 2026-11-04)", file=sys.stderr)
+            return 1
+        path = src / f"{date_str}.json"
+        if not path.exists():
+            print(f"{date_str} 브리핑이 보관돼 있지 않습니다.", file=sys.stderr)
+            return 1
+    digest = json.loads(path.read_text(encoding="utf-8"))
+    date = datetime.strptime(path.stem, "%Y-%m-%d")
+    channels = configured_channels()
+    if not channels:
+        print(NO_CHANNEL_MSG, file=sys.stderr)
+        return 2
+    # 제목 머리를 '[뉴스 브리핑]'과 다르게 해서, 다음 날 중복 제거 기준(가장 최근 정규 브리핑)을 건드리지 않게 한다
+    subject = f"[뉴스 브리핑·재발송] {date:%m/%d} {digest.get('headline', '')}"[:120]
+    ok = _deliver(channels, subject, digest, date)
+    print(f"재발송 {'완료' if ok else '실패'}: {path.name}")
+    return 0 if ok else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="발송 대신 digest.html로 저장")
     ap.add_argument("--no-llm", action="store_true", help="Claude 없이 헤드라인만")
     ap.add_argument("--config", default=str(CONFIG_PATH))
     ap.add_argument("--archive", metavar="DIR", help="오늘의 브리핑을 DIR/YYYY-MM-DD.json 으로 보관(웹사이트용). --dry-run과는 함께 쓰지 않음")
+    ap.add_argument("--only-if-missing", action="store_true",
+                    help="--archive와 함께: 오늘 브리핑이 이미 발송·보관돼 있으면 아무것도 하지 않음(예비 예약 실행용)")
+    ap.add_argument("--resend", metavar="DIR", help="DIR에 보관된 브리핑을 다시 발송(수집·AI 없음)")
+    ap.add_argument("--resend-date", default=os.environ.get("RESEND_DATE", ""), help="재발송할 날짜 YYYY-MM-DD (기본: 가장 최근)")
     args = ap.parse_args(argv)
+
+    if args.resend:
+        return resend_archived(args.resend, args.resend_date)
+
+    today_path = Path(args.archive) / f"{datetime.now(KST):%Y-%m-%d}.json" if args.archive else None
+    if args.only_if_missing and today_path and today_path.exists():
+        try:
+            if json.loads(today_path.read_text(encoding="utf-8")).get("sent"):
+                print(f"오늘({today_path.stem}) 브리핑이 이미 발송돼 예비 실행은 건너뜁니다.")
+                return 0
+        except (OSError, ValueError):
+            pass  # 깨진 보관 파일이면 새로 만든다
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
     articles = fetch_articles(config)
@@ -1363,45 +1437,27 @@ def main(argv: list[str] | None = None) -> int:
     digest["message"] = daily_message(now)
     digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
                       "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
-    html_body = render_html(digest, now)
-    text_body = render_text(digest)
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]
 
-    if args.archive and not args.dry_run:
-        out_dir = Path(args.archive)
-        out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / f"{now:%Y-%m-%d}.json").write_text(
-            json.dumps(digest, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"보관 완료: {out_dir}/{now:%Y-%m-%d}.json")
-
     if args.dry_run:
-        Path("digest.html").write_text(html_body, encoding="utf-8")
+        Path("digest.html").write_text(render_html(digest, now), encoding="utf-8")
         print("digest.html 저장 완료 (발송하지 않음)")
         for i, m in enumerate(render_telegram(digest, now), 1):
             print(f"--- 텔레그램 메시지 {i} ({len(m)}자) ---\n{m}")
         return 0
 
+    if today_path:  # 발송 전에 먼저 보관(발송이 실패해도 웹사이트에는 남도록). 발송에 성공하면 sent=True로 다시 저장
+        _save_archive(today_path, {**digest, "sent": False})
+        print(f"보관 완료: {today_path}")
+
     channels = configured_channels()
     if not channels:
-        print("발송 채널이 설정되지 않았습니다. GitHub Actions에서 실행하면 GitHub 알림이 자동으로 쓰이고, "
-              "로컬에서는 이메일(SMTP_*, MAIL_TO) 또는 텔레그램(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) "
-              "환경변수를 설정하세요.", file=sys.stderr)
+        print(NO_CHANNEL_MSG, file=sys.stderr)
         return 2
-
-    failed = False
-    for ch in channels:  # 한 채널이 실패해도 나머지는 계속 시도
-        try:
-            if ch == "email":
-                send_email(subject, html_body, text_body)
-            elif ch == "telegram":
-                send_telegram(render_telegram(digest, now))
-            else:
-                send_github_issue(subject, render_markdown(digest, now))
-            print(f"발송 완료: {ch}")
-        except Exception as err:
-            failed = True
-            print(f"[error] {ch} 발송 실패: {err}", file=sys.stderr)
-    return 1 if failed else 0
+    ok = _deliver(channels, subject, digest, now)
+    if today_path and ok:
+        _save_archive(today_path, {**digest, "sent": True})
+    return 0 if len(ok) == len(channels) else 1
 
 
 if __name__ == "__main__":

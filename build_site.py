@@ -2,41 +2,23 @@
 
     python build_site.py [보관폴더=archive] [출력폴더=_site]
 
-- index.html : 가장 최근 브리핑 + 지난 브리핑 목록
-- YYYY-MM-DD.html : 날짜별 브리핑(이전/다음 날 링크)
-- archive.html : 전체 목록
+만들어지는 것:
+- _site/index.html, style.css, app.js : site/ 폴더의 화면 파일(달력·날짜별 보기·이메일 보내기 버튼)
+- _site/config.js                     : 저장소 이름·브랜치(이메일 보내기 버튼이 사용)
+- _site/data/index.json               : [{"d": 날짜, "h": 한 줄 요약}] 최신순 (달력에 표시)
+- _site/data/YYYY-MM-DD.json          : 그날의 브리핑 본문(브라우저가 필요할 때 불러옴)
 """
 from __future__ import annotations
 
-import html
 import json
+import os
+import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
 
-import news_digest as nd
-
-CSS = """
-:root{color-scheme:light}
-body{margin:0;background:#f6f7f9;color:#222;font-family:-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
-main{max-width:680px;margin:0 auto;padding:20px 16px 48px;background:#fff;min-height:100vh}
-nav{display:flex;justify-content:space-between;gap:8px;font-size:14px;margin:0 0 16px}
-nav a{color:#0b57d0;text-decoration:none}
-nav .off{color:#bbb}
-.past{margin-top:32px;border-top:1px solid #ddd;padding-top:12px;font-size:14px}
-.past h2{font-size:15px;margin:0 0 8px}
-.past li{margin:4px 0}
-.past a{color:#0b57d0;text-decoration:none}
-.past span{color:#777}
-"""
-
-
-def _page(title: str, body: str) -> str:
-    e = html.escape
-    return ('<!doctype html><html lang="ko"><head><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<meta name="robots" content="noindex,nofollow">'
-            f"<title>{e(title)}</title><style>{CSS}</style></head><body><main>{body}</main></body></html>")
+SITE_SRC = Path(__file__).with_name("site")
+ASSETS = ("index.html", "style.css", "app.js")
 
 
 def load_archive(src: Path) -> list[tuple[str, dict]]:
@@ -53,35 +35,27 @@ def load_archive(src: Path) -> list[tuple[str, dict]]:
     return items
 
 
-def _list_html(items: list[tuple[str, dict]], limit: int | None = None) -> str:
-    e = html.escape
-    rows = "".join(f'<li><a href="{d}.html">{d}</a> <span>{e(str(g.get("headline", ""))[:80])}</span></li>'
-                   for d, g in items[:limit])
-    return f"<ul>{rows}</ul>"
+def _js_string(value: str) -> str:
+    return json.dumps(value, ensure_ascii=False).replace("<", "\\u003c")
 
 
 def build(src: Path, out: Path) -> int:
     items = load_archive(src)
-    out.mkdir(parents=True, exist_ok=True)
-    if not items:
-        (out / "index.html").write_text(_page("뉴스 브리핑", "<p>아직 보관된 브리핑이 없습니다. 내일 아침에 첫 브리핑이 올라옵니다.</p>"), encoding="utf-8")
-        return 0
-    for i, (day, digest) in enumerate(items):
-        newer = items[i - 1][0] if i > 0 else None
-        older = items[i + 1][0] if i + 1 < len(items) else None
-        nav = ('<nav>' + (f'<a href="{older}.html">← {older}</a>' if older else '<span class="off">←</span>')
-               + '<a href="archive.html">전체 목록</a>'
-               + (f'<a href="{newer}.html">{newer} →</a>' if newer else '<span class="off">→</span>') + '</nav>')
-        date = datetime.strptime(day, "%Y-%m-%d")
-        body = nav + nd.render_html(digest, date)
-        page = _page(f"{day} 뉴스 브리핑", body)
-        (out / f"{day}.html").write_text(page, encoding="utf-8")
-        if i == 0:  # 가장 최근 브리핑 + 지난 목록
-            past = '<div class="past"><h2>지난 브리핑</h2>' + _list_html(items[1:], 30) + "</div>" if len(items) > 1 else ""
-            (out / "index.html").write_text(_page("뉴스 브리핑", body + past), encoding="utf-8")
-    (out / "archive.html").write_text(
-        _page("전체 브리핑 목록", f'<nav><a href="index.html">← 최신 브리핑</a></nav><h1 style="font-size:20px">전체 브리핑 ({len(items)}개)</h1>'
-              + _list_html(items)), encoding="utf-8")
+    if out.exists():
+        shutil.rmtree(out)
+    (out / "data").mkdir(parents=True)
+    for name in ASSETS:
+        shutil.copy(SITE_SRC / name, out / name)
+    (out / "config.js").write_text(
+        "window.SITE_CONFIG={repo:%s,workflow:%s,ref:%s};\n" % (
+            _js_string(os.environ.get("GITHUB_REPOSITORY", "")), _js_string("daily-news.yml"),
+            _js_string(os.environ.get("GITHUB_REF_NAME", "main"))), encoding="utf-8")
+    index = []
+    for day, digest in items:
+        (out / "data" / f"{day}.json").write_text(
+            json.dumps(digest, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        index.append({"d": day, "h": str(digest.get("headline", ""))[:120]})
+    (out / "data" / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return len(items)
 
 
