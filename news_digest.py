@@ -403,6 +403,9 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
     return box["data"]
 
 
+OPENROUTER_RETRY_WAITS = (20, 45)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 재시도
+
+
 def _call_openrouter(system: str, user: str) -> str:
     key = os.environ["OPENROUTER_API_KEY"]
     models = [m.strip() for m in os.environ.get("OPENROUTER_MODELS", "").split(",") if m.strip()] \
@@ -416,10 +419,6 @@ def _call_openrouter(system: str, user: str) -> str:
         return exc_type(msg)
 
     for model in models:
-        if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
-            print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 모델은 건너뜁니다", file=sys.stderr)
-            break
-        t0 = time.monotonic()
         body = json.dumps({
             "model": model,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
@@ -428,23 +427,38 @@ def _call_openrouter(system: str, user: str) -> str:
         req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=body, headers={
             "Authorization": f"Bearer {key}", "Content-Type": "application/json",
             "HTTP-Referer": "https://github.com", "X-OpenRouter-Title": "news-digest"})  # 키는 헤더로만 전송
-        try:
-            data = _post_with_deadline(req, OPENROUTER_REQUEST_SECONDS)
-        except urllib.error.HTTPError as err:
-            detail = err.read().decode("utf-8", "replace")[:300]
-            last = fail(model, t0, f"HTTP {err.code} {detail}", QuotaExceeded if err.code == 429 else RuntimeError)
-            if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
-                raise last from None
+        data, t0 = None, time.monotonic()
+        for attempt in range(len(OPENROUTER_RETRY_WAITS) + 1):
+            if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+                print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 시도는 건너뜁니다", file=sys.stderr)
+                break
+            t0 = time.monotonic()
+            try:
+                data = _post_with_deadline(req, OPENROUTER_REQUEST_SECONDS)
+                break
+            except urllib.error.HTTPError as err:
+                detail = err.read().decode("utf-8", "replace")[:300]
+                last = fail(model, t0, f"HTTP {err.code} {detail}", QuotaExceeded if err.code == 429 else RuntimeError)
+                if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
+                    raise last from None
+                if err.code in (429, 500, 502, 503, 504) and attempt < len(OPENROUTER_RETRY_WAITS):
+                    time.sleep(OPENROUTER_RETRY_WAITS[attempt])  # 잠시 후 같은 모델로 재시도
+                    continue
+                break
+            except (urllib.error.URLError, TimeoutError, OSError, ValueError) as err:
+                last = fail(model, t0, f"{type(err).__name__}: {err}")
+                break  # 느린 모델/연결 오류는 재시도하지 않고 다음 모델로
+        if data is None:
+            if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+                break
             continue
-        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as err:
-            last = fail(model, t0, f"{type(err).__name__}: {err}")
-            continue
-        try:
-            text = (data["choices"][0]["message"]["content"] or "").strip()
-        except (KeyError, IndexError, TypeError):
-            text = ""
-        if not text:  # 200이어도 본문에 error만 오거나 비어 있는 경우
-            last = fail(model, t0, f"빈 응답 {str(data)[:200]}")
+        choice = (data.get("choices") or [{}])[0] if isinstance(data, dict) else {}
+        message = choice.get("message") or {}
+        text = (message.get("content") or "").strip() if isinstance(message, dict) else ""
+        if not text:  # 200이어도 본문에 error만 오거나 비어 있는 경우(추론에 토큰을 다 쓴 모델 등)
+            last = fail(model, t0, f"빈 응답 finish={choice.get('finish_reason')} usage={data.get('usage')} "
+                                   f"실제모델={data.get('model')} 메시지키={list(message) if isinstance(message, dict) else message} "
+                                   f"error={str(data.get('error'))[:150]}")
             continue
         try:
             if not parse_json(text).get("sections"):
@@ -452,7 +466,7 @@ def _call_openrouter(system: str, user: str) -> str:
         except ValueError as err:  # 형식을 못 맞추는 모델이면 다음 모델로
             last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
             continue
-        print(f"OpenRouter 모델 사용: {model} ({time.monotonic() - t0:.0f}초)")
+        print(f"OpenRouter 모델 사용: {model} → 실제 {data.get('model')} ({time.monotonic() - t0:.0f}초)")
         return text
     raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
 

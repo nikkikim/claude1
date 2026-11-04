@@ -10,6 +10,11 @@ on:
         description: "(시험용) OpenRouter 모델을 쉼표로 지정. 비워 두면 기본값"
         required: false
         default: ""
+      dry_run:
+        description: "(시험용) 체크하면 이슈/메일을 만들지 않고 결과를 실행 로그에만 출력"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -53,4 +58,4 @@ jobs:
           # --- 텔레그램 ---
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python news_digest.py
+        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '' }}

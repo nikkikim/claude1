@@ -512,15 +512,18 @@ GOOD_DIGEST = {"headline": "h", "sections": [{"topic": "세계 이슈", "overvie
     {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/1"}]}]}
 
 
-def _or_fake(monkeypatch, outcomes, seen=None):
-    """모델 이름별로 정해 둔 결과(예외 또는 응답 dict)를 돌려주는 가짜 urlopen."""
+def _or_fake(monkeypatch, outcomes, seen=None, sleeps=None):
+    """모델 이름별로 정해 둔 결과(예외·응답 dict, 또는 그 목록)를 돌려주는 가짜 urlopen."""
     import io
+    sleeps = [] if sleeps is None else sleeps
 
     def fake(req, timeout=0):
         payload = json.loads(req.data)
         if seen is not None:
             seen.append((req, payload))
         out = outcomes[payload["model"]]
+        if isinstance(out, list):            # 호출할 때마다 앞에서부터 하나씩 사용(마지막 값은 계속 반복)
+            out = out.pop(0) if len(out) > 1 else out[0]
         if isinstance(out, Exception):
             raise out
 
@@ -530,6 +533,7 @@ def _or_fake(monkeypatch, outcomes, seen=None):
         return _R()
 
     monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setattr(nd.time, "sleep", lambda sec: sleeps.append(sec))    # 재시도 대기를 실제로 하지 않음
     monkeypatch.setenv("OPENROUTER_API_KEY", "SECRET-OR-KEY")
 
 
@@ -562,7 +566,7 @@ def test_openrouter_falls_through_models_on_429_bad_json_and_empty(monkeypatch):
     monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2,m3,m4,m5")
     out = nd._call_openrouter("s", "u")
     assert json.loads(out.strip("`").split("\n", 1)[1].rsplit("```", 1)[0])["headline"] == "h"
-    assert [p["model"] for _, p in seen] == ["m1", "m2", "m3", "m4", "m5"]
+    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1", "m2", "m3", "m4", "m5"]   # m1은 429라 재시도 후 포기
 
 
 def test_openrouter_auth_error_stops_immediately(monkeypatch):
@@ -692,3 +696,49 @@ def test_openrouter_logs_every_failed_model_with_reason(monkeypatch, capsys):
     err = capsys.readouterr().err
     for needle in ("m1", "HTTP 429", "m2", "형식 오류", "그냥 글입니다", "m3", "빈 응답"):
         assert needle in err                      # 모델별 원인이 모두 로그에 남는다
+
+
+def test_openrouter_retries_same_model_on_temporary_429_then_succeeds(monkeypatch, capsys):
+    sleeps, seen = [], []
+    good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
+    _or_fake(monkeypatch, {"m1": [_http_error(429, "temporarily rate-limited upstream"), _http_error(503, "busy"), good],
+                           "m2": good}, seen, sleeps)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
+    out = nd._call_openrouter("s", "u")
+    assert json.loads(out)["headline"] == "h"
+    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1"]        # 같은 모델로 재시도해서 성공(m2는 쓰지 않음)
+    assert sleeps == list(nd.OPENROUTER_RETRY_WAITS)                  # 20초, 45초 대기
+    assert "모델 사용: m1" in capsys.readouterr().out
+
+
+def test_openrouter_gives_up_on_model_after_retries_then_moves_on(monkeypatch):
+    sleeps, seen = [], []
+    good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
+    _or_fake(monkeypatch, {"m1": _http_error(429, "limit"), "m2": good}, seen, sleeps)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
+    nd._call_openrouter("s", "u")
+    assert [p["model"] for _, p in seen] == ["m1", "m1", "m1", "m2"]   # m1은 3번 시도 후 포기
+    assert len(sleeps) == 2
+
+
+def test_openrouter_empty_response_log_has_diagnostics(monkeypatch, capsys):
+    import pytest
+    empty = {"model": "nvidia/real-model", "usage": {"completion_tokens": 12000},
+             "choices": [{"finish_reason": "length", "message": {"role": "assistant", "content": None, "reasoning": "..."}}]}
+    _or_fake(monkeypatch, {"m1": empty})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    with pytest.raises(RuntimeError):
+        nd._call_openrouter("s", "u")
+    err = capsys.readouterr().err
+    for needle in ("빈 응답", "finish=length", "nvidia/real-model", "reasoning"):
+        assert needle in err
+
+
+def test_auth_errors_are_not_retried(monkeypatch):
+    import pytest
+    sleeps, seen = [], []
+    _or_fake(monkeypatch, {"m1": _http_error(401, "bad key")}, seen, sleeps)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    with pytest.raises(RuntimeError, match="401"):
+        nd._call_openrouter("s", "u")
+    assert len(seen) == 1 and sleeps == []
