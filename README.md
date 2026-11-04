@@ -20,6 +20,17 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 
 > AI 호출이 실패하면(한도 초과·키 만료 등) 메일이 끊기지 않도록 **헤드라인만으로 대체해 발송**하고, 메일 상단에 실패 사실을 표시합니다.
 
+### Gemini 키 발급 방법 (한국어 요약 + 카테고리별 핵심 요약에 필요)
+1. https://aistudio.google.com/apikey 에 Google 계정으로 로그인합니다.
+2. 처음이면 약관 동의 창이 뜹니다. 동의하면 기본 프로젝트가 자동으로 만들어집니다.
+3. **Create API key**(API 키 만들기)를 눌러 키를 만들고 복사합니다. 키는 비밀번호처럼 다루세요.
+4. GitHub 저장소 → Settings → Secrets and variables → Actions → **New repository secret**
+   → Name: `GEMINI_API_KEY`, Secret: 복사한 키 → **Add secret**
+5. Actions → Daily News Digest → Run workflow로 실행해 이슈 맨 위에 "📌 카테고리별 오늘의 핵심"이 나오는지 확인합니다.
+
+문제가 생기면: 이슈 제목이 "AI 요약에 실패해 헤드라인만 제공합니다"이면 Actions 실행 로그의 *Send digest* 단계에서 `Gemini API 오류 (HTTP …)`를 확인하세요.
+`429`는 무료 한도 초과(다음 날 자동 재시도), `400/403`은 키 오류, `404`는 모델 이름 문제입니다. 404면 저장소 Settings → Secrets and variables → Actions → **Variables** 탭에서 `GEMINI_MODEL`을 `gemini-3.6-flash` 등 다른 무료 모델로 지정하세요.
+
 ### Claude 구독을 끊어도 계속 오나요?
 네. 이 시스템은 GitHub에서 독립적으로 돌고 Claude 구독과 무관합니다. 단, **코드가 GitHub 저장소에 올라가 있어야** 하고, 요약 엔진은 위 1·2번이면 0원, 3번이면 API 크레딧이 필요합니다.
 
@@ -75,7 +86,7 @@ GitHub는 **공개 저장소**에서 60일간 활동(푸시 등)이 없으면 �
 제외한 곳: 중앙일보(RSS 중단), WSJ·CNN(갱신 중단), The Economist(주간), 동아일보(응답 없음), 한국일보·서울신문·NPR·Washington Post·USA Today·CNBC(접근 불가), The Telegraph(유료 차단), The Times(RSS 없음).
 조선일보 RSS는 연예·스포츠·일본어판 기사가 많이 섞여 있어 품질에 한계가 있습니다. RSS 주소는 언제든 바뀔 수 있으니 한동안 안 오는 신문사가 있으면 `feeds.json`을 점검하세요.
 
-`samples/2026-11-04.html`은 이전 구성(국내 8·해외 12곳)으로 만든 샘플 메일입니다 (API 키 없이 수집한 기사를 직접 요약한 예시).
+`samples/2026-11-04.html`은 AI 요약이 켜졌을 때의 메일 모양을 보여주는 샘플입니다 (이전 구성(국내 8·해외 12곳)으로 수집한 기사를 직접 요약한 예시이며, 맨 위에 카테고리별 핵심 요약이 들어갑니다).
 
 ## 뉴스 소스 바꾸기
 

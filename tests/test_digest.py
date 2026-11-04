@@ -238,3 +238,36 @@ def test_send_github_issue_payload_and_retry_without_assignee(monkeypatch):
     nd.send_github_issue("제목", "본문")
     assert calls[0]["assignees"] == ["me"] and calls[0]["title"] == "제목"
     assert "assignees" not in calls[1]          # 422 → 담당자 없이 재시도
+
+
+def _ov_digest():
+    return {"headline": "h", "sections": [
+        {"topic": "정치", "overview": "정치 <핵심> & 요약", "items": [
+            {"title": "t1", "summary": "s1", "source": "S", "link": "https://ex.com/1"}]},
+        {"topic": "경제", "items": [
+            {"title": "t2", "summary": "s2", "source": "S", "link": "https://ex.com/2"}]},  # overview 없음
+    ]}
+
+
+def test_overview_block_is_at_top_in_every_format():
+    d, day = _ov_digest(), datetime(2026, 11, 4)
+    h = nd.render_html(d, day)
+    assert "카테고리별 오늘의 핵심" in h and h.index("카테고리별 오늘의 핵심") < h.index("<h2")
+    assert "정치 &lt;핵심&gt; &amp; 요약" in h and "<핵심>" not in h        # HTML 이스케이프
+    t = nd.render_text(d)
+    assert t.index("[카테고리별 오늘의 핵심]") < t.index("■ 정치")
+    tg = nd.render_telegram(d, day)[0]
+    assert tg.index("카테고리별 오늘의 핵심") < tg.index("■ 정치") and "&lt;핵심&gt;" in tg
+    md = nd.render_markdown(d, day)
+    assert md.index("카테고리별 오늘의 핵심") < md.index("### 정치") and "\\<핵심\\>" in md
+    assert "경제 ·" not in t and "**경제** ·" not in md                      # overview 없는 카테고리는 생략
+
+
+def test_no_overview_block_in_headlines_mode():
+    d = nd.headlines_only([_art("A", "국내", "정치")])
+    assert "카테고리별 오늘의 핵심" not in nd.render_html(d, datetime(2026, 11, 4))
+    assert "카테고리별 오늘의 핵심" not in nd.render_markdown(d, datetime(2026, 11, 4))
+
+
+def test_prompt_requires_overview_in_schema():
+    assert '"overview"' in nd.SYSTEM_PROMPT and "overview를 반드시" in nd.SYSTEM_PROMPT

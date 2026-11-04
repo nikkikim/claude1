@@ -160,8 +160,11 @@ SYSTEM_PROMPT = f"""당신은 바쁜 독자를 위한 뉴스 에디터입니다.
 - 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
 - 해외 기사는 한국어로 번역해 요약하세요.
+- 각 카테고리에는 overview를 반드시 넣으세요. 그 분야에서 오늘 가장 큰 이슈가 무엇이고 항목들이
+  어떻게 이어지는지를 2~3문장으로 설명하는 종합 요약입니다(항목 제목을 그대로 나열하지 말 것).
+  items에 담은 내용과 기사 목록에 있는 사실만 쓰고, 목록에 없는 배경·전망을 지어내지 마세요.
 - 반드시 아래 JSON만 출력하세요 (설명, 코드펜스 없이):
-{{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
+{{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "overview": "카테고리 핵심 요약 2~3문장", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
 
 
 def pick_provider() -> str:
@@ -274,6 +277,12 @@ def _safe_url(url: str) -> str:
     return url if url.startswith(("http://", "https://")) else "#"
 
 
+def _overviews(digest: dict) -> list[tuple[str, str]]:
+    """카테고리별 핵심 요약(overview) 목록. AI 요약이 없는 헤드라인 모드에서는 비어 있다."""
+    return [(s.get("topic", ""), s["overview"].strip())
+            for s in digest.get("sections", []) if (s.get("overview") or "").strip()]
+
+
 def render_html(digest: dict, date: datetime) -> str:
     e = html.escape
     parts = [
@@ -282,6 +291,12 @@ def render_html(digest: dict, date: datetime) -> str:
         f'<h1 style="font-size:20px;margin:0 0 4px">📰 {date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</h1>',
         f'<p style="margin:0 0 20px;color:#555">{e(digest.get("headline", ""))}</p>',
     ]
+    overviews = _overviews(digest)
+    if overviews:  # 최상단: 카테고리별 오늘의 핵심
+        parts.append('<div style="background:#f4f6fa;border-radius:8px;padding:14px 16px;margin:0 0 8px;color:#222">'
+                     '<div style="font-weight:700;margin-bottom:4px">📌 카테고리별 오늘의 핵심</div>')
+        parts.extend(f'<p style="margin:8px 0;font-size:14px"><b>{e(t)}</b> · {e(o)}</p>' for t, o in overviews)
+        parts.append("</div>")
     for sec in digest.get("sections", []):
         parts.append(
             f'<h2 style="font-size:16px;border-bottom:2px solid #222;padding-bottom:4px;'
@@ -311,6 +326,11 @@ def render_html(digest: dict, date: datetime) -> str:
 
 def render_text(digest: dict) -> str:
     out = [digest.get("headline", ""), ""]
+    overviews = _overviews(digest)
+    if overviews:
+        out.append("[카테고리별 오늘의 핵심]")
+        out.extend(f"- {t}: {o}" for t, o in overviews)
+        out.append("")
     for sec in digest.get("sections", []):
         out.append(f"■ {sec.get('topic', '')}")
         for it in sec.get("items", []):
@@ -354,6 +374,10 @@ def render_telegram(digest: dict, date: datetime) -> list[str]:
     """텔레그램 HTML 형식(<b>, <a>만 지원) 메시지 목록. 4096자 한도에 맞춰 분할."""
     e = html.escape
     blocks = [f"📰 <b>{date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
+    overviews = _overviews(digest)
+    if overviews:
+        blocks.append("📌 <b>카테고리별 오늘의 핵심</b>\n" + "\n".join(
+            f"<b>{e(t)}</b> · {e(o)}" for t, o in overviews))
     for sec in digest.get("sections", []):
         blocks.append(f"\n<b>■ {e(sec.get('topic', ''))}</b>")
         for it in sec.get("items", []):
@@ -411,6 +435,11 @@ def _md(text: str) -> str:
 def render_markdown(digest: dict, date: datetime) -> str:
     """GitHub 이슈 본문(마크다운). 이슈가 올라오면 GitHub가 알림 메일을 보내준다."""
     out = [f"**{_md(digest.get('headline', ''))}**", ""]
+    overviews = _overviews(digest)
+    if overviews:
+        out.append("## 📌 카테고리별 오늘의 핵심")
+        out.extend(f"- **{_md(t)}** · {_md(o)}" for t, o in overviews)
+        out.extend(["", "---", ""])
     for sec in digest.get("sections", []):
         out.append(f"### {_md(sec.get('topic', ''))}")
         for it in sec.get("items", []):
