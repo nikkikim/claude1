@@ -1322,6 +1322,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dry-run", action="store_true", help="발송 대신 digest.html로 저장")
     ap.add_argument("--no-llm", action="store_true", help="Claude 없이 헤드라인만")
     ap.add_argument("--config", default=str(CONFIG_PATH))
+    ap.add_argument("--archive", metavar="DIR", help="오늘의 브리핑을 DIR/YYYY-MM-DD.json 으로 보관(웹사이트용). --dry-run과는 함께 쓰지 않음")
     args = ap.parse_args(argv)
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -1365,6 +1366,13 @@ def main(argv: list[str] | None = None) -> int:
     html_body = render_html(digest, now)
     text_body = render_text(digest)
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]
+
+    if args.archive and not args.dry_run:
+        out_dir = Path(args.archive)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{now:%Y-%m-%d}.json").write_text(
+            json.dumps(digest, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"보관 완료: {out_dir}/{now:%Y-%m-%d}.json")
 
     if args.dry_run:
         Path("digest.html").write_text(html_body, encoding="utf-8")

@@ -10,6 +10,11 @@ on:
         description: "(시험용) OpenRouter 모델을 쉼표로 지정. 비워 두면 기본값"
         required: false
         default: ""
+      site_only:
+        description: "(시험용) 체크하면 뉴스를 새로 만들지 않고 웹사이트만 다시 배포"
+        type: boolean
+        required: false
+        default: false
       dry_run:
         description: "(시험용) 체크하면 이슈/메일을 만들지 않고 결과를 실행 로그에만 출력"
         type: boolean
@@ -18,7 +23,6 @@ on:
 
 permissions:
   contents: read
-  issues: write   # GitHub 알림 방식: 뉴스를 이슈로 올려 메일 알림을 받음
 
 concurrency:
   group: daily-news          # 같은 시각에 두 번 실행돼 이슈가 중복 생성되는 것을 막음
@@ -28,6 +32,10 @@ jobs:
   send:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: write   # 보관 파일(archive/)을 저장소에 커밋하기 위해
+      issues: write     # GitHub 알림 방식: 뉴스를 이슈로 올려 메일 알림을 받음
+      actions: write    # 60일 비활성 정지를 막기 위한 '워크플로 켜기' 호출
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,11 +44,12 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Install Claude SDK (Claude API 키를 쓸 때만)
-        if: ${{ env.ANTHROPIC_API_KEY != '' }}
+        if: ${{ env.ANTHROPIC_API_KEY != '' && !inputs.site_only }}
         run: pip install anthropic
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       - name: Send digest
+        if: ${{ !inputs.site_only }}
         env:
           # --- 요약 엔진 (키가 여럿이면 claude → gemini → openrouter 순으로 시도, 모두 없으면 헤드라인만 발송: 비용 0원) ---
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -62,4 +71,51 @@ jobs:
           # --- 텔레그램 ---
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '--archive archive' }}
+      - name: Save archive (웹사이트용 보관)
+        if: ${{ !inputs.dry_run && !inputs.site_only && !cancelled() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive
+          if ! git diff --cached --quiet; then
+            git commit -m "보관: $(TZ=Asia/Seoul date +%F) 뉴스 브리핑"
+            git pull --rebase --autostash
+            git push
+          fi
+      - name: Keep schedule alive (60일 규칙 대비, 실패해도 무시)
+        if: ${{ !inputs.dry_run && !cancelled() }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/daily-news.yml/enable"
+
+  deploy:
+    # 웹사이트(GitHub Pages) 배포: 설정 > Pages > Source 를 'GitHub Actions'로 한 번 바꿔 두어야 동작
+    needs: send
+    if: ${{ needs.send.result == 'success' && !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}   # 방금 커밋된 보관 파일까지 포함
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python build_site.py archive _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

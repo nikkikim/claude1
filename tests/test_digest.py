@@ -1272,3 +1272,63 @@ def test_validate_replaces_item_with_score_not_in_source():
     good = _it("https://ex.com/mu", title="맨유, 2-0 열세 뒤 로마 격파", summary="2-0으로 뒤졌지만 승리", source="BBC")
     kept = nd.validate_digest(_digest([good], topic="스포츠"), arts)["sections"][0]["items"][0]
     assert kept["title"] == "맨유, 2-0 열세 뒤 로마 격파"
+
+
+# ---------- 웹사이트(GitHub Pages) ----------
+
+def _site_digest(headline="헤드라인 <b>"):
+    return {"headline": headline, "ai": True, "sections": [{"topic": "세계 이슈", "overview": "핵심 요약입니다", "items": [
+        {"title": "제목", "summary": "요약", "source": "A", "link": "https://ex.com/A"}]}],
+        "weather": [], "message": {"ko": "한마디", "en": "A line"}, "meta": {"articles": 3, "outlets": 2, "failed_feeds": []}}
+
+
+def test_main_archive_saves_json_but_not_in_dry_run(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    assert nd.main(["--dry-run", "--archive", "arch"]) == 0
+    assert not (tmp_path / "arch").exists()                      # 시험 실행은 보관하지 않음
+    monkeypatch.setattr(nd, "send_github_issue", lambda *a: None)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "o/r")
+    assert nd.main(["--archive", "arch"]) == 0
+    files = list((tmp_path / "arch").glob("*.json"))
+    assert len(files) == 1
+    saved = json.loads(files[0].read_text(encoding="utf-8"))
+    assert saved["sections"] and saved["message"]["ko"] and "meta" in saved
+
+
+def test_build_site_pages_nav_and_escaping(tmp_path):
+    import build_site
+    src, out = tmp_path / "archive", tmp_path / "_site"
+    src.mkdir()
+    for day in ("2026-11-04", "2026-11-05", "2026-11-06"):
+        (src / f"{day}.json").write_text(json.dumps(_site_digest(), ensure_ascii=False), encoding="utf-8")
+    (src / "broken.json").write_text("{", encoding="utf-8")        # 깨진 파일은 건너뜀
+    (src / "2026-11-07.json").write_text("{깨짐", encoding="utf-8")
+    assert build_site.build(src, out) == 3
+    assert {p.name for p in out.glob("*.html")} == {"index.html", "archive.html", "2026-11-04.html", "2026-11-05.html", "2026-11-06.html"}
+    index = (out / "index.html").read_text(encoding="utf-8")
+    mid = (out / "2026-11-05.html").read_text(encoding="utf-8")
+    assert "2026년 11월 6일" in index and "지난 브리핑" in index and 'href="2026-11-05.html"' in index
+    assert 'href="2026-11-04.html"' in mid and 'href="2026-11-06.html"' in mid        # 이전/다음 날 링크
+    assert 'name="robots" content="noindex' in index and 'name="viewport"' in index
+    assert "헤드라인 &lt;b&gt;" in index
+    assert "전체 브리핑 (3개)" in (out / "archive.html").read_text(encoding="utf-8")
+
+
+def test_build_site_empty_archive_shows_placeholder(tmp_path):
+    import build_site
+    assert build_site.build(tmp_path / "none", tmp_path / "_site") == 0
+    assert "아직 보관된 브리핑이 없습니다" in (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
+
+
+def test_workflow_deploys_pages_with_minimal_permissions():
+    wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
+    for needle in ("actions/deploy-pages@v4", "actions/upload-pages-artifact@v3", "actions/configure-pages@v5",
+                   "pages: write", "id-token: write", "--archive archive", "python build_site.py", "site_only"):
+        assert needle in wf
+    top = wf.split("jobs:")[0]
+    assert "contents: read" in top and "contents: write" not in top           # 쓰기 권한은 send 작업에만
+    assert wf.count("contents: write") == 1
