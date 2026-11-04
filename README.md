@@ -12,11 +12,15 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 | 텔레그램 봇 | 무료 | |
 | **요약 엔진** | 선택 | 아래 3가지 중 택 1 |
 
-**요약 엔진 선택**
+**요약 엔진 선택** (키를 여러 개 등록하면 claude → gemini → openrouter 순으로 시도하고, 앞이 실패하면 다음으로 자동 전환합니다)
 
-1. **없음 (0원, 기본값)** — `ANTHROPIC_API_KEY`/`GEMINI_API_KEY`를 설정하지 않으면 AI 없이 카테고리별 헤드라인만 보냅니다. 해외 기사는 영어 원문 제목 그대로입니다.
-2. **Google Gemini 무료 티어 (0원, 한국어 요약·번역 포함)** — [Google AI Studio](https://aistudio.google.com/apikey)에서 키를 발급해 `GEMINI_API_KEY`로 등록. 무료 티어의 분당·일일 한도는 계정별로 AI Studio에서 확인해야 하고 바뀔 수 있으며, 무료 티어에 보낸 내용은 Google이 제품 개선에 사용할 수 있습니다(뉴스 제목·요약뿐이라 민감 정보는 없음).
-3. **Claude API (유료, 종량제)** — `ANTHROPIC_API_KEY` 등록. **Claude.ai 구독(Pro/Max)과는 별개 상품·별개 결제**입니다. [console.anthropic.com](https://console.anthropic.com)에서 크레딧을 충전해야 하며, 구독을 해지해도 API는 영향이 없지만 구독이 API를 대신해 주지도 않습니다.
+1. **없음 (0원, 기본값)** — 키를 하나도 등록하지 않으면 AI 없이 카테고리별 헤드라인만 보냅니다. 해외 기사는 영어 원문 제목 그대로입니다.
+2. **OpenRouter 무료 모델 (0원 가능, 한국어 요약 포함)** — [openrouter.ai](https://openrouter.ai)에서 키를 발급해 `OPENROUTER_API_KEY`로 등록. 무료(`:free`) 모델은 공식 문서상 분당 20회, **하루 50회**까지(누적 10크레딧 이상 구매 시 1,000회)라 하루 1회 호출에는 충분합니다. 무료 모델 목록은 수시로 바뀌어서 위에서부터 차례로 시도하며(`OPENROUTER_MODELS` 변수로 변경 가능), 한국어 품질과 JSON 형식 준수는 모델마다 다를 수 있습니다. 카드 등록이 필요한지는 문서에 명시돼 있지 않습니다.
+3. **Google Gemini** — [AI Studio](https://aistudio.google.com/apikey)에서 키 발급 후 `GEMINI_API_KEY`. 단, 무료 티어는 **Google Cloud 프로젝트 단위로 자격이 평가**되어 일부 프로젝트/계정에서는 `403 free tier is not available for this project`로 쓸 수 없고(같은 프로젝트에서 키만 다시 만들어도 해결되지 않음), 그 경우 유료 결제 연결이 필요합니다.
+4. **Claude API (유료, 종량제)** — `ANTHROPIC_API_KEY` 등록. **Claude.ai 구독(Pro/Max)과는 별개 상품·별개 결제**입니다. [console.anthropic.com](https://console.anthropic.com)에서 크레딧을 충전해야 하며, 구독을 해지해도 API는 영향이 없지만 구독이 API를 대신해 주지도 않습니다.
+
+무료로 쓸 수 없는 것: **Hugging Face**(무료 계정은 Inference Providers 월 크레딧 없음, 크레딧 구매 또는 PRO 구독 필요), **GitHub Models**(2026-07-30 서비스 종료), **Cerebras**(무료 체험이 결제수단 등록을 요구하고 가입 시 $5 크레딧 1회 지급).
+조사했지만 보류한 것: **Groq**(무료 요금제 한도가 분당 8K 토큰 수준으로 알려져 있어 기사를 여러 번 쪼개 보내야 함), **Cloudflare Workers AI**(하루 10,000 뉴런 무료이나 계정 ID+토큰 두 가지 설정이 필요).
 
 > AI 호출이 실패하면(한도 초과·키 만료 등) 메일이 끊기지 않도록 **헤드라인만으로 대체해 발송**하고, 메일 상단에 실패 사실을 표시합니다.
 
@@ -30,6 +34,14 @@ GitHub Actions로 돌아가므로 내 컴퓨터나 서버가 필요 없습니다
 
 문제가 생기면: 이슈 제목이 "AI 요약에 실패해 헤드라인만 제공합니다"이면 Actions 실행 로그의 *Send digest* 단계에서 `Gemini API 오류 (HTTP …)`를 확인하세요.
 `429`는 무료 한도 초과(한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아오며, 그 사이에는 헤드라인만 발송), `403 ... free tier is not available for this project`는 이 키가 속한 Google 프로젝트에 무료 티어가 없다는 뜻(AI Studio에서 새 프로젝트로 키를 다시 발급), 그 밖의 `400/403`은 키 오류, `404`는 모델 이름 문제입니다. 404면 저장소 Settings → Secrets and variables → Actions → **Variables** 탭에서 `GEMINI_MODEL`을 `gemini-3.6-flash` 등 다른 무료 모델로 지정하세요.
+
+### OpenRouter 키 발급 방법
+1. https://openrouter.ai 에 접속해 로그인(가입)합니다.
+2. 계정 메뉴에서 **Keys**(API 키) 화면으로 가서 새 키를 만들고 복사합니다. 키는 비밀번호처럼 다루세요.
+3. GitHub 저장소 → Settings → Secrets and variables → Actions → **New repository secret** → Name: `OPENROUTER_API_KEY`, Secret: 복사한 키.
+4. Actions → Daily News Digest → Run workflow로 실행합니다. 로그의 *Send digest* 단계에 `AI 요약 완료: openrouter`와 `OpenRouter 모델 사용: …`이 찍히면 성공입니다.
+
+실패하면 로그에서 `OpenRouter 오류 (모델, HTTP …)`를 확인하세요. `401`은 키 오류, `429`는 무료 한도 초과(하루 50회), 그 밖의 오류는 다음 무료 모델로 자동 넘어갑니다.
 
 ### Claude 구독을 끊어도 계속 오나요?
 네. 이 시스템은 GitHub에서 독립적으로 돌고 Claude 구독과 무관합니다. 단, **코드가 GitHub 저장소에 올라가 있어야** 하고, 요약 엔진은 위 1·2번이면 0원, 3번이면 API 크레딧이 필요합니다.

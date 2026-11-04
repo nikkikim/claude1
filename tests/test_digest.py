@@ -506,3 +506,134 @@ def test_footer_does_not_claim_ai_summary_in_headlines_mode():
         assert "AI 요약 없이" in out and "AI가 자동 요약한" not in out
     ai = {"headline": "h", "sections": []}
     assert "AI가 자동 요약한" in nd.render_html(ai, day) and "AI가 자동 요약한" in nd.render_markdown(ai, day)
+
+
+GOOD_DIGEST = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "핵심", "items": [
+    {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/1"}]}]}
+
+
+def _or_fake(monkeypatch, outcomes, seen=None):
+    """모델 이름별로 정해 둔 결과(예외 또는 응답 dict)를 돌려주는 가짜 urlopen."""
+    import io
+
+    def fake(req, timeout=0):
+        payload = json.loads(req.data)
+        if seen is not None:
+            seen.append((req, payload))
+        out = outcomes[payload["model"]]
+        if isinstance(out, Exception):
+            raise out
+
+        class _R:
+            def __enter__(self): return io.StringIO(json.dumps(out))
+            def __exit__(self, *a): pass
+        return _R()
+
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "SECRET-OR-KEY")
+
+
+def _chat(text):
+    return {"choices": [{"message": {"content": text}}]}
+
+
+def test_openrouter_success_sends_key_only_in_header(monkeypatch):
+    seen = []
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    out = nd.summarize([_art("A", "국내", "세계 이슈")], "openrouter")
+    assert out["sections"][0]["overview"] == "핵심"
+    req, payload = seen[0]
+    assert req.full_url == "https://openrouter.ai/api/v1/chat/completions"
+    assert req.get_header("Authorization") == "Bearer SECRET-OR-KEY"
+    assert "SECRET-OR-KEY" not in req.full_url and "SECRET-OR-KEY" not in json.dumps(payload)
+    assert payload["messages"][0]["role"] == "system" and payload["max_tokens"] == 12000
+
+
+def test_openrouter_falls_through_models_on_429_bad_json_and_empty(monkeypatch):
+    seen = []
+    _or_fake(monkeypatch, {
+        "m1": _http_error(429, "rate limited"),
+        "m2": _chat("죄송합니다. 요약할 수 없습니다."),                # JSON이 아님
+        "m3": _chat(""),                                           # 빈 응답
+        "m4": {"error": {"message": "provider down"}},             # 200이지만 에러만 있음
+        "m5": _chat("```json\n" + json.dumps(GOOD_DIGEST, ensure_ascii=False) + "\n```"),
+    }, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2,m3,m4,m5")
+    out = nd._call_openrouter("s", "u")
+    assert json.loads(out.strip("`").split("\n", 1)[1].rsplit("```", 1)[0])["headline"] == "h"
+    assert [p["model"] for _, p in seen] == ["m1", "m2", "m3", "m4", "m5"]
+
+
+def test_openrouter_auth_error_stops_immediately(monkeypatch):
+    import pytest
+    seen = []
+    _or_fake(monkeypatch, {"m1": _http_error(401, "invalid key"), "m2": _chat("{}")}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
+    with pytest.raises(RuntimeError, match="401"):
+        nd._call_openrouter("s", "u")
+    assert len(seen) == 1                                          # 키 오류는 다른 모델을 시도하지 않음
+
+
+def test_openrouter_all_rate_limited_raises_quota(monkeypatch):
+    import pytest
+    _or_fake(monkeypatch, {"m1": _http_error(429, "x"), "m2": _http_error(429, "y")})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
+    with pytest.raises(nd.QuotaExceeded):
+        nd._call_openrouter("s", "u")
+
+
+def test_openrouter_defaults_are_free_models():
+    assert all(m.endswith(":free") or m == "openrouter/free" for m in nd.OPENROUTER_DEFAULT_MODELS)
+
+
+def test_provider_chain_order_and_explicit(monkeypatch):
+    for k in ("LLM_PROVIDER", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "OPENROUTER_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    assert nd.provider_chain() == []
+    monkeypatch.setenv("OPENROUTER_API_KEY", "o")
+    monkeypatch.setenv("GEMINI_API_KEY", "g")
+    assert nd.provider_chain() == ["gemini", "openrouter"]
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "a")
+    assert nd.provider_chain() == ["anthropic", "gemini", "openrouter"]
+    monkeypatch.setenv("LLM_PROVIDER", "openrouter")
+    assert nd.provider_chain() == ["openrouter"]
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    assert nd.provider_chain() == []
+
+
+def test_main_falls_over_from_gemini_to_openrouter(monkeypatch, tmp_path, capsys):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    for k in ("LLM_PROVIDER", "ANTHROPIC_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("GEMINI_API_KEY", "g")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "o")
+    tried = []
+
+    def fake_summarize(articles, provider):
+        tried.append(provider)
+        if provider == "gemini":
+            raise nd.FreeTierUnavailable("403")      # 지금 실제 상황: 구글 무료 티어 불가
+        return GOOD_DIGEST
+    monkeypatch.setattr(nd, "summarize", fake_summarize)
+    assert nd.main(["--dry-run"]) == 0
+    html_out = (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert tried == ["gemini", "openrouter"]
+    assert "카테고리별 오늘의 핵심" in html_out and "헤드라인만" not in html_out
+    assert "AI 요약 완료: openrouter" in capsys.readouterr().out
+
+
+def test_main_all_providers_fail_uses_last_error_note(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.setenv("GEMINI_API_KEY", "g")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "o")
+
+    def fake_summarize(articles, provider):
+        raise nd.FreeTierUnavailable("403") if provider == "gemini" else nd.QuotaExceeded("429")
+    monkeypatch.setattr(nd, "summarize", fake_summarize)
+    assert nd.main(["--dry-run"]) == 0
+    assert "무료 사용 한도를 초과" in (tmp_path / "digest.html").read_text(encoding="utf-8")

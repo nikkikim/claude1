@@ -9,8 +9,9 @@
 환경변수 (요약 엔진 — 아래 중 하나, 아무것도 없으면 헤드라인만 발송):
     LLM_PROVIDER        anthropic | gemini | none (생략 시 키가 있는 쪽을 자동 선택)
     ANTHROPIC_API_KEY   Claude API 키 (유료, 종량제)   CLAUDE_MODEL 기본 claude-sonnet-5-5
-    GEMINI_API_KEY      Google Gemini API 키 (무료 티어 있음)   GEMINI_MODEL 기본 gemini-3.8-flash
-    ※ AI 호출이 실패하면 메일이 끊기지 않도록 헤드라인만으로 대체해 발송합니다.
+    GEMINI_API_KEY      Google Gemini API 키 (무료 티어는 프로젝트에 따라 불가)   GEMINI_MODEL 기본 gemini-3.8-flash
+    OPENROUTER_API_KEY  OpenRouter 키 (무료 모델 사용 가능)   OPENROUTER_MODELS 쉼표로 지정(기본: 무료 모델 3종)
+    ※ 키가 여러 개면 claude → gemini → openrouter 순으로 시도하고, 모두 실패하면 헤드라인만으로 대체해 발송합니다.
 
   [이메일] 아래가 모두 있으면 이메일 발송
     SMTP_HOST / SMTP_PORT  (기본 smtp.gmail.com / 465)
@@ -294,16 +295,22 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 {{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "overview": "카테고리 핵심 요약 2~3문장", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
 
 
-def pick_provider() -> str:
-    """LLM_PROVIDER가 있으면 그대로, 없으면 설정된 API 키로 자동 선택. 키가 없으면 none."""
+def provider_chain() -> list[str]:
+    """요약에 시도할 AI 공급자 순서. LLM_PROVIDER가 있으면 그것만, 없으면 키가 설정된 곳을
+    claude → gemini → openrouter 순으로 모두(앞이 실패하면 다음으로 넘어감). 비어 있으면 헤드라인 모드."""
     explicit = os.environ.get("LLM_PROVIDER", "").strip().lower()
-    if explicit in ("anthropic", "gemini", "none"):
-        return explicit
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return "anthropic"
-    if os.environ.get("GEMINI_API_KEY"):
-        return "gemini"
-    return "none"
+    if explicit == "none":
+        return []
+    if explicit in ("anthropic", "gemini", "openrouter"):
+        return [explicit]
+    keys = (("anthropic", "ANTHROPIC_API_KEY"), ("gemini", "GEMINI_API_KEY"), ("openrouter", "OPENROUTER_API_KEY"))
+    return [name for name, env in keys if os.environ.get(env)]
+
+
+def pick_provider() -> str:
+    """시도할 첫 번째 공급자(없으면 none)."""
+    chain = provider_chain()
+    return chain[0] if chain else "none"
 
 
 def _call_anthropic(system: str, user: str) -> str:
@@ -366,12 +373,66 @@ def _call_gemini(system: str, user: str) -> str:
     return "".join(p.get("text", "") for p in parts).strip()
 
 
+# OpenRouter 무료(:free) 모델. 무료 모델 목록은 수시로 바뀌므로 위에서부터 차례로 시도하고,
+# OPENROUTER_MODELS(쉼표 구분)로 바꿀 수 있다. 마지막의 openrouter/free는 그때그때 가능한 무료 모델로 자동 연결해 주는 라우터.
+OPENROUTER_DEFAULT_MODELS = ("google/gemma-4-31b-it:free", "nvidia/nemotron-3-ultra-550b-a55b:free", "openrouter/free")
+OPENROUTER_BUDGET_SECONDS = 420  # 무료 모델은 느릴 수 있어 전체 시도 시간을 제한(워크플로 제한 10분 이내)
+
+
+def _call_openrouter(system: str, user: str) -> str:
+    key = os.environ["OPENROUTER_API_KEY"]
+    models = [m.strip() for m in os.environ.get("OPENROUTER_MODELS", "").split(",") if m.strip()] \
+        or list(OPENROUTER_DEFAULT_MODELS)
+    start = time.monotonic()
+    last: Exception | None = None
+    for model in models:
+        if time.monotonic() - start > OPENROUTER_BUDGET_SECONDS:
+            break
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            "temperature": 0.2, "max_tokens": 12000,
+        }).encode()
+        req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=body, headers={
+            "Authorization": f"Bearer {key}", "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com", "X-OpenRouter-Title": "news-digest"})  # 키는 헤더로만 전송
+        try:
+            with urllib.request.urlopen(req, timeout=150) as r:
+                data = json.load(r)
+        except urllib.error.HTTPError as err:
+            detail = err.read().decode("utf-8", "replace")[:300]
+            exc = QuotaExceeded if err.code == 429 else RuntimeError
+            last = exc(f"OpenRouter 오류 ({model}, HTTP {err.code}): {detail}")
+            if err.code in (401, 402, 403):  # 키/권한 문제는 다른 모델로 바꿔도 소용없음
+                raise last from None
+            continue
+        except (urllib.error.URLError, TimeoutError, OSError) as err:
+            last = RuntimeError(f"OpenRouter 연결 실패 ({model}): {err}")
+            continue
+        try:
+            text = (data["choices"][0]["message"]["content"] or "").strip()
+        except (KeyError, IndexError, TypeError):
+            text = ""
+        if not text:  # 200이어도 본문에 error만 오거나 비어 있는 경우
+            last = RuntimeError(f"OpenRouter 빈 응답 ({model}): {str(data)[:200]}")
+            continue
+        try:
+            if not parse_json(text).get("sections"):
+                raise ValueError("sections 없음")
+        except ValueError as err:  # 형식을 못 맞추는 모델이면 다음 모델로
+            last = RuntimeError(f"OpenRouter 응답 형식 오류 ({model}): {err}")
+            continue
+        print(f"OpenRouter 모델 사용: {model}")
+        return text
+    raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
+
+
 def summarize(articles: list[Article], provider: str) -> dict:
     lines = [
         f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
         for i, a in enumerate(articles, 1)
     ]
-    call = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider]
+    call = {"anthropic": _call_anthropic, "gemini": _call_gemini, "openrouter": _call_openrouter}[provider]
     return parse_json(call(SYSTEM_PROMPT, "\n".join(lines)))
 
 
@@ -738,17 +799,24 @@ def main(argv: list[str] | None = None) -> int:
         print("기사가 없어 발송하지 않습니다.", file=sys.stderr)
         return 1
 
-    provider = "none" if args.no_llm else pick_provider()
-    if provider == "none":
+    chain = [] if args.no_llm else provider_chain()
+    if not chain:
         digest = headlines_only(articles)
     else:
-        try:
-            digest = summarize(articles, provider)
-        except Exception as err:  # 한도 초과·키 만료 등이어도 오늘 메일은 보낸다
-            print(f"[warn] {provider} 요약 실패 → 헤드라인만 발송: {err}", file=sys.stderr)
-            if isinstance(err, QuotaExceeded) or type(err).__name__ == "RateLimitError":
+        digest, last_err = None, None
+        for provider in chain:  # 앞 공급자가 실패하면(한도·키·무료 티어 불가 등) 다음 공급자로
+            try:
+                digest = summarize(articles, provider)
+                print(f"AI 요약 완료: {provider}")
+                break
+            except Exception as err:
+                last_err = err
+                print(f"[warn] {provider} 요약 실패: {err}", file=sys.stderr)
+        if digest is None:  # 모두 실패해도 오늘 메일은 보낸다
+            print("[warn] 모든 AI 공급자가 실패해 헤드라인만 발송합니다", file=sys.stderr)
+            if isinstance(last_err, QuotaExceeded) or type(last_err).__name__ == "RateLimitError":
                 note = QUOTA_NOTE
-            elif isinstance(err, FreeTierUnavailable):
+            elif isinstance(last_err, FreeTierUnavailable):
                 note = NO_FREE_NOTE
             else:
                 note = FAIL_NOTE

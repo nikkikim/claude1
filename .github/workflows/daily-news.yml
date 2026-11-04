@@ -13,7 +13,7 @@ permissions:
 jobs:
   send:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,9 +28,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       - name: Send digest
         env:
-          # --- 요약 엔진 (둘 다 없으면 AI 없이 헤드라인만 발송: 비용 0원) ---
+          # --- 요약 엔진 (키가 여럿이면 claude → gemini → openrouter 순으로 시도, 모두 없으면 헤드라인만 발송: 비용 0원) ---
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODELS: ${{ vars.OPENROUTER_MODELS }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
           # --- GitHub 알림 (키 입력 불필요: GitHub가 자동 제공하는 토큰 사용) ---
