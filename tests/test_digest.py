@@ -19,9 +19,9 @@ def _no_refine_by_default(monkeypatch):
     monkeypatch.setattr(nd, "fetch_weather", lambda *a, **k: [])    # 시험 중 실제 날씨 서버에 접속하지 않음
 
 RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
-<item><title>새 기사</title><link>https://ex.com/a?x=1</link>
+<item><title>새 기사</title><link>https://ex.com/a?utm_source=1</link>
 <description>&lt;b&gt;본문&lt;/b&gt;</description><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>
-<item><title>중복</title><link>https://ex.com/a?x=2</link><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>
+<item><title>중복</title><link>https://ex.com/a?utm_source=2</link><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>
 <item><title>오래된 기사</title><link>https://ex.com/old</link><pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate></item>
 </channel></rss>"""
 
@@ -460,7 +460,7 @@ def test_same_story_with_jonghap_suffix_is_deduplicated(tmp_path):
 
 def test_scheduled_run_skips_links_from_previous_digest_but_manual_run_does_not(tmp_path, monkeypatch):
     import io
-    issues = [{"title": "[뉴스 브리핑] 11/03 x", "body": "- **[어제 기사](https://ex.com/a?utm=1)** 요약"},
+    issues = [{"title": "[뉴스 브리핑] 11/03 x", "body": "- **[어제 기사](https://ex.com/a?utm_source=1)** 요약"},
               {"title": "[뉴스 브리핑] 11/02 y", "body": "[더 옛날](https://ex.com/z)"},   # 최신 1개만 사용
               ]
 
@@ -471,7 +471,7 @@ def test_scheduled_run_skips_links_from_previous_digest_but_manual_run_does_not(
     monkeypatch.setattr(nd.urllib.request, "urlopen", lambda req, timeout=0: _Resp())
     monkeypatch.setenv("GITHUB_REPOSITORY", "me/news")
     monkeypatch.setenv("GITHUB_TOKEN", "t")
-    url = _rss_file(tmp_path, "d", [("어제 기사", "https://ex.com/a?utm=2", D_NEW), ("오늘 기사", "https://ex.com/b", D_NEW),
+    url = _rss_file(tmp_path, "d", [("어제 기사", "https://ex.com/a?utm_source=2", D_NEW), ("오늘 기사", "https://ex.com/b", D_NEW),
                                     ("더 옛날 기사", "https://ex.com/z", D_NEW)])
     cfg = {"feeds": [{"outlet": "A", "region": "국내", "category": "세계 이슈", "url": url}]}
     monkeypatch.setenv("GITHUB_EVENT_NAME", "schedule")
@@ -878,7 +878,7 @@ def test_feeds_json_is_well_formed():
     for f in cfg["feeds"]:
         assert f["outlet"] and f["url"].startswith(("http://", "https://"))
         assert f["category"] in cats and f["region"] in regions, f
-        assert 0 < f.get("max_items", 1) <= 50 and 0 < f.get("max_age_hours", 1) <= 168
+        assert 0 < f.get("max_items", 1) <= 50 and 0 < f.get("max_age_hours", 1) <= 480
     arts = {f["outlet"] for f in cfg["feeds"]}
     assert {"The Art Newspaper", "ARTnews", "Hyperallergic", "Artforum", "Artnet News"} <= arts   # 미술 핵심 매체 포함
 
@@ -1576,3 +1576,63 @@ def test_fetch_drops_japanese_titles(tmp_path):
     arts = nd.fetch_articles({"feeds": [{"outlet": "T", "url": str(f)}], "max_age_hours": 48},
                              now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
     assert [a.title for a in arts] == ["한국어 기사"]
+
+
+# ---------- AI 카테고리 ----------
+
+def test_ai_category_is_configured_between_art_and_politics():
+    assert nd.CATEGORIES[:5] == ["세계 이슈", "경제·증시", "코인", "문화예술", "AI"]
+    assert nd.CATEGORY_LIMITS["AI"] >= 6 and "AI" in nd.KEYWORDS
+    assert "생성형 AI를 활용" in nd.SYSTEM_PROMPT and "벤치마크" in nd.SYSTEM_PROMPT and "'AI'" in nd.SYSTEM_PROMPT
+    assert "벤치마크 점수" in nd.SYSTEM_PROMPT                               # 모델 정보를 지어내지 말라는 지시
+    feeds = json.loads((Path(__file__).resolve().parent.parent / "feeds.json").read_text(encoding="utf-8"))["feeds"]
+    ai = [f for f in feeds if f["category"] == "AI"]
+    assert len(ai) >= 15 and {"OpenAI", "Anthropic", "Google DeepMind", "AI타임스", "EdSurge"} <= {f["outlet"] for f in ai}
+    first_general = next(i for i, f in enumerate(feeds) if f["category"] == "IT·과학")
+    assert all(feeds.index(f) < first_general for f in ai)                  # AI 전문 피드가 일반 IT 피드보다 먼저(같은 기사는 AI로 분류되게)
+
+
+def test_ai_keyword_scoring_avoids_false_positives():
+    def sc(title, summary=""):
+        return nd.topic_score("AI", nd.Article("X", "미국", "IT·과학", title, "https://e/x", summary, None))
+    assert sc("OpenAI releases GPT-5 benchmark results") >= 6
+    assert sc("생성형AI 교육 활용 사례") >= 3 and sc("AI가 바꾸는 교실") >= 3
+    assert sc("He said the train was late again", "maintain the plan") == 0     # said/again/maintain 속 'ai'에 반응하지 않음
+    assert sc("Painting exhibition opens at the gallery") == 0
+
+
+def test_headline_mode_moves_general_ai_articles_into_ai_and_prefers_primary_sources():
+    arts = [nd.Article("The Verge", "미국", "IT·과학", "Anthropic launches new Claude model with benchmark gains", "https://e/1", "", None),
+            nd.Article("The Verge", "미국", "IT·과학", "AMD earnings beat expectations", "https://e/2", "", None),
+            nd.Article("Wired AI", "미국", "AI", "Some AI chatbot story about chatbots and models", "https://e/3", "", None),
+            nd.Article("OpenAI", "미국", "AI", "Heimstaden changes real estate management", "https://e/4", "", None)]
+    d = nd.headlines_only(arts)
+    topics = {s["topic"]: [i["link"] for i in s["items"]] for s in d["sections"]}
+    assert "https://e/1" in topics["AI"] and "https://e/2" not in topics.get("AI", [])    # AI 핵심어가 있는 IT 기사만 AI로
+    assert topics["AI"].index("https://e/4") >= 0                                          # 공식 발표는 키워드가 없어도 포함
+    assert [s["topic"] for s in d["sections"]].index("AI") < [s["topic"] for s in d["sections"]].index("IT·과학")
+
+
+def test_ai_items_with_invented_percentages_fall_back_to_source_text():
+    arts = [_art2("TechCrunch AI", "미국", "AI", "New model tops leaderboard", "The model scores 87.5 on a coding test, up 12 percent.", "https://ex.com/m")]
+    bad = _it("https://ex.com/m", title="새 모델이 리더보드 1위", summary="코딩 점수 91.2점, 15% 향상", source="TechCrunch AI")
+    out = nd.validate_digest(_digest([bad], topic="AI"), arts)["sections"][0]["items"][0]
+    assert out["title"] == "New model tops leaderboard"                                     # 근거 없는 수치 → 원문으로 대체
+    good = _it("https://ex.com/m", title="새 모델이 리더보드 1위", summary="코딩 점수 87.5, 12% 향상", source="TechCrunch AI")
+    assert nd.validate_digest(_digest([good], topic="AI"), arts)["sections"][0]["items"][0]["title"] == "새 모델이 리더보드 1위"
+    econ = nd.validate_digest(_digest([_it("https://ex.com/m", summary="점수 91.2")], topic="경제·증시"), arts)
+    assert econ["sections"][0]["items"][0]["summary"] == "점수 91.2"                        # 다른 카테고리는 이 검사를 하지 않음
+
+
+def test_canonical_url_keeps_article_ids_but_drops_tracking():
+    c = nd.canonical_url
+    assert c("https://a.com/n?idxno=1&utm_source=x") == "https://a.com/n?idxno=1"
+    assert c("https://a.com/n?idxno=1") != c("https://a.com/n?idxno=2")                     # 질의에 기사 번호가 있는 사이트
+    assert c("https://a.com/n?utm_medium=rss&at_campaign=z") == "https://a.com/n"
+    assert nd._link_key("https://A.com/n/?idxno=1&mod=rss") == "https://a.com/n?idxno=1"
+
+
+def test_ai_excerpt_is_long_like_art():
+    long_text = "가" * 600
+    e = type("E", (dict,), {})(summary=long_text)
+    assert len(nd._excerpt(e, "AI")) > 300 and len(nd._excerpt(e, "세계 이슈")) <= 201

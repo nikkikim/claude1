@@ -60,8 +60,8 @@ KST = timezone(timedelta(hours=9))
 CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
 
-# 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인 → 문화예술)이며, 값은 카테고리별 최대 항목 수
-CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8,
+# 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인 → 문화예술 → AI)이며, 값은 카테고리별 최대 항목 수
+CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8, "AI": 7,
                    "정치·사회": 4, "IT·과학": 3, "스포츠": 2}
 CATEGORIES = list(CATEGORY_LIMITS)
 MIN_DOMESTIC_ART = 3          # 문화예술에 국내 소식이 최소 몇 건 들어가야 하는지
@@ -103,6 +103,16 @@ KEYWORDS = {
              "coinbase", "solana", "ripple", "xrp", "defi", "blockchain", "tokens?", "altcoins?", "dogecoin",
              "tether", "nfts?")),
         _kw(("거래소", "ETF", "해킹", "NFT"), ("etf", "exchange", "wallet", "mining", "halving"))),
+    "AI": (
+        re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])|인공지능|생성형|챗GPT|챗봇|거대언어모델|파운데이션 ?모델|오픈AI|앤트로픽|앤스로픽|"
+                   r"클로드|제미나이|딥시크|라마|벤치마크|리더보드|파인튜닝|프롬프트|"
+                   r"\b(?:openai|anthropic|claude|gemini|chatgpt|gpt-?\d\w*|llms?|deepseek|llama|mistral|qwen|grok|"
+                   r"copilot|midjourney|sora|generative|chatbots?|benchmarks?|leaderboards?|fine-?tun\w*|"
+                   r"large language models?|foundation models?|ai agents?|agentic|artificial intelligence|machine learning|"
+                   r"neural networks?|deep learning|open-?weights?|multimodal)\b", re.I),
+        re.compile(r"모델|에이전트|학습|추론|엔비디아|데이터센터|알고리즘|"
+                   r"\b(?:models?|agents?|training|inference|gpus?|nvidia|algorithms?|prompts?|tokens?|robots?|"
+                   r"copilots?|datasets?|parameters?|chips?)\b", re.I)),
     "IT·과학": (
         _kw(("인공지능", "반도체", "로봇", "우주", "위성", "발사체", "데이터센터", "해킹", "사이버", "스마트폰", "클라우드",
              "양자", "챗GPT", "생성형", "과학", "연구진", "엔비디아", "오픈AI"),
@@ -123,6 +133,7 @@ KEYWORDS = {
 }
 # 키워드로 가려 뽑을 때 점수 0인 기사를 버릴지(True) 채워 넣을지(False)
 STRICT_CATEGORIES = {"경제·증시", "코인", "문화예술"}
+AI_PRIMARY_SOURCES = {"OpenAI", "Anthropic", "Google DeepMind", "Google AI", "Mistral AI", "Hugging Face"}   # 모델 출시 등 1차 발표를 내는 곳
 
 
 @dataclass
@@ -166,6 +177,19 @@ def _norm_title(title: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+_TRACKING_PARAM = re.compile(r"^(?:utm_.*|at_.*|fbclid|gclid|mod|ref|cmp|cid|ocid|ncid|campaign|share)$", re.I)
+
+
+def canonical_url(url: str) -> str:
+    """같은 기사인지 비교하기 위한 주소 정규화. 추적용 파라미터(utm_*, at_* 등)는 지우되, 기사 번호가 주소의
+    질의부분에 있는 사이트(예: ...articleView.html?idxno=123)는 그 번호를 남긴다(예전엔 '?' 뒤를 통째로 지워 같은 기사로 오인됨)."""
+    base, _, query = url.partition("?")
+    if not query:
+        return base
+    pairs = [(k, v) for k, v in urllib.parse.parse_qsl(query.split("#")[0], keep_blank_values=True) if not _TRACKING_PARAM.match(k)]
+    return base + ("?" + urllib.parse.urlencode(sorted(pairs)) if pairs else "")
+
+
 DEDUPE_SKIP_TODAY = ""   # 'YYYY-MM-DD'면, 그 날짜(KST)에 올라온 브리핑 이슈는 중복 제거 기준에서 뺀다(AI 재시도 실행용)
 
 
@@ -191,7 +215,7 @@ def previous_digest_keys() -> set[str]:
         if DEDUPE_SKIP_TODAY and _issue_kst_date(it) == DEDUPE_SKIP_TODAY:
             continue  # 오늘 아침에 올린 헤드라인 브리핑은 기준에서 제외 → 어제 브리핑과만 비교
         for url in re.findall(r"\]\((https?://[^)\s]+)\)", it.get("body") or ""):
-            keys.add(url.replace("%29", ")").split("?")[0])
+            keys.add(canonical_url(url.replace("%29", ")")))
         break  # 가장 최근 브리핑 하나만
     return keys
 
@@ -250,7 +274,7 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 published = _entry_time(entry)
                 if published and published < cutoff:
                     continue
-                key = link.split("?")[0]
+                key = canonical_url(link)
                 tkey = _norm_title(title)
                 if key in seen or tkey in seen:
                     continue
@@ -284,16 +308,19 @@ def _strip_html(text: str) -> str:
 ART_EXCERPT_CHARS = 320   # 문화예술 기사의 발췌 길이(일반은 200자). 짧으면 모델이 없는 내용을 기억으로 채우는 일이 실측으로 확인됨
 
 
+LONG_EXCERPT_CATEGORIES = ("문화예술", "AI")   # 모델 이름·성능 수치처럼 틀리기 쉬운 내용은 발췌를 길게 줘서 모델이 기억으로 채우지 않게 함
+
+
 def _excerpt(entry, category: str) -> str:
     """기사 발췌. 문화예술은 RSS 요약이 인용구 한 줄뿐인 경우가 많아, 본문(content)이 더 길면 그 앞부분을 쓴다."""
     raw = _strip_html(entry.get("summary", "") or "")
-    if category == "문화예술":
+    if category in LONG_EXCERPT_CATEGORIES:
         content = entry.get("content") or []
         if content:
             alt = _strip_html(content[0].get("value", "") or "")
             if len(alt) > len(raw):
                 raw = alt
-    return _clip(_clean_summary(raw), ART_EXCERPT_CHARS if category == "문화예술" else 200)
+    return _clip(_clean_summary(raw), ART_EXCERPT_CHARS if category in LONG_EXCERPT_CATEGORIES else 200)
 
 
 def _clean_summary(text: str) -> str:
@@ -445,7 +472,7 @@ def daily_message(date: datetime) -> dict:
 # ---------- 요약 ----------
 
 SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에디터입니다. 독자는 **예술가(현대미술 작가)**이며
-세계 정세, 경제·시장, 예술계 소식을 꾸준히 알고 있어야 합니다.
+세계 정세, 경제·시장, 예술계 소식을 꾸준히 알고 있어야 하고, 업무와 교육 현장에서 **생성형 AI를 활용**하는 사람입니다.
 국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/미국/영국/기타 해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
 오늘 가장 중요한 뉴스를 골라 카테고리별로 한국어로 요약하세요.
 
@@ -456,6 +483,9 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 3. 문화예술: 국내외 미술계 소식을 최우선(전시, 미술관·갤러리, 비엔날레·아트페어, 옥션·미술시장, 작가·큐레이터 동정,
    수상·공모, 소장품·반환·복원 이슈)으로 하고, 그다음 공연·영화·문학·건축·디자인. 국내 소식과 해외 소식을 모두 담으세요.
    아이돌·연예인 가십, 방송 화제성 기사는 예술계 맥락이 없으면 제외합니다.
+4. AI: 생성형 AI 업계 동향. **새 모델 출시·업데이트, 벤치마크·리더보드 변화, 가격·API·기능 변경, 교육·업무 활용 사례와 도구,
+   주요 AI 기업(OpenAI·Anthropic·Google·Meta·Mistral·딥시크 등)의 움직임, AI 규제·정책**을 우선하고, 국내 소식도 포함하세요.
+   AI와 직접 관련된 기사는 'IT·과학'이 아니라 **'AI'** 로 분류합니다('IT·과학'에는 AI가 아닌 기술·과학만).
    문화예술에는 **국내(한국) 매체의 국내 소식을 최소 3건** 반드시 포함하세요(목록에 있다면).
 
 규칙:
@@ -470,6 +500,7 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 - 경기 결과(승패·점수), 수치, 따옴표 인용은 제목·발췌문에 명시된 것만 쓰세요. 승패나 원인을 추정하지 마세요.
 - '~할 예정', 'to give', 'will', 'plans to'처럼 예고·계획을 다룬 기사는 이미 일어난 일처럼 쓰지 말고 '예정', '추진'으로 표현하세요.
 - 제목·발췌문에 없는 세부 묘사(장소·원인·평가·배경)를 덧붙이지 마세요. 작품명·인물 직함·위치 같은 정보를 당신이 알고 있는 지식으로 보충하지 마세요.
+  AI 기사도 마찬가지입니다. 모델 이름·버전·출시일·벤치마크 점수·순위·가격·성능 수치는 제목·발췌문에 적힌 것만 쓰고, 당신이 아는 모델 정보로 보충하거나 추정하지 마세요.
   발췌문이 짧아 내용이 불분명하면 제목에 있는 사실만 쓰세요.
 - 같은 기사(링크)는 한 카테고리에만 넣으세요.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
@@ -704,7 +735,8 @@ MIN_AI_ITEMS = 8  # 기사가 충분할 때 AI 요약이 최소한 담아야 하
 
 
 def _link_key(url: str) -> str:
-    return url.split("?")[0].rstrip("/").lower()
+    base, sep, query = canonical_url(url).partition("?")
+    return (base.rstrip("/") + sep + query).lower()
 
 
 _CJK_RUN = re.compile(r"[\u4e00-\u9fff]{3,}")
@@ -713,6 +745,7 @@ _CJK_ANY = re.compile(r"[\u4e00-\u9fff]")
 _PAREN = re.compile(r"[\(（][^\)）]*[\)）]")
 _NUM = re.compile(r"\d[\d,.]*\d|\d")
 _SCORE = re.compile(r"\d+\s*[-–:]\s*\d+")
+_PRECISE = re.compile(r"\d+\.\d+|\d+(?:\.\d+)?\s*%")   # 소수·퍼센트(벤치마크 점수·성능 향상 폭 등)
 
 
 def _garbled(text: str) -> bool:
@@ -739,6 +772,13 @@ def _unsupported_scores(text: str, source: str) -> list[str]:
     return [m for m in _SCORE.findall(text) if re.sub(r"\s+", "", m) not in src]
 
 
+def _unsupported_precise(text: str, source: str) -> list[str]:
+    """AI 기사에서 '87.5', '12%' 같은 소수·퍼센트 수치 중 원문(제목·발췌)에 없는 것(벤치마크 점수를 지어내는 오류 방지)."""
+    src = re.sub(r"\s*(?:percent|per cent|퍼센트)", "%", source, flags=re.I)
+    src = re.sub(r"\s+", "", src)
+    return [m for m in _PRECISE.findall(text) if re.sub(r"\s+", "", m).replace("퍼센트", "%") not in src]
+
+
 def validate_digest(digest: dict, articles: list[Article], verbose: bool = False) -> dict:
     """AI가 만든 요약을 코드로 검증·정리한다(지시문만으로는 막을 수 없는 오류 방지).
     - 수집한 기사 목록에 없는 링크의 항목은 버린다 → 지어낸/조작된 링크 차단
@@ -750,7 +790,7 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
     정리 후 항목이 너무 적으면 ValueError(호출한 쪽이 다음 모델/공급자로 넘어간다)."""
     by_key = {_link_key(a.link): a for a in articles}
     seen: set[str] = set()
-    dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0, "깨진 문자": 0, "근거 없는 숫자": 0, "근거 없는 점수": 0}
+    dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0, "깨진 문자": 0, "근거 없는 숫자": 0, "근거 없는 점수": 0, "근거 없는 수치": 0}
     sections = []
     for sec in digest.get("sections") or []:
         if not isinstance(sec, dict):
@@ -774,7 +814,11 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
                 srcs = [x.strip() for x in str(it.get("source", "")).split(",") if x.strip()]
                 it = {**it, "source": ", ".join(srcs[:3])}  # 출처는 최대 3곳
                 art = by_key[key]
-                if _unsupported_scores(f"{it.get('title', '')} {it.get('summary', '')}", f"{art.title} {art.summary}"):
+                if str(sec.get("topic")) == "AI" and _unsupported_precise(
+                        f"{it.get('title', '')} {it.get('summary', '')}", f"{art.title} {art.summary}"):
+                    it = {**it, "title": html.unescape(art.title), "summary": _clip(art.summary, 120)}
+                    dropped["근거 없는 수치"] += 1
+                elif _unsupported_scores(f"{it.get('title', '')} {it.get('summary', '')}", f"{art.title} {art.summary}"):
                     # 원문에 없는 점수 → AI 서술을 버리고 원문 제목·발췌로 대체(틀린 결과보다 영어 원문이 낫다)
                     it = {**it, "title": html.unescape(art.title), "summary": _clip(art.summary, 120)}
                     dropped["근거 없는 점수"] += 1
@@ -983,7 +1027,10 @@ def topic_score(cat: str, a: Article) -> int:
     """해당 카테고리와 얼마나 관련 있는 기사인지 점수 (0이면 무관)."""
     core, other = KEYWORDS[cat]
     text = f"{a.title} {a.summary}"
-    return 3 * len({m.lower() for m in core.findall(text)}) + len({m.lower() for m in other.findall(text)})
+    score = 3 * len({m.lower() for m in core.findall(text)}) + len({m.lower() for m in other.findall(text)})
+    if cat == "AI" and a.outlet in AI_PRIMARY_SOURCES:
+        score += 4   # AI 기업의 공식 발표(새 모델·기능)를 헤드라인 모드에서도 앞에 둠
+    return score
 
 
 def art_score(a: Article) -> int:
@@ -996,9 +1043,11 @@ def _reclassify(a: Article) -> Article:
     - '종합' 피드 기사는 가장 관련 높은 카테고리로, 해당 없으면 '정치·사회'"""
     if a.category != "코인" and topic_score("코인", a) >= 3:
         return replace(a, category="코인")
+    if a.category in ("IT·과학", "종합") and topic_score("AI", a) >= 3:  # AI 핵심어가 있는 일반 IT 기사는 AI로
+        return replace(a, category="AI")
     if a.category == "종합":
         best, score = "정치·사회", 2
-        for cat in ("세계 이슈", "경제·증시", "문화예술"):
+        for cat in ("세계 이슈", "경제·증시", "문화예술", "AI"):
             sc = topic_score(cat, a)
             if sc > score:
                 best, score = cat, sc

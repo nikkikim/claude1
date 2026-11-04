@@ -5,7 +5,7 @@
   var CFG = window.SITE_CONFIG || {};
   var CATS = {
     "세계 이슈": "#e03131", "경제·증시": "#1c7ed6", "코인": "#e8890c", "문화예술": "#9c36b5",
-    "정치·사회": "#2f9e44", "IT·과학": "#0c8599", "스포츠": "#5c7cfa"
+    "AI": "#e64980", "정치·사회": "#2f9e44", "IT·과학": "#0c8599", "스포츠": "#5c7cfa"
   };
   var DOW = ["일", "월", "화", "수", "목", "금", "토"];
   var $ = function (id) { return document.getElementById(id); };
