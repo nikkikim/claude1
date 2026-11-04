@@ -9,12 +9,14 @@ import pytest
 import news_digest as nd
 
 _REAL_REFINE = nd.refine_overviews
+_REAL_WEATHER = nd.fetch_weather
 
 
 @pytest.fixture(autouse=True)
 def _no_refine_by_default(monkeypatch):
     """대부분의 시험은 1차 요약만 본다. 2차(핵심 요약 재작성)는 전용 시험에서 _REAL_REFINE으로 따로 확인."""
     monkeypatch.setattr(nd, "refine_overviews", lambda digest, articles, provider: digest)
+    monkeypatch.setattr(nd, "fetch_weather", lambda *a, **k: [])    # 시험 중 실제 날씨 서버에 접속하지 않음
 
 RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
 <item><title>새 기사</title><link>https://ex.com/a?x=1</link>
@@ -1154,3 +1156,102 @@ def test_workflow_has_concurrency_and_feeds_drop_flaky_outlet():
     assert "concurrency:" in wf and "cancel-in-progress: false" in wf
     feeds = json.loads((Path(__file__).resolve().parent.parent / "feeds.json").read_text(encoding="utf-8"))
     assert "머니투데이" not in [f["outlet"] for f in feeds["feeds"]]
+
+
+# ---------- 날씨 · 오늘의 한마디 · 점수 검증 ----------
+
+SEOUL_RAW = {"current": {"time": "2026-11-04T14:45", "temperature_2m": 17.0, "weather_code": 2},
+             "daily": {"time": ["2026-11-03", "2026-11-04", "2026-11-05"], "weather_code": [3, 3, 53],
+                       "temperature_2m_max": [15.5, 17.0, 15.8], "temperature_2m_min": [5.4, 7.0, 9.4],
+                       "precipitation_sum": [0.0, 0.0, 1.3], "precipitation_probability_max": [37, 0, 47],
+                       "snowfall_sum": [0.0, 0.0, 0.0]}}
+
+
+def test_parse_weather_compares_with_yesterday():
+    w = nd.parse_weather("서울", SEOUL_RAW)
+    assert w["sky"] == "흐림" and w["lo"] == "7°" and w["hi"] == "17°" and w["now"] == "17°"
+    assert w["mood"] == "어제와 비슷함" and w["diff"] == "최고 +2°, 최저 +2°"   # 평균 +1.55° → 2° 미만이라 '비슷함'
+    assert w["tomorrow"] == "이슬비 9°/16°"
+    warm = {**SEOUL_RAW, "daily": {**SEOUL_RAW["daily"], "temperature_2m_max": [10.0, 17.0, 15.8], "temperature_2m_min": [2.0, 7.0, 9.4]}}
+    assert nd.parse_weather("서울", warm)["mood"] == "어제보다 따뜻함"
+
+
+def test_parse_weather_precip_snow_and_mood_variants():
+    import copy
+    raw = copy.deepcopy(SEOUL_RAW)
+    raw["daily"]["precipitation_sum"][1] = 6.2
+    raw["daily"]["precipitation_probability_max"][1] = 80
+    assert "비 예보(강수확률 80%, 약 6.2mm)" == nd.parse_weather("서울", raw)["precip"]
+    raw["daily"]["snowfall_sum"][1] = 2.5
+    assert nd.parse_weather("서울", raw)["precip"].startswith("눈 예보")
+    raw["daily"]["temperature_2m_max"][1] = 8.0
+    raw["daily"]["temperature_2m_min"][1] = 1.0
+    w = nd.parse_weather("서울", raw)
+    assert w["mood"] == "어제보다 쌀쌀함" and "−" in w["diff"]
+    raw["daily"]["time"] = ["2026-11-02", "2026-11-03", "2026-11-04"]
+    assert nd.parse_weather("서울", {**raw, "current": {"time": "2026-11-09T01:00"}}) is None
+
+
+def test_fetch_weather_survives_failures(monkeypatch):
+    monkeypatch.setattr(nd.time, "sleep", lambda s: None)
+    calls = []
+
+    def boom(req, timeout=0):
+        calls.append(1)
+        raise OSError("down")
+    monkeypatch.setattr(nd.urllib.request, "urlopen", boom)
+    assert _REAL_WEATHER() == [] and len(calls) == 6        # 도시마다 2번 시도 후 포기, 예외 없음
+
+
+def test_weather_and_message_render_everywhere():
+    w = nd.parse_weather("서울", SEOUL_RAW)
+    la = {**w, "city": "LA", "date": "2026-11-03"}
+    d = {"headline": "h", "sections": [], "weather": [w, la], "message": {"ko": "오늘도 힘내요", "en": "Keep going <today>"}}
+    day = datetime(2026, 11, 4)
+    for out in (nd.render_html(d, day), nd.render_markdown(d, day), nd.render_text(d), "\n".join(nd.render_telegram(d, day))):
+        assert "서울" in out and "LA" in out and "오늘도 힘내요" in out and "Keep going" in out
+        assert "(현지 11/3일)" in out
+    assert "&lt;today&gt;" in nd.render_html(d, day) and "<today>" not in nd.render_html(d, day)
+    md = nd.render_markdown(d, day)
+    assert md.index("오늘의 날씨") < md.index("오늘의 한마디")
+    assert nd._weather_lines({}) == [] and "오늘의 날씨" not in nd.render_html({"headline": "h", "sections": []}, day)
+
+
+def test_weather_is_placed_above_core_summary():
+    d = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "핵심입니다", "items": []}],
+         "weather": [nd.parse_weather("서울", SEOUL_RAW)], "message": nd.daily_message(datetime(2026, 11, 4))}
+    day = datetime(2026, 11, 4)
+    for out in (nd.render_html(d, day), nd.render_markdown(d, day)):
+        assert out.index("오늘의 날씨") < out.index("오늘의 한마디") < out.index("카테고리별 오늘의 핵심")
+
+
+def test_daily_messages_are_bilingual_unique_and_rotate():
+    assert len(nd.DAILY_MESSAGES) >= 50
+    assert len({ko for ko, _ in nd.DAILY_MESSAGES}) == len(nd.DAILY_MESSAGES)
+    assert all(ko.strip() and en.strip() and en.isascii() for ko, en in nd.DAILY_MESSAGES)
+    a, b = nd.daily_message(datetime(2026, 11, 4)), nd.daily_message(datetime(2026, 11, 5))
+    assert a != b and set(a) == {"ko", "en"}
+
+
+def test_main_adds_weather_and_message(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    monkeypatch.setattr(nd, "fetch_weather", lambda: [nd.parse_weather("서울", SEOUL_RAW)])
+    monkeypatch.setenv("LLM_PROVIDER", "none")
+    assert nd.main(["--dry-run"]) == 0
+    out = (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "오늘의 날씨" in out and "오늘의 한마디" in out
+
+
+def test_validate_replaces_item_with_score_not_in_source():
+    # 실제 사례: 원문은 '2-0으로 뒤지다 이긴' 경기인데 AI가 '0-3 패배'로 서술
+    arts = [_art2("BBC", "영국", "스포츠", "A half-time speech - and a win to save Carrick's job?",
+                  "At 2-0 down Carrick's position looked terminal - but will the win over Roma prove a turning point?",
+                  "https://ex.com/mu")]
+    bad = _it("https://ex.com/mu", title="맨유, 로마에 0-3 패배", summary="2-0 뒤진 뒤 승리", source="BBC")
+    out = nd.validate_digest(_digest([bad], topic="스포츠"), arts)
+    item = out["sections"][0]["items"][0]
+    assert "0-3" not in item["title"] and item["title"].startswith("A half-time speech")
+    good = _it("https://ex.com/mu", title="맨유, 2-0 열세 뒤 로마 격파", summary="2-0으로 뒤졌지만 승리", source="BBC")
+    kept = nd.validate_digest(_digest([good], topic="스포츠"), arts)["sections"][0]["items"][0]
+    assert kept["title"] == "맨유, 2-0 열세 뒤 로마 격파"
