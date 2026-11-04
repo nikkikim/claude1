@@ -166,6 +166,9 @@ def _norm_title(title: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+DEDUPE_SKIP_TODAY = ""   # 'YYYY-MM-DD'면, 그 날짜(KST)에 올라온 브리핑 이슈는 중복 제거 기준에서 뺀다(AI 재시도 실행용)
+
+
 def previous_digest_keys() -> set[str]:
     """가장 최근 브리핑 이슈에 이미 실린 기사 링크 (예약 실행에서 어제와 겹치는 기사를 빼는 데 사용)."""
     repo, token = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GITHUB_TOKEN")
@@ -185,10 +188,20 @@ def previous_digest_keys() -> set[str]:
     for it in issues:
         if "pull_request" in it or not str(it.get("title", "")).startswith("[뉴스 브리핑]"):
             continue
+        if DEDUPE_SKIP_TODAY and _issue_kst_date(it) == DEDUPE_SKIP_TODAY:
+            continue  # 오늘 아침에 올린 헤드라인 브리핑은 기준에서 제외 → 어제 브리핑과만 비교
         for url in re.findall(r"\]\((https?://[^)\s]+)\)", it.get("body") or ""):
             keys.add(url.replace("%29", ")").split("?")[0])
         break  # 가장 최근 브리핑 하나만
     return keys
+
+
+def _issue_kst_date(issue: dict) -> str:
+    try:
+        t = datetime.strptime(str(issue.get("created_at", "")), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        return f"{t.astimezone(KST):%Y-%m-%d}"
+    except ValueError:
+        return ""
 
 
 def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
@@ -231,6 +244,8 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 title = (entry.get("title") or "").strip()
                 link = entry.get("link") or ""
                 if not title or not link:
+                    continue
+                if _KANA.search(title):  # 일본어 기사(예: 조선일보 일본어판)는 한국어 브리핑에서 제외
                     continue
                 published = _entry_time(entry)
                 if published and published < cutoff:
@@ -1464,13 +1479,24 @@ def main(argv: list[str] | None = None) -> int:
         return resend_archived(args.resend, args.resend_date)
 
     today_path = Path(args.archive) / f"{datetime.now(KST):%Y-%m-%d}.json" if args.archive else None
+    global DEDUPE_SKIP_TODAY
+    DEDUPE_SKIP_TODAY = ""   # main을 여러 번 부르는 시험·재실행에서 이전 값이 남지 않게 매번 초기화
+    retry_ai = False
     if args.only_if_missing and today_path and today_path.exists():
         try:
-            if json.loads(today_path.read_text(encoding="utf-8")).get("sent"):
-                print(f"오늘({today_path.stem}) 브리핑이 이미 발송돼 예비 실행은 건너뜁니다.")
-                return 0
+            saved = json.loads(today_path.read_text(encoding="utf-8"))
+            if saved.get("sent"):
+                if saved.get("ai") is False and provider_chain() and not args.no_llm:
+                    # 아침 브리핑이 AI 요약 없이(한도 초과 등) 나갔다면 예비 시각에 AI 요약을 한 번 더 시도한다
+                    retry_ai = True
+                    print("아침 브리핑이 헤드라인 모드였습니다. AI 요약을 다시 시도합니다.")
+                else:
+                    print(f"오늘({today_path.stem}) 브리핑이 이미 발송돼 예비 실행은 건너뜁니다.")
+                    return 0
         except (OSError, ValueError):
             pass  # 깨진 보관 파일이면 새로 만든다
+    if retry_ai:
+        DEDUPE_SKIP_TODAY = f"{datetime.now(KST):%Y-%m-%d}"
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
     articles = fetch_articles(config)
@@ -1511,6 +1537,9 @@ def main(argv: list[str] | None = None) -> int:
     digest["notices"] = collect_notices(now.date())
     digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
                       "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
+    if retry_ai and digest.get("ai") is False:  # 다시 해도 AI가 안 되면 중복 메일을 보내지 않고 아침 브리핑을 그대로 둔다
+        print("AI 요약 재시도도 실패해 아침 브리핑을 그대로 둡니다(추가 발송 없음).")
+        return 0
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]
 
     if args.dry_run:

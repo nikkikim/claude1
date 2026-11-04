@@ -1494,3 +1494,85 @@ def test_workflow_passes_limit_and_lock_variables():
     wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
     assert "INTERACTION_LIMIT_SET_ON: ${{ vars.INTERACTION_LIMIT_SET_ON }}" in wf
     assert wf.count("ISSUE_LOCK: ${{ vars.ISSUE_LOCK }}") == 2          # 정규 발송과 재발송 모두
+
+
+# ---------- 아침 브리핑이 헤드라인 모드였을 때 예비 시각에 AI 재시도 ----------
+
+def _retry_env(monkeypatch, tmp_path, ai_saved):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    for k in ("LLM_PROVIDER", "ANTHROPIC_API_KEY", "GEMINI_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    for k in ("GITHUB_ACTIONS", "GITHUB_TOKEN", "GITHUB_REPOSITORY"):
+        monkeypatch.setenv(k, "x")
+    monkeypatch.setattr(nd, "fetch_weather", lambda *a, **k: [])
+    today = nd.datetime.now(nd.KST).strftime("%Y-%m-%d")
+    path = tmp_path / "arch" / f"{today}.json"
+    path.parent.mkdir()
+    path.write_text(json.dumps({**_site_digest("아침 헤드라인"), "ai": ai_saved, "sent": True}, ensure_ascii=False), encoding="utf-8")
+    sent = []
+    monkeypatch.setattr(nd, "send_github_issue", lambda title, body: sent.append(title))
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "세계 이슈")])
+    return path, sent
+
+
+def test_backup_run_retries_ai_when_morning_letter_was_headline_only(monkeypatch, tmp_path):
+    path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=False)
+    monkeypatch.setattr(nd, "summarize", lambda articles, provider: {**GOOD_DIGEST, "ai": True, "model": "m"})
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0
+    assert len(sent) == 1 and sent[0].startswith("[뉴스 브리핑]")              # 정규 제목 형식 → 내일 중복 제거 기준이 됨
+    saved = json.loads(path.read_text(encoding="utf-8"))
+    assert saved["ai"] is True and saved["sent"] is True and saved["headline"] == "h"   # 사이트에도 AI 버전으로 교체
+
+
+def test_backup_retry_that_fails_again_sends_nothing_and_keeps_morning_letter(monkeypatch, tmp_path):
+    path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=False)
+
+    def boom(articles, provider):
+        raise nd.QuotaExceeded("429")
+    monkeypatch.setattr(nd, "summarize", boom)
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0
+    assert sent == []
+    assert json.loads(path.read_text(encoding="utf-8"))["headline"] == "아침 헤드라인"
+
+
+def test_backup_run_skips_when_morning_letter_had_ai_or_no_ai_configured(monkeypatch, tmp_path):
+    path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=True)
+    monkeypatch.setattr(nd, "summarize", lambda *a: (_ for _ in ()).throw(AssertionError("재시도하면 안 됨")))
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and sent == []
+    path.write_text(json.dumps({**_site_digest("x"), "ai": False, "sent": True}), encoding="utf-8")
+    monkeypatch.delenv("OPENROUTER_API_KEY")                                  # AI 키가 아예 없으면 재시도해도 소용없음
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and sent == []
+
+
+def test_previous_digest_keys_can_skip_todays_issue(monkeypatch):
+    import io
+    today = nd.datetime.now(nd.KST)
+    yesterday = today - nd.timedelta(days=1)
+    fmt = "%Y-%m-%dT%H:%M:%SZ"
+    issues = [
+        {"title": "[뉴스 브리핑] 오늘", "created_at": today.astimezone(nd.timezone.utc).strftime(fmt), "body": "[a](https://ex.com/today)"},
+        {"title": "[뉴스 브리핑] 어제", "created_at": yesterday.astimezone(nd.timezone.utc).strftime(fmt), "body": "[b](https://ex.com/yday)"},
+    ]
+
+    class R:
+        def __enter__(self): return io.StringIO(json.dumps(issues))
+        def __exit__(self, *a): pass
+    monkeypatch.setenv("GITHUB_REPOSITORY", "o/r")
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setattr(nd.urllib.request, "urlopen", lambda req, timeout=0: R())
+    assert nd.previous_digest_keys() == {"https://ex.com/today"}
+    monkeypatch.setattr(nd, "DEDUPE_SKIP_TODAY", today.strftime("%Y-%m-%d"))
+    assert nd.previous_digest_keys() == {"https://ex.com/yday"}                   # 오늘 아침 브리핑은 제외하고 어제 것과만 비교
+
+
+def test_fetch_drops_japanese_titles(tmp_path):
+    rss = ("""<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
+<item><title>生後6カ月で自分で食べる？</title><link>https://ex.com/jp</link><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>
+<item><title>한국어 기사</title><link>https://ex.com/ko</link><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>
+</channel></rss>""")
+    f = tmp_path / "f.xml"
+    f.write_text(rss, encoding="utf-8")
+    arts = nd.fetch_articles({"feeds": [{"outlet": "T", "url": str(f)}], "max_age_hours": 48},
+                             now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
+    assert [a.title for a in arts] == ["한국어 기사"]
