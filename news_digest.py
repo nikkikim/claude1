@@ -606,15 +606,14 @@ def _call_gemini(system: str, user: str) -> str:
 #  - openrouter/free(자동 라우터) : 위 모델로 연결될 수 있고 추론 모델로 빠지는 일이 잦아 제외
 #  - thinkingmachines/inkling*:free : 에이전트 앱 전용(403) → 제외
 # 추론을 끌 수 없는 모델(liquid/lfm, recursive/flint, stealth/crouton)도 쓰지 않는다.
-# 순서: Nemotron ×3(멈춘 요청은 130초에 끊고 다시 시도) → Gemma 31B → Gemma 26B. 요청은 카테고리 묶음별로 3개를 동시에 보낸다.
+# 순서: Nemotron ×2(멈춘 요청은 130초에 끊고 한 번 더) → Gemma 31B → Gemma 26B. 요청은 카테고리 묶음별로 3개를 동시에 보낸다.
 # (실측 2026-11-05: Gemma는 구글 쪽 429가 거의 매번이라 뒤로 보냄. 전체 시간 상한이 넘으면 남은 시도는 건너뜀)
 OPENROUTER_DEFAULT_MODELS = (
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
     "google/gemma-4-31b-it:free",
     "google/gemma-4-26b-a4b-it:free",
-)
+)  # 묶음 3개가 각각 이 순서로 시도 → 최악의 경우 하루 한도(50회)를 빨리 쓰므로 Nemotron 재시도는 1번까지만
 # nvidia/nemotron-3.5-lightning:free 는 실측(2026-11-05)에서 JSON 괄호·쉼표를 심하게 틀리고 문장이 깨져 제외
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 130   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측(2026-11-05): 응답은 20~110초에 오거나, 아예 멈춰서 240초를 넘겨도 안 오는 두 갈래 → 오래 기다리지 말고 130초에 끊고 다시 시도

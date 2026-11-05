@@ -1096,7 +1096,7 @@ def test_summarize_runs_refine_and_records_model(monkeypatch):
 
 def test_default_models_retry_nemotron_and_budget_fits_workflow():
     models = nd.OPENROUTER_DEFAULT_MODELS
-    assert models[0] == models[1] == models[2] and "nemotron-3-ultra" in models[0] and len(models) == 5 and "gemma" in models[3]
+    assert models[0] == models[1] and "nemotron-3-ultra" in models[0] and len(models) == 4 and "gemma" in models[2]
     assert nd.OPENROUTER_BUDGET_SECONDS + nd.OPENROUTER_REQUEST_SECONDS + \
         nd.REFINE_BUDGET_SECONDS + nd.REFINE_REQUEST_SECONDS + 150 < 20 * 60
 
