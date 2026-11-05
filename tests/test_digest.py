@@ -1710,7 +1710,7 @@ def test_workflow_runs_all_schedules_as_only_if_missing_and_retry_only_at_backup
     wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
     assert "github.event_name == 'schedule' && '--only-if-missing'" in wf
     assert "github.event.schedule == '30 1 * * *' && '--retry-ai'" in wf
-    assert 'cron: "30 22 * * *"' in wf and 'cron: "30 23 * * *"' in wf
+    assert all(f'cron: "{c}"' in wf for c in ("10 21 * * *", "30 22 * * *", "30 23 * * *", "30 1 * * *"))
 
 
 # ---------- 2026-11-05 실측: 응답이 60초 넘게 걸림 / 끝부분만 깨진 JSON ----------
