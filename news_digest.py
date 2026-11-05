@@ -605,14 +605,16 @@ def _call_gemini(system: str, user: str) -> str:
 #  - openrouter/free(자동 라우터) : 위 모델로 연결될 수 있고 추론 모델로 빠지는 일이 잦아 제외
 #  - thinkingmachines/inkling*:free : 에이전트 앱 전용(403) → 제외
 # 추론을 끌 수 없는 모델(liquid/lfm, recursive/flint, stealth/crouton)도 쓰지 않는다.
-# 순서: Nemotron → Nemotron(느림·짧은 응답 등 일시 문제 대비 한 번 더) → Gemma 31B → Gemma 26B.
+# 순서: Nemotron ×3(멈춘 요청은 130초에 끊고 다시 시도) → Gemma 31B → Gemma 26B. 요청은 카테고리 묶음별로 3개를 동시에 보낸다.
 # (실측 2026-11-05: Gemma는 구글 쪽 429가 거의 매번이라 뒤로 보냄. 전체 시간 상한이 넘으면 남은 시도는 건너뜀)
 OPENROUTER_DEFAULT_MODELS = (
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "google/gemma-4-31b-it:free",
     "google/gemma-4-26b-a4b-it:free",
 )
+# nvidia/nemotron-3.5-lightning:free 는 실측(2026-11-05)에서 JSON 괄호·쉼표를 심하게 틀리고 문장이 깨져 제외
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 130   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측(2026-11-05): 응답은 20~110초에 오거나, 아예 멈춰서 240초를 넘겨도 안 오는 두 갈래 → 오래 기다리지 말고 130초에 끊고 다시 시도
 OPENROUTER_BUDGET_SECONDS = 500    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
@@ -794,7 +796,8 @@ def _unsupported_precise(text: str, source: str) -> list[str]:
     return [m for m in _PRECISE.findall(text) if re.sub(r"\s+", "", m).replace("퍼센트", "%") not in src]
 
 
-def validate_digest(digest: dict, articles: list[Article], verbose: bool = False, min_items: int | None = None) -> dict:
+def validate_digest(digest: dict, articles: list[Article], verbose: bool = False, min_items: int | None = None,
+                    topics: tuple | None = None) -> dict:
     """AI가 만든 요약을 코드로 검증·정리한다(지시문만으로는 막을 수 없는 오류 방지).
     - 수집한 기사 목록에 없는 링크의 항목은 버린다 → 지어낸/조작된 링크 차단
     - 같은 링크는 먼저 나온 카테고리에만 남긴다
@@ -811,6 +814,8 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
     for sec in digest.get("sections") or []:
         if not isinstance(sec, dict):
             continue
+        if topics is not None and str(sec.get("topic", "")) not in topics:
+            continue  # 이번 요청에서 맡지 않은 카테고리는 무시
         limit = CATEGORY_LIMITS.get(str(sec.get("topic", "")), 5)
         items = []
         for it in sec.get("items") or []:
@@ -1011,23 +1016,38 @@ def refine_overviews(digest: dict, articles: list[Article], provider: str) -> di
     return {**digest, "sections": sections}
 
 
-def summarize(articles: list[Article], provider: str) -> dict:
+BATCHES = (("세계 이슈", "정치·사회", "스포츠"), ("경제·증시", "코인", "IT·과학"), ("문화예술", "AI"))
+BATCH_MIN_ARTICLES = 150   # 기사가 이 수 이상이면 요청을 카테고리 묶음별로 쪼개서 동시에 보낸다(무료 모델이 큰 요청 하나에 멈추는 일이 실측으로 잦았음)
+
+
+def _batch_of(article: Article) -> int:
+    for i, group in enumerate(BATCHES):
+        if article.category in group:
+            return i
+    return 0   # 종합 등 분류 힌트가 없는 기사는 첫 묶음(세계·정치·스포츠)에서 모델이 직접 분류
+
+
+def _summarize_once(articles: list[Article], idxs: list[int], provider: str, topics: tuple | None) -> tuple[dict, bool]:
+    """기사 idxs(전체 목록에서의 0부터 번호)만 모델에 보내 요약을 받는다. (검증된 digest, 일부 요약 여부)를 돌려준다."""
     global LAST_MODEL_USED
-    LAST_MODEL_USED = ""
-    lines = [
-        f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary}"
-        for i, a in enumerate(articles, 1)
-    ]
-    user = "\n".join(lines)   # 링크는 보내지 않는다(입력·출력 토큰 절약, 링크 지어내기 방지). 모델은 [번호]를 id로 돌려준다
-    best: dict = {"n": 0, "digest": None}   # 너무 짧아 버려진 응답 중 가장 나은 것(마지막 보루)
+    lines = [f"[{i + 1}] ({articles[i].region}|{articles[i].outlet}|{articles[i].category}) {articles[i].title} | {articles[i].summary}"
+             for i in idxs]   # 번호는 전체 목록 기준 그대로(id → 원래 기사 링크 복원에 사용). 링크는 보내지 않는다
+    user = "\n".join(lines)
+    if topics is not None:
+        user = (f"【이번 요청】 다음 카테고리만 작성하세요: {', '.join(topics)} (그 밖의 카테고리는 쓰지 마세요). "
+                f"아래 기사 목록으로만 작성하고, headline은 이 카테고리 중심으로 쓰세요.\n\n" + user)
+        need = max(1, min(5, len(idxs) // 30))
+    else:
+        need = None
+    best: dict = {"n": 0, "digest": None}
 
     def check(text: str) -> dict:
         parsed = parse_json(text)
         try:
-            return validate_digest(parsed, articles)
+            return validate_digest(parsed, articles, min_items=need, topics=topics)
         except ThinDigest:
             try:
-                thin = validate_digest(parsed, articles, min_items=1)
+                thin = validate_digest(parsed, articles, min_items=1, topics=topics)
                 n = sum(len(x["items"]) for x in thin["sections"])
                 if n > best["n"]:
                     best.update(n=n, digest=thin)
@@ -1035,7 +1055,6 @@ def summarize(articles: list[Article], provider: str) -> dict:
                 pass
             raise
 
-    partial = False
     try:
         if provider == "openrouter":  # 무료 모델은 품질 편차가 커서, 검증에 실패하면 다음 모델로 넘어가도록 검사 함수를 넘김
             text = _call_openrouter(SYSTEM_PROMPT, user, check)
@@ -1043,14 +1062,69 @@ def summarize(articles: list[Article], provider: str) -> dict:
             text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
             LAST_MODEL_USED = {"anthropic": os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
                                "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")}[provider]
-        digest = validate_digest(parse_json(text), articles, verbose=True)
+        return validate_digest(parse_json(text), articles, verbose=True, min_items=need, topics=topics), False
     except Exception as err:  # noqa: BLE001
-        if best["digest"] is None or best["n"] < MIN_PARTIAL_ITEMS:
+        if best["digest"] is None or best["n"] < MIN_PARTIAL_ITEMS and best["n"] < (need or MIN_PARTIAL_ITEMS):
             raise
         print(f"[warn] 충분한 AI 요약을 받지 못해, 가장 나은 응답({best['n']}개 항목)을 쓰고 나머지는 원문 헤드라인으로 보충합니다: {err}",
               file=sys.stderr)
-        digest, partial = best["digest"], True
         LAST_MODEL_USED = LAST_MODEL_USED or "OpenRouter 무료 모델"
+        return best["digest"], True
+
+
+def _merge_batches(parts: list[tuple[dict, bool] | None]) -> tuple[dict, bool]:
+    """묶음별 결과를 카테고리 순서로 합친다. 실패한 묶음(None)이 있으면 일부 요약으로 표시(빠진 카테고리는 이후 헤드라인으로 보충)."""
+    sections, seen, headline, partial = [], set(), "", False
+    for part in parts:
+        if part is None:
+            partial = True
+            continue
+        digest, was_partial = part
+        partial = partial or was_partial
+        headline = headline or str(digest.get("headline") or "")
+        for sec in digest.get("sections", []):
+            items = []
+            for it in sec.get("items", []):
+                key = _link_key(str(it.get("link", "")))
+                if key not in seen:
+                    seen.add(key)
+                    items.append(it)
+            if items:
+                sections.append({**sec, "items": items})
+    order = {c: i for i, c in enumerate(CATEGORIES)}
+    sections.sort(key=lambda x: order.get(x.get("topic"), len(order)))
+    return {"headline": headline, "sections": sections}, partial
+
+
+def summarize(articles: list[Article], provider: str) -> dict:
+    global LAST_MODEL_USED
+    LAST_MODEL_USED = ""
+    if len(articles) >= BATCH_MIN_ARTICLES:
+        groups: list[list[int]] = [[] for _ in BATCHES]
+        for i, a in enumerate(articles):
+            groups[_batch_of(a)].append(i)
+        jobs = [(g, t) for g, t in zip(groups, BATCHES) if g]
+        results: list = [None] * len(jobs)
+        errors: list[Exception] = []
+
+        def run(k: int) -> None:
+            idxs, topics = jobs[k]
+            try:
+                results[k] = _summarize_once(articles, idxs, provider, topics)
+            except Exception as err:  # noqa: BLE001 - 한 묶음의 실패가 나머지를 막지 않는다
+                errors.append(err)
+                print(f"[warn] 요약 묶음 {k + 1}/{len(jobs)}({', '.join(topics)}) 실패: {err}", file=sys.stderr)
+
+        with ThreadPoolExecutor(max_workers=len(jobs)) as pool:   # 동시에 보내 전체 시간을 줄인다
+            list(pool.map(run, range(len(jobs))))
+        if all(r is None for r in results):
+            raise errors[-1] if errors else RuntimeError("AI 요약에 실패했습니다")
+        digest, partial = _merge_batches(results)
+        total = sum(len(x["items"]) for x in digest["sections"])
+        if total < min(MIN_AI_ITEMS, max(1, len(articles) // 20)):
+            raise errors[-1] if errors else ThinDigest("AI 요약이 부실합니다")
+    else:
+        digest, partial = _summarize_once(articles, list(range(len(articles))), provider, None)
     digest = backfill_missing_categories(digest, articles)
     digest = ensure_domestic_art(digest, articles)
     if not partial:  # 일부 요약일 땐 추가 AI 호출(핵심 요약 재작성)을 하지 않는다

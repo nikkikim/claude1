@@ -1096,7 +1096,7 @@ def test_summarize_runs_refine_and_records_model(monkeypatch):
 
 def test_default_models_retry_nemotron_and_budget_fits_workflow():
     models = nd.OPENROUTER_DEFAULT_MODELS
-    assert models[0] == models[1] and "nemotron-3-ultra" in models[0] and len(models) == 4 and "gemma" in models[2]
+    assert models[0] == models[1] == models[2] and "nemotron-3-ultra" in models[0] and len(models) == 5 and "gemma" in models[3]
     assert nd.OPENROUTER_BUDGET_SECONDS + nd.OPENROUTER_REQUEST_SECONDS + \
         nd.REFINE_BUDGET_SECONDS + nd.REFINE_REQUEST_SECONDS + 150 < 20 * 60
 
@@ -1672,7 +1672,7 @@ def test_openrouter_attempt_is_capped_by_remaining_budget(monkeypatch):
 def test_thin_ai_answer_is_salvaged_as_partial_with_headline_backfill(monkeypatch):
     # 실측: 520건 중 7개 항목만 담은 짧은 응답이 와서 전부 버려지고 헤드라인 모드가 됐음 → 일부 요약으로 살린다
     arts = [_art2(f"O{i}", "국내", cat, f"{cat} 기사 {i} 전시 미술관", "미술관 전시 작가", f"https://ex.com/{cat}{i}")
-            for i in range(100) for cat in ("세계 이슈", "경제·증시", "문화예술")]   # 300건 → 최소 8개 필요
+            for i in range(46) for cat in ("세계 이슈", "경제·증시", "문화예술")]   # 138건(묶음 요약 기준 150건 미만) → 최소 6개 필요
     items = [_it(f"https://ex.com/세계 이슈{i}", title=f"세계 {i}", summary="요약") for i in range(4)]
     thin = {"headline": "일부만", "sections": [{"topic": "세계 이슈", "overview": "", "items": items}]}
     _or_fake(monkeypatch, {"m1": _chat(json.dumps(thin, ensure_ascii=False))})
@@ -1730,7 +1730,7 @@ def test_parse_json_salvages_front_part_of_json_broken_at_the_end():
 
 def test_repaired_json_goes_through_normal_validation_and_backfill(monkeypatch):
     arts = [_art2(f"O{i}", "국내", cat, f"{cat} {i}", "s", f"https://ex.com/{cat}{i}")
-            for i in range(100) for cat in ("세계 이슈", "경제·증시")]
+            for i in range(50) for cat in ("세계 이슈", "경제·증시")]
     items = ",".join(f'{{"title": "세계 {i}", "summary": "요약", "source": "A", "link": "https://ex.com/세계 이슈{i}"}}' for i in range(9))
     text = '{"headline": "복구", "sections": [{"topic": "세계 이슈", "overview": "", "items": [' + items + ']}, {"topic": "경제·증시", "items": [{"title" "깨짐"}]}]}'
     _or_fake(monkeypatch, {"m1": _chat(text)})
@@ -1780,3 +1780,75 @@ def test_validate_accepts_id_or_link_and_drops_bad_ids():
              {"title": "y", "summary": "s", "source": "A", "link": "https://ex.com/A", "id": 2}]   # 링크가 맞으면 링크 우선(중복이라 버려짐)
     out = nd.validate_digest(_digest(items), arts)
     assert [i["link"] for i in out["sections"][0]["items"]] == ["https://ex.com/A", "https://ex.com/B"]
+
+
+# ---------- 묶음 요약(카테고리 묶음별로 쪼개 동시에 요청) ----------
+
+def _batch_fake(monkeypatch, fail_topics=()):
+    """요청 본문에서 '이번 요청' 카테고리와 기사 번호를 읽어, 그 카테고리마다 기사 5개씩 담은 답을 돌려주는 가짜 서버."""
+    import io
+    import re as _re
+    calls = []
+
+    def fake(req, timeout=0):
+        payload = json.loads(req.data)
+        user = payload["messages"][1]["content"]
+        calls.append(user)
+        m = _re.search(r"다음 카테고리만 작성하세요: (.+?) \(", user)
+        topics = [x.strip() for x in m.group(1).split(",")] if m else []
+        if any(tp in fail_topics for tp in topics):
+            out = {"choices": [{"message": {"content": "죄송합니다 JSON이 아닙니다"}}]}
+        else:
+            rows = _re.findall(r"\[(\d+)\] \([^|]*\|[^|]*\|([^)]*)\)", user)
+            sections = []
+            for tp in topics:
+                ids = [int(n) for n, c in rows if c == tp][:5]
+                sections.append({"topic": tp, "overview": "", "items": [
+                    {"title": f"{tp} 요약 {n}", "summary": "요약", "source": "O", "id": n} for n in ids]})
+            out = {"choices": [{"message": {"content": json.dumps(
+                {"headline": f"헤드라인:{topics[0]}" if topics else "h", "sections": sections}, ensure_ascii=False)}}]}
+
+        class R:
+            def __enter__(self): return io.StringIO(json.dumps(out))
+            def __exit__(self, *a): pass
+        return R()
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    monkeypatch.setattr(nd.time, "sleep", lambda s: None)
+    return calls
+
+
+def _many_articles():
+    cats = ("세계 이슈", "정치·사회", "경제·증시", "코인", "문화예술", "AI", "IT·과학", "스포츠")
+    return [_art2(f"O{i}", "국내", cat, f"{cat} 기사 {i}", "미술관 전시 작가", f"https://ex.com/{cat}/{i}")
+            for i in range(25) for cat in cats]          # 200건
+
+
+def test_large_collection_is_split_into_three_parallel_requests_and_merged_in_order(monkeypatch):
+    calls = _batch_fake(monkeypatch)
+    out = nd.summarize(_many_articles(), "openrouter")
+    assert len(calls) == 3                                                         # 요청 3개로 분할
+    assert all("https://ex.com" not in c for c in calls)                           # 링크는 보내지 않음
+    assert sum(1 for c in calls if "세계 이슈, 정치·사회, 스포츠" in c) == 1
+    topics = [s["topic"] for s in out["sections"]]
+    assert topics == sorted(topics, key=nd.CATEGORIES.index) and set(topics) == set(nd.CATEGORIES)   # 정해진 순서로 합쳐짐
+    assert not out.get("partial") and out["headline"].startswith("헤드라인:세계 이슈")              # 헤드라인은 첫 묶음 것
+    links = [i["link"] for s in out["sections"] for i in s["items"]]
+    assert len(links) == len(set(links)) and all(l.startswith("https://ex.com/") for l in links)   # id → 원래 링크, 중복 없음
+
+
+def test_one_failed_batch_becomes_partial_with_headline_backfill(monkeypatch):
+    _batch_fake(monkeypatch, fail_topics=("경제·증시",))
+    out = nd.summarize(_many_articles(), "openrouter")
+    assert out["partial"] is True
+    by_topic = {s["topic"]: s for s in out["sections"]}
+    assert by_topic["경제·증시"].get("backfilled") and by_topic["코인"].get("backfilled")            # 실패한 묶음은 원문 헤드라인으로
+    assert not by_topic["세계 이슈"].get("backfilled") and not by_topic["AI"].get("backfilled")      # 나머지는 AI 요약
+
+
+def test_all_batches_failing_raises_so_main_falls_back_to_headline_mode(monkeypatch):
+    import pytest
+    _batch_fake(monkeypatch, fail_topics=("세계 이슈", "경제·증시", "문화예술"))
+    with pytest.raises(RuntimeError):
+        nd.summarize(_many_articles(), "openrouter")
