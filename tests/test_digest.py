@@ -349,7 +349,7 @@ def test_quota_exceeded_today_then_summary_returns_when_quota_refills(monkeypatc
     monkeypatch.setattr(nd, "summarize", over)
     assert nd.main(["--dry-run"]) == 0
     day1 = (tmp_path / "digest.html").read_text(encoding="utf-8")
-    assert "무료 사용 한도를 초과" in day1 and "카테고리별 오늘의 핵심" not in day1
+    assert "한도·혼잡으로 응답하지 못해" in day1 and "카테고리별 오늘의 핵심" not in day1
 
     # 2일차: 한도가 다시 채워짐 → 별도 조치 없이 요약(핵심 블록 포함)이 돌아온다
     good = {"headline": "정상 요약", "sections": [{"topic": "정치", "overview": "핵심 흐름", "items": [
@@ -652,7 +652,7 @@ def test_main_all_providers_fail_uses_last_error_note(monkeypatch, tmp_path):
         raise nd.FreeTierUnavailable("403") if provider == "gemini" else nd.QuotaExceeded("429")
     monkeypatch.setattr(nd, "summarize", fake_summarize)
     assert nd.main(["--dry-run"]) == 0
-    assert "무료 사용 한도를 초과" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+    assert "한도·혼잡으로 응답하지 못해" in (tmp_path / "digest.html").read_text(encoding="utf-8")
 
 
 def test_parse_json_ignores_trailing_text_and_second_object():
@@ -713,7 +713,7 @@ def test_openrouter_logs_every_failed_model_with_reason(monkeypatch, capsys):
 def test_openrouter_retries_same_model_on_temporary_429_then_succeeds(monkeypatch, capsys):
     sleeps, seen = [], []
     good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
-    _or_fake(monkeypatch, {"m1": [_http_error(429, "temporarily rate-limited upstream"), good], "m2": good}, seen, sleeps)
+    _or_fake(monkeypatch, {"m1": [_http_error(429, "Rate limit exceeded: free-models-per-min"), good], "m2": good}, seen, sleeps)
     monkeypatch.setenv("OPENROUTER_MODELS", "m1,m2")
     out = nd._call_openrouter("s", "u")
     assert json.loads(out)["headline"] == "h"
@@ -1096,7 +1096,7 @@ def test_summarize_runs_refine_and_records_model(monkeypatch):
 
 def test_default_models_retry_nemotron_and_budget_fits_workflow():
     models = nd.OPENROUTER_DEFAULT_MODELS
-    assert models[0] == models[2] and "nemotron-3-ultra" in models[0] and len(models) == 4
+    assert models[0] == models[1] and "nemotron-3-ultra" in models[0] and len(models) == 4 and "gemma" in models[2]
     assert nd.OPENROUTER_BUDGET_SECONDS + nd.OPENROUTER_REQUEST_SECONDS + \
         nd.REFINE_BUDGET_SECONDS + nd.REFINE_REQUEST_SECONDS + 150 < 20 * 60
 
@@ -1519,7 +1519,8 @@ def _retry_env(monkeypatch, tmp_path, ai_saved):
 def test_backup_run_retries_ai_when_morning_letter_was_headline_only(monkeypatch, tmp_path):
     path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=False)
     monkeypatch.setattr(nd, "summarize", lambda articles, provider: {**GOOD_DIGEST, "ai": True, "model": "m"})
-    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0
+    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and sent == []        # --retry-ai가 없으면(08:30 예비) 건너뜀
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0
     assert len(sent) == 1 and sent[0].startswith("[뉴스 브리핑]")              # 정규 제목 형식 → 내일 중복 제거 기준이 됨
     saved = json.loads(path.read_text(encoding="utf-8"))
     assert saved["ai"] is True and saved["sent"] is True and saved["headline"] == "h"   # 사이트에도 AI 버전으로 교체
@@ -1531,7 +1532,7 @@ def test_backup_retry_that_fails_again_sends_nothing_and_keeps_morning_letter(mo
     def boom(articles, provider):
         raise nd.QuotaExceeded("429")
     monkeypatch.setattr(nd, "summarize", boom)
-    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0
     assert sent == []
     assert json.loads(path.read_text(encoding="utf-8"))["headline"] == "아침 헤드라인"
 
@@ -1539,10 +1540,10 @@ def test_backup_retry_that_fails_again_sends_nothing_and_keeps_morning_letter(mo
 def test_backup_run_skips_when_morning_letter_had_ai_or_no_ai_configured(monkeypatch, tmp_path):
     path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=True)
     monkeypatch.setattr(nd, "summarize", lambda *a: (_ for _ in ()).throw(AssertionError("재시도하면 안 됨")))
-    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and sent == []
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and sent == []
     path.write_text(json.dumps({**_site_digest("x"), "ai": False, "sent": True}), encoding="utf-8")
     monkeypatch.delenv("OPENROUTER_API_KEY")                                  # AI 키가 아예 없으면 재시도해도 소용없음
-    assert nd.main(["--archive", "arch", "--only-if-missing"]) == 0 and sent == []
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and sent == []
 
 
 def test_previous_digest_keys_can_skip_todays_issue(monkeypatch):
@@ -1636,3 +1637,77 @@ def test_ai_excerpt_is_long_like_art():
     long_text = "가" * 600
     e = type("E", (dict,), {})(summary=long_text)
     assert len(nd._excerpt(e, "AI")) > 300 and len(nd._excerpt(e, "세계 이슈")) <= 201
+
+
+# ---------- 2026-11-05 실측 실패 원인 대응 ----------
+
+def test_upstream_429_moves_to_next_model_immediately_without_waiting(monkeypatch):
+    sleeps, seen = [], []
+    good = _chat(json.dumps(GOOD_DIGEST, ensure_ascii=False))
+    _or_fake(monkeypatch, {"g": _http_error(429, "g is temporarily rate-limited upstream. Please retry shortly"), "n": good}, seen, sleeps)
+    monkeypatch.setenv("OPENROUTER_MODELS", "g,n")
+    assert json.loads(nd._call_openrouter("s", "u"))["headline"] == "h"
+    assert [p["model"] for _, p in seen] == ["g", "n"] and sleeps == []      # 기다리지 않고 바로 다음 모델
+
+
+def test_openrouter_attempt_is_capped_by_remaining_budget(monkeypatch):
+    seen = []
+    clock = {"t": 0.0}
+    monkeypatch.setattr(nd.time, "monotonic", lambda: clock["t"])
+
+    def fake_post(req, seconds):
+        seen.append(round(seconds))
+        clock["t"] += seconds                      # 매번 주어진 시간을 다 쓰고 시간 초과
+        raise TimeoutError("느림")
+    monkeypatch.setattr(nd, "_post_with_deadline", fake_post)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "a,b,c,d")
+    import pytest
+    with pytest.raises(RuntimeError):
+        nd._call_openrouter("s", "u", budget=300, request_seconds=200)
+    assert seen == [200, 100]                      # 둘째 시도는 남은 100초만, 남은 시간이 45초 미만이 되면 중단
+    assert sum(seen) <= 300
+
+
+def test_thin_ai_answer_is_salvaged_as_partial_with_headline_backfill(monkeypatch):
+    # 실측: 520건 중 7개 항목만 담은 짧은 응답이 와서 전부 버려지고 헤드라인 모드가 됐음 → 일부 요약으로 살린다
+    arts = [_art2(f"O{i}", "국내", cat, f"{cat} 기사 {i} 전시 미술관", "미술관 전시 작가", f"https://ex.com/{cat}{i}")
+            for i in range(100) for cat in ("세계 이슈", "경제·증시", "문화예술")]   # 300건 → 최소 8개 필요
+    items = [_it(f"https://ex.com/세계 이슈{i}", title=f"세계 {i}", summary="요약") for i in range(4)]
+    thin = {"headline": "일부만", "sections": [{"topic": "세계 이슈", "overview": "", "items": items}]}
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(thin, ensure_ascii=False))})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1,m1")
+    out = nd.summarize(arts, "openrouter")
+    assert out["partial"] is True and out["headline"] == "일부만"
+    topics = [s["topic"] for s in out["sections"]]
+    assert topics[0] == "세계 이슈" and "경제·증시" in topics and "문화예술" in topics     # 나머지는 원문 헤드라인으로 보충
+    assert [s for s in out["sections"] if s["topic"] == "경제·증시"][0].get("backfilled")
+    assert "AI 요약 일부" in nd._meta_line({**out, "meta": {"articles": 90, "outlets": 3, "failed_feeds": []}})
+
+
+def test_too_thin_answer_is_not_salvaged(monkeypatch):
+    import pytest
+    arts = [_art2(f"O{i}", "국내", "세계 이슈", f"기사 {i}", "s", f"https://ex.com/{i}") for i in range(200)]
+    two = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "", "items": [_it("https://ex.com/1"), _it("https://ex.com/2")]}]}
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(two))})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    with pytest.raises(RuntimeError):
+        nd.summarize(arts, "openrouter")                                  # 2개뿐이면 일부 요약으로도 쓰지 않음(헤드라인 모드로)
+
+
+def test_backup_retry_also_applies_to_partial_morning_letter(monkeypatch, tmp_path):
+    path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=True)
+    path.write_text(json.dumps({**_site_digest("일부"), "ai": True, "partial": True, "sent": True}, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(nd, "summarize", lambda articles, provider: {**GOOD_DIGEST, "ai": True, "model": "m"})
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0
+    assert len(sent) == 1 and json.loads(path.read_text(encoding="utf-8")).get("partial") is None
+    monkeypatch.setattr(nd, "summarize", lambda articles, provider: {**GOOD_DIGEST, "ai": True, "partial": True})
+    path.write_text(json.dumps({**_site_digest("일부"), "ai": True, "partial": True, "sent": True}), encoding="utf-8")
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and len(sent) == 1   # 또 일부면 추가 발송 없음
+
+
+def test_workflow_runs_all_schedules_as_only_if_missing_and_retry_only_at_backup():
+    wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
+    assert "github.event_name == 'schedule' && '--only-if-missing'" in wf
+    assert "github.event.schedule == '30 1 * * *' && '--retry-ai'" in wf
+    assert 'cron: "30 22 * * *"' in wf and 'cron: "30 23 * * *"' in wf

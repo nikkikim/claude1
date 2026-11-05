@@ -121,6 +121,7 @@
   function metaLine(d) {
     var m = d.meta; if (!m) return "";
     var p = ["기사 " + (m.articles || 0) + "건", "매체 " + (m.outlets || 0) + "곳"];
+    if (d.partial) p.push("AI 요약 일부(나머지는 원문 헤드라인으로 보충)");
     p.push(d.ai === false ? "AI 요약 없음" : "요약 모델: " + (String(d.model || "").replace(":free", "") || "알 수 없음"));
     if (m.failed_feeds && m.failed_feeds.length) p.push("읽지 못한 매체: " + m.failed_feeds.join(", "));
     return p.join(" · ");
@@ -144,7 +145,7 @@
     var hero = el("section", "hero");
     hero.appendChild(el("div", "date", longDate(date)));
     hero.appendChild(el("h1", null, d.headline || "뉴스 브리핑"));
-    hero.appendChild(el("span", "badge", d.ai === false ? "헤드라인 모드" : "AI 요약"));
+    hero.appendChild(el("span", "badge", d.ai === false ? "헤드라인 모드" : d.partial ? "AI 요약(일부)" : "AI 요약"));
     v.appendChild(hero);
 
     if (d.weather && d.weather.length) v.appendChild(renderWeather(d.weather));

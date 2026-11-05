@@ -4,7 +4,9 @@ on:
   schedule:
     # 매일 07:30 KST (= 22:30 UTC 전날). GitHub cron은 수 분~수십 분 지연될 수 있음
     - cron: "30 22 * * *"
-    # 예비 실행(10:30 KST): 위 실행이 GitHub 사정으로 누락됐을 때만 동작. 이미 발송했으면 아무것도 하지 않음
+    # 예비 실행: 위 실행이 GitHub 사정으로 누락됐을 때만 동작(이미 발송했으면 아무것도 하지 않음)
+    - cron: "30 23 * * *"   # 08:30 KST
+    # 10:30 KST 예비 실행: 위와 같고, 더해서 아침 브리핑이 AI 요약 없이(또는 일부만) 나갔다면 AI 요약을 한 번 더 시도
     - cron: "30 1 * * *"
   workflow_dispatch:      # Actions 탭에서 수동 실행 가능
     inputs:
@@ -102,8 +104,8 @@ jobs:
           # --- 텔레그램 ---
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        # 정규 실행(22:30 UTC)은 항상 새로 발송. 예비 실행(01:30 UTC)은 오늘 이미 발송했다면 건너뜀
-        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '--archive archive' }} ${{ github.event.schedule == '30 1 * * *' && '--only-if-missing' || '' }}
+        # 예약 실행은 모두 '오늘 이미 발송했으면 건너뜀'. 수동 실행은 항상 새로 발송
+        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '--archive archive' }} ${{ github.event_name == 'schedule' && '--only-if-missing' || '' }} ${{ github.event.schedule == '30 1 * * *' && '--retry-ai' || '' }}
       - name: Save archive (웹사이트용 보관)
         if: ${{ !inputs.dry_run && !inputs.site_only && !inputs.resend && !cancelled() }}
         continue-on-error: true   # 보관이 실패해도 이미 발송된 메일에는 영향 없음

@@ -556,7 +556,7 @@ class FreeTierUnavailable(RuntimeError):
 
 
 NO_FREE_NOTE = "이 키의 Google 프로젝트에서는 Gemini 무료 티어를 쓸 수 없어 헤드라인만 제공합니다 (새 프로젝트에서 키를 다시 발급해 보세요)"
-QUOTA_NOTE = "무료 사용 한도를 초과해 오늘은 헤드라인만 제공합니다 (한도가 다시 채워지면 다음 발송부터 자동으로 요약이 돌아옵니다)"
+QUOTA_NOTE = "무료 AI가 한도·혼잡으로 응답하지 못해 오늘은 헤드라인만 제공합니다 (잠시 뒤 자동으로 다시 시도하며, 안 되면 다음 발송부터 요약이 돌아옵니다)"
 MODEL_NOTE = ("지정된 무료 AI 모델이 OpenRouter에서 사라졌거나 이름이 바뀌어 헤드라인만 제공합니다 "
               "(저장소 Settings → Secrets and variables → Actions → Variables 의 OPENROUTER_MODELS 를 지우거나 새 모델 이름으로 바꾸세요)")
 FAIL_NOTE = "AI 요약에 실패해 헤드라인만 제공합니다 (키/모델 설정을 확인하세요)"
@@ -605,16 +605,17 @@ def _call_gemini(system: str, user: str) -> str:
 #  - openrouter/free(자동 라우터) : 위 모델로 연결될 수 있고 추론 모델로 빠지는 일이 잦아 제외
 #  - thinkingmachines/inkling*:free : 에이전트 앱 전용(403) → 제외
 # 추론을 끌 수 없는 모델(liquid/lfm, recursive/flint, stealth/crouton)도 쓰지 않는다.
-# 순서: Nemotron → Gemma 31B → Nemotron(일시 오류 대비 한 번 더) → Gemma 26B. 전체 시간 상한(420초)이 넘으면 남은 시도는 건너뛴다.
+# 순서: Nemotron → Nemotron(느림·짧은 응답 등 일시 문제 대비 한 번 더) → Gemma 31B → Gemma 26B.
+# (실측 2026-11-05: Gemma는 구글 쪽 429가 거의 매번이라 뒤로 보냄. 전체 시간 상한이 넘으면 남은 시도는 건너뜀)
 OPENROUTER_DEFAULT_MODELS = (
     "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "google/gemma-4-31b-it:free",
     "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "google/gemma-4-31b-it:free",
     "google/gemma-4-26b-a4b-it:free",
 )
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
-OPENROUTER_REQUEST_SECONDS = 150   # 모델 1개당 최대 대기 시간(응답 전체 기준)
-OPENROUTER_BUDGET_SECONDS = 360    # 모든 모델을 합친 최대 시도 시작 시한(이후엔 새 시도를 시작하지 않음)
+OPENROUTER_REQUEST_SECONDS = 200   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측: Nemotron은 보통 100~120초, 느린 날은 150초 넘음
+OPENROUTER_BUDGET_SECONDS = 450    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
 
 
 def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
@@ -639,6 +640,7 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
     return box["data"]
 
 
+OPENROUTER_MIN_ATTEMPT_SECONDS = 45   # 남은 시간이 이보다 적으면 새 시도를 시작하지 않음
 OPENROUTER_RETRY_WAITS = (20,)  # 일시적 한도(429)·서버 오류(5xx)는 이만큼 기다렸다가 같은 모델로 1회 재시도(실측: 더 기다려도 풀리지 않음)
 
 
@@ -653,6 +655,7 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
         or list(OPENROUTER_DEFAULT_MODELS)
     start = time.monotonic()
     last: Exception | None = None
+    out_of_time = False
 
     def fail(model: str, t0: float, reason: str, exc_type: type = RuntimeError) -> Exception:
         msg = f"OpenRouter 실패 ({model}, {time.monotonic() - t0:.0f}초): {reason}"
@@ -675,12 +678,14 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
         req = make_req(model, reasoning_off)
         data, t0 = None, time.monotonic()
         for attempt in range(len(OPENROUTER_RETRY_WAITS) + 2):  # +1: 재시도, +1: 추론 옵션 제외 재요청
-            if time.monotonic() - start > budget:
-                print("[warn] OpenRouter 전체 시도 시간 상한을 넘어 남은 시도는 건너뜁니다", file=sys.stderr)
+            remaining = budget - (time.monotonic() - start)
+            if remaining < OPENROUTER_MIN_ATTEMPT_SECONDS:
+                print("[warn] OpenRouter 전체 시도 시간 상한에 가까워 남은 시도는 건너뜁니다", file=sys.stderr)
+                out_of_time = True
                 break
             t0 = time.monotonic()
             try:
-                data = _post_with_deadline(req, request_seconds)
+                data = _post_with_deadline(req, min(request_seconds, remaining))
                 break
             except urllib.error.HTTPError as err:
                 detail = err.read().decode("utf-8", "replace")[:300]
@@ -695,6 +700,8 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
                     reasoning_off = False  # 이 모델이 '추론 끄기'를 거부하면 그 옵션만 빼고 같은 모델로 다시
                     req = make_req(model, reasoning_off)
                     continue
+                if err.code == 429 and "rate-limited upstream" in detail.lower():
+                    break  # 제공사(구글 등)가 막은 일시 제한 → 기다려도 실측상 풀리지 않으니 바로 다음 모델로
                 if err.code in (429, 500, 502, 503, 504) and retries < len(OPENROUTER_RETRY_WAITS):
                     time.sleep(OPENROUTER_RETRY_WAITS[retries])  # 잠시 후 같은 모델로 재시도
                     retries += 1
@@ -704,7 +711,7 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
                 last = fail(model, t0, f"{type(err).__name__}: {err}")
                 break  # 느린 모델/연결 오류는 재시도하지 않고 다음 모델로
         if data is None:
-            if time.monotonic() - start > budget:
+            if out_of_time:
                 break
             continue
         choice = (data.get("choices") or [{}])[0] if isinstance(data, dict) else {}
@@ -721,7 +728,8 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
             elif not parse_json(text).get("sections"):
                 raise ValueError("sections 없음")
         except ValueError as err:  # 형식을 못 맞추거나 부실한 응답이면 다음 모델로
-            last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
+            last = fail(model, t0, f"형식 오류({err}) 길이={len(text)}자 finish={choice.get('finish_reason')} "
+                                   f"usage={data.get('usage')} 앞부분={text[:120]!r} 끝부분={text[-120:]!r}")
             continue
         print(f"OpenRouter 모델 사용: {model} → 실제 {data.get('model')} ({time.monotonic() - t0:.0f}초)")
         LAST_MODEL_USED = str(data.get("model") or model)
@@ -731,6 +739,11 @@ def _call_openrouter(system: str, user: str, check=None, budget: float | None = 
     raise last or RuntimeError("OpenRouter 호출에 실패했습니다")
 
 
+class ThinDigest(ValueError):
+    """형식은 맞지만 유효 항목이 너무 적은 AI 응답(실측: 520건 중 7개). 버리지 않고 '일부 요약'으로 쓸 수 있게 구분한다."""
+
+
+MIN_PARTIAL_ITEMS = 3   # 모든 모델이 충분한 응답을 못 냈을 때, 이만큼이라도 담긴 가장 나은 응답은 일부 요약으로 쓴다
 MIN_AI_ITEMS = 8  # 기사가 충분할 때 AI 요약이 최소한 담아야 하는 항목 수(이보다 적으면 부실한 응답으로 보고 다음 모델/공급자로)
 
 
@@ -779,7 +792,7 @@ def _unsupported_precise(text: str, source: str) -> list[str]:
     return [m for m in _PRECISE.findall(text) if re.sub(r"\s+", "", m).replace("퍼센트", "%") not in src]
 
 
-def validate_digest(digest: dict, articles: list[Article], verbose: bool = False) -> dict:
+def validate_digest(digest: dict, articles: list[Article], verbose: bool = False, min_items: int | None = None) -> dict:
     """AI가 만든 요약을 코드로 검증·정리한다(지시문만으로는 막을 수 없는 오류 방지).
     - 수집한 기사 목록에 없는 링크의 항목은 버린다 → 지어낸/조작된 링크 차단
     - 같은 링크는 먼저 나온 카테고리에만 남긴다
@@ -835,9 +848,9 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
     if dropped["깨진 문자"] >= 3:
         raise ValueError(f"AI 요약에 한자·일본어가 섞인 항목이 {dropped['깨진 문자']}개 있어 오역으로 판단합니다")
     total = sum(len(x["items"]) for x in sections)
-    need = min(MIN_AI_ITEMS, max(1, len(articles) // 20))
+    need = min(MIN_AI_ITEMS, max(1, len(articles) // 20)) if min_items is None else min_items
     if total < need:
-        raise ValueError(f"AI 요약이 부실합니다: 유효 항목 {total}개 (최소 {need}개 필요, 제거 {dropped})")
+        raise ThinDigest(f"AI 요약이 부실합니다: 유효 항목 {total}개 (최소 {need}개 필요, 제거 {dropped})")
     headline = str(digest.get("headline") or "").strip()
     all_text = " ".join(f"{it.get('title', '')} {it.get('summary', '')}" for x in sections for it in x["items"])
     if not headline or _garbled(headline) or _unsupported_numbers(headline, all_text):
@@ -995,21 +1008,46 @@ def summarize(articles: list[Article], provider: str) -> dict:
         for i, a in enumerate(articles, 1)
     ]
     user = "\n".join(lines)
+    best: dict = {"n": 0, "digest": None}   # 너무 짧아 버려진 응답 중 가장 나은 것(마지막 보루)
 
     def check(text: str) -> dict:
-        return validate_digest(parse_json(text), articles)
+        parsed = parse_json(text)
+        try:
+            return validate_digest(parsed, articles)
+        except ThinDigest:
+            try:
+                thin = validate_digest(parsed, articles, min_items=1)
+                n = sum(len(x["items"]) for x in thin["sections"])
+                if n > best["n"]:
+                    best.update(n=n, digest=thin)
+            except ValueError:
+                pass
+            raise
 
-    if provider == "openrouter":  # 무료 모델은 품질 편차가 커서, 검증에 실패하면 다음 모델로 넘어가도록 검사 함수를 넘김
-        text = _call_openrouter(SYSTEM_PROMPT, user, check)
-    else:
-        text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
-        LAST_MODEL_USED = {"anthropic": os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
-                           "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")}[provider]
-    digest = validate_digest(parse_json(text), articles, verbose=True)
+    partial = False
+    try:
+        if provider == "openrouter":  # 무료 모델은 품질 편차가 커서, 검증에 실패하면 다음 모델로 넘어가도록 검사 함수를 넘김
+            text = _call_openrouter(SYSTEM_PROMPT, user, check)
+        else:
+            text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
+            LAST_MODEL_USED = {"anthropic": os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
+                               "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")}[provider]
+        digest = validate_digest(parse_json(text), articles, verbose=True)
+    except Exception as err:  # noqa: BLE001
+        if best["digest"] is None or best["n"] < MIN_PARTIAL_ITEMS:
+            raise
+        print(f"[warn] 충분한 AI 요약을 받지 못해, 가장 나은 응답({best['n']}개 항목)을 쓰고 나머지는 원문 헤드라인으로 보충합니다: {err}",
+              file=sys.stderr)
+        digest, partial = best["digest"], True
+        LAST_MODEL_USED = LAST_MODEL_USED or "OpenRouter 무료 모델"
     digest = backfill_missing_categories(digest, articles)
     digest = ensure_domestic_art(digest, articles)
-    digest = refine_overviews(digest, articles, provider)
-    return {**digest, "model": LAST_MODEL_USED or provider}
+    if not partial:  # 일부 요약일 땐 추가 AI 호출(핵심 요약 재작성)을 하지 않는다
+        digest = refine_overviews(digest, articles, provider)
+    out = {**digest, "model": LAST_MODEL_USED or provider}
+    if partial:
+        out["partial"] = True
+    return out
 
 
 def parse_json(text: str) -> dict:
@@ -1138,6 +1176,8 @@ def _meta_line(digest: dict) -> str:
         return ""
     parts = [f"기사 {meta.get('articles', 0)}건", f"매체 {meta.get('outlets', 0)}곳"]
     if digest.get("ai", True):
+        if digest.get("partial"):
+            parts.append("AI 요약 일부(나머지는 원문 헤드라인으로 보충)")
         parts.append("요약 모델: " + (str(digest.get("model") or "").replace(":free", "") or "알 수 없음"))
     else:
         parts.append("AI 요약 없음")
@@ -1520,6 +1560,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--archive", metavar="DIR", help="오늘의 브리핑을 DIR/YYYY-MM-DD.json 으로 보관(웹사이트용). --dry-run과는 함께 쓰지 않음")
     ap.add_argument("--only-if-missing", action="store_true",
                     help="--archive와 함께: 오늘 브리핑이 이미 발송·보관돼 있으면 아무것도 하지 않음(예비 예약 실행용)")
+    ap.add_argument("--retry-ai", action="store_true",
+                    help="--only-if-missing과 함께: 오늘 브리핑이 AI 요약 없이(또는 일부만) 나갔다면 AI 요약을 한 번 더 시도(예비 실행용)")
     ap.add_argument("--resend", metavar="DIR", help="DIR에 보관된 브리핑을 다시 발송(수집·AI 없음)")
     ap.add_argument("--resend-date", default=os.environ.get("RESEND_DATE", ""), help="재발송할 날짜 YYYY-MM-DD (기본: 가장 최근)")
     args = ap.parse_args(argv)
@@ -1535,7 +1577,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             saved = json.loads(today_path.read_text(encoding="utf-8"))
             if saved.get("sent"):
-                if saved.get("ai") is False and provider_chain() and not args.no_llm:
+                if (saved.get("ai") is False or saved.get("partial")) and args.retry_ai and provider_chain() and not args.no_llm:
                     # 아침 브리핑이 AI 요약 없이(한도 초과 등) 나갔다면 예비 시각에 AI 요약을 한 번 더 시도한다
                     retry_ai = True
                     print("아침 브리핑이 헤드라인 모드였습니다. AI 요약을 다시 시도합니다.")
@@ -1586,7 +1628,7 @@ def main(argv: list[str] | None = None) -> int:
     digest["notices"] = collect_notices(now.date())
     digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
                       "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
-    if retry_ai and digest.get("ai") is False:  # 다시 해도 AI가 안 되면 중복 메일을 보내지 않고 아침 브리핑을 그대로 둔다
+    if retry_ai and (digest.get("ai") is False or digest.get("partial")):  # 다시 해도 온전한 AI 요약이 안 되면 중복 메일 없이 아침 브리핑을 그대로 둔다
         print("AI 요약 재시도도 실패해 아침 브리핑을 그대로 둡니다(추가 발송 없음).")
         return 0
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]
