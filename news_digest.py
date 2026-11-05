@@ -505,6 +505,7 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 - 같은 기사(링크)는 한 카테고리에만 넣으세요.
 - 기사 목록에 없는 내용은 절대 만들어내지 마세요. 항목마다 근거가 된 대표 기사의 **[번호]를 id(숫자)로** 적으세요(링크는 쓰지 않습니다).
 - 해외 기사는 한국어로 번역해 요약하세요. 작가·전시·기관 이름은 원어를 병기하세요(예: 쿠사마 야요이(Yayoi Kusama)).
+  행사·전시·기관 이름은 뜻을 풀어 번역하지 말고 소리 나는 대로 적으세요(예: documenta → 도큐멘타, Frieze → 프리즈, Biennale → 비엔날레).
 - 각 카테고리에는 overview를 반드시 넣으세요. 그 분야에서 오늘 가장 큰 이슈가 무엇이고 항목들이
   어떻게 이어지는지를 2~3문장으로 설명하는 종합 요약입니다(항목 제목을 그대로 나열하지 말 것).
   문화예술의 overview는 국내와 해외 소식을 구분해서 설명하세요.
@@ -1027,7 +1028,8 @@ def _batch_of(article: Article) -> int:
     return 0   # 종합 등 분류 힌트가 없는 기사는 첫 묶음(세계·정치·스포츠)에서 모델이 직접 분류
 
 
-def _summarize_once(articles: list[Article], idxs: list[int], provider: str, topics: tuple | None) -> tuple[dict, bool]:
+def _summarize_once(articles: list[Article], idxs: list[int], provider: str, topics: tuple | None,
+                    followup: bool = False) -> tuple[dict, bool]:
     """기사 idxs(전체 목록에서의 0부터 번호)만 모델에 보내 요약을 받는다. (검증된 digest, 일부 요약 여부)를 돌려준다."""
     global LAST_MODEL_USED
     lines = [f"[{i + 1}] ({articles[i].region}|{articles[i].outlet}|{articles[i].category}) {articles[i].title} | {articles[i].summary}"
@@ -1062,7 +1064,23 @@ def _summarize_once(articles: list[Article], idxs: list[int], provider: str, top
             text = {"anthropic": _call_anthropic, "gemini": _call_gemini}[provider](SYSTEM_PROMPT, user)
             LAST_MODEL_USED = {"anthropic": os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5"),
                                "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")}[provider]
-        return validate_digest(parse_json(text), articles, verbose=True, min_items=need, topics=topics), False
+        digest = validate_digest(parse_json(text), articles, verbose=True, min_items=need, topics=topics)
+        partial = False
+        # 모델이 맡은 카테고리 중 일부(주로 목록의 마지막)를 빼먹는 일이 실측으로 잦음 → 빠진 카테고리만 따로, 작은 요청으로 한 번 더 받는다
+        have = {x["topic"] for x in digest["sections"]}
+        hinted = {t: sum(1 for i in idxs if articles[i].category == t) for t in (topics or ())}
+        missing = tuple(t for t in (topics or ()) if t not in have and hinted.get(t, 0) >= 3)
+        if missing and not followup:
+            print(f"[info] 모델이 빠뜨린 카테고리를 따로 요청합니다: {', '.join(missing)}")
+            try:
+                extra, extra_partial = _summarize_once(
+                    articles, [i for i in idxs if articles[i].category in missing], provider, missing, followup=True)
+                digest = {**digest, "sections": digest["sections"] + extra["sections"]}
+                partial = extra_partial
+            except Exception as err2:  # noqa: BLE001 - 실패하면 그 카테고리는 원문 헤드라인으로 보충
+                print(f"[warn] 빠진 카테고리 재요청 실패: {err2}", file=sys.stderr)
+                partial = True
+        return digest, partial
     except Exception as err:  # noqa: BLE001
         if best["digest"] is None or best["n"] < MIN_PARTIAL_ITEMS and best["n"] < (need or MIN_PARTIAL_ITEMS):
             raise

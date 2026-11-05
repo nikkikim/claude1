@@ -1852,3 +1852,37 @@ def test_all_batches_failing_raises_so_main_falls_back_to_headline_mode(monkeypa
     _batch_fake(monkeypatch, fail_topics=("세계 이슈", "경제·증시", "문화예술"))
     with pytest.raises(RuntimeError):
         nd.summarize(_many_articles(), "openrouter")
+
+
+def test_missing_categories_in_a_batch_are_requested_again_separately(monkeypatch):
+    # 실측: 모델이 묶음의 마지막 카테고리(코인·AI·IT)를 빼먹음 → 그 카테고리만 따로 작은 요청으로 다시 받는다
+    import io
+    import re as _re
+    calls = []
+
+    def fake(req, timeout=0):
+        user = json.loads(req.data)["messages"][1]["content"]
+        calls.append(user)
+        m = _re.search(r"다음 카테고리만 작성하세요: (.+?) \(", user)
+        topics = [x.strip() for x in m.group(1).split(",")]
+        rows = _re.findall(r"\[(\d+)\] \([^|]*\|[^|]*\|([^)]*)\)", user)
+        if tuple(topics) in nd.BATCHES:
+            topics = topics[:1]                      # 첫(묶음) 요청에서는 첫 카테고리만 쓰고 나머지를 빼먹음(빠진 카테고리 재요청은 정상 응답)
+        sections = [{"topic": tp, "overview": "", "items": [
+            {"title": f"{tp} {n}", "summary": "요약", "source": "O", "id": n} for n, c in rows if c == tp][:5]} for tp in topics]
+        out = {"choices": [{"message": {"content": json.dumps({"headline": "h", "sections": sections}, ensure_ascii=False)}}]}
+
+        class R:
+            def __enter__(self): return io.StringIO(json.dumps(out))
+            def __exit__(self, *a): pass
+        return R()
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    out = nd.summarize(_many_articles(), "openrouter")
+    topics = {s["topic"]: s for s in out["sections"]}
+    for cat in ("코인", "AI", "IT·과학"):                                          # 빼먹었던 카테고리가 AI 요약으로 채워짐
+        assert cat in topics and not topics[cat].get("backfilled"), cat
+        assert all("요약" in i["summary"] for i in topics[cat]["items"])
+    assert len(calls) == 3 + 3 and not out.get("partial")                          # 묶음 3 + 빠진 카테고리 재요청 3(정치·사회+스포츠, 코인+IT, AI)
+    assert "documenta → 도큐멘타" in nd.SYSTEM_PROMPT
