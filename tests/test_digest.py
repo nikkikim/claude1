@@ -1753,3 +1753,30 @@ def test_openrouter_socket_timeout_follows_request_deadline(monkeypatch):
     monkeypatch.setattr(nd.urllib.request, "urlopen", fake_urlopen)
     nd._post_with_deadline(nd.urllib.request.Request("http://x"), 200)
     assert seen["timeout"] >= 200                  # 예전엔 60초 고정이라 60초 넘게 걸리는 정상 응답이 끊겼음
+
+
+# ---------- 입력 줄이기: 링크 대신 [번호](id) ----------
+
+def test_prompt_sends_no_links_and_model_returns_ids(monkeypatch):
+    seen = []
+    arts = [_art2(f"O{i}", "국내", "세계 이슈", f"기사 {i}", "요약", f"https://ex.com/long/path/{i}") for i in range(30)]
+    digest = {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "", "items": [
+        {"title": f"제목{i}", "summary": "요약", "source": "O", "id": i} for i in (1, 5, 9, 12, 20, 25, 30)]}]}
+    _or_fake(monkeypatch, {"m1": _chat(json.dumps(digest, ensure_ascii=False))}, seen)
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    out = nd.summarize(arts, "openrouter")
+    user_msg = seen[0][1]["messages"][1]["content"]
+    assert "https://ex.com" not in user_msg and "[1] (국내|O0|세계 이슈) 기사 0 | 요약" in user_msg      # 링크 없이 번호만
+    links = [it["link"] for it in out["sections"][0]["items"]]
+    assert links[0] == "https://ex.com/long/path/0" and links[-1] == "https://ex.com/long/path/29"   # id → 원래 기사 링크
+    assert "id(숫자)" in nd.SYSTEM_PROMPT and '"id": 12' in nd.SYSTEM_PROMPT
+
+
+def test_validate_accepts_id_or_link_and_drops_bad_ids():
+    arts = [_art2("A", link="https://ex.com/A"), _art2("B", link="https://ex.com/B")]
+    items = [{"title": "a", "summary": "s", "source": "A", "id": 1},
+             {"title": "b", "summary": "s", "source": "B", "id": "[2]"},          # 대괄호가 붙어도 읽음
+             {"title": "x", "summary": "s", "source": "A", "id": 99},              # 없는 번호는 버림
+             {"title": "y", "summary": "s", "source": "A", "link": "https://ex.com/A", "id": 2}]   # 링크가 맞으면 링크 우선(중복이라 버려짐)
+    out = nd.validate_digest(_digest(items), arts)
+    assert [i["link"] for i in out["sections"][0]["items"]] == ["https://ex.com/A", "https://ex.com/B"]

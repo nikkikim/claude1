@@ -473,7 +473,7 @@ def daily_message(date: datetime) -> dict:
 
 SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에디터입니다. 독자는 **예술가(현대미술 작가)**이며
 세계 정세, 경제·시장, 예술계 소식을 꾸준히 알고 있어야 하고, 업무와 교육 현장에서 **생성형 AI를 활용**하는 사람입니다.
-국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/미국/영국/기타 해외|신문사|카테고리힌트) 제목 | 요약 | 링크)에서
+국내외 여러 신문사의 기사 목록(각 줄: [번호] (국내/미국/영국/기타 해외|신문사|카테고리힌트) 제목 | 요약)에서
 오늘 가장 중요한 뉴스를 골라 카테고리별로 한국어로 요약하세요.
 
 독자가 가장 중요하게 보는 세 영역 (분량도 이 순서·비중으로 배분):
@@ -496,21 +496,21 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
   정치·사회/IT·과학/스포츠는 짧게 유지하세요. 전체 25~35개.
 - 같은 사건을 여러 신문사가 다뤘으면 하나로 묶고, source에 보도한 신문사를 모두(최대 3곳) 적으세요.
   국내·미국·영국 등 여러 나라 매체를 골고루 반영하고, 시각 차이가 있으면 summary에 한 문장으로 덧붙이세요.
-- 각 항목 summary는 1~2문장. 사실 위주로, 과장·추측 금지.
+- 각 항목 summary는 1문장(길어도 2문장, 100자 안팎). 사실 위주로, 과장·추측 금지.
 - 경기 결과(승패·점수), 수치, 따옴표 인용은 제목·발췌문에 명시된 것만 쓰세요. 승패나 원인을 추정하지 마세요.
 - '~할 예정', 'to give', 'will', 'plans to'처럼 예고·계획을 다룬 기사는 이미 일어난 일처럼 쓰지 말고 '예정', '추진'으로 표현하세요.
 - 제목·발췌문에 없는 세부 묘사(장소·원인·평가·배경)를 덧붙이지 마세요. 작품명·인물 직함·위치 같은 정보를 당신이 알고 있는 지식으로 보충하지 마세요.
   AI 기사도 마찬가지입니다. 모델 이름·버전·출시일·벤치마크 점수·순위·가격·성능 수치는 제목·발췌문에 적힌 것만 쓰고, 당신이 아는 모델 정보로 보충하거나 추정하지 마세요.
   발췌문이 짧아 내용이 불분명하면 제목에 있는 사실만 쓰세요.
 - 같은 기사(링크)는 한 카테고리에만 넣으세요.
-- 기사 목록에 없는 내용은 절대 만들어내지 마세요. link는 목록에 있는 대표 링크 그대로.
+- 기사 목록에 없는 내용은 절대 만들어내지 마세요. 항목마다 근거가 된 대표 기사의 **[번호]를 id(숫자)로** 적으세요(링크는 쓰지 않습니다).
 - 해외 기사는 한국어로 번역해 요약하세요. 작가·전시·기관 이름은 원어를 병기하세요(예: 쿠사마 야요이(Yayoi Kusama)).
 - 각 카테고리에는 overview를 반드시 넣으세요. 그 분야에서 오늘 가장 큰 이슈가 무엇이고 항목들이
   어떻게 이어지는지를 2~3문장으로 설명하는 종합 요약입니다(항목 제목을 그대로 나열하지 말 것).
   문화예술의 overview는 국내와 해외 소식을 구분해서 설명하세요.
   items에 담은 내용과 기사 목록에 있는 사실만 쓰고, 목록에 없는 배경·전망을 지어내지 마세요.
 - 반드시 아래 JSON만 출력하세요 (설명, 코드펜스 없이):
-{{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "overview": "카테고리 핵심 요약 2~3문장", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "link": "URL"}}]}}]}}"""
+{{"headline": "오늘의 한 줄 요약", "sections": [{{"topic": "카테고리", "overview": "카테고리 핵심 요약 2~3문장", "items": [{{"title": "제목", "summary": "요약", "source": "신문사1, 신문사2", "id": 12}}]}}]}}"""
 
 
 def provider_chain() -> list[str]:
@@ -614,8 +614,8 @@ OPENROUTER_DEFAULT_MODELS = (
     "google/gemma-4-26b-a4b-it:free",
 )
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
-OPENROUTER_REQUEST_SECONDS = 200   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측: Nemotron은 보통 100~120초, 느린 날은 150초 넘음
-OPENROUTER_BUDGET_SECONDS = 450    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
+OPENROUTER_REQUEST_SECONDS = 240   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측: Nemotron은 보통 100~120초, 느린 날은 150초 넘음
+OPENROUTER_BUDGET_SECONDS = 500    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
 
 
 def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
@@ -804,6 +804,7 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
     - 항목이 하나도 없는 카테고리는 뺀다
     정리 후 항목이 너무 적으면 ValueError(호출한 쪽이 다음 모델/공급자로 넘어간다)."""
     by_key = {_link_key(a.link): a for a in articles}
+    articles_by_id = {i: a for i, a in enumerate(articles, 1)}
     seen: set[str] = set()
     dropped = {"없는 링크": 0, "중복": 0, "상한 초과": 0, "깨진 문자": 0, "근거 없는 숫자": 0, "근거 없는 점수": 0, "근거 없는 수치": 0}
     sections = []
@@ -816,6 +817,14 @@ def validate_digest(digest: dict, articles: list[Article], verbose: bool = False
             if not isinstance(it, dict):
                 continue
             key = _link_key(str(it.get("link", "")))
+            if key not in by_key:  # 링크가 없거나 목록에 없으면, 모델이 적은 [번호](id)로 원래 기사 링크를 찾는다
+                try:
+                    art = articles_by_id.get(int(str(it.get("id")).strip().strip("[]")))
+                except (TypeError, ValueError):
+                    art = None
+                if art is not None:
+                    it = {**it, "link": art.link}
+                    key = _link_key(art.link)
             if key not in by_key:
                 dropped["없는 링크"] += 1
             elif key in seen:
@@ -1006,10 +1015,10 @@ def summarize(articles: list[Article], provider: str) -> dict:
     global LAST_MODEL_USED
     LAST_MODEL_USED = ""
     lines = [
-        f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary} | {a.link}"
+        f"[{i}] ({a.region}|{a.outlet}|{a.category}) {a.title} | {a.summary}"
         for i, a in enumerate(articles, 1)
     ]
-    user = "\n".join(lines)
+    user = "\n".join(lines)   # 링크는 보내지 않는다(입력·출력 토큰 절약, 링크 지어내기 방지). 모델은 [번호]를 id로 돌려준다
     best: dict = {"n": 0, "digest": None}   # 너무 짧아 버려진 응답 중 가장 나은 것(마지막 보루)
 
     def check(text: str) -> dict:
