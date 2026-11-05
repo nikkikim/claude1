@@ -614,7 +614,7 @@ OPENROUTER_DEFAULT_MODELS = (
     "google/gemma-4-26b-a4b-it:free",
 )
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
-OPENROUTER_REQUEST_SECONDS = 240   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측: Nemotron은 보통 100~120초, 느린 날은 150초 넘음
+OPENROUTER_REQUEST_SECONDS = 130   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측(2026-11-05): 응답은 20~110초에 오거나, 아예 멈춰서 240초를 넘겨도 안 오는 두 갈래 → 오래 기다리지 말고 130초에 끊고 다시 시도
 OPENROUTER_BUDGET_SECONDS = 500    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
 
 
