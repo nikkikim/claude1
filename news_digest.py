@@ -625,7 +625,9 @@ def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
 
     def run() -> None:
         try:
-            with urllib.request.urlopen(req, timeout=60) as r:
+            # 소켓 무응답 제한을 전체 대기 시간과 같게 둔다. 예전 60초 고정값 때문에, 응답이 60초 넘게 걸리는 날
+            # (실측 2026-11-05 Nemotron)에 '정상 응답을 기다리다 끊기는' 일이 있었음. 전체 시간 제한은 아래 join이 맡는다.
+            with urllib.request.urlopen(req, timeout=max(60.0, seconds + 5)) as r:
                 box["data"] = json.load(r)
         except BaseException as err:  # noqa: BLE001 - 호출한 쪽으로 그대로 전달
             box["err"] = err
@@ -1050,12 +1052,55 @@ def summarize(articles: list[Article], provider: str) -> dict:
     return out
 
 
+def _repair_json(text: str, start: int) -> dict | None:
+    """끝부분이 깨진 JSON(실측: 항목 수십 개를 정상으로 쓰다가 마지막 카테고리에서 괄호가 틀림)에서 쓸 수 있는 앞부분을 살린다.
+    가장 뒤쪽의 '}' 위치부터 거꾸로 잘라 열린 괄호를 닫아 보면서, 처음으로 읽히는 객체를 돌려준다."""
+    cand: list[tuple[int, str]] = []
+    stack: list[str] = []
+    in_str = esc = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch in "{[":
+            stack.append(ch)
+        elif ch in "}]":
+            if not stack or ("{" if ch == "}" else "[") != stack[-1]:
+                break  # 괄호가 어긋난 지점 — 여기부터는 믿지 않는다
+            stack.pop()
+            if ch == "}":
+                cand.append((i + 1, "".join("}" if c == "{" else "]" for c in reversed(stack))))
+    for end, closing in reversed(cand[-600:]):
+        try:
+            obj = json.loads(text[start:end] + closing)
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and obj.get("sections"):
+            return obj
+    return None
+
+
 def parse_json(text: str) -> dict:
-    """응답에서 첫 번째 JSON 객체를 읽는다. 앞의 설명이나 ```json 코드펜스, 뒤에 붙은 군더더기(두 번째 객체·설명)는 무시."""
+    """응답에서 첫 번째 JSON 객체를 읽는다. 앞의 설명이나 ```json 코드펜스, 뒤에 붙은 군더더기(두 번째 객체·설명)는 무시.
+    중간에 깨진 JSON이면 쓸 수 있는 앞부분만 살려서 돌려준다."""
     start = text.find("{")
     if start == -1:
         raise ValueError(f"JSON을 찾을 수 없습니다: {text[:200]}")
-    obj, _ = json.JSONDecoder().raw_decode(text, start)
+    try:
+        obj, _ = json.JSONDecoder().raw_decode(text, start)
+    except json.JSONDecodeError as err:
+        obj = _repair_json(text, start)
+        if obj is None:
+            raise ValueError(f"JSON을 읽을 수 없습니다: {err}") from None
+        print(f"[warn] 깨진 JSON의 앞부분만 살려서 사용합니다 ({err})", file=sys.stderr)
     if not isinstance(obj, dict):
         raise ValueError("JSON 객체가 아닙니다")
     return obj

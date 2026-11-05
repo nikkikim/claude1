@@ -1711,3 +1711,45 @@ def test_workflow_runs_all_schedules_as_only_if_missing_and_retry_only_at_backup
     assert "github.event_name == 'schedule' && '--only-if-missing'" in wf
     assert "github.event.schedule == '30 1 * * *' && '--retry-ai'" in wf
     assert 'cron: "30 22 * * *"' in wf and 'cron: "30 23 * * *"' in wf
+
+
+# ---------- 2026-11-05 실측: 응답이 60초 넘게 걸림 / 끝부분만 깨진 JSON ----------
+
+def test_parse_json_salvages_front_part_of_json_broken_at_the_end():
+    good_items = ",".join(f'{{"title": "t{i}", "summary": "s", "source": "A", "link": "https://ex.com/{i}"}}' for i in range(5))
+    broken = ('앞설명 {"headline": "h", "sections": [{"topic": "세계 이슈", "overview": "o", "items": [' + good_items + ']},'
+              ' {"topic": "스포츠", "overview": "나달", "items": [{"title": "x" "link": "https://ex.com/9"}], "overview": 3 "items": []}]}')
+    out = nd.parse_json(broken)
+    assert out["headline"] == "h" and len(out["sections"][0]["items"]) == 5          # 정상이던 앞부분은 그대로
+    assert [s["topic"] for s in out["sections"]] == ["세계 이슈"]                       # 깨진 마지막 카테고리는 빠짐
+    import pytest
+    with pytest.raises(ValueError):
+        nd.parse_json('{"headline": "h", "sections": ')                                # 살릴 게 없으면 오류
+    assert nd.parse_json('{"a": 1}\n{깨짐') == {"a": 1}                                # 첫 객체가 멀쩡하면 기존처럼
+
+
+def test_repaired_json_goes_through_normal_validation_and_backfill(monkeypatch):
+    arts = [_art2(f"O{i}", "국내", cat, f"{cat} {i}", "s", f"https://ex.com/{cat}{i}")
+            for i in range(100) for cat in ("세계 이슈", "경제·증시")]
+    items = ",".join(f'{{"title": "세계 {i}", "summary": "요약", "source": "A", "link": "https://ex.com/세계 이슈{i}"}}' for i in range(9))
+    text = '{"headline": "복구", "sections": [{"topic": "세계 이슈", "overview": "", "items": [' + items + ']}, {"topic": "경제·증시", "items": [{"title" "깨짐"}]}]}'
+    _or_fake(monkeypatch, {"m1": _chat(text)})
+    monkeypatch.setenv("OPENROUTER_MODELS", "m1")
+    out = nd.summarize(arts, "openrouter")
+    assert out["headline"] == "복구" and len([s for s in out["sections"] if s["topic"] == "세계 이슈"][0]["items"]) == 7   # 상한 7
+    assert [s for s in out["sections"] if s["topic"] == "경제·증시"][0].get("backfilled")                    # 깨진 카테고리는 헤드라인으로 보충
+
+
+def test_openrouter_socket_timeout_follows_request_deadline(monkeypatch):
+    seen = {}
+
+    class R:
+        def __enter__(self): return __import__("io").StringIO("{}")
+        def __exit__(self, *a): pass
+
+    def fake_urlopen(req, timeout=0):
+        seen["timeout"] = timeout
+        return R()
+    monkeypatch.setattr(nd.urllib.request, "urlopen", fake_urlopen)
+    nd._post_with_deadline(nd.urllib.request.Request("http://x"), 200)
+    assert seen["timeout"] >= 200                  # 예전엔 60초 고정이라 60초 넘게 걸리는 정상 응답이 끊겼음
