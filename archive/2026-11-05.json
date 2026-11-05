@@ -1,114 +1,132 @@
 {
- "headline": "무료 AI가 한도·혼잡으로 응답하지 못해 오늘은 헤드라인만 제공합니다 (잠시 뒤 자동으로 다시 시도하며, 안 되면 다음 발송부터 요약이 돌아옵니다)",
+ "headline": "미국 중간선거 민주당 압승으로 정권 교체급 변화…북한 미사일 도발·유럽 냉장고 해킹·중동 긴장 지속",
  "sections": [
   {
    "topic": "세계 이슈",
+   "overview": "미국 중간선거에서 민주당이 상·하원 다수당을 탈환하며 트럼프 행정부에 대한 심판이 이뤄졌고, 이란 전쟁·대이스라엘 정책·관세 등 대외정책 변화 압력이 커지고 있다. 북한은 신형 대공미사일과 장거리 순항미사일 시험으로 도발 수위를 높였고, 유럽에서는 마트·혈액은행 냉장고 시스템을 겨냥한 정체불명의 해킹 공격이 확산 중이다. 사우디-시리아 국방협력, 예멘 후티 공격, 우크라이나 러시아 공습, 서사하라 유엔 임무 종료 등 중동·아프리카·유라시아 전선도 요동치고 있다.",
    "items": [
     {
-     "title": "Israel’s President Starts Talks on Whether Netanyahu or Eisenkot Can Form a Government",
-     "summary": "President Isaac Herzog began meeting with party leaders for two days to decide whether to give Prime Minister Benjamin N…",
-     "source": "NYT",
-     "link": "https://www.nytimes.com/2026/11/04/world/middleeast/israel-herzog-netanyahu-government.html"
+     "title": "미 중간선거 민주당 상·하원 장악…트럼프 심판·이란전쟁·대이스라엘 정책 변화 압력",
+     "summary": "민주당이 상·하원 다수당을 탈환하며 트럼프 행정부 2년 차 레임덕이 현실화됐고, 이란 전쟁 종식·이스라엘 지원 재검토·관세 완화 등 대외정책 대전환 요구가 거세지고 있다.",
+     "source": "NYT, BBC, NBC News",
+     "id": 50,
+     "link": "https://www.nytimes.com/2026/11/04/world/asia/midterms-trump-foreign-policy-world.html"
     },
     {
-     "title": "Ukraine war latest: Kyiv suffers worst water outage of full-scale war after mass Russian assault",
-     "summary": "Key developments on Nov. 4: Russian strikes cause Kyiv's worst water outage of full-scale war 'Insane attack' — Death to…",
-     "source": "Kyiv Independent",
+     "title": "북한, 신형 대공미사일 시험발사·장거리 순항미사일 비행장 타격 훈련 실시",
+     "summary": "북한이 4일 동해상으로 신형 대공미사일을 시험발사하고 장거리 전략순항미사일 시범화력훈련을 진행해 미사일 전력 고도화를 과시했다.",
+     "source": "연합뉴스",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261105011151504"
+    },
+    {
+     "title": "유럽 마트·혈액원 냉장고 해킹 공격 확산…배후 미확인·공급망 파괴 공작 가능성",
+     "summary": "프랑스 혈액원 등 유럽 곳곳의 냉장·냉동 시스템이 해킹당해 온도 조작 피해가 발생했으나 배후는 밝혀지지 않았으며 공급망 파괴 공작일 수 있다는 분석이 나온다.",
+     "source": "연합뉴스, Korea Times, BBC",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261105082700009"
+    },
+    {
+     "title": "사우디-시리아 국방부 협력 협정 체결…예멘 후티 반군 탄도미사일로 4명 사망",
+     "summary": "사우디와 시리아가 국방협력 협정을 맺으며 관계 복원을 가속화한 가운데, 후티 반군의 탄도미사일 공격으로 예멘 타이즈에서 일가족 4명이 숨졌다.",
+     "source": "Al-Monitor, Middle East Eye",
+     "id": 74,
+     "link": "https://www.al-monitor.com/originals/2026/11/saudi-syrian-defence-ministries-sign-cooperation-agreement-spa-reports"
+    },
+    {
+     "title": "러시아 드론 공습으로 키이우 최악 단수·우크라이나 마을 이중폭격 40명 사망",
+     "summary": "러시아의 대규모 드론·미사일 공격으로 키이우가 전면전 이후 최악의 단수 사태를 겪었고, 코미슈바하 마을 이중폭격으로 최소 40명이 사망했다.",
+     "source": "Kyiv Independent, BBC, Sky News",
+     "id": 339,
      "link": "https://kyivindependent.com/ukraine-war-latest-kyiv-suffers-worst-water-outage-of-full-scale-war-after-mass-russian-assault/"
     },
     {
-     "title": "Russia attacks Ukrainian aid hub in one of the deadliest strikes since war began",
-     "summary": "Russian strikes on an aid hub killed at least 40 people - making it one of Russia's deadliest attacks on Ukrainian civil…",
-     "source": "Sky News",
-     "link": "https://news.sky.com/story/russia-attacks-ukrainian-aid-hub-in-one-of-the-deadliest-strikes-since-war-began-13608095"
+     "title": "서사하라 유엔 평화유지 임무 35년 만에 종료…모로코는 휴전 준수 약속",
+     "summary": "서사하라 분쟁지역에서 유엔 평화유지군(MINURSO) 임무가 끝나고 모로코는 휴전 준수를 재확인했으나 분쟁 재발 우려가 남아 있다.",
+     "source": "Foreign Policy, Al-Monitor",
+     "id": 300,
+     "link": "https://foreignpolicy.com/2026/11/04/un-peacekeeping-mission-western-sahara-africa-morocco/"
     },
     {
-     "title": "Zelenski makes surprise visit to Madrid for talks with Sánchez and Latin American leaders",
-     "summary": "Zelensky visits Madrid to meet Sánchez, Felipe VI and Latin American leaders at the Ibero-American Summit, aiming to boo…",
-     "source": "Euronews",
-     "link": "https://www.euronews.com/2026/11/04/zelenski-makes-surprise-visit-to-madrid-for-talks-with-sanchez-and-latin-american-leaders"
-    },
-    {
-     "title": "European teams announce plans to boycott games against Russia in ice hockey",
-     "summary": "The Court of Arbitration for Sport ruled last week to overturn the governing body's exclusion of Russia from internation…",
-     "source": "Japan Times",
-     "link": "https://www.japantimes.co.jp/sports/2026/11/05/more-sports/europe-russia-boycott-hockey/"
-    },
-    {
-     "title": "Iran says U.S. election results show Americans reject the war",
-     "summary": "As the war Trump launched with Israel against Iran drags into month nine, he acknowledges its role in the GOP's election…",
-     "source": "CBS News",
-     "link": "https://www.cbsnews.com/live-updates/iran-war-us-trump-midterms-strait-of-hormuz/"
-    },
-    {
-     "title": "Ukraine, partners coordinate peace efforts ahead of Abu Dhabi talks with Russia",
-     "summary": "The European Commission hosted talks on Ukraine in Brussels on Nov. 4, bringing together representatives from the U.S.,…",
-     "source": "Kyiv Independent",
-     "link": "https://kyivindependent.com/ukraine-partners-coordinate-peace-efforts-ahead-of-abu-dhabi-talks-with-russia-2/"
+     "title": "남아공 지방선거 집권 ANC 3분의 1 미만 득표 전망…단수·정전 불만 폭발",
+     "summary": "남아공 지방선거에서 집권 아프리카민족회의(ANC)가 수도·전력난 분노로 30% 미만 득표에 그칠 것으로 보여 정치 지형 변화가 예상된다.",
+     "source": "The Guardian, France 24",
+     "id": 208,
+     "link": "https://www.theguardian.com/world/2026/nov/04/anc-south-africa-local-elections-water-outages-power-cuts"
     }
    ]
   },
   {
    "topic": "경제·증시",
+   "overview": "미국 중간선거에서 민주당이 상·하원을 장악한 '블루웨이브' 여파로 국내 증시가 4~5%대 급락하며 매도 사이드카가 발동됐다. AI 데이터센터 규제 강화 우려로 삼성전자·SK하이닉스 등 반도체주가 직격탄을 맞았으나, 방어주와 현대차 등 친환경차 관련주는 선방했다. 한국은행 발표에 따르면 9월 경상수지 흑자가 사상 첫 600억 달러를 돌파하며 반도체 수출 호조가 확인됐다.",
    "items": [
     {
-     "title": "[속보]코스피, 4% 급락에 매도 사이드카…미국 중간선거 여파",
-     "summary": "5일 서울 중구 하나은행 본점 딜링룸에서 직원들이 업무를 보고 있다. 연합뉴스코스피 지수가 5일 4% 넘게 급락하면서 유가증권시장에 매도 사이드카가 발동됐다. 3일(현지시간) 치러진 미국 중간선거에서 민주당이 압승해…",
-     "source": "경향신문",
-     "link": "https://www.khan.co.kr/article/202611051025011/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+     "title": "코스피 4~5% 급락, 매도 사이드카 발동…삼성전자·SK하이닉스 급락",
+     "summary": "미국 중간선거 민주당 압승에 따른 AI 데이터센터 규제 우려로 코스피가 장중 4% 넘게 하락하며 유가증권시장에 매도 사이드카가 발동됐고, 삼성전자와 SK하이닉스 주가가 고점 대비 40~50% 하락했다.",
+     "source": "연합뉴스, 한국경제, 매일경제",
+     "id": 3,
+     "link": "https://www.yna.co.kr/view/AKR20261105086700008"
     },
     {
-     "title": "Asian Stocks Mixed as Investors Rotate From Chips: Markets Wrap",
-     "summary": "Asian stocks were mixed as investors rotated away from semiconductor shares, offsetting gains in consumer and financial…",
-     "source": "Bloomberg",
-     "link": "https://www.bloomberg.com/news/articles/2026-11-04/stock-market-today-dow-s-p-live-updates"
+     "title": "방어주 신고가 경신·현대차 강세…블루웨이브 수혜주 부상",
+     "summary": "증시 급락장에서도 방어주가 신고가를 경신했고, 민주당의 친환경차 지원 정책 기대감에 현대차 주가가 강세를 보였다.",
+     "source": "한국경제, 매일경제",
+     "id": 27,
+     "link": "https://www.hankyung.com/article/202611057715i"
     },
     {
-     "title": "US stocks rise, dollar slides as investors digest Democrats’ midterm victories",
-     "summary": "Government bond yields fall while initial fears ease over impact of election results on world’s biggest economy US midte…",
-     "source": "The Guardian",
-     "link": "https://www.theguardian.com/business/2026/nov/04/us-dollar-slides-democrats-midterm-election-win-growth-fears"
+     "title": "9월 경상수지 흑자 614억 달러 사상 최대…반도체 수출 260% 증가",
+     "summary": "한국은행 발표에 따르면 9월 경상수지 흑자가 월간 기준 사상 첫 600억 달러를 돌파했으며, 반도체 수출이 전년 대비 260% 급증해 누적 흑자 3400억 달러를 넘어섰다.",
+     "source": "경향신문, 한겨레",
+     "id": 376,
+     "link": "https://www.khan.co.kr/article/202611050818001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
     },
     {
-     "title": "This year’s worst-performing S&P 500 stock is finally seeing some major relief",
-     "summary": "AppLovin’s stock is popping after “clearly positive” earnings results.",
-     "source": "MarketWatch",
-     "link": "https://www.marketwatch.com/story/this-years-worst-performing-s-p-500-stock-is-finally-seeing-some-major-relief-fff3fa85?mod=mw_rss_topstories"
+     "title": "수능일(19일) 주식시장 오전 10시 개장…프리마켓 미운영",
+     "summary": "한국거래소는 2026학년도 수능일인 19일 유가증권·코스닥·코넥스 시장의 정규장 개장과 마감 시각을 각각 1시간 늦춰 오전 10시~오후 4시 30분으로 운영하고 프리마켓은 열지 않는다고 밝혔다.",
+     "source": "경향신문, 한국경제",
+     "id": 40,
+     "link": "https://www.khan.co.kr/article/202611051125001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
     },
     {
-     "title": "상장 예심 빨라졌지만…금감원 문턱서 줄줄이 증권신고서 정정",
-     "summary": "올해 하반기 한국거래소의 코스닥 상장예비심사 기간이 크게 단축된 가운데 금융감독원의 증권신고서 심사 과정에서는...",
-     "source": "연합뉴스",
-     "link": "https://www.yna.co.kr/view/AKR20261105068700008"
+     "title": "크레센도EP 4호 블라인드펀드 1차 클로징…목표 1조3000억 원",
+     "summary": "피터 틸이 설립한 크레센도EP가 반도체·소프트웨어·사이버보안 분야 기술기업 바이아웃을 겨냥한 4호 펀드 1차 클로징을 완료하고 해외 목표액의 70%를 확보했다.",
+     "source": "매일경제",
+     "id": 30,
+     "link": "https://www.mk.co.kr/news/stock/12198172"
     },
     {
-     "title": "중간선거 끝나자 뉴욕증시 일제히 상승…다우 3.03%↑",
-     "summary": "S&P500 1.58%↑…나스닥 1.44%↑뉴욕증권거래소(NYSE) 전경. 위키피디아 제공4일(현지시간) 미국 뉴욕증시 주요 지수가 일제히 상승했다. 전날 치러진 미 중간선거에서 민주당이 승리하고 도널드 트럼프 대통…",
-     "source": "경향신문",
-     "link": "https://www.khan.co.kr/article/202611050739001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+     "title": "방카슈랑스 월 판매액 3조 원 돌파…안전자산 선호 확대",
+     "summary": "코스피 급락에 따른 안전자산 선호로 5대 시중은행의 방카슈랑스 판매액이 7월 이후 넉 달 연속 2조 원을 넘어서며 지난달 3조 원을 돌파했다.",
+     "source": "매일경제",
+     "id": 147,
+     "link": "https://www.mk.co.kr/news/economy/12198059"
     },
     {
-     "title": "올해 200조 넘게 판 외국인, ‘3개월 뒤’에는 돌아오려나",
-     "summary": "지난 2일(현지시간) 미국 뉴욕증권거래소(NYSE)에서 트레이더들이 업무를 하고 있다. 로이터연합뉴스코스피 지수가 좀처럼 상승 동력을 찾지 못하면서 외국인 ‘큰손’들이 언제 돌아올지에 관심이 쏠린다. 통상 과거 사례…",
-     "source": "경향신문",
-     "link": "https://www.khan.co.kr/article/202611050600081/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+     "title": "영국 기준금리 3년 만에 인상 전망…파운드 브렉시트 이후 최고치",
+     "summary": "영국 중앙은행이 기준금리를 3.75%에서 4%로 올릴 것으로 예상되며, 파운드화 가치가 브렉시트 국민투표 이후 최고 수준으로 상승했다.",
+     "source": "BBC",
+     "id": 88,
+     "link": "https://www.bbc.co.uk/news/articles/ck5ynw45jrgqo?at_medium=RSS&at_campaign=rss"
     }
    ]
   },
   {
    "topic": "코인",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
    "items": [
-    {
-     "title": "Here’s what happened in crypto today",
-     "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price,…",
-     "source": "Cointelegraph",
-     "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
-    },
     {
      "title": "Bitcoin rebounds past $80,000 as markets shrug off midterms and Binance hack",
      "summary": "Bitcoin rose 3.5% to $80,500 and ether jumped 6% after Democrats won Congress, while Bitwise says the Binance hack had l…",
      "source": "The Block",
      "link": "https://www.theblock.co/news/markets/2026-11-04-bitcoin-price-midterm-elections-binance-hack-recovery-433030"
+    },
+    {
+     "title": "Here’s what happened in crypto today",
+     "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price,…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
     },
     {
      "title": "제타체인, 솔라나 이전 추진…AI 플랫폼 제타랩스 출시",
@@ -126,59 +144,70 @@
   },
   {
    "topic": "문화예술",
+   "overview": "국내에서는 한지 제작 전통이 유네스코 인류무형문화유산 등재 권고를 받아 24번째 등재가 유력해졌고, 국립현대무용단 '바딩·바딩'과 강릉커피축제 22만 명 방문 등 현장 행사가 주목받았습니다. 해외에서는 M+, 퐁피두, 모마 3대 미술관의 문화동맹 체결, 크리스티 아부다비 첫 경매 894만 달러, 문서 16 참여 논의, 레오노라 캐링턴 작품 70년 만 경매 출품 등 제도·시장·전시 이슈가 동시에 부상했습니다.",
    "items": [
     {
-     "title": "천장에 매달린 '트리맨'…日 미술 '차세대 스타' 왔다",
-     "summary": "",
-     "source": "한국경제",
-     "link": "https://www.hankyung.com/article/202611034084i"
+     "title": "한지 제작 전통, 유네스코 등재 권고…한국 24번째 인류무형유산 유력",
+     "summary": "유네스코 평가기구가 '한지제작의 전통지식과 기술 및 문화적 실천'에 대해 등재 권고 판정을 내려, 이달 말 중국 샤먼 총회에서 최종 확정 시 한국은 24건의 인류무형유산을 보유하게 됩니다.",
+     "source": "헤럴드경제, 한국경제, 연합뉴스",
+     "id": 34,
+     "link": "https://biz.heraldcorp.com/article/10926880"
     },
     {
-     "title": "Julie Curtiss Paints a Twisted Love Letter to New York City",
-     "summary": "Julie Curtiss is finally painting her metropolitan fever dream. “It’s a New York painting story,” said Curtiss, during a…",
-     "source": "Artsy",
-     "link": "https://www.artsy.net/article/artsy-editorial-julie-curtiss-paints-twisted-love-letter-new-york-city"
+     "title": "국립현대무용단 '바딩·바딩' 개최…몸을 '과정'으로 보는 5개 융합 프로그램",
+     "summary": "국립현대무용단이 29일까지 철학·과학·미식 등 이종 분야와 융합한 기획 프로그램 'BODYING·BODYING'을 선보이며 관객이 신체를 직접 경험하도록 구성했습니다.",
+     "source": "뉴시스",
+     "id": 369,
+     "link": "https://www.newsis.com/view/NISX20261105_0003855986"
     },
     {
-     "title": "얼마나 야하면 등급 보류? 두 번 개봉 막혔던 ‘19금 韓 영화’, 27년 만 무삭제로",
-     "summary": "장선우 감독 ‘거짓말’, 11일 4K 완전판 재개봉 원작자 구속·베니스 경쟁 초청…예술과 외설 사이 논란작파격적인 성적 묘사로 두 차례나 등급 보류 판정을 받았던 한국 영화가 27..",
-     "source": "매일경제",
-     "link": "https://www.mk.co.kr/news/culture/12198125"
+     "title": "제18회 강릉커피축제 22만8천 명 방문…빅데이터 첫 집계",
+     "summary": "지난달 21~25일 열린 강릉커피축제 방문객이 빅데이터 분석 결과 총 22만8천342명으로 집계돼 지역 대표 축제로 자리매김했습니다.",
+     "source": "연합뉴스",
+     "id": 239,
+     "link": "https://www.yna.co.kr/view/AKR20261105081200062"
     },
     {
-     "title": "M+, Centre Pompidou, and MoMA Unite in Cultural Alliance",
-     "summary": "Hong Kong’s M+, the Centre Pompidou in Paris, and the Museum of Modern Art (MoMA) in New York have announced a “cultural…",
+     "title": "M+·퐁피두·모마, 소장품·전시·연구 공유 '문화동맹' 체결",
+     "summary": "홍콩 M+, 파리 퐁피두센터, 뉴욕 모마가 장기 파트너십을 맺고 각 기관의 독립성을 유지하면서 컬렉션·전시·프로그램·연구를 국제적으로 연계하기로 했습니다.",
      "source": "ArtAsiaPacific",
+     "id": 344,
      "link": "https://www.artasiapacific.com/news/m-centre-pompidou-and-moma-unite-in-cultural-alliance/"
     },
     {
-     "title": "K-팝 공연 보러 한국행…글로벌 팬덤이 바꾼 관광 지도",
-     "summary": "좋아하는 K-팝 아티스트의 무대를 직접 보려는 아시아 팬들의 열기가 국경을 넘는 방한 관광 수요를 견인하고 있다. 아시아 6개 시장 공연 관람객 65%가 공연을 보기 위해 다른 국가나 지역으로 여행한 경험이 있는 것…",
-     "source": "헤럴드경제",
-     "link": "https://biz.heraldcorp.com/article/10926630"
+     "title": "크리스티, 아부다비 첫 파인아트 경매 894만 달러 낙찰",
+     "summary": "크리스티가 아부다비에서 중동 현대미술 20주년 기념 경매 'MAWASIM'을 열어 총 894만 달러 낙찰을 기록하며 중동 시장 진출을 본격화했습니다.",
+     "source": "ARTnews",
+     "id": 183,
+     "link": "https://www.artnews.com/art-news/market/christies-fine-art-auction-abu-dhabi-results-1234804383/"
     },
     {
-     "title": "Leonora Carrington Painting That Resurfaced After 70 Years Goes to Auction",
-     "summary": "Fil d’Or, a 1953 painting by the British Surrealist Leonora Carrington, has been out of public view for seven decades, p…",
+     "title": "문서 16 초청 작가들, 참여 여부 놓고 딜레마 토로",
+     "summary": "문서 16 초청을 받은 여러 작가가 수락·거부·조건부 참여 사이에서 고민하며 선배 작가들에게 조언을 구하는 상황이 Hyperallergic을 통해 전해졌습니다.",
+     "source": "Hyperallergic",
+     "id": 185,
+     "link": "https://hyperallergic.com/so-youve-been-invited-to-documenta-16-heres-our-advice/"
+    },
+    {
+     "title": "레오노라 캐링턴 'Fil d'Or' 70년 만 경매 출품…추정가 25만~35만 달러",
+     "summary": "1953년작 초현실주의 걸작이 캘리포니아 소장가 컬렉션에서 발견돼 헤리티지 옥션 11월 10일 경매에 오르며 70년 만에 공개됩니다.",
      "source": "Artforum",
+     "id": 402,
      "link": "https://www.artforum.com/news/leonora-carrington-painting-resurfaced-goes-to-auction-1234762973/"
     },
     {
-     "title": "5 Standout Shows to See at Small Galleries This November",
-     "summary": "Y el agua cae otra vez/And the Water Falls Again〈水再次落下〉, 2026 Ana Teresa Barboza NUNU FINE ART In this monthly roundup,…",
-     "source": "Artsy",
-     "link": "https://www.artsy.net/article/artsy-editorial-5-standout-small-galleries-november-11-03-26"
-    },
-    {
-     "title": "Inaugural Walker Design Triennial features flesh-like speakers and post-apocalyptic scenes",
-     "summary": "A set of speakers with flesh-like exteriors was among the conceptual design work shown at the first Walker Design Trienn…",
-     "source": "Dezeen",
-     "link": "https://www.dezeen.com/2026/11/04/walker-design-triennial-2026-beyond-materialism/"
+     "title": "서울국제프라이드영화제 5~11일 개최…34개국 116편 상영",
+     "summary": "제16회 서울국제프라이드영화제가 CGV 피카디리1958에서 개막해 한·불 교류 프로그램 등 국내외 퀴어 영화 116편을 선보입니다.",
+     "source": "경향신문",
+     "id": 268,
+     "link": "https://www.khan.co.kr/article/202611042032005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
     }
    ]
   },
   {
    "topic": "AI",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
    "items": [
     {
      "title": "OpenAI to acquire Pierre Computer Company, Inc.",
@@ -226,36 +255,49 @@
   },
   {
    "topic": "정치·사회",
+   "overview": "미국 중간선거 여파로 공화당 내 책임 공방이 격화되고 트럼프·헤그세스 국방장관 거취 논란이 불거진 가운데, 한국에서는 청해부대 작전구역 호르무즈 인근 확대, 신천지 당원 의혹 조사, 문재인 전 대통령 강제북송 사건 재정신청, 지자체 예산·인사 현안 등이 동시에 부상했다.",
    "items": [
     {
-     "title": "아덴만 감시 나서는 P-8A 포세이돈…하늘의 '잠수함 킬러'",
-     "summary": "정부가 5일 청해부대 전력으로 추가 파견하기로 결정한 최신예 해상초계기 'P-8A 포세이돈'의 별칭은 ...",
+     "title": "미 공화당 중간선거 참패 책임 공방…트럼프·헤그세스 국방장관 경질론 부상",
+     "summary": "공화당 내에서 트럼프의 이란 전쟁 고집과 헤그세스 국방장관 책임론이 분출되며 2028년 대선 주자들 간 자리다툼이 시작됐다.",
+     "source": "BBC, Fox News, The Hill",
+     "id": 87,
+     "link": "https://www.bbc.co.uk/news/articles/c6x29rr8djy3o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "한국 정부, 청해부대 작전구역 호르무즈 해협 인근까지 확대·초계기·기뢰제거전력 파견",
+     "summary": "정부가 소말리아 아덴만에서 활동 중인 청해부대 임무구역을 오만 남방 해상까지 넓히고 해상초계기 1대와 기뢰탐지·제거부대, 무인 소해장비를 추가 파견하기로 결정했다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 240,
+     "link": "https://www.yna.co.kr/view/AKR20261104118351504"
+    },
+    {
+     "title": "민주당, '신천지 교인 집단 당원 가입' 조사 결과 당내 열람 허용…김민석 '전면 공개' 입장",
+     "summary": "더불어민주당이 신천지 당원 의혹 조사 결과를 당내에 한시 공개하기로 했고, 김민석 최고위원은 전면 공개해도 문제 제기는 있었을 것이라고 밝혔다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 456,
+     "link": "https://www.yna.co.kr/view/AKR20261105079000001"
+    },
+    {
+     "title": "문재인 전 대통령 '탈북어민 강제북송' 불기소에 고발인 측 재정신청",
+     "summary": "한반도인권과통일을위한변호사모임이 문 전 대통령 불기소 처분에 반발해 재정신청을 제기하며 수사 재개를 압박했다.",
      "source": "연합뉴스",
-     "link": "https://www.yna.co.kr/view/AKR20261104155400504"
-    },
-    {
-     "title": "국힘 박형수 “397억 반환해야 한다면 당 책임”",
-     "summary": "",
-     "source": "한겨레",
-     "link": "https://www.hani.co.kr/arti/politics/politics_general/1285876.html"
-    },
-    {
-     "title": "박찬대 “민생 지키겠다”…인천시, 내년 예산 3.8% 늘린 15조9000억 편성",
-     "summary": "사회복지에 6조9678억…전체 예산의 43.8%인천e음 캐시백 한도 30만원 → 50만원 상향AI·바이오 등 미래 성장 분야에 6000억 투자5일 인천시청 브리핑룸에서 박찬대 인천시장이 인천시 2027년 예산안을 설…",
-     "source": "경향신문",
-     "link": "https://www.khan.co.kr/article/202611051025001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
-    },
-    {
-     "title": "연장 12회 끝낸 건 실책... 삼성, 승부 원점으로 돌렸다",
-     "summary": "",
-     "source": "조선일보",
-     "link": "https://www.chosun.com/sports/baseball/2026/11/04/4XD4NGYJ3RAJ5GI75GDAD7WSOU/"
+     "id": 352,
+     "link": "https://www.yna.co.kr/view/AKR20261105084700004"
     }
    ]
   },
   {
    "topic": "IT·과학",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
    "items": [
+    {
+     "title": "Voters Rejected A.I. in the Midterms. Now Comes an Era of Scrutiny.",
+     "summary": "After two years of little A.I. oversight, voters on Tuesday rejected data center projects and swept into office Democrat…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/04/technology/midterm-elections-ai-data-centers.html"
+    },
     {
      "title": "Hackers exploited iOS and Android flaws to infect phones",
      "summary": "Researchers say group may have been Kremlin-sponsored in search of diplomatic targets.",
@@ -267,34 +309,31 @@
      "summary": "Temperature and defrosting thresholds raised to ‘very high levels’ at three cold stores stocking vital blood products Fr…",
      "source": "The Guardian",
      "link": "https://www.theguardian.com/technology/2026/nov/04/france-national-blood-service-hack-cyber-attack-europe"
-    },
-    {
-     "title": "中 YMTC 모회사, 6.3조 규모 '커촹반' IPO 제동…당국 증시 부양책 여파",
-     "summary": "중국 최대 낸드플래시 제조사 양쯔메모리테크놀로지(YMTC)의 모회사인 장춘홀딩스(CCSH)가 상하이 과학창업판(커촹반) 상장을 위한 절차를 잠정 중단했다. 중국 금융당국이 침체된 증시를 부양하기 위해 대형 기업공개(…",
-     "source": "전자신문",
-     "link": "https://www.etnews.com/20261105000019"
     }
    ]
   },
   {
    "topic": "스포츠",
+   "overview": "",
    "items": [
     {
-     "title": "\"핏줄엔 얼음, 정신은 라이언\"…열흘 295구 던진 페덱의 사자후",
-     "summary": "\"예전에 놀런 라이언 같은 전설적인 투수도 짧은 휴식만 취하고 시즌을 치렀잖아요. 라이언도 해냈는데 왜 저는 ...",
-     "source": "연합뉴스",
-     "link": "https://www.yna.co.kr/view/AKR20261105070300007"
+     "title": "챔피언스리그: 레알 마드리드 극장 역전승·리버풀 페네르바체에 패배·맨시티 홀란 결승골 승리",
+     "summary": "레알 마드리드가 발베르데 추가시간 골로 AEK 아테네에 3-2 역전승, 리버풀은 이스탄불에서 페네르바체에 패했고, 맨시티는 홀란 결승골로 라이프치히를 3-2로 눌렀다.",
+     "source": "France 24, BBC, The Guardian",
+     "id": 225,
+     "link": "https://www.france24.com/en/sport/20261104-champions-league-real-madrid-comeback-liverpool-fenerbahce"
     },
     {
-     "title": "Another 'miracle' in Istanbul - but this one hurt Liverpool",
-     "summary": "Liverpool conceded \"cheap\" and \"messy\" goals in their defeat by Fenerbahce, says boss Andoni Iraola, as former Reds hero…",
-     "source": "BBC",
-     "link": "https://www.bbc.co.uk/sport/football/articles/cwx28z712rd8o?at_medium=RSS&at_campaign=rss"
+     "title": "LIV 골프, 사우디 투자사 지원 철회로 챕터11 파산보호 신청 후 리그 해체 임박",
+     "summary": "사우디 자본 철수로 자금난에 빠진 LIV 골프가 파산보호를 신청하고 리그 축소·해체 절차에 들어간 것으로 전해졌다.",
+     "source": "BBC, Axios",
+     "id": 207,
+     "link": "https://www.bbc.co.uk/sport/golf/articles/cq70pdjjgy5no?at_medium=RSS&at_campaign=rss"
     }
    ]
   }
  ],
- "ai": false,
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
  "outlets": {
   "국내": [
    "연합뉴스",
@@ -424,7 +463,7 @@
    "mood": "어제와 비슷함",
    "diff": "최고 0°, 최저 0°",
    "precip": "강수 가능성 낮음(0%)",
-   "tomorrow": "흐림 13°/28°"
+   "tomorrow": "흐림 14°/27°"
   }
  ],
  "message": {
