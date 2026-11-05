@@ -1,0 +1,17 @@
+name: Cron Test (임시 진단)
+
+# GitHub의 '예약 실행(schedule)'이 이 저장소에서 실제로 동작하는지 확인하는 임시 진단용 파일. 확인 후 삭제한다.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo "schedule 실행 확인 $(date -u) event=${{ github.event_name }} actor=${{ github.actor }}"
