@@ -1,0 +1,491 @@
+{
+ "headline": "미국 중간선거 후폭풍 속 트럼프 비서실장 교체·이란 긴장 고조, 파라과이 대통령 탄핵·케냐 컬트 지도자 종신형",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "미국 중간선거 참패 후 트럼프 대통령이 강경파 스티븐 밀러를 비서실장에 임명하며 국면 전환을 시도했고, 밴스 부통령은 이란과 간접협상을 주도해 휴전과 핵협상 재개를 모색 중입니다. 러시아는 젤렌스키 대통령의 경고 직후 키이우에 탄도미사일 공세를 가했고, 이란 연계 선박 4척이 해저 통신케이블 인근에서 포착됐습니다. 파라과이에서는 우에노 은행 붕괴 책임으로 페냐 대통령이 탄핵·가택연금되고 페드로 알리아나 신임 대통령이 취임했으며, 케냐에서는 종말론 컬트 지도자 폴 매켄지가 191명 살인 혐의로 종신형을 선고받았습니다. 시진핑 주석은 강경파 장성민을 정치국 유일한 군인 위원으로 승진시키며 군 지휘부를 재편했습니다.",
+   "items": [
+    {
+     "title": "트럼프, 중간선거 참패 후 스티븐 밀러 비서실장 임명",
+     "summary": "트럼프 대통령이 수지 와일스 후임으로 강경 이민정책 설계자 스티븐 밀러를 백악관 비서실장에 지명하며 국면 돌파를 시도했다.",
+     "source": "NYT, Bloomberg, Axios",
+     "id": 79,
+     "link": "https://www.latimes.com/politics/story/2026-11-06/trump-names-stephen-miller-chief-of-staff-replacing-susie-wiles"
+    },
+    {
+     "title": "밴스 부통령, 이란과 휴전·핵협상 재개 위한 간접협상 주도",
+     "summary": "JD 밴스 부통령이 최근 2주간 이란과의 간접협상을 직접 이끌며 신규 휴전과 핵협상 재개를 모색 중이라고 악시오스가 보도했다.",
+     "source": "연합뉴스, Axios",
+     "id": 451,
+     "link": "https://www.yna.co.kr/view/AKR20261107021300009"
+    },
+    {
+     "title": "러시아, 젤렌스키 경고 뒤 키이우에 탄도미사일 공세",
+     "summary": "젤렌스키 대통령의 대규모 공격 경고 직후 러시아가 키이우 인프라 시설을 겨냥해 여러 차례 탄도미사일 공격을 감행했다.",
+     "source": "Kyiv Independent",
+     "id": 111,
+     "link": "https://kyivindependent.com/russian-ballistic-missiles-slam-kyiv-after-zelensky-warns-of-mass-attack/"
+    },
+    {
+     "title": "이란 연계 선박 4척, 해저 통신케이블 주변서 포착",
+     "summary": "이란이 미·이스라엘 추가 공습 가능성에 대비해 해저케이블 공격 가능성을 시사한 가운데 연계 선박 4척이 해당 해역에서 발견됐다.",
+     "source": "연합뉴스",
+     "id": 119,
+     "link": "https://www.yna.co.kr/view/AKR20261107023800009"
+    },
+    {
+     "title": "파라과이 페냐 대통령, 우에노 은행 붕괴로 탄핵·가택연금",
+     "summary": "상원이 주요 은행 붕괴 책임을 물어 페냐 대통령을 해임하고 가택연금했으며, 페드로 알리아나 신임 대통령이 취임했다.",
+     "source": "Al Jazeera, DW, SCMP",
+     "id": 106,
+     "link": "https://www.aljazeera.com/news/2026/11/7/paraguays-santiago-pena-under-arrest-new-president-pedro-alliana-sworn-in?traffic_source=rss"
+    },
+    {
+     "title": "케냐 컬트 지도자 폴 매켄지, 191명 살인 혐의로 종신형",
+     "summary": "추종자들에게 자녀까지 굶겨 죽이게 한 '종말론 컬트' 지도자 폴 매켄지가 아동 190명 등 191명 살인 혐의로 종신형을 선고받았다.",
+     "source": "The Guardian, France 24, BBC",
+     "id": 91,
+     "link": "https://www.theguardian.com/world/2026/nov/06/kenyan-doomsday-sect-leader-jailed-murders-paul-mackenzie"
+    },
+    {
+     "title": "시진핑, 군 '강경파' 장성민 승진시켜 지휘부 재편",
+     "summary": "시진핑 주석이 2027년 인민해방군 창군 100주년을 앞두고 강경파로 분류되는 장성민을 정치국 유일한 군인 위원으로 승진시켰다.",
+     "source": "Japan Times, SCMP",
+     "id": 113,
+     "link": "https://www.japantimes.co.jp/news/2026/11/07/asia-pacific/politics/chinese-military-zhang-shengmin/"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "전날 급락했던 AI 기술주에 저가 매수세가 유입되며 나스닥이 1.1% 반등했으나 AI 규제와 금리 인상 우려는 지속되고 있습니다. 국내 증시 폭락에 대응해 개인투자자들이 5일 만에 미국 주식 3조 원을 순매수했고, 미 중간선거 후폭풍으로 한미 원전 투자 선급금 13.6조 원 지급 문제가 쟁점화됐습니다. 미래에셋증권 해킹으로 고객·임직원 3만9000여 명 개인정보가 유출됐고, 금융연구원은 대주주 심사에 평판·전문성 등 정성적 기준 추가를 제언했습니다. 은행권은 반도체·배터리 등 전략산업 기업에 재무평가 우대 방침을 정했고, 코스피는 외국인 매도 공세로 6% 넘게 급락했으나 연기금 매수로 5000선을 간신히 방어했습니다.",
+   "items": [
+    {
+     "title": "폭락했던 AI 기술주 반등…나스닥 1.1% 상승",
+     "summary": "전날 급락했던 엔비디아, AMD 등 AI 반도체 종목에 저가 매수세가 유입되며 나스닥이 1.1% 반등했으나 AI 규제와 금리 인상 우려는 여전하다.",
+     "source": "한국경제, 경향신문, 블록미디어",
+     "id": 25,
+     "link": "https://www.hankyung.com/article/2026110719317"
+    },
+    {
+     "title": "서학개미, 국내 증시 급락하자 미국 주식 5일 만에 3조 원 순매수",
+     "summary": "국내 증시 폭락에 대응해 개인투자자들이 반도체 3배 레버리지 ETF 등을 중심으로 미국 주식을 집중 매수했다.",
+     "source": "매일경제",
+     "id": 28,
+     "link": "https://www.mk.co.kr/news/stock/12201389"
+    },
+    {
+     "title": "미 중간선거 후폭풍에 한미 원전 투자 선급금 13.6조 원 논란",
+     "summary": "민주당 승리로 AI 데이터센터 규제 강화가 예고되면서 최대 100억 달러 규모 한미 원전 투자 선급금 지급 문제가 쟁점화됐다.",
+     "source": "매일경제",
+     "id": 29,
+     "link": "https://www.mk.co.kr/news/economy/12201386"
+    },
+    {
+     "title": "미래에셋증권 해킹으로 고객·임직원 3만9000여 명 개인정보 유출",
+     "summary": "모바일웹 로그인 서비스와 그룹웨어가 이틀 연속 외부 공격을 받아 고객 계좌번호와 임직원 연락처 등 개인정보가 유출됐다.",
+     "source": "경향신문, 연합뉴스, 매일경제",
+     "id": 38,
+     "link": "https://www.khan.co.kr/article/202611070800031/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "금융연구원 \"금융사 대주주 심사에 평판·전문성 등 정성적 기준 추가해야\"",
+     "summary": "대주주 적격성 심사 시 법 위반 이력과 재무 건전성 외에 평판, 경험, 전문성 등을 종합적으로 평가할 것을 제언했다.",
+     "source": "연합뉴스",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261106166300002"
+    },
+    {
+     "title": "은행권, 반도체·배터리 등 전략산업 기업 재무평가 우대 방침",
+     "summary": "대규모 설비투자로 부채 부담이 큰 AI·반도체·배터리 기업에 대해 금융당국이 재무평가 시 특수성을 반영해 우대하기로 했다.",
+     "source": "매일경제",
+     "id": 146,
+     "link": "https://www.mk.co.kr/news/economy/12201384"
+    },
+    {
+     "title": "코스피 5000선 간신히 방어…연기금 매수로 서킷브레이커·사이드카 발동",
+     "summary": "외국인 매도 공세로 코스피가 6% 넘게 급락했으나 연기금 등 기관 매수세가 유입되며 5000선을 지켰다.",
+     "source": "한겨레",
+     "id": 470,
+     "link": "https://www.hani.co.kr/arti/economy/finance/1286169.html"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "미 재무부 FinCEN이 MEXC 글로벌을 이란·북한·러시아 연계 자금 세탁 혐의로 미국 금융망에서 차단했습니다. 비트코인 현물 ETF는 올해 유입분 261억 달러가 전액 유출돼 순유입이 마이너스로 전환됐고, 공포·탐욕지수는 25로 '극단적 공포' 단계에 진입했습니다. 태국 SEC는 비트겟을 무면허 영업 혐의로 형사 고소하고 12월 5일 현지 접속 차단을 예고했습니다.",
+   "items": [
+    {
+     "title": "미 재무부, MEXC 글로벌 160억 달러 불법 거래 혐의로 미국 금융망 차단",
+     "summary": "FinCEN이 이란·북한·러시아 연계 자금 세탁을 도운 혐의로 MEXC를 미국 금융기관 거래 금지 대상에 올렸다.",
+     "source": "The Block, Decrypt, Bitcoin Magazine",
+     "id": 61,
+     "link": "https://decrypt.co/382758/treasury-cuts-off-crypto-exchange-mexc-us-financial-system"
+    },
+    {
+     "title": "비트코인 현물 ETF, 올해 유입분 261억 달러 전액 유출…순유입 마이너스 전환",
+     "summary": "11월 5일 기준 5억 달러 추가 유출로 연간 누적 유출액이 유입액을 넘어섰다.",
+     "source": "블록미디어",
+     "id": 161,
+     "link": "https://www.blockmedia.co.kr/archives/1162677?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "비트코인 공포·탐욕지수 25로 '극단적 공포' 단계 진입",
+     "summary": "전일 28에서 3포인트 하락하며 투자 심리가 급격히 위축됐다.",
+     "source": "토큰포스트",
+     "id": 162,
+     "link": "https://www.tokenpost.kr/news/cryptocurrency/434343"
+    },
+    {
+     "title": "태국 SEC, 비트겟 형사 고소…12월 5일 현지 접속 차단 예정",
+     "summary": "무면허 영업 혐의로 형사 고발하고 태국 내 접속 차단 조치를 예고했다.",
+     "source": "Bitcoin Magazine, CoinDesk",
+     "id": 291,
+     "link": "https://bitcoinmagazine.com/news/thailand-sec-bitget-criminal-dec-5"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 유네스코 인류무형유산 '장 담그기' 명인 기순도가 경복궁 장고에서 체험 행사를 열었고, 최인선 개인전 '바람을 타는 캔버스'가 이길이구 갤러리에서 12월 19일까지 열립니다. 주문진 어르신 16명의 작품 모음집 '그려보니 좋더라'도 발간됐습니다. 해외에서는 휘트니 미술관이 2028 비엔날레 공동 큐레이터로 메그 온리와 잭 위노커를 선정했고, 나나 요시토모가 신작 'Green Song' 등 컬러 중심 회화를 공개했습니다. 프랑스 법원은 피카소 상속인 사기 혐의 수사에 착수했고, 조지아 오키프 'Near Abiquiu, New Mexico I'가 40년 만에 경매에 출품됩니다. 카르스텐 횔러의 거대 슬라이드 4기가 멕시코시티 아르테 아비에르토에 영구 설치됐습니다.",
+   "items": [
+    {
+     "title": "무형유산 '장 담그기' 명인 기순도 \"장은 곧 한국의 영혼\"",
+     "summary": "유네스코 인류무형유산 등재된 장 담그기 문화 계승을 위해 기순도 명인이 경복궁 장고에서 체험 행사를 진행하며 전통 장의 가치를 강조했습니다.",
+     "source": "뉴시스",
+     "id": 31,
+     "link": "https://www.newsis.com/view/NISX20261106_0003858445"
+    },
+    {
+     "title": "최인선 개인전 '바람을 타는 캔버스' 이길이구 갤러리서 개최",
+     "summary": "바람에 흔들린 캔버스에서 영감을 얻은 신작 40여 점을 선보이며, 작가의 의도를 벗어난 우연한 흔적에 주목하는 전시가 14일부터 12월 19일까지 열립니다.",
+     "source": "뉴시스",
+     "id": 467,
+     "link": "https://www.newsis.com/view/NISX20261106_0003857381"
+    },
+    {
+     "title": "주문진 어르신 16명 그림 모음집 '그려보니 좋더라' 발간",
+     "summary": "강릉종합사회복지관 주문마루센터가 4년간 갈고닦은 어르신 작가 16명의 작품을 모아 화집을 펴냈습니다.",
+     "source": "연합뉴스",
+     "id": 454,
+     "link": "https://www.yna.co.kr/view/AKR20261106117500062"
+    },
+    {
+     "title": "휘트니 미술관, 2028 비엔날레 큐레이터에 메그 온리와 잭 위노커 선정",
+     "summary": "휘트니 미술관 직큐레이터 메그 온리와 안무가 출신 잭 위노커가 공동 큐레이터로 임명되어 83회 비엔날레를 이끌 예정입니다.",
+     "source": "NYT, ARTnews, Artforum",
+     "id": 100,
+     "link": "https://www.theartnewspaper.com/2026/11/06/whitney-biennial-2028-curators-meg-onli-zack-winokur"
+    },
+    {
+     "title": "나나 요시토모(Yoshitomo Nara) 신작 'Green Song' 등 컬러 중심 회화 전시",
+     "summary": "7피트 넘는 대형 캔버스에 오렌지·오커 색조 모자이크 헤어를 그린 신작이 공개되며, 잃어버린 소녀상에서 색채를 통한 새로운 자유를 탐구합니다.",
+     "source": "NYT",
+     "id": 52,
+     "link": "https://www.nytimes.com/2026/11/05/arts/design/yoshitomo-nara-david-zwirner-hirshhorn-museum.html"
+    },
+    {
+     "title": "프랑스 법원, 피카소 상속인 사기 혐의 조사 착수",
+     "summary": "피카소 유족 측이 제기한 사기 주장에 대해 프랑스 법원이 정식 수사에 들어갔습니다.",
+     "source": "Artnet News",
+     "id": 68,
+     "link": "https://news.artnet.com/market/industry-intel-nov-6-2833004"
+    },
+    {
+     "title": "조지아 오키프 'Near Abiquiu, New Mexico I' 40년 만에 경매 출품",
+     "summary": "1930년 작 오키프 회화가 옷장에서 발견돼 크리스티 20세기 이브닝 세일에서 300만 달러 추정가로 출품됩니다.",
+     "source": "ARTnews",
+     "id": 182,
+     "link": "https://www.artnews.com/art-news/market/georgia-okeeffe-painting-found-closet-after-40-years-christies-1234804764/"
+    },
+    {
+     "title": "카르스텐 횔러(Carsten Höller) 멕시코시티 아르테 아비에르토에 거대 슬라이드 4기 영구 설치",
+     "summary": "벨기에 작가 카르스텐 횔러의 '멕시코시티 슬라이드(2026)'가 쇼핑몰 안타라에 영구 설치되어 관객 참여형 건축 작품을 선보입니다.",
+     "source": "Designboom, ARTnews",
+     "id": 233,
+     "link": "https://www.designboom.com/art/carsten-holler-people-together-four-giant-slides-mexico-city-arte-abierto-polanco-soma-sordo-madaleno-antara/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "미스트랄이 1조 파라미터 멀티모달 모델 '르 총크' 가중치를 오픈하며 유럽 훈련 최고 코딩 성능 오픈 모델이라고 밝혔고, 오픈AI는 AI 에이전트 습식실험 능력을 평가하는 '바이오베이직스벤치'를 공개했습니다. 구글 딥마인드는 '안티그래비티'와 '코스모스 3' 모델로 신약 발굴과 세계 시뮬레이션을 가속화합니다. 앤트로픽 IPO 예상 몸값이 한 달 만에 45% 하락해 1조1000억 달러까지 낮아졌고, 메타는 뮤즈 AI에 맞춤형 '스페이스' 기능을 추가했습니다. 미 중간선거 후 데이터센터 개발 제한 주민투표 41건 중 40건이 통과돼 AI 인프라 확장에 제동이 걸렸고, 구글의 학교 AI 검색 의무화 시도에 교육계가 반발해 정책 조정이 이뤄졌습니다.",
+   "items": [
+    {
+     "title": "미스트랄 '르 총크(Le Chonk)' 가중치 공개…코딩 최강 오픈 모델",
+     "summary": "미스트랄이 1조 파라미터 멀티모달 모델 '미스트랄 라지 4(르 총크)' 가중치를 오픈하며 유럽에서 훈련된 최고 코딩 성능 오픈 모델이라고 밝혔다.",
+     "source": "Mistral AI",
+     "id": 129,
+     "link": "https://mistral.ai/news/mistral-large-4-oss/"
+    },
+    {
+     "title": "오픈AI '바이오베이직스벤치' 공개…AI 에이전트 습식실험 능력 측정",
+     "summary": "오픈AI가 AI 에이전트의 원시 실험 데이터 해석과 일상적 습식실험 수행 능력을 평가하는 100개 과제 벤치마크 '바이오베이직스벤치'를 발표했다.",
+     "source": "OpenAI",
+     "id": 126,
+     "link": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
+    },
+    {
+     "title": "구글 '안티그래비티'·'코스모스 3' 모델로 신약·세계 시뮬레이션 가속",
+     "summary": "구글 딥마인드가 안티그래비티와 케미인포매틱스 스킬로 신약 발굴을 가속화하고, 엔비디아 코스모스 3 오픈 모델로 인터랙티브 세계 시뮬레이션을 지원한다.",
+     "source": "Google DeepMind, Hugging Face",
+     "id": 127,
+     "link": "https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/"
+    },
+    {
+     "title": "앤트로픽 IPO 예상 몸값 2조→1.1조달러…한 달 만에 45% 하락",
+     "summary": "앤트로픽의 기업공개(IPO)를 앞두고 투자자들의 기업가치 평가가 계속 낮아지고 있다. 최근 AI 관련주 급락 이후 일부 투자자는 기업가치를 1조1000억달러(약 1500조원)까지 낮게 평가했지만, 앤트로픽은 다음 주…",
+     "source": "AI타임스",
+     "id": 125,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217122"
+    },
+    {
+     "title": "메타 뮤즈 AI에 '스페이스' 기능 추가…맞춤형 앱형 경험 제공",
+     "summary": "메타가 뮤즈 에이전트에 쇼핑 허브·대시보드·음악 트래커 등 맞춤형 '스페이스'를 생성해 앱 내에서 바로 쓸 수 있게 했다.",
+     "source": "TechCrunch AI, The Verge AI",
+     "id": 245,
+     "link": "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent/"
+    },
+    {
+     "title": "미 중간선거 후 데이터센터 개발 제한 투표 41건 중 40건 통과",
+     "summary": "민주당 압승 직후 41개 데이터센터 관련 주민투표에서 40건이 개발 제한을 선택해 AI 인프라 확장에 제동이 걸렸다.",
+     "source": "TechCrunch AI, The Verge AI",
+     "id": 354,
+     "link": "https://techcrunch.com/podcast/how-a-blue-wave-midterm-might-reshape-the-ai-industry/"
+    },
+    {
+     "title": "구글 '학교 AI 검색 의무화' 논란…교육계 반발",
+     "summary": "구글이 K-12 학교에 제미나이 사용 여부와 무관하게 AI 검색 기능을 강제하려다 교사·학부모 반발로 정책 조정에 나섰다.",
+     "source": "Ars Technica AI",
+     "id": 247,
+     "link": "https://arstechnica.com/ai/2026/11/google-schools-can-keep-search-while-skipping-gemini-but-ai-search-is-non-negotiable/"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "민주당 주도로 조작기소특검법이 국회 본회의를 통과해 이재명 대통령 기소 사건 6건이 수사 대상에 포함됐고, 국민의힘은 서울 도심에서 규탄 집회를 열고 장외투쟁에 돌입했습니다. 미국 중간선거에서 민주당이 하원 40석 이상을 탈환해 상·하원 다수당 지위를 확보했고, 트럼프 행정부 고위 여성 인사들이 연쇄 사퇴하며 스티븐 밀러 체제로 백악관 인적 구성이 재편됐습니다.",
+   "items": [
+    {
+     "title": "조작기소특검법 국회 통과…이 대통령 사건 6건 포함",
+     "summary": "민주당 주도로 윤석열 정권 검찰·국정원·감사원 조작수사 의혹 특검법이 본회의를 통과했으며, 이재명 대통령 기소 사건 6건이 수사 대상에 들어갔다.",
+     "source": "경향신문, 한겨레, 연합뉴스",
+     "id": 267,
+     "link": "https://www.khan.co.kr/article/202611061741001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "국민의힘, 특검법 규탄 대규모 장외집회 돌입",
+     "summary": "국민의힘이 서울 도심에서 조작기소특검법 강행 처리를 규탄하는 집회를 열고 7일부터 장외투쟁을 이어가기로 했다.",
+     "source": "연합뉴스",
+     "id": 123,
+     "link": "https://www.yna.co.kr/view/AKR20261106178400001"
+    },
+    {
+     "title": "미 민주당, 중간선거서 하원 40석 이상 탈환 '블루웨이브'",
+     "summary": "민주당이 공화당 텃밭까지 공략해 하원 40석 넘게 뒤집으며 상·하원 다수당 지위를 확보했다.",
+     "source": "CBS News, Politico, The Hill",
+     "id": 301,
+     "link": "https://www.cbsnews.com/news/house-districts-flipped-2026-midterm-elections/"
+    },
+    {
+     "title": "트럼프 행정부 고위 여성 인사들 연쇄 사퇴…밀러 체제 전환",
+     "summary": "수지 와일스 비서실장 등 고위 여성 참모들이 잇따라 떠나고 강경파 스티븐 밀러가 실세로 부상하며 백악관 인적 구성이 재편됐다.",
+     "source": "NYT, NBC News, Politico",
+     "id": 49,
+     "link": "https://www.nytimes.com/2026/11/06/us/politics/susie-wiles-trump-women.html"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "ST마이크로일렉트로닉스가 SiC·GaN 차세대 전력 반도체로 AI 데이터센터 수요 증가에 대응하고 있습니다. 마이크로소프트는 AI 투자 확대와 병행해 직원 6만 명 대상 희망퇴직을 실시했고, 그로크는 AI 주가 급락 속에서도 기업가치 80억 달러로 2배 상향을 추진하며 투자 유치에 나섰습니다.",
+   "items": [
+    {
+     "title": "ST마이크로일렉트로닉스, SiC·GaN 차세대 전력 반도체로 AI 데이터센터 수요 대응",
+     "summary": "AI 확산으로 급증한 전력 반도체 시장에서 실리콘카바이드와 질화갈륨 기술력을 앞세워 공급망 관리와 시장 확대에 나선다.",
+     "source": "전자신문",
+     "id": 43,
+     "link": "https://www.etnews.com/20261106000102"
+    },
+    {
+     "title": "마이크로소프트, AI 투자 확대하며 직원 6만 명 대상 희망퇴직 실시",
+     "summary": "수십억 달러 AI 투자 병행 인력 구조조정으로 기존 직원들 불안감이 커지고 있다.",
+     "source": "NYT",
+     "id": 51,
+     "link": "https://www.nytimes.com/2026/11/06/technology/microsoft-buyouts.html"
+    },
+    {
+     "title": "그로크(Groq), AI 주가 급락 속 기업가치 80억 달러로 2배 상향 추진",
+     "summary": "데이터센터 운영사 그로크가 3개월 내 가치 2배 달성을 목표로 투자 유치에 나섰다.",
+     "source": "Bloomberg",
+     "id": 56,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-06/neocloud-groq-aims-to-double-value-to-8-billion-amid-ai-selloff"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "카리브해 축구연맹이 내년 3월 FIFA 회장 선거에서 잔니 인판티노 현 회장의 4선 연임을 공식 지지했습니다. 포르투갈 제주스 감독은 크리스티아누 호날두의 국가대표 은퇴 발표에 대해 개인 결정이라며 죄책감이 없다고 밝혔습니다.",
+   "items": [
+    {
+     "title": "카리브해 축구연맹, 인판티노 FIFA 회장 4선 지지 선언",
+     "summary": "CFU가 내년 3월 예정된 FIFA 회장 선거에서 잔니 인판티노 현 회장의 4선 연임을 공식 지지했다.",
+     "source": "연합뉴스",
+     "id": 24,
+     "link": "https://www.yna.co.kr/view/AKR20261107023300007"
+    },
+    {
+     "title": "포르투갈 제주스 감독 \"호날두 은퇴 결정에 죄책감 없다\"",
+     "summary": "조르즈 제주스 포르투갈 대표팀 감독이 크리스티아누 호날두의 국가대표 은퇴 발표에 대해 개인 결정이라며 죄책감이 없다고 밝혔다.",
+     "source": "연합뉴스",
+     "id": 252,
+     "link": "https://www.yna.co.kr/view/AKR20261107020800007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "기타 해외": [
+   "Mistral AI",
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-07",
+   "sky": "대체로 맑음",
+   "now": "2°",
+   "lo": "0°",
+   "hi": "7°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −6°, 최저 −4°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "약한 비 3°/7°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-07",
+   "sky": "맑음",
+   "now": "5°",
+   "lo": "2°",
+   "hi": "11°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −2°, 최저 −2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 3°/14°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-06",
+   "sky": "대체로 맑음",
+   "now": "23°",
+   "lo": "13°",
+   "hi": "29°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +2°, 최저 0°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "맑음 15°/30°"
+  }
+ ],
+ "message": {
+  "ko": "아무 의욕이 생기지 않아도, 지금의 노력은 어딘가에 차곡차곡 쌓이고 있어요. 좋은 하루 보내요.",
+  "en": "Even if motivation hasn't shown up, your effort now is adding up somewhere. Have a good day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true
+}
