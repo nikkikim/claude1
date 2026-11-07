@@ -617,7 +617,9 @@ OPENROUTER_DEFAULT_MODELS = (
 # nvidia/nemotron-3.5-lightning:free 는 실측(2026-11-05)에서 JSON 괄호·쉼표를 심하게 틀리고 문장이 깨져 제외
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 130   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측(2026-11-05): 응답은 20~110초에 오거나, 아예 멈춰서 240초를 넘겨도 안 오는 두 갈래 → 오래 기다리지 말고 130초에 끊고 다시 시도
-OPENROUTER_BUDGET_SECONDS = 500    # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
+SECOND_PASS_ROUNDS = int(os.environ.get("AI_SECOND_PASS_ROUNDS") or 1)    # 전부 실패했을 때 같은 실행에서 추가로 시도할 횟수
+SECOND_PASS_WAIT_SECONDS = int(os.environ.get("AI_SECOND_PASS_WAIT") or 180)  # 추가 시도 전 대기(초)
+OPENROUTER_BUDGET_SECONDS = 500   # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
 
 
 def _post_with_deadline(req: urllib.request.Request, seconds: float) -> dict:
@@ -1746,14 +1748,20 @@ def main(argv: list[str] | None = None) -> int:
         digest = headlines_only(articles)
     else:
         digest, last_err = None, None
-        for provider in chain:  # 앞 공급자가 실패하면(한도·키·무료 티어 불가 등) 다음 공급자로
-            try:
-                digest = summarize(articles, provider)
-                print(f"AI 요약 완료: {provider}")
-                break
-            except Exception as err:
-                last_err = err
-                print(f"[warn] {provider} 요약 실패: {err}", file=sys.stderr)
+        for round_no in range(1 + SECOND_PASS_ROUNDS):
+            if round_no:  # 무료 모델의 '일시 과부하(503)·상류 제한(429)'은 몇 분 뒤 풀리는 경우가 많아, 같은 실행 안에서 한 번 더 시도
+                print(f"[warn] AI 요약 전부 실패 → {SECOND_PASS_WAIT_SECONDS}초 뒤 한 번 더 시도합니다", file=sys.stderr)
+                time.sleep(SECOND_PASS_WAIT_SECONDS)
+            for provider in chain:  # 앞 공급자가 실패하면(한도·키·무료 티어 불가 등) 다음 공급자로
+                try:
+                    digest = summarize(articles, provider)
+                    print(f"AI 요약 완료: {provider}")
+                    break
+                except Exception as err:
+                    last_err = err
+                    print(f"[warn] {provider} 요약 실패: {err}", file=sys.stderr)
+            if digest is not None or isinstance(last_err, (QuotaExceeded, FreeTierUnavailable, ModelUnavailable)):
+                break  # 성공했거나, 기다려도 풀리지 않는 실패(한도 소진·키·모델 없음)면 중단
         if digest is None:  # 모두 실패해도 오늘 메일은 보낸다
             print("[warn] 모든 AI 공급자가 실패해 헤드라인만 발송합니다", file=sys.stderr)
             if isinstance(last_err, ModelUnavailable):

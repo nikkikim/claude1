@@ -17,6 +17,41 @@ def _no_refine_by_default(monkeypatch):
     """대부분의 시험은 1차 요약만 본다. 2차(핵심 요약 재작성)는 전용 시험에서 _REAL_REFINE으로 따로 확인."""
     monkeypatch.setattr(nd, "refine_overviews", lambda digest, articles, provider: digest)
     monkeypatch.setattr(nd, "fetch_weather", lambda *a, **k: [])    # 시험 중 실제 날씨 서버에 접속하지 않음
+    monkeypatch.setattr(nd, "SECOND_PASS_WAIT_SECONDS", 0)           # 2차 시도 전 대기를 실제로 하지 않음
+
+
+def test_second_pass_when_all_ai_failed(monkeypatch, tmp_path):
+    """모든 모델이 일시 오류(503·타임아웃)로 실패해도 같은 실행에서 한 번 더 시도해 성공하면 AI 요약이 나간다."""
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
+    monkeypatch.setenv("GEMINI_API_KEY", "x")
+    good = {"headline": "두번째 성공", "sections": [{"topic": "정치", "overview": "핵심", "items": [
+        {"title": "t", "summary": "s", "source": "A", "link": "https://ex.com/1"}]}]}
+    calls = []
+
+    def flaky(articles, provider):
+        calls.append(1)
+        if len(calls) == 1:
+            raise RuntimeError("503 overloaded")
+        return good
+    monkeypatch.setattr(nd, "summarize", flaky)
+    assert nd.main(["--dry-run"]) == 0
+    assert len(calls) == 2 and "두번째 성공" in (tmp_path / "digest.html").read_text(encoding="utf-8")
+
+
+def test_no_second_pass_when_quota_exhausted(monkeypatch, tmp_path):
+    """한도 소진처럼 기다려도 풀리지 않는 실패는 재시도하지 않는다."""
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
+    monkeypatch.setenv("GEMINI_API_KEY", "x")
+    calls = []
+
+    def over(*a, **k):
+        calls.append(1)
+        raise nd.QuotaExceeded("429")
+    monkeypatch.setattr(nd, "summarize", over)
+    assert nd.main(["--dry-run"]) == 0
+    assert len(calls) == 1
 
 RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
 <item><title>새 기사</title><link>https://ex.com/a?utm_source=1</link>
