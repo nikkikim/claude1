@@ -9,8 +9,11 @@ on:
     - cron: "30 22 * * *"
     # 예비 실행: 위 실행이 GitHub 사정으로 누락됐을 때만 동작(이미 발송했으면 아무것도 하지 않음)
     - cron: "30 23 * * *"   # 08:30 KST
-    # 10:30 KST 예비 실행: 위와 같고, 더해서 아침 브리핑이 AI 요약 없이(또는 일부만) 나갔다면 AI 요약을 한 번 더 시도
+    # 재시도 실행(10:30·13:30·16:30 KST): 위와 같고, 더해서 오늘 브리핑이 AI 요약 없이(또는 일부만) 나갔다면 AI 요약을 다시 시도.
+    # 직전 발송·시도 후 3시간이 안 지났으면 건너뛰므로(무료 한도·혼잡이 풀릴 시간을 줌) 실패한 날은 약 3시간 간격으로 최대 3번 재시도
     - cron: "30 1 * * *"
+    - cron: "30 4 * * *"
+    - cron: "30 7 * * *"
   workflow_dispatch:      # Actions 탭에서 수동 실행 가능
     inputs:
       openrouter_models:
@@ -108,7 +111,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         # 예약 실행은 모두 '오늘 이미 발송했으면 건너뜀'. 수동 실행은 항상 새로 발송
-        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '--archive archive' }} ${{ github.event_name == 'schedule' && '--only-if-missing' || '' }} ${{ github.event.schedule == '30 1 * * *' && '--retry-ai' || '' }}
+        run: python news_digest.py ${{ inputs.dry_run && '--dry-run' || '--archive archive' }} ${{ github.event_name == 'schedule' && '--only-if-missing' || '' }} ${{ contains(fromJSON('["30 1 * * *","30 4 * * *","30 7 * * *"]'), github.event.schedule) && '--retry-ai' || '' }}
       - name: Save archive (웹사이트용 보관)
         if: ${{ !inputs.dry_run && !inputs.site_only && !inputs.resend && !cancelled() }}
         continue-on-error: true   # 보관이 실패해도 이미 발송된 메일에는 영향 없음

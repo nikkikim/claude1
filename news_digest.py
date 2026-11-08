@@ -617,7 +617,7 @@ OPENROUTER_DEFAULT_MODELS = (
 # nvidia/nemotron-3.5-lightning:free 는 실측(2026-11-05)에서 JSON 괄호·쉼표를 심하게 틀리고 문장이 깨져 제외
 OPENROUTER_REASONING_OFF = {"effort": "none"}  # 추론 끄기(문서: reasoning.effort="none" → 추론 완전 비활성화)
 OPENROUTER_REQUEST_SECONDS = 130   # 모델 1개당 최대 대기 시간(응답 전체 기준). 실측(2026-11-05): 응답은 20~110초에 오거나, 아예 멈춰서 240초를 넘겨도 안 오는 두 갈래 → 오래 기다리지 말고 130초에 끊고 다시 시도
-SECOND_PASS_ROUNDS = int(os.environ.get("AI_SECOND_PASS_ROUNDS") or 1)    # 전부 실패했을 때 같은 실행에서 추가로 시도할 횟수
+SECOND_PASS_ROUNDS = int(os.environ.get("AI_SECOND_PASS_ROUNDS") or 0)    # 같은 실행 안 즉시 재시도(기본 끔: 몇 분 뒤엔 대개 그대로라, 약 3시간 뒤 예약 재시도를 씀)
 SECOND_PASS_WAIT_SECONDS = int(os.environ.get("AI_SECOND_PASS_WAIT") or 180)  # 추가 시도 전 대기(초)
 OPENROUTER_BUDGET_SECONDS = 500   # 모든 모델을 합친 최대 시간. 남은 시간이 짧으면 그만큼만 기다리고, 45초 미만이면 새 시도를 시작하지 않음
 
@@ -1699,6 +1699,24 @@ def resend_archived(archive_dir: str, date_str: str = "") -> int:
     return 0 if ok else 1
 
 
+RETRY_MIN_MINUTES = 170   # AI 재시도 사이 최소 간격(약 3시간). 무료 한도·상류 혼잡이 풀릴 시간을 주고 요청 낭비를 막음
+
+
+def _retry_wait_minutes(saved: dict) -> int:
+    """마지막 발송·재시도로부터 아직 기다려야 하는 분(0이면 지금 시도해도 됨). 시각 기록이 없으면 0."""
+    ref = saved.get("last_retry_at") or saved.get("sent_at")
+    if not ref:
+        return 0
+    try:
+        t = datetime.fromisoformat(str(ref))
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return 0
+    elapsed = (datetime.now(timezone.utc) - t).total_seconds() / 60
+    return max(0, int(RETRY_MIN_MINUTES - elapsed))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="발송 대신 digest.html로 저장")
@@ -1720,11 +1738,16 @@ def main(argv: list[str] | None = None) -> int:
     global DEDUPE_SKIP_TODAY
     DEDUPE_SKIP_TODAY = ""   # main을 여러 번 부르는 시험·재실행에서 이전 값이 남지 않게 매번 초기화
     retry_ai = False
+    saved: dict = {}
     if args.only_if_missing and today_path and today_path.exists():
         try:
             saved = json.loads(today_path.read_text(encoding="utf-8"))
             if saved.get("sent"):
                 if (saved.get("ai") is False or saved.get("partial")) and args.retry_ai and provider_chain() and not args.no_llm:
+                    wait = _retry_wait_minutes(saved)
+                    if wait > 0:  # 직전 발송·시도 후 3시간이 안 지났으면 무료 한도를 아끼려고 이번엔 건너뜀(다음 예약 시각에 다시)
+                        print(f"마지막 시도 후 {RETRY_MIN_MINUTES - wait}분밖에 안 지나 이번 AI 재시도는 건너뜁니다.")
+                        return 0
                     # 아침 브리핑이 AI 요약 없이(한도 초과 등) 나갔다면 예비 시각에 AI 요약을 한 번 더 시도한다
                     retry_ai = True
                     print("아침 브리핑이 헤드라인 모드였습니다. AI 요약을 다시 시도합니다.")
@@ -1782,7 +1805,12 @@ def main(argv: list[str] | None = None) -> int:
     digest["meta"] = {"articles": len(articles), "outlets": sum(len(v) for v in digest["outlets"].values()),
                       "failed_feeds": list(dict.fromkeys(FEED_FAILURES))}
     if retry_ai and (digest.get("ai") is False or digest.get("partial")):  # 다시 해도 온전한 AI 요약이 안 되면 중복 메일 없이 아침 브리핑을 그대로 둔다
-        print("AI 요약 재시도도 실패해 아침 브리핑을 그대로 둡니다(추가 발송 없음).")
+        print("AI 요약 재시도도 실패해 아침 브리핑을 그대로 둡니다(추가 발송 없음). 약 3시간 뒤 다음 예약에서 다시 시도합니다.")
+        if today_path and saved:
+            try:  # 시도 시각을 남겨 다음 시도와 3시간 이상 벌어지게 함
+                _save_archive(today_path, {**saved, "last_retry_at": datetime.now(timezone.utc).isoformat()})
+            except OSError:
+                pass
         return 0
     subject = f"[뉴스 브리핑] {now:%m/%d} {digest.get('headline', '')}"[:120]
 
@@ -1803,7 +1831,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     ok = _deliver(channels, subject, digest, now)
     if today_path and ok:
-        _save_archive(today_path, {**digest, "sent": True})
+        _save_archive(today_path, {**digest, "sent": True, "sent_at": datetime.now(timezone.utc).isoformat()})
     return 0 if len(ok) == len(channels) else 1
 
 

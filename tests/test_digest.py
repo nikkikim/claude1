@@ -21,8 +21,9 @@ def _no_refine_by_default(monkeypatch):
 
 
 def test_second_pass_when_all_ai_failed(monkeypatch, tmp_path):
-    """모든 모델이 일시 오류(503·타임아웃)로 실패해도 같은 실행에서 한 번 더 시도해 성공하면 AI 요약이 나간다."""
+    """(선택 기능: AI_SECOND_PASS_ROUNDS=1) 모든 모델이 일시 오류로 실패해도 같은 실행에서 한 번 더 시도해 성공하면 AI 요약이 나간다."""
     monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(nd, "SECOND_PASS_ROUNDS", 1)
     monkeypatch.setattr(nd, "fetch_articles", lambda cfg: [_art("A", "국내", "정치")])
     monkeypatch.setenv("GEMINI_API_KEY", "x")
     good = {"headline": "두번째 성공", "sections": [{"topic": "정치", "overview": "핵심", "items": [
@@ -1572,6 +1573,28 @@ def test_backup_retry_that_fails_again_sends_nothing_and_keeps_morning_letter(mo
     assert json.loads(path.read_text(encoding="utf-8"))["headline"] == "아침 헤드라인"
 
 
+def test_retry_waits_about_three_hours_between_attempts(monkeypatch, tmp_path):
+    path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=False)
+    calls = []
+
+    def boom(articles, provider):
+        calls.append(1)
+        raise RuntimeError("503")
+    monkeypatch.setattr(nd, "summarize", boom)
+    now = nd.datetime.now(nd.timezone.utc)
+    base = json.loads(path.read_text(encoding="utf-8"))
+
+    def put(**extra):
+        path.write_text(json.dumps({**base, **extra}, ensure_ascii=False), encoding="utf-8")
+    put(sent_at=(now - nd.timedelta(minutes=60)).isoformat())          # 1시간 전 발송 → 아직 이르다
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and calls == []
+    put(sent_at=(now - nd.timedelta(minutes=200)).isoformat())         # 3시간 넘게 지남 → 시도(실패해도 시각 기록)
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and len(calls) == 1 and sent == []
+    saved = json.loads(path.read_text(encoding="utf-8"))
+    assert saved["headline"] == "아침 헤드라인" and saved.get("last_retry_at")
+    assert nd.main(["--archive", "arch", "--only-if-missing", "--retry-ai"]) == 0 and len(calls) == 1   # 방금 시도했으니 또 건너뜀
+
+
 def test_backup_run_skips_when_morning_letter_had_ai_or_no_ai_configured(monkeypatch, tmp_path):
     path, sent = _retry_env(monkeypatch, tmp_path, ai_saved=True)
     monkeypatch.setattr(nd, "summarize", lambda *a: (_ for _ in ()).throw(AssertionError("재시도하면 안 됨")))
@@ -1744,8 +1767,8 @@ def test_backup_retry_also_applies_to_partial_morning_letter(monkeypatch, tmp_pa
 def test_workflow_runs_all_schedules_as_only_if_missing_and_retry_only_at_backup():
     wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
     assert "github.event_name == 'schedule' && '--only-if-missing'" in wf
-    assert "github.event.schedule == '30 1 * * *' && '--retry-ai'" in wf
-    assert all(f'cron: "{c}"' in wf for c in ("10 21 * * *", "30 22 * * *", "30 23 * * *", "30 1 * * *"))
+    assert "'--retry-ai'" in wf and all(f'"{c}"' in wf.split("--retry-ai")[0].split("fromJSON")[-1] for c in ("30 1 * * *", "30 4 * * *", "30 7 * * *"))
+    assert all(f'cron: "{c}"' in wf for c in ("10 21 * * *", "30 22 * * *", "30 23 * * *", "30 1 * * *", "30 4 * * *", "30 7 * * *"))
 
 
 # ---------- 2026-11-05 실측: 응답이 60초 넘게 걸림 / 끝부분만 깨진 JSON ----------
