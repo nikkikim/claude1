@@ -1,0 +1,493 @@
+{
+ "headline": "프랑스, 이란 혁명수비대의 슈퍼마켓 냉장고 해킹 배후 지목…G7 외교장관회의서 유럽의 대이란 압박·우크라 지원 논의, 네타냐후 실각 위기 속 이스라엘 연정 구성권 야당에 넘어가",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "프랑스가 이란 혁명수비대 연계 사이버 부대를 슈퍼마켓 냉장고 해킹 배후로 지목하고 유럽 차원 제재를 예고했습니다. G7 외교장관회의에서 유럽 국가들은 우크라이나 종전 협상 참여와 지속적 지원을 미국에 압박했습니다. 트럼프 전 대통령은 중간선거 패배 후 부정선거 주장을 되풀이했고, 이스라엘에서는 네타냐후 총리 실각 위기 속에 연정 구성권이 야당 지도자에게 넘어갔습니다. 우크라이나는 SEPA 가입 마감을 앞두고 자금세탁방지법 통과를 서두르고 있으며, 폴란드 크라쿠프 총격 용의자가 병원에서 사망했고 사우디 동서송유관 메디나 구간이 피격돼 긴급 복구 중입니다.",
+   "items": [
+    {
+     "title": "프랑스, 이란 혁명수비대 슈퍼마켓 냉장고 해킹 배후 지목·제재 추진",
+     "summary": "프랑스 외무장관이 지난달 1000여 개 슈퍼마켓 냉장고·냉동고 해킹의 배후로 이란 혁명수비대 연계 사이버 부대를 지목하고 유럽 차원 제재를 예고했다.",
+     "source": "BBC, France 24, Al Jazeera",
+     "id": 83,
+     "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "G7 외교장관회의 개막…유럽, 종전협상 참여·우크라 지원 압박",
+     "summary": "파리에서 열린 G7 외교장관회의에서 유럽 국가들이 우크라이나 전쟁 종전 협상 참여와 지속적 지원을 미국에 압박했다.",
+     "source": "연합뉴스",
+     "id": 117,
+     "link": "https://www.yna.co.kr/view/AKR20261110002200085"
+    },
+    {
+     "title": "트럼프, 중간선거 패배 후 부정선거론 재점화",
+     "summary": "민주당이 상·하원 다수당을 차지한 중간선거 결과에 대해 트럼프 전 대통령이 근거 없는 부정선거 주장을 되풀이했다.",
+     "source": "Korea Times, 연합뉴스, BBC",
+     "id": 45,
+     "link": "https://www.koreatimes.co.kr/world/20261110/trump-returns-to-us-election-fraud-claims-after-initial-concession?utm_source=rss"
+    },
+    {
+     "title": "이스라엘 네타냐후 실각 위기…연정 구성권 야당 지도자에게 넘어가",
+     "summary": "야권 지도자에게 연정 구성권이 넘어가며 네타냐후 총리가 실각 위기에 놓였으나 시온주의·하레디 통합정부를 이끌겠다고 밝혔다.",
+     "source": "연합뉴스, CBS News",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261110003300079"
+    },
+    {
+     "title": "우크라이나, 자금세탁방지법 통과 시급…SEPA 가입 마감 임박",
+     "summary": "유로 단일결제지역(SEPA) 가입을 위한 자금세탁방지법 통과 기한이 임박해 우크라이나 의회가 서두르고 있다.",
+     "source": "Kyiv Independent",
+     "id": 109,
+     "link": "https://kyivindependent.com/ukraine-risks-missing-window-to-pass-anti-money-laundering-laws-for-european-payment-access/"
+    },
+    {
+     "title": "폴란드 크라쿠프 총격 용의자 병원서 사망…동기 불명",
+     "summary": "가족 살해 후 6명 추가 사살한 크라쿠프 총격 용의자가 병원에서 사망했으며 범행 동기는 아직 밝혀지지 않았다.",
+     "source": "BBC, NYT",
+     "id": 195,
+     "link": "https://www.bbc.co.uk/news/articles/c6y434dw8319o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "사우디 동서송유관 메디나 구간 피격…긴급 복구 중",
+     "summary": "호르무즈 해협 우회 수송로인 사우디 동서송유관 메디나 구간이 피격돼 당국이 긴급 복구에 나섰다.",
+     "source": "연합뉴스, Middle East Eye",
+     "id": 328,
+     "link": "https://www.yna.co.kr/view/AKR20261110002000079"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 젠슨 황 CEO의 불륜 인정과 스파이 연루 의혹으로 주가가 6% 급락하며 시총 3300억 달러가 증발했습니다. 미 중간선거 민주당 승리로 AI 규제 우려가 커지며 나스닥이 5% 하락했습니다. 구글은 연산 성능을 2배 높인 차세대 AI 칩 TPU 8i Max를 공개해 엔비디아 견제를 강화했습니다. 삼성화재는 영국 특수보험사 캐노피우스 지분 100%를 인수해 경영권을 확보했습니다. 파리바게뜨는 16일부터 제조 음료 10종 가격을 평균 2.7% 인상합니다. 4대 은행 중소기업 깡통대출이 3조 원에 육박해 건전성 경고등이 켜졌고, AMD는 메타·스페이스X 수혜 기대로 투자의견이 상향됐습니다.",
+   "items": [
+    {
+     "title": "엔비디아 젠슨 황 스캔들로 주가 6% 급락·시총 3300억 달러 증발",
+     "summary": "젠슨 황 CEO가 중국 스파이 연루 의혹 여성과 불륜을 인정하며 엔비디아 주가가 7개월래 최저로 떨어지고 후계자 부재 우려까지 제기됨.",
+     "source": "한국경제, 매일경제, 연합뉴스",
+     "id": 24,
+     "link": "https://www.hankyung.com/article/202611096090i"
+    },
+    {
+     "title": "미 중간선거 '블루 쓰나미'에 나스닥 5%↓…AI 규제 우려 확산",
+     "summary": "민주당 상·하원 장악으로 AI 산업 규제 강화 전망이 대두되며 나스닥과 반도체지수가 큰 폭 하락, 10일 미 CPI 발표 앞두고 변동성 확대.",
+     "source": "매일경제",
+     "id": 27,
+     "link": "https://www.mk.co.kr/news/stock/12203028"
+    },
+    {
+     "title": "구글, 차세대 AI 칩 'TPU 8i Max' 공개…연산 성능 2배 향상",
+     "summary": "구글이 여러 AI 에이전트의 동시 데이터 처리를 위해 연산 성능과 메모리 대역폭을 2배로 높인 신형 TPU를 발표하며 엔비디아 견제 강화.",
+     "source": "연합뉴스, 한국경제, CoinDesk",
+     "id": 22,
+     "link": "https://www.yna.co.kr/view/AKR20261109122200017"
+    },
+    {
+     "title": "삼성화재, 영국 특수보험사 캐노피우스 지분 100% 인수…경영권 확보",
+     "summary": "2019년 첫 투자 후 7년 만에 기관투자자와 함께 지분 전량 인수, 저출생·고령화로 국내 시장 한계 극복 위해 해외사업 확대.",
+     "source": "연합뉴스, 매일경제",
+     "id": 330,
+     "link": "https://www.yna.co.kr/view/AKR20261109153600002"
+    },
+    {
+     "title": "파리바게뜨, 16일부터 제조 음료 10종 평균 2.7% 가격 인상",
+     "summary": "원부자재 가격 상승과 인건비 부담 등으로 오는 16일부터 음료 가격을 평균 2.7% 올리기로 결정.",
+     "source": "연합뉴스",
+     "id": 119,
+     "link": "https://www.yna.co.kr/view/AKR20261109156300030"
+    },
+    {
+     "title": "4대 은행 중소기업 '깡통대출' 3조 원 육박…건전성 경고등",
+     "summary": "금융당국의 생산적 금융 압박 속 중소기업 무수익여신 급증, 연체율 대기업 2배 수준으로 은행권 건전성 악화 우려.",
+     "source": "매일경제",
+     "id": 245,
+     "link": "https://www.mk.co.kr/news/economy/12202882"
+    },
+    {
+     "title": "AMD 투자의견 상향…메타·스페이스X 수혜 기대",
+     "summary": "월가에서 AMD 목표가 상향 조정, 메타와 스페이스X 등 대형 고객사 확보로 AI 칩 수요 증가 전망.",
+     "source": "한국경제",
+     "id": 136,
+     "link": "https://www.hankyung.com/article/202611096085i"
+    }
+   ],
+   "id": "economy"
+  },
+  {
+   "topic": "코인",
+   "overview": "뉴욕증권거래소가 토큰화 주식 결제 원장으로 아발란체 블록체인을 채택하며 AVAX 가격이 8% 급등했습니다. 스트래티지가 비트코인 1036개를 추가 매입해 보유량 85만 개를 돌파했고 우선주 환매도 진행했습니다. 비트마인은 이더리움 9587개를 추가 매입해 총자산 143억 달러를 기록했습니다. 북한이 바이낸스 해킹 자금 63억 달러 세탁을 위해 NEAR 네트워크에서 밈코인 6개를 발행한 정황이 포착됐습니다.",
+   "items": [
+    {
+     "title": "NYSE, 토큰화 주식 결제 원장으로 아발란체(AVAX) 선택…AVAX 8% 급등",
+     "summary": "뉴욕증권거래소가 계열 ATS 청산·결제에 아발란체 블록체인을 핵심 원장으로 채택, 24시간 즉시 결제 시스템 구축 계획 발표 후 AVAX 가격 8% 상승.",
+     "source": "블록미디어, CoinDesk, Decrypt",
+     "id": 260,
+     "link": "https://www.blockmedia.co.kr/archives/1163309?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "스트래티지, 비트코인 1036개 추가 매입…보유량 85만 개 돌파",
+     "summary": "스트래티지가 11월 2~8일 비트코인 1036개(약 8190만 달러)를 매입해 총보유량 85만364개 확보, 동시에 우선주 STRC 1억8800만 달러 환매.",
+     "source": "블록미디어, 토큰포스트, Cointelegraph",
+     "id": 511,
+     "link": "https://www.blockmedia.co.kr/archives/1163261?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "비트마인, 이더리움 9587개 추가 매입…총자산 143억 달러",
+     "summary": "비트마인이 ETH 607만 개(공급량 4.97%) 보유, 디지털자산·현금·유가증권 합산 총자산 143억 달러 기록하며 '알케미 5%' 목표 근접.",
+     "source": "블록미디어, Decrypt",
+     "id": 155,
+     "link": "https://www.blockmedia.co.kr/archives/1163325?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "북한, 바이낸스 해킹 63억 달러 자금 세탁용 밈코인 발행",
+     "summary": "일립틱 분석 결과 북한 세탁조직이 11월 5~7일 NEAR 네트워크에서 6개 일회용 밈토큰 생성해 해킹 자금 이동 시도.",
+     "source": "Bitcoin Magazine, CoinDesk, Cointelegraph",
+     "id": 62,
+     "link": "https://bitcoinmagazine.com/news/north-korea-meme-coins-binance-hack"
+    }
+   ],
+   "id": "coin"
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 창덕궁 돈화문이 30년 만에 전면 보수에 착수해 2028년 완료를 목표로 하며 수리 현장이 공개됩니다. 듀스가 고 김성재 목소리를 AI로 복원해 31년 만의 정규 4집을 발매하고, 피아니스트 임윤찬이 필라델피아 오케스트라와 협연했습니다. 25세 안무가 김유찬이 창작 발레로 첫 전막 초연에 도전합니다. 해외에서는 배리 맥기가 LA에서 신작 개인전을 열었고, 앤디 워홀의 1977년 쿠웨이트 시기가 베니스 비엔날레에서 재조명됐습니다. 시카고에서는 수백 명이 아니시 카푸어의 '빈' 조각 이동을 시도하는 플래시 몹이 벌어졌고, 스웨덴 박물관들이 베닌 브론즈 등 문화재를 나이지리아와 볼리비아에 반환했습니다.",
+   "items": [
+    {
+     "title": "창덕궁 돈화문, 30년 만에 지붕 해체·전면 보수 착수…2028년 완료 목표",
+     "summary": "현존 최고(最古) 궁궐 정문인 보물 창덕궁 돈화문이 1997년 이후 29~30년 만에 기와 1만5000장을 전량 교체하는 대보수에 들어가 2028년 완료 예정이며, 수리 현장이 시민에게 공개됩니다.",
+     "source": "연합뉴스, 매일경제, 뉴시스",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261109156000005"
+    },
+    {
+     "title": "듀스, 고 김성재 목소리 AI로 복원해 31년 만의 정규 4집 21일 발매",
+     "summary": "1995년 3집 이후 중단됐던 듀스의 정규 4집이 인공지능 기술로 고 김성재의 목소리를 구현해 오는 21일 발매됩니다.",
+     "source": "한겨레, 매일경제, 뉴시스",
+     "id": 32,
+     "link": "https://www.hani.co.kr/arti/culture/music/1286489.html"
+    },
+    {
+     "title": "피아니스트 임윤찬, 마린 올솝 지휘 필라델피아 오케스트라와 라흐마니노프 협주곡 3번 연주",
+     "summary": "반 클라이번 우승 4년 만에 내한한 임윤찬이 8일 예술의전당에서 마린 올솝 지휘 필라델피아 오케스트라와 협연하며 '여유의 미학'을 선보였습니다.",
+     "source": "헤럴드경제, 경향신문",
+     "id": 31,
+     "link": "https://biz.heraldcorp.com/article/10931277"
+    },
+    {
+     "title": "25세 안무가 김유찬, 윤별발레컴퍼니 창작 발레 'The Earth: us'로 첫 전막 초연",
+     "summary": "대학 갓 졸업한 김유찬 안무가가 28일 초연하는 창작 발레 'The Earth: us'로 첫 전막 작품에 도전하며, 윤별 대표는 '제2의 갓(GAT)' 가능성을 기대했습니다.",
+     "source": "연합뉴스, 뉴시스",
+     "id": 230,
+     "link": "https://www.yna.co.kr/view/AKR20261109143100005"
+    },
+    {
+     "title": "배리 맥기(Barry McGee), LA 제프리 다이치 갤러리에서 신작 개인전 'Another Round' 개최",
+     "summary": "그래피티 아티스트 배리 맥기가 서핑보드로 만든 조각 등 신작을 선보이며 소외된 목소리를 포용하는 작업을 이어갑니다.",
+     "source": "NYT",
+     "id": 51,
+     "link": "https://www.nytimes.com/2026/11/09/arts/design/the-geezer-of-graffiti-art-barry-mcgee-goes-another-round-in-los-angeles.html"
+    },
+    {
+     "title": "앤디 워홀, 1977년 쿠웨이트 방문·개인전 재조명…베니스 비엔날레 'Warhol in Arabia' 전시",
+     "summary": "워홀이 카터 취임식 대신 쿠웨이트에서 일주일간 차 모임과 디너에 참석하며 연 개인전 등 잘 알려지지 않은 '쿠웨이트 시기'를 61회 베니스 비엔날레 연계 전시에서 다룹니다.",
+     "source": "Hyperallergic",
+     "id": 65,
+     "link": "https://hyperallergic.com/andy-warhols-habibi-phase-in-kuwait/"
+    },
+    {
+     "title": "시카고에서 수백 명 모여 아니시 카푸어 '빈(Bean)' 조각 7인치 이동 시도…플래시 몹 벌어져",
+     "summary": "수수께끼 전단에 이끌린 수백 명이 8일 밀레니엄 파크의 '클라우드 게이트(빈)'를 밀었으나 꿈쩍도 하지 않았으며, ARTnews와 Artnet News가 현장을 보도했습니다.",
+     "source": "ARTnews, Artnet News",
+     "id": 63,
+     "link": "https://www.artnews.com/art-news/news/viral-stunt-anish-kapoor-move-bean-man-trapped-inside-1234805130/"
+    },
+    {
+     "title": "스웨덴 스톡홀름·예테보리 박물관, 베닌 브론즈 등 나이지리아·볼리비아에 문화재 반환",
+     "summary": "1897년 영국군 약탈 베닌 브론즈와 1970년대 라파즈 인근 무덤에서 도굴된 콜럼버스 이전 성물들을 각각 나이지리아와 볼리비아에 돌려줍니다.",
+     "source": "The Art Newspaper",
+     "id": 98,
+     "link": "https://www.theartnewspaper.com/2026/11/09/swedish-museums-restitute-objects-to-nigeria-and-bolivia"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "엔비디아 이사회가 젠슨 황 CEO의 중국 스파이 연루 불륜 의혹 조사에 착수하며 주가가 급락한 가운데, 한국 정부는 GPU 공급 차질이 없다고 밝혔습니다. 엔비디아는 국내 AI 스타트업 리얼월드·업스테이지·모티프에 투자하고 로봇 AI 추론을 5배 가속하는 V플래시 프레임워크를 공개했습니다. 오픈AI는 AI 에이전트 실험 데이터 해석 능력을 측정하는 BioBasicsBench 벤치마크를, 구글은 긴 컨텍스트 처리에 강한 Gemini Omni 1.2 Flash를 출시했습니다. 앤트로픽 비공개 모델이 18년 미해결 양자 난제를 증명했고, 클로드 코드 설정 파일 허점으로 깃허브에 수천 건 비밀키가 유출됐습니다.",
+   "items": [
+    {
+     "title": "엔비디아 이사회, 젠슨 황 CEO의 중국 스파이 연루 불륜 의혹 조사 착수…주가 급락",
+     "summary": "황 CEO가 내부 메일로 불륜을 인정하고 이사회가 조사에 나선 가운데, 한국 정부는 계약된 GPU 공급에 차질이 없다고 밝혔다.",
+     "source": "AI타임스, Ars Technica, Wired",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217190"
+    },
+    {
+     "title": "엔비디아, 국내 AI 스타트업 리얼월드·업스테이지·모티프에 투자 결정",
+     "summary": "9일 서울 코엑스 'AI 스타트업 파트너십 포럼'에서 피지컬 AI·LLM 분야 3개 사 투자를 발표했다.",
+     "source": "AI타임스",
+     "id": 123,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217188"
+    },
+    {
+     "title": "엔비디아, 로봇 AI 추론 5배 가속 'V플래시(VFlash)' 디코딩 프레임워크 공개",
+     "summary": "경로 좌표를 순차 생성 대신 한 번에 예측해 속도와 정확도를 높이는 기술로 피지컬 AI·자율주행에 적용 예정이다.",
+     "source": "AI타임스",
+     "id": 426,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217176"
+    },
+    {
+     "title": "오픈AI, AI 에이전트의 습식 실험 데이터 해석 능력 측정 'BioBasicsBench' 벤치마크 공개",
+     "summary": "100개 과제로 구성된 벤치마크로 AI가 실제 실험 데이터를 얼마나 잘 다루는지 평가한다.",
+     "source": "OpenAI",
+     "id": 8,
+     "link": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
+    },
+    {
+     "title": "구글, 'Gemini Omni 1.2 Flash' 출시…더 긴 클립 처리·빠르고 비용 효율적",
+     "summary": "긴 컨텍스트 처리에 강점을 둔 플래시 모델의 업데이트 버전을 발표했다.",
+     "source": "Google DeepMind",
+     "id": 9,
+     "link": "https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/"
+    },
+    {
+     "title": "앤트로픽 비공개 모델, 18년 미해결 양자 난제 '아론슨-암바이니스 추측' 완전 증명",
+     "summary": "외부 기업 PSI가 비공개 앤트로픽 모델로 증명을 도출하고 컴퓨터 검증까지 통과시켰다.",
+     "source": "AI타임스",
+     "id": 334,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217177"
+    },
+    {
+     "title": "클로드 코드(Claude Code), 설정 파일 처리 허점으로 깃허브에 수천 건 비밀키·패스워드 유출",
+     "summary": "APIiro 연구진이 DB 비밀번호, API 토큰, 루트 로그인 등 민감 정보가 공개 리포지토리에 노출된 것을 발견했다.",
+     "source": "Ars Technica",
+     "id": 15,
+     "link": "https://arstechnica.com/ai/2026/11/claude-code-settings-files-expose-thousands-of-secrets-on-github/"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "여당이 조작기소 특검법 처리에 반발해 장외투쟁과 헌법소송을 예고했으나 당내 이견이 표출됐습니다. 민주당과 청와대는 비거주 1주택 종부세 공제 한도를 두고 14억 원 완화와 12억 원 유지로 맞서 11월 국회 충돌이 예상됩니다. 김원이 민주당 의원이 단식 11일 만에 병원으로 이송됐고, 청와대는 특검법 공포안을 다음 주 국무회의에 상정할 계획입니다.",
+   "items": [
+    {
+     "title": "여당, 조작기소 특검법 반발해 장외투쟁·헌소 예고",
+     "summary": "국민의힘 지도부가 조작기소특검법 처리에 반발해 청와대 앞 최고위·장외투쟁·헌법소송을 병행하기로 했으나 당내 비당권파는 지도부 연장용이라며 이견을 보였다.",
+     "source": "경향신문",
+     "id": 255,
+     "link": "https://www.khan.co.kr/article/202611092132005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "민주당·청와대, 비거주 1주택 종부세 공제 한도 이견",
+     "summary": "민주당은 거주 여부와 무관하게 공제 한도를 14억 원으로 완화하려 하나 청와대는 시장 잘못된 신호 우려로 12억 원 유지를 고수해 11월 국회에서 충돌이 예상된다.",
+     "source": "한겨레, 경향신문",
+     "id": 150,
+     "link": "https://www.khan.co.kr/article/202611092132015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "김원이 민주당 의원 단식 11일 만에 병원 이송",
+     "summary": "목포 지역구 김원일 의원이 단식 11일 차에 건강 악화로 병원으로 옮겨졌다.",
+     "source": "연합뉴스",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261109142351054"
+    },
+    {
+     "title": "청와대, 조작기소 특검법 공포안 다음 주 국무회의 상정 예정",
+     "summary": "청와대는 특검법 공포안을 10일 국무회의가 아닌 다음 주 회의에 올릴 계획이라고 밝혔다.",
+     "source": "연합뉴스",
+     "id": 332,
+     "link": "https://www.yna.co.kr/view/AKR20261109154500001"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "중국 스피드봇이 계단 이동과 장애물 회피가 가능한 자율 용접 휴머노이드 로봇 W1을 공개했습니다. 우버는 스팟히어로 인수 후 앱 내 주차 예약 서비스 '우버 파킹'을 출시하며 로보택시 인프라 확장을 준비합니다. 웨이모는 소프트웨어 수정 후에도 스쿨버스 불법 통과가 지속돼 미 당국이 리콜 적정성 조사에 착수했습니다.",
+   "items": [
+    {
+     "title": "중국 스피드봇, 자율 이동 용접 휴머노이드 로봇 'W1' 공개",
+     "summary": "키 170cm·무게 60kg·자유도 27개로 계단 이동과 장애물 회피가 가능하며 다양한 자세로 용접 작업을 스스로 수행.",
+     "source": "전자신문",
+     "id": 42,
+     "link": "https://www.etnews.com/20261109000285"
+    },
+    {
+     "title": "우버, 스팟히어로 인수 후 '우버 파킹' 서비스 출시…로보택시 대비",
+     "summary": "앱 내 주차장 검색·예약·결제 기능을 추가하며 핵심 호출 서비스 외 영역 확장, 향후 로보택시 주차 인프라로 활용 전망.",
+     "source": "TechCrunch, The Verge",
+     "id": 79,
+     "link": "https://techcrunch.com/2026/11/09/uber-launches-parking-service-following-spothero-acquisition-with-an-eye-on-robotaxis/"
+    },
+    {
+     "title": "웨이모, 소프트웨어 수정 후에도 스쿨버스 불법 통과 지속…미 당국 리콜 적정성 조사",
+     "summary": "로보택시 2895대 대상, 정차한 스쿨버스 통과 문제 관련 신고 과반이 수정 후에도 발생해 NHTSA가 기존 리콜 조치 적정성 검토 착수.",
+     "source": "토큰포스트, TechCrunch",
+     "id": 156,
+     "link": "https://www.tokenpost.kr/news/policy/435345"
+    }
+   ],
+   "id": "it_science"
+  },
+  {
+   "topic": "스포츠",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "첫 연패 위기 스스로 극복한 삼성…김상식 감독 \"의미 큰 승리\"",
+     "summary": "\"저희가 지금까지 잘해왔지만, 선수들에겐 끝나는 날까지 위기의식을 계속 가져야 한다고 얘기합니다. 저희가 상위...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261109158200007"
+    },
+    {
+     "title": "Kane and Bellingham air strong views in England World Cup review",
+     "summary": "England players are understood to have aired strong views about their World Cup semi-final defeat by Argentina in a team…",
+     "source": "BBC",
+     "link": "https://www.bbc.co.uk/sport/football/articles/cqr7y7813l04o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-10",
+   "sky": "맑음",
+   "now": "3°",
+   "lo": "2°",
+   "hi": "11°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −2°, 최저 −3°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "대체로 맑음 5°/15°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-10",
+   "sky": "대체로 맑음",
+   "now": "7°",
+   "lo": "6°",
+   "hi": "14°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +5°, 최저 −1°",
+   "precip": "강수 가능성 낮음(10%)",
+   "tomorrow": "맑음 6°/16°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-09",
+   "sky": "흐림",
+   "now": "27°",
+   "lo": "16°",
+   "hi": "32°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 +2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 16°/31°"
+  }
+ ],
+ "message": {
+  "ko": "생각대로 되지 않는 날에도, 오늘의 작은 시도가 내일의 길이 돼요. 오늘도 잘 해낼 거예요.",
+  "en": "Even on days when things don't go as planned, today's small attempt becomes tomorrow's road. You'll do great today."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 81,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-09T17:46:01.986015+00:00"
+}
