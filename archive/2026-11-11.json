@@ -1,0 +1,492 @@
+{
+ "headline": "우크라이나 3자 평화회담 개시·헤그세스 탄핵 추진·폴란드 총격 테러 등 국제 안보 이슈 부상",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "우크라이나·러시아·미국 3자 대표단이 아부다비에서 첫 평화회담을 열어 적대행위 종식과 인도적 조치를 논의했으며 미국은 첫날 논의를 '매우 생산적'이라고 평가했습니다. 후티 반군이 사우디 리야드 킹 칼리드 국제공항과 송유 펌프 스테이션을 공격했다고 주장했습니다. 이스라엘 제26대 크네세트가 개원해 연정 구성 협상이 본격화됐고, 폴란드 크라쿠프 총격범이 노르웨이 극우 테러리스트 브레이비크 자료를 열람한 사실이 확인됐습니다. 북한은 일본 개헌 추진과 유엔 사무총장 발언을 비판했고, 미국 F-35 전투기 예비 부품 100만 개 이상이 행방불명된 것으로 나타났으며 EU는 흑해 해상안보에 5천만 유로를 지원하기로 했습니다.",
+   "items": [
+    {
+     "title": "우크라이나·러시아·미국 아부다비 3자 평화회담 첫날 '매우 생산적'",
+     "summary": "키이우·워싱턴·모스크바 대표단이 아부다비에서 첫 3자 회담을 열고 적대행위 종식과 인도적 조치를 논의했으며 미국은 첫날 논의를 '매우 생산적'이라고 평가함.",
+     "source": "Kyiv Independent, BBC",
+     "id": 112,
+     "link": "https://kyivindependent.com/ukraine-russia-us-resume-trilateral-peace-talks-in-abu-dhabi-after-9-month-pause/"
+    },
+    {
+     "title": "후티 반군, 사우디 리야드 공항과 석유 인프라 공격 주장",
+     "summary": "후티 군사대변인 야히야 사레가 킹 칼리드 국제공항과 여러 송유 펌프 스테이션을 표적으로 삼았다고 발표함.",
+     "source": "Middle East Eye",
+     "id": 102,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-say-they-targeted-riyadh-airport-and-saudi-oil-infrastructure"
+    },
+    {
+     "title": "이스라엘 제26대 크네세트 개원…연정 구성 협상 본격화",
+     "summary": "지난달 27일 총선으로 선출된 새 의회가 10일 공식 출범했으며, 가디 에이젠코트 야당 대표가 연정 구성 권한을 받아 협상에 나섬.",
+     "source": "연합뉴스, France 24",
+     "id": 120,
+     "link": "https://www.yna.co.kr/view/AKR20261111000200079"
+    },
+    {
+     "title": "폴란드 크라쿠프 총격범, 노르웨이 극우 테러리스트 브레이비크 자료 열람 확인",
+     "summary": "6명을 살해한 미하우 옥신스키(24)가 인터넷에서 안데르스 브레이비크 등 극우 인물 관련 자료를 다량 열람한 사실이 법무장관 발표로 드러남.",
+     "source": "연합뉴스, DW",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261111000900082"
+    },
+    {
+     "title": "북한, 일본 개헌 추진 비판 및 유엔 사무총장 한반도 발언에 반발",
+     "summary": "김여정 부장이 다카이치 내각의 9조 개정 시도를 '세계 평화에 부정적'이라고 비난하고, 유엔 사무총장의 대화 촉구에 '한국 편향'이라며 유감 표명.",
+     "source": "연합뉴스",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261110163900504"
+    },
+    {
+     "title": "미국 F-35 전투기 예비 부품 100만 개 이상 행방불명",
+     "summary": "미 연방의회 산하 감사 기구 보고서에서 최첨단 전투기 F-35의 예비 부품 100만 개 이상 소재가 불분명하다고 지적함.",
+     "source": "연합뉴스",
+     "id": 235,
+     "link": "https://www.yna.co.kr/view/AKR20261110180800071"
+    },
+    {
+     "title": "EU, 드론 공격 잇따른 흑해 해상안보에 5천만 유로 지원 결정",
+     "summary": "유럽연합이 최근 드론 공격으로 긴장이 고조된 흑해 해상 안보 강화를 위해 약 750억 원 규모의 자금을 투입하기로 함.",
+     "source": "연합뉴스",
+     "id": 346,
+     "link": "https://www.yna.co.kr/view/AKR20261110180600109"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "미국 10월 CPI가 전월 대비 0.4% 상승해 예상치를 웃돌면서 연준의 12월 금리 인상 가능성이 커졌습니다. 엔비디아 젠슨 황 CEO의 불륜·스파이 스캔들로 이사회 조사가 시작돼 주가가 급락했습니다. 글로벌 IB들이 삼성전자와 SK하이닉스 목표주가를 정반대로 제시해 반도체 수급 전망이 엇갈렸습니다. 금융보안원 해킹으로 금융사 보안평가 정보와 직원 개인정보 300여 건이 유출됐습니다. 앤트로픽이 최대 1.4조 달러 밸류에이션으로 IPO를 추진 중이며 골드만삭스는 2030년 매출 6850억 달러를 전망했습니다. 대기업 수출이 103% 늘 때 중소기업은 10% 증가에 그쳐 양극화가 심화됐고, 공무원 92%가 정년퇴직 후 연금 개시까지 5년 소득공백을 걱정하는 것으로 나타났습니다.",
+   "items": [
+    {
+     "title": "미 10월 CPI 전월비 0.4% 상승…예상 상회, 연준 12월 인상 베팅 강화",
+     "summary": "미 노동부 발표 10월 CPI가 전월 대비 0.4%, 근원 CPI 0.3% 상승해 시장 예상치를 웃돌며 연준의 12월 기준금리 인상 가능성이 커졌다고 블룸버그·마켓워치·가디언 등이 보도했다.",
+     "source": "Bloomberg, MarketWatch, The Guardian",
+     "id": 40,
+     "link": "https://www.khan.co.kr/article/202611102254001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "엔비디아 젠슨 황 불륜·스파이 스캔들로 이사회 조사…주가 급락",
+     "summary": "젠슨 황 CEO가 중국 스파이 혐의 여성과 불륜을 인정한 뒤 엔비디아 이사회가 조사에 착수했고, 주가 급락으로 시가총액 수천억 달러가 증발했다고 NYT·블룸버그·가디언·BBC 등이 전했다.",
+     "source": "NYT, Bloomberg, The Guardian",
+     "id": 53,
+     "link": "https://www.nytimes.com/2026/11/09/technology/jensen-huang-affair-nvidia.html"
+    },
+    {
+     "title": "글로벌 IB, 삼성전자·SK하이닉스 목표주가 극과 극…'아무도 못 믿어'",
+     "summary": "모건스탠리는 SK하이닉스 160만 원·삼성전자 30만 원대로 낮춘 반면 노무라는 각각 470만 원·67만 원을 유지해 반도체 수급 전망이 정반대로 갈렸다고 전자신문이 보도했다.",
+     "source": "전자신문",
+     "id": 161,
+     "link": "https://www.etnews.com/20261110000500"
+    },
+    {
+     "title": "금융보안원 해킹으로 금융사 보안평가 정보 유출…'문지기'도 뚫려",
+     "summary": "금융위 산하 금융보안원이 해킹 공격을 받아 금융사 보안평가 관련 정보와 직원 개인정보 300여 건이 유출됐으며, 금융당국이 피해 규모를 파악 중이라고 연합뉴스·한겨레·경향신문 등이 전했다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 3,
+     "link": "https://www.yna.co.kr/view/AKR20261110174751002"
+    },
+    {
+     "title": "앤트로픽, 1.4조 달러 밸류에이션으로 IPO 추진…골드만삭스 '2030년 매출 6850억 달러' 전망",
+     "summary": "앤트로픽이 최대 1.4조 달러 기업가치로 IPO를 준비 중이며, 골드만삭스는 2030년 매출 6850억 달러 달성을 전망했다고 NYT·블룸버그·FT·한국경제가 보도했다.",
+     "source": "NYT, Bloomberg, Financial Times",
+     "id": 58,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-10/anthropic-targets-64-4-billion-ipo-nearing-spacex-s-record"
+    },
+    {
+     "title": "대기업 수출 103% 늘 때 중소기업 10%…양극화 심화",
+     "summary": "3분기 대기업 수출이 반도체 호조로 전년비 2배 이상 늘었으나 중견·중소기업은 10%대 증가에 그쳐 격차가 23%p 확대됐다고 경향신문이 보도했다.",
+     "source": "경향신문",
+     "id": 267,
+     "link": "https://www.khan.co.kr/article/202611102109015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "공무원 92% '정년퇴직 후 연금 개시까지 5년 소득공백 걱정'",
+     "summary": "퇴직공무원 절반이 월 200만 원 부족을 호소하며 정년 연장 시 임금삭감 방식 지양을 요구했다고 매일경제가 보도했다.",
+     "source": "매일경제",
+     "id": 31,
+     "link": "https://www.mk.co.kr/news/economy/12204444"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "미국 10월 CPI 예상 상회로 연준 금리 인상 우려가 커지면서 비트코인이 7만4000달러에서 7만3000달러대로 하락했습니다. 마라톤 디지털이 보유 비트코인의 40%인 1만3597 BTC를 11억 달러에 매도해 대출 상환에 사용했고, 하이퍼스케일 데이터도 남은 211.56 BTC를 전량 매도해 AI 데이터센터 자금으로 돌렸습니다. 토큰화 주식 시장 운용자산이 48억 달러로 사상 최대치를 기록했으며 바이낸스 b스톡스가 15억 달러로 31% 점유율을 차지했습니다. 폴란드 하원이 암호자산 동결을 허용하는 제재 법안을 통과시켜 상원으로 넘겼습니다.",
+   "items": [
+    {
+     "title": "미국 10월 CPI 예상 상회, 비트코인 7만3000달러대 하락",
+     "summary": "10월 CPI가 전월 대비 0.4% 상승해 예상치 0.3%를 웃돌면서 연준 금리 인상 우려로 비트코인이 7만4000달러에서 7만3000달러대로 하락했다.",
+     "source": "블록미디어, 토큰포스트, CoinDesk",
+     "id": 46,
+     "link": "https://www.blockmedia.co.kr/archives/1163984?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "MARA 1만3597 BTC 매도, 하이퍼스케일 데이터 전량 매도",
+     "summary": "마라톤 디지털이 보유 비트코인의 40%인 1만3597 BTC를 11억 달러에 매도해 대출 상환에 사용했고, 하이퍼스케일 데이터도 남은 211.56 BTC를 전량 매도해 AI 데이터센터 자금으로 돌렸다.",
+     "source": "Bitcoin Magazine",
+     "id": 180,
+     "link": "https://bitcoinmagazine.com/news/mara-sells-13597-bitcoin-1-1-billion"
+    },
+    {
+     "title": "토큰화 주식 시장 48억 달러 사상 최대, 바이낸스 b스톡스 31% 점유",
+     "summary": "토큰화 주식 시장의 운용자산이 48억 달러로 사상 최고치를 기록했으며, 바이낸스의 b스톡스가 15억 달러로 시장 점유율 31%를 차지했다.",
+     "source": "토큰포스트",
+     "id": 47,
+     "link": "https://www.tokenpost.kr/news/cryptocurrency/435994"
+    },
+    {
+     "title": "폴란드 하원, 암호자산 동결 포함 제재 법안 통과",
+     "summary": "폴란드 하원이 개인과 기업을 국가 제재 명단에 추가할 근거를 넓히고 암호자산 동결을 허용하는 제재 법안을 통과시켜 상원으로 넘겼다.",
+     "source": "Cointelegraph",
+     "id": 62,
+     "link": "https://cointelegraph.com/news/poland-bill-freeze-sanctions-crypto-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 설치미술가 서도호가 내년 2월부터 뉴욕 구겐하임미술관에서 첫 대규모 개인전을 열고, 가수 이소라가 전 소속사 상대 저작인접권 압류로 45곡 권리 확보에 나섰으며, 천마총 금관 발굴 주역 김동현 전 국립문화재연구소장이 별세했습니다. 해외에서는 영국 작가 M. 존 해리슨이 SF 소설 최초로 부커상을 수상했고, 파리 오텔 메자라가 아르누보 전문 미술관으로 개관 예정이며, 힐마 아프 클린트 회화가 경매에 출품돼 작가 최고가 경신이 전망되고, 인도 모더니스트 화가 아르피타 싱이 별세했으며, 제2차대전 중 사라진 루벤스 유화 스케치 2점이 프리덴슈타인성 박물관에 반환됐습니다.",
+   "items": [
+    {
+     "title": "서도호, 뉴욕 구겐하임미술관서 첫 대규모 개인전 개최 예정",
+     "summary": "설치미술가 서도호가 20년간 살던 뉴욕 자택을 통째로 옮겨오는 등 30여 년 작업 세계를 아우르는 신작 포함 50점 이상을 내년 2월부터 8월까지 선보인다.",
+     "source": "뉴시스",
+     "id": 33,
+     "link": "https://www.newsis.com/view/NISX20261110_0003862676"
+    },
+    {
+     "title": "가수 이소라, 전 소속사 상대 '바람이 분다' 등 45곡 저작인접권 압류",
+     "summary": "이소라 측이 전 소속사 대표를 상대로 저작인접권 압류명령을 신청해 법원이 인용했으며, 45곡 권리 확보를 위한 법적 대응에 나섰다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261110172900005"
+    },
+    {
+     "title": "천마총 금관 발굴 주역 김동현 전 국립문화재연구소장 별세",
+     "summary": "1973년 천마총 발굴 당시 국보 금관을 직접 수습한 김동현 전 소장이 10일 향년 89세로 별세했다.",
+     "source": "매일경제, 뉴시스, 한겨레",
+     "id": 32,
+     "link": "https://www.mk.co.kr/news/culture/12204506"
+    },
+    {
+     "title": "영국 작가 M. 존 해리슨, SF 소설 최초로 부커상 수상",
+     "summary": "81세 작가 M. 존 해리슨이 포스트아포칼립스 소설 '모든 것의 끝'으로 부커상 역사상 최고령이자 첫 SF 장르 수상자가 됐다.",
+     "source": "가디언, BBC, 한국경제",
+     "id": 96,
+     "link": "https://www.theguardian.com/books/2026/nov/09/m-john-harrison-the-end-of-everything-wins-2026-booker-prize"
+    },
+    {
+     "title": "파리 오텔 메자라, 아르누보 전문 '뮈제 기마르'로 개관 예정",
+     "summary": "1910년 지어진 파리 16구 타운하우스 오텔 메자라가 아르누보 건축가 엑토르 기마르를 기리는 미술관으로 탈바꿈한다.",
+     "source": "NYT",
+     "id": 54,
+     "link": "https://www.nytimes.com/2026/11/10/arts/design/hotel-mezzara-paris-art-nouveau.html"
+    },
+    {
+     "title": "힐마 아프 클린트 'Ser III No. 5' 경매 출품, 작가 최고가 경신 전망",
+     "summary": "희귀한 힐마 아프 클린트 회화가 부코브스키 경매에 나와 기존 작가 경매 기록을 깰 가능성이 제기됐다.",
+     "source": "Artnet News",
+     "id": 69,
+     "link": "https://news.artnet.com/market/hilma-af-klint-ser-iii-no5-bukowskis-2834487"
+    },
+    {
+     "title": "인도 모더니스트 화가 아르피타 싱 별세, 향년 89세",
+     "summary": "인도 여성의 내면과 정치적 삶을 밀도 있게 그린 아르피타 싱이 뉴델리에서 노환으로 별세했으며, 현재 뉴욕에서 유작 전시 중이다.",
+     "source": "Artnet News, Artsy",
+     "id": 295,
+     "link": "https://news.artnet.com/art-world/arpita-singh-obituary-2834398"
+    },
+    {
+     "title": "제2차대전 중 사라진 루벤스 유화 스케치 2점, 프리덴슈타인성 박물관 반환",
+     "summary": "고타 공작박물관 소장 루벤스 스케치 5점 중 3점은 앞서 반환됐고, 남은 2점이 80년 만에 돌아와 전체 세트가 처음 공개된다.",
+     "source": "Artforum",
+     "id": 495,
+     "link": "https://www.artforum.com/news/two-lost-rubens-sketches-returned-to-friedenstein-castle-1234763258/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "앤트로픽이 클로드 페이블 5.2와 미토스 5.2를 출시해 코딩·과학 벤치마크 1위를 기록했고, 클로드 페이블 5.2가 전자기기 3종 회로 수정 없이 시제품 제작에 성공했습니다. 구글 딥마인드가 제미나이 로보틱스 2.5를 공개해 메르세데스 공장에서 실작업 시연을 보였고, 알파프루프 코드가 시그널 핵심 암호화 300만 줄을 린 증명으로 검증했습니다. 어도비가 포토샵·프리미어·파이어플라이에 AI 에이전트와 프로토타입 빌더를 추가했고, 오픈AI가 챗GPT 엔터프라이즈를 AWS 마켓플레이스에 제공하며 케어기버 무료 워크숍을 열었습니다. 앤트로픽이 IPO 로드쇼를 시작했습니다.",
+   "items": [
+    {
+     "title": "앤트로픽, 클로드 페이블 5.2·미토스 5.2 출시…코딩·과학 벤치마크 1위",
+     "summary": "앤트로픽이 최신 모델 클로드 페이블 5.2와 미토스 5.2를 공개하며 코딩, 금융, 과학 작업에서 새로운 기준을 세웠고, 인공분석 랭킹 1위를 기록했다.",
+     "source": "Anthropic, Latent Space, Simon Willison",
+     "id": 130,
+     "link": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+    },
+    {
+     "title": "클로드 페이블 5.2, 전자기기 3종 회로 수정 없이 시제품 제작 성공",
+     "summary": "앤트로픽 기술 보고서에 따르면 클로드 페이블 5.2가 전자회로 설계부터 부품 배치, 펌웨어 작성, 제조 가능성 검토까지 수행해 작동하는 시제품 3종을 제작했다.",
+     "source": "AI타임스",
+     "id": 126,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217243"
+    },
+    {
+     "title": "구글 딥마인드, 제미나이 로보틱스 2.5 공개…메르세데스 공장 실작업 시연",
+     "summary": "제미나이 로보틱스 2.5가 비전-언어-액션 모델로 로봇 덱스트리티와 신뢰성을 높여 메르세데스-벤츠 공장에서 실제 작업에 근접한 성능을 보였다.",
+     "source": "Google DeepMind, Ars Technica",
+     "id": 128,
+     "link": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/"
+    },
+    {
+     "title": "알파프루프 코드, 시그널 핵심 암호화 300만 줄 린 증명으로 검증",
+     "summary": "구글 딥마인드 알파프루프 코드 에이전트가 시그널 메신저의 핵심 암호화 프로토콜을 린(Lean) 언어로 300만 줄 증명해 검증했다.",
+     "source": "Google DeepMind",
+     "id": 9,
+     "link": "https://deepmind.google/blog/introducing-alphaproof-code/"
+    },
+    {
+     "title": "어도비, 포토샵·프리미어·파이어플라이에 AI 에이전트·프로토타입 빌더 추가",
+     "summary": "어도비 맥스 컨퍼런스에서 서드파티 AI 에이전트 연동, 파이어플라이 프로토타입 빌더, 퀵 컴페어 등 에이전틱 AI 기능을 크리에이티브 클라우드 전반에 도입했다.",
+     "source": "TechCrunch, The Verge",
+     "id": 133,
+     "link": "https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp/"
+    },
+    {
+     "title": "오픈AI, 챗GPT 엔터프라이즈 AWS 마켓플레이스 제공·케어기버 무료 워크숍",
+     "summary": "챗GPT 엔터프라이즈가 AWS 마켓플레이스에서 구매 가능해졌고, 오픈AI 아카데미가 미국 5개 도시 케어기버 대상 실습 워크숍을 무료로 연다.",
+     "source": "OpenAI",
+     "id": 353,
+     "link": "https://openai.com/index/chatgpt-enterprise-aws-marketplace"
+    },
+    {
+     "title": "Anthropic launches roadshow for proposed initial public offering",
+     "summary": "Today Anthropic, PBC launched the roadshow for its proposed initial public offering of its Class A common stock.",
+     "source": "Anthropic, TechCrunch, The Verge",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/roadshow-launch"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "한덕수 총리가 관계성 범죄에 무거운 책임감을 느끼며 국가 보호체계 전면 재정비 종합대책을 준비하겠다고 밝혔습니다. 이재명 대통령이 이주노동자 나눔 캠페인 현장에서 이주노동자를 산업현장 동료로 존중하고 안전한 일터를 챙기겠다고 약속했습니다. 정부가 청해부대 파병 연장안을 국회에 제출하며 이란 반발에 '전쟁 불관여' 원칙을 강조했고, 진보 야당은 '우회 파병'이라며 반발했습니다. 미국 공화당 매시 의원이 헤그세스 국방장관 탄핵소추안 8건을 제출했고, 헤그세스 장관과 백악관은 이를 반박하며 방어에 나섰습니다.",
+   "items": [
+    {
+     "title": "한덕수 총리 \"관계성 범죄에 무거운 책임감…종합대책 준비\"",
+     "summary": "한성숙 국무총리가 폭력으로 일상을 포기하는 피해자가 없도록 국가 보호체계를 전면 재정비하겠다고 밝힘.",
+     "source": "연합뉴스",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261110178900001"
+    },
+    {
+     "title": "이재명 대통령 \"이주노동자는 산업현장 동료…존중·안전한 일터 챙기겠다\"",
+     "summary": "대통령이 이주노동자 나눔 캠페인 현장에서 정부 차원의 꼼꼼한 지원을 약속함.",
+     "source": "연합뉴스, 한겨레",
+     "id": 454,
+     "link": "https://www.yna.co.kr/view/AKR20261110114351001"
+    },
+    {
+     "title": "정부, 청해부대 파병 연장안 국회 제출…이란 반발에 \"전쟁 불관여\" 원칙 강조",
+     "summary": "국무회의에서 소말리아·오만 해역 파견 연장 수정동의안을 의결해 국회에 제출했으며, 진보 야당은 '우회 파병'이라며 반발함.",
+     "source": "연합뉴스, 경향신문",
+     "id": 239,
+     "link": "https://www.yna.co.kr/view/AKR20261110054953001"
+    },
+    {
+     "title": "미 공화당 매시 의원, 헤그세스 국방장관 탄핵소추안 8건 제출…이란전 불법성 등 혐의",
+     "summary": "하원에서 탄핵소추안이 발의됐으며 헤그세스 장관은 '파시' '스턴트'라며 반박하고 백악관도 방어에 나섬.",
+     "source": "NYT, CBS News, NBC News",
+     "id": 51,
+     "link": "https://www.nytimes.com/2026/11/10/us/politics/hegseth-impeachment-explainer-massie.html"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "A.I. Fueled Nvidia CEO Jensen Huang’s Elite Status, but Scandal Followed",
+     "summary": "As chips became essential components for A.I., executives like Nvidia’s Jensen Huang saw their personal wealth and profi…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/09/technology/jensen-huang-nvidia-ai-chips-scandal.html"
+    },
+    {
+     "title": "What to Know About Nvidia’s Investigation of CEO Jensen Huang",
+     "summary": "Jensen Huang, the chief executive of the A.I. chip company, admitted to an affair with a woman who U.S. intelligence say…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/08/technology/nvidia-investigation-jensen-huang.html"
+    },
+    {
+     "title": "Ring, known for its doorbell cameras, launches a home security drone and an enterprise security robot",
+     "summary": "Amazon-owned Ring is pushing into robotics with the launch of a home security drone and a rolling robot designed to patr…",
+     "source": "TechCrunch",
+     "link": "https://techcrunch.com/2026/11/10/ring-known-for-its-doorbell-cameras-launches-a-home-security-drone-and-an-enterprise-security-robot/"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "축구 대표팀이 도하에서 모레노 감독 체제 첫 완전체 훈련을 진행하며 팀워크를 다졌습니다. 프로배구 한국전력이 아시아 쿼터 우스만 파야드 알리의 개인 최다 33점 활약으로 삼성화재를 꺾고 2연승을 달렸습니다.",
+   "items": [
+    {
+     "title": "축구 대표팀, 도하에서 첫 완전체 훈련 진행",
+     "summary": "태극전사들이 도하에서 모레노 감독 체제 첫 완전체 훈련을 실시하며 팀워크를 다졌습니다.",
+     "source": "연합뉴스",
+     "id": 26,
+     "link": "https://www.yna.co.kr/view/AKR20261110179800007"
+    },
+    {
+     "title": "프로배구 한국전력, 우스만 33점 활약으로 삼성화재 꺾고 2연승",
+     "summary": "한국전력이 아시아 쿼터 우스만 파야드 알리의 개인 최다 33점 활약에 힘입어 삼성화재를 제압하고 2연승을 달렸습니다.",
+     "source": "연합뉴스",
+     "id": 253,
+     "link": "https://www.yna.co.kr/view/AKR20261110176351007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "기타 해외": [
+   "Mistral AI",
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-11",
+   "sky": "대체로 맑음",
+   "now": "6°",
+   "lo": "4°",
+   "hi": "15°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +4°, 최저 +3°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "구름 조금 7°/16°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-11",
+   "sky": "맑음",
+   "now": "6°",
+   "lo": "6°",
+   "hi": "16°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +2°, 최저 0°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "대체로 맑음 8°/17°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-10",
+   "sky": "맑음",
+   "now": "19°",
+   "lo": "16°",
+   "hi": "30°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −2°, 최저 0°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 15°/30°"
+  }
+ ],
+ "message": {
+  "ko": "나도 모르게 남과 비교하게 되어도, 당신이 만드는 모든 선은 당신의 목소리예요.",
+  "en": "Even when you catch yourself comparing with others, every line you make is your own voice."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 84,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-10T15:46:55.609214+00:00"
+}
