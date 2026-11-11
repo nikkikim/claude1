@@ -1,0 +1,442 @@
+{
+ "headline": "무료 AI가 한도·혼잡으로 응답하지 못해 오늘은 헤드라인만 제공합니다 (잠시 뒤 자동으로 다시 시도하며, 안 되면 다음 발송부터 요약이 돌아옵니다)",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "items": [
+    {
+     "title": "Exclusive: EU's Kallas says US 'can't negotiate on our behalf' on lifting Russia sanctions",
+     "summary": "In an exclusive interview with FRANCE 24, the EU's top diplomat Kaja Kallas discusses the war in Ukraine, the situation…",
+     "source": "France 24",
+     "link": "https://www.france24.com/en/tv-shows/talking-europe/20261111-exclusive-eu-s-kallas-says-us-can-t-negotiate-on-our-behalf-on-lifting-russia-sanctions"
+    },
+    {
+     "title": "Russia, Ukraine agree on prisoner exchange as talks end without major breakthrough",
+     "summary": "Russia and Ukraine agreed to a large exchange of prisoners of war, both sides said Wednesday as two days of US mediated…",
+     "source": "SCMP",
+     "link": "https://www.scmp.com/news/world/europe/article/3374117/russia-ukraine-agree-prisoner-exchange-talks-end-without-major-breakthrough"
+    },
+    {
+     "title": "Iran vows not to give up \"a single particle\" of nuclear material",
+     "summary": "President Trump has repeatedly cited Iran's nuclear program as the core reason for going to war, but Tehran says it will…",
+     "source": "CBS News",
+     "link": "https://www.cbsnews.com/live-updates/iran-war-us-nuclear-strait-of-hormuz/"
+    },
+    {
+     "title": "Rubio backs blockade, Vance wants deal: Is Trump’s team split on Iran war?",
+     "summary": "Torn between military action and diplomacy, US appears to settle for drawn-out economic pressure campaign, blockade.",
+     "source": "Al Jazeera",
+     "link": "https://www.aljazeera.com/news/2026/11/11/is-trump-team-split-on-iran?traffic_source=rss"
+    },
+    {
+     "title": "US envoys to meet Putin after Ukraine talks in Abu Dhabi",
+     "summary": "Russia and Ukraine agreed on a major prisoner exchange - the \"biggest\" ever according to US envoy Jared Kushner, though…",
+     "source": "CNA",
+     "link": "https://www.channelnewsasia.com/world/russia-ukraine-abu-dhabi-talks-us-putin-6543276"
+    },
+    {
+     "title": "Lebanon Faces Economic ‘Catastrophe’ After War and Years of Mismanagement",
+     "summary": "Hezbollah’s conflict with Israel and the U.S.-Israel war with Iran have made systemic problems worse, causing the cost o…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/11/world/middleeast/lebanon-economy-crisis-corruption-war.html"
+    },
+    {
+     "title": "Baltic nations, Finland issue overnight drone warnings as Russia, Ukraine exchange strikes",
+     "summary": "By Andrius Sytas and Jekaterina Golubkova VILNIUS, Nov 11 (Reuters) - NATO scrambled jets overnight after at least four…",
+     "source": "Al-Monitor",
+     "link": "https://www.al-monitor.com/originals/2026/11/baltic-nations-finland-issue-overnight-drone-warnings-russia-ukraine-exchange"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "items": [
+    {
+     "title": "Inflation Report Doesn't Warrant 50 Bps Fed Rate Hike, David Rosenberg Says",
+     "summary": "Rosenberg Research founder and President David Rosenberg says a 50 basis-point rate hike by the Federal Reserve in Decem…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/videos/2026-11-11/cpi-report-doesn-t-warrant-50-bps-hike-david-rosenberg-video"
+    },
+    {
+     "title": "US tech stocks gain as AI trade revives",
+     "summary": "Better than expected CoreWeave results and the prospect of a higher IPO valuation for Anthropic boost sentiment after la…",
+     "source": "Financial Times",
+     "link": "https://www.ft.com/content/639de881-6017-454f-abfa-cfb191d1e7cd?syn-25a6b1a6=1"
+    },
+    {
+     "title": "증권 웃었지만 … 메리츠금융 고전",
+     "summary": "메리츠금융지주의 올해 3분기 당기순이익이 전년 동기 대비 26.6% 감소했다. 핵심 계열사인 메리츠화재가 금융시장 변동성 확대에 따른 투자손익 감소로 부진한 실적을 거둔 영향이다...",
+     "source": "매일경제",
+     "link": "https://www.mk.co.kr/news/stock/12205638"
+    },
+    {
+     "title": "US Stocks Rise as CoreWeave Outlook, Anthropic Revive AI Trade",
+     "summary": "US stocks opened higher Wednesday after better-than-expected results from CoreWeave Inc., investor enthusiasm for Anthro…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/articles/2026-11-11/us-equity-futures-rise-as-ai-enthusiasm-counters-hot-inflation"
+    },
+    {
+     "title": "Market angst is driving investors into low-volatility stocks as AI trade stumbles",
+     "summary": "Anxiety in the U.S. stock market has surged amid a sharp selloff in artificial intelligence names and stubbornly high bo…",
+     "source": "MarketWatch",
+     "link": "https://www.marketwatch.com/story/market-angst-is-driving-investors-into-low-volatility-stocks-as-ai-trade-stumbles-23d905e9?mod=mw_rss_topstories"
+    },
+    {
+     "title": "현기증 시달린 ETF·ETN … 하루 VI 발동, 10월의 3배",
+     "summary": "국내 증시가 급락과 반등을 반복하면서 상장지수펀드(ETF)와 상장지수증권(ETN)의 변동성완화장치(VI) 발동이 급증하고 있다. 이달 들어 8거래일 만에 지난 한 달간의 발동 건..",
+     "source": "매일경제",
+     "link": "https://www.mk.co.kr/news/stock/12205635"
+    },
+    {
+     "title": "US Stocks Climb as Wall Street Gets Fresh AI Fuel: Markets Wrap",
+     "summary": "A rally in tech giants drove stocks higher on bets the artificial-intelligence trade that has powered the bull market ha…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/articles/2026-11-10/stock-market-today-dow-s-p-live-updates"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "items": [
+    {
+     "title": "Deutsche Bank launches crypto custody for companies and institutions",
+     "summary": "Clients can store and transfer Bitcoin, Ether and select stablecoins through the bank, which manages their wallets and p…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/deutsche-bank-debuts-digital-asset-custody-services-eu?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "Deutsche Bank Switches On Bitcoin Custody for Paying Clients",
+     "summary": "Bitcoin Magazine Deutsche Bank Switches On Bitcoin Custody for Paying Clients Germany's largest lender now holds bitcoin…",
+     "source": "Bitcoin Magazine",
+     "link": "https://bitcoinmagazine.com/news/deutsche-bank-bitcoin-custody-live"
+    },
+    {
+     "title": "Here’s what happened in crypto today",
+     "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price,…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "크라켄 페이워드, 유럽·영국 주식 200종 토큰화",
+     "summary": "크라켄 모회사 페이워드(Payward)가 영국과 유럽 주요 기업의 주식 200종 이상을 토큰화했다. 미국 주식 중심이던 토큰화 플랫폼 엑스스톡스(xStocks)를 유럽으로 확대하면서 전체 상품 수는 1500종을 넘어…",
+     "source": "블록미디어",
+     "link": "https://www.blockmedia.co.kr/archives/1164510?utm_source=general&utm_medium=rss"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "items": [
+    {
+     "title": "Limited-Edition Screenprints for the Budding Collector",
+     "summary": "Ask a seasoned collector about their first acquisition, and you’re likely to hear that they began with limited-edition p…",
+     "source": "Colossal",
+     "link": "https://www.thisiscolossal.com/2026/11/prints-colossal-gift-guide-2026/"
+    },
+    {
+     "title": "‘시의 집’ 대문만 보고도 주인 안다",
+     "summary": "문학동네, 시인선 15주년 표지 전시후발주자로 기하학적 드로잉 특징문지 ‘시인 초상’ 민음사 ‘하드커버’고유 디자인, 출판사 정체성 표현문학동네 시인선 15주년을 기념하는 전시가 오는 15일까지 서울 인사동의 한 전…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611112026005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "Venice exhibition tells the story of the man who brought together contemporary artists and Murano’s master glassblowers",
+     "summary": "Show at the Peggy Guggenheim Collection looks at how Egidio Costantini helped artists such as Max Ernst and Lucio Fontan…",
+     "source": "The Art Newspaper",
+     "link": "https://www.theartnewspaper.com/2026/11/11/venice-exhibition-spotlights-the-man-who-brought-together-contemporary-artists-and-muranos-master-glassblowers"
+    },
+    {
+     "title": "발달장애 아동 그림 전시회 여는 삼성",
+     "summary": "삼성복지재단이 다음달 10일까지 삼성아동교육문화센터에서 서울특별시어린이병원 발달장애 아동·청소년 미술치료교육 작품 전시회 '작가의 비밀정원: 꿈의 조각들'을 개최한다고 11일 밝혔..",
+     "source": "매일경제",
+     "link": "https://www.mk.co.kr/news/culture/12205539"
+    },
+    {
+     "title": "“전쟁의 시대, 조선백자에 평화를 담았다”…김병주 대표, 150점 공개",
+     "summary": "흰색에도 저마다 다른 표정이 있다. 좌대 위에 놓인 조선백자들. 둥근 달항아리는 은은한 유백색을 띠고, 목이 길게 뻗은 병은 푸른빛이 감돈다. 어떤 것은 매끈하고, 어떤 것은 표면에 세월의 흔적을 고스란히 품었다.…",
+     "source": "뉴시스",
+     "link": "https://www.newsis.com/view/NISX20261111_0003864424"
+    },
+    {
+     "title": "A New Home for Native Art in New York",
+     "summary": "The Gochman Family Collection contains over 800 works by contemporary Native artists, most of which are seen by the publ…",
+     "source": "Hyperallergic",
+     "link": "https://hyperallergic.com/a-new-home-for-native-art-in-new-york/"
+    },
+    {
+     "title": "Do Ho Suh’s first New York museum survey to open at the Guggenheim in February 2027",
+     "summary": "The Guggenheim Museum in New York will present the first major museum exhibition in the city dedicated to Korean artist…",
+     "source": "Artsy",
+     "link": "https://www.artsy.net/article/artsy-editorial-ho-suhs-first-new-york-museum-survey-open-guggenheim-february-2027"
+    },
+    {
+     "title": "Prize dedicated to African women artists expands to Senegal, announces 2026 winners",
+     "summary": "The jury for this year’s Yaa Asantewaa Art Prize, founded by Gallery 1957, included Touria El Glaoui, the founder of the…",
+     "source": "The Art Newspaper",
+     "link": "https://www.theartnewspaper.com/2026/11/11/prize-dedicated-to-african-women-artists-expands-to-senegal-announces-2026-winners"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "items": [
+    {
+     "title": "'제미나이'가 기억하는 내 정보 한눈에 보여준다…수정·삭제도 가능",
+     "summary": "구글이 '제미나이'가 이용자에 대해 기억하는 정보를 한눈에 보여주는 '메모리 요약(Memory summary)' 기능을 도입했다. 이용자는 AI가 파악한 자신의 직업과 관심사, 생활 습관 등을 직접 확인하고 잘못된…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217297"
+    },
+    {
+     "title": "'페이블 5.2' 프롬프트 가이드 공개…\"코드 맡기면 정리 5배 증가\"",
+     "summary": "앤트로픽이 최신 모델 '클로드 페이블 5.2'의 프롬프트 작성법을 공개하며 기존 모델에 사용하던 지침을 재검토하라고 권고했다. 특히 코드의 소유권을 어떻게 표현하느냐에 따라 AI의 작업 방식이 크게 달라지는 것으로…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217271"
+    },
+    {
+     "title": "llm-gemini 0.36",
+     "summary": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's a…",
+     "source": "Simon Willison",
+     "link": "https://simonwillison.net/2026/Nov/10/llm-gemini/"
+    },
+    {
+     "title": "구글, '제미나이 로보틱스 2.5' 공개…공장 작업 성공률 96%",
+     "summary": "구글이 실제 자동차 공장에서 휴머노이드 로봇의 작업 성공률을 96%까지 높인 새로운 물리적 AI 모델을 공개했다. 기존 모델보다 정교한 손동작과 작업 속도를 개선하고, 최신 AI 모델을 로봇 훈련에도 활용해 산업 현…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217274"
+    },
+    {
+     "title": "Helping caregivers use AI in everyday life",
+     "summary": "OpenAI Academy is bringing free, hands-on ChatGPT workshops to caregivers in five U.S. cities, helping them build practi…",
+     "source": "OpenAI",
+     "link": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life"
+    },
+    {
+     "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+     "summary": "Google and Adobe are integrating creative and productivity tools. Edit PDFs in Drive and use Adobe AI in Gemini. See wha…",
+     "source": "Google AI",
+     "link": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/"
+    },
+    {
+     "title": "Closing the AI guidance gap in education",
+     "summary": "New ThinkYoung research and lessons from OpenAI’s EMEA education partnerships on supporting teachers, AI literacy, and i…",
+     "source": "OpenAI",
+     "link": "https://openai.com/index/closing-ai-guidance-gap-education"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "items": [
+    {
+     "title": "나경원 \"당나라 군대냐\"·강신철 \"말씀 취소하라\"…예결위 설전",
+     "summary": "강신철 국방부 장관은 11일 '북한과 전쟁이 일어났을 때 미군을 믿을 수 있냐'고 한 자신의 과거 발언에 대해...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261111182800001"
+    },
+    {
+     "title": "민주 수도권 의원들, 당 자제령 속 ‘부동산 토론회’…모임 16명 중 4명 참석",
+     "summary": "",
+     "source": "한겨레",
+     "link": "https://www.hani.co.kr/arti/politics/politics_general/1286900.html"
+    },
+    {
+     "title": "“종부세 ‘종’ 자도 안 나왔다”는 청와대 만찬···이 대통령, 여 지도부에 “당정 한마음 한뜻 움직여야”",
+     "summary": "이재명 대통령과 김민석 더불어민주당 대표를 비롯한 민주당 지도부가 11일 청와대에서 만찬을 하고 있다. 청와대 제공이재명 대통령이 11일 더불어민주당 김민석 대표와 한병도 원내대표 등 여당 지도부와 청와대에서 만찬을…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611112208001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "[사설] ‘젠슨 황, 중국 스파이’ 한국이었으면 잡아낼 수 있었겠나",
+     "summary": "",
+     "source": "조선일보",
+     "link": "https://www.chosun.com/opinion/editorial/2026/11/12/AHAHS3Q35NEV3GFPGIAKL6E4FQ/"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "items": [
+    {
+     "title": "Who Is Alice Huang, the Woman in the Middle of Nvidia’s Spy Scandal?",
+     "summary": "Alice Huang, who U.S. intelligence determined is a Chinese asset, emerged from the high-flying world of Shanghai finance…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/10/technology/alice-huang-megaspeed-nvidia-jensen-huang.html"
+    },
+    {
+     "title": "Siri co-founder backs Helix for its voice ID tech",
+     "summary": "Helix said that its voice ID tech can run on an iPhone 13",
+     "source": "TechCrunch",
+     "link": "https://techcrunch.com/2026/11/11/siri-co-founder-backs-helix-for-its-voice-id-tech/"
+    },
+    {
+     "title": "Correcting quantum computer errors may be more complicated than expected",
+     "summary": "Correcting quantum computer errors is key for making the devices practical, but some types of errors, and the complicati…",
+     "source": "New Scientist",
+     "link": "https://www.newscientist.com/article/2598161-correcting-quantum-computer-errors-may-be-more-complicated-than-expected/?utm_campaign=RSS|NSNS&utm_content=home&utm_medium=RSS&utm_source=NSNS"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "items": [
+    {
+     "title": "모레노호, 사우디전 대비 첫 전술훈련…승리 해법은 '세트피스'",
+     "summary": "=연합뉴스) 이영호 기자 = 모레노호가 11월 A매치 2연전 첫 상대인 사우디아라비아 격파의 해법으로 정교한 '세트 플레이'를 들...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261111182900007"
+    },
+    {
+     "title": "Pochettino a decade in Man Utd's making - but Carrick deserves better",
+     "summary": "Mauricio Pochettino looks set to turn a decade-long courtship with Man Utd into a full-blown relationship, says chief fo…",
+     "source": "BBC",
+     "link": "https://www.bbc.co.uk/sport/football/articles/cwzd9pvjy426o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  }
+ ],
+ "ai": false,
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "기타 해외": [
+   "Mistral AI",
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-12",
+   "sky": "대체로 맑음",
+   "now": "8°",
+   "lo": "6°",
+   "hi": "16°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +2°, 최저 +2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 8°/17°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-12",
+   "sky": "구름 조금",
+   "now": "9°",
+   "lo": "7°",
+   "hi": "17°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 +1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "구름 조금 7°/17°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-11",
+   "sky": "맑음",
+   "now": "16°",
+   "lo": "14°",
+   "hi": "30°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −1°, 최저 −2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 15°/25°"
+  }
+ ],
+ "message": {
+  "ko": "걱정이 자꾸 떠올라도, 오늘도 당신다운 하루를 만들 수 있어요. 행복한 하루 되세요.",
+  "en": "Even if worries keep coming up, you can make a day that is truly yours again today. Wishing you a happy day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-11T15:29:22.602772+00:00"
+}
