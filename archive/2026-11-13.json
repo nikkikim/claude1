@@ -1,0 +1,471 @@
+{
+ "headline": "미시시피 첫 흑인 상원의원 탄생·DC 총격·엔비디아 CEO 사임 파장…북핵·우크라·이란 외교 격랑",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "미시시피주에서 재건 시대 이후 140여 년 만에 첫 흑인 연방 상원의원이 탄생했습니다. 워싱턴DC 백악관 인근 로건서클에서 총격 사건이 발생해 1명이 사망하고 4명이 부상당했으며 용의자는 자살했습니다. 엔비디아 젠슨 황 CEO가 불륜 및 중국 스파이 의혹으로 전격 사임하면서 주가가 폭락했습니다. 북한 최선희 외무상은 G7 비핵화 성명을 '실현 불가'라 일축하며 핵보유 노선 불변을 선언했습니다. 우크라이나는 미·러 회담 중에도 스타링크·스타실드 위성 통신 차단이 재발했다고 밝히며 펜타곤과 스페이스X에 설명을 요구했습니다.",
+   "items": [
+    {
+     "title": "미시시피 첫 흑인 상원의원 탄생…140여 년 만의 역사적 승리",
+     "summary": "민주당 스콧 콜롬이 공화당 현역 신디 하이드스미스를 꺾고 미시시피주 연방 상원의원에 당선돼 재건 시대 이후 첫 흑인 상원의원이 됐습니다.",
+     "source": "연합뉴스, NBC News, Politico",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261113000700071"
+    },
+    {
+     "title": "워싱턴DC 로건서클 총격…1명 사망·4명 부상, 용의자 자살",
+     "summary": "백악관 인근 로건서클 지역에서 총격 사건이 발생해 1명이 숨지고 4명이 다쳤으며, 용의자는 경찰 대치 끝에 스스로 목숨을 끊었습니다.",
+     "source": "CBS News, ABC News, Fox News",
+     "id": 108,
+     "link": "https://www.aljazeera.com/video/newsfeed/2026/11/12/four-people-shot-in-washington-dc?traffic_source=rss"
+    },
+    {
+     "title": "엔비디아 젠슨 황 CEO 전격 사임…불륜·중국 스파이 의혹 파문",
+     "summary": "젠슨 황이 두 차례 불륜(한 명은 중국 스파이 혐의) 보도 후 CEO직에서 물러났으며, 주가는 장전 10% 이상 폭락해 시총 3500억 달러 이상 증발했습니다.",
+     "source": "NBC News, ABC News, The Independent",
+     "id": 76,
+     "link": "https://www.nbcnews.com/now/video/nvidia-ceo-jensen-huang-resigns-after-reports-of-extramarital-relationships-273331269840"
+    },
+    {
+     "title": "북한 외무상, G7 비핵화 성명에 '실현 불가·핵보유 불변' 반발",
+     "summary": "최선희 외무상이 G7 외교장관 공동성명을 '실현시킬 수 없다'고 일축하며 핵무력 강화 노선을 절대 바꾸지 않겠다고 밝혔습니다.",
+     "source": "연합뉴스, Yonhap English",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261112173500504"
+    },
+    {
+     "title": "우크라이나, 미 특사단 모스크바 회담 중 스타실드/스타링크 재차 차단 호소",
+     "summary": "젤렌스키 대통령은 미·러 회담 와중에도 우크라 군사용 위성 통신 시스템에 '중대한 차단'이 재발했다고 밝히며 펜타곤과 스페이스X에 설명을 요구했습니다.",
+     "source": "BBC, Axios, NBC News",
+     "id": 87,
+     "link": "https://www.bbc.co.uk/news/articles/cwrkgmymk55zo?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 젠슨 황 CEO 사임 여파로 주가가 10~13% 급락해 시가총액이 4조 달러 아래로 내려갔고, 월가 투자은행들이 목표주가를 줄하향하며 관련주도 동반 약세를 보였습니다. 삼성전자가 구글 제미나이 탑재 첫 AI 스마트안경 '인텔리전트 아이웨어'를 12월 10일 출시하며 국내 예약판매를 시작했습니다. 국내 증시 일평균 거래대금이 5월 65조 원에서 20조 원대로 60% 감소해 16년 만의 최저 회전율을 기록했습니다. 국민연금 엔비디아 평가액이 4개월 만에 4조 원 줄었고, 금융지주 CEO 3연임 시 주총 75% 찬성 의무화 등 지배구조 개선안이 발표됐습니다.",
+   "items": [
+    {
+     "title": "엔비디아 젠슨 황 CEO 사임…주식 10~13% 급락·시총 4조 달러 아래로",
+     "summary": "젠슨 황이 불륜 및 중국 스파이 의혹으로 CEO·이사직에서 즉시 사임했고, 콜레트 크레스 CFO가 임시 CEO로 선임되면서 주가가 장중 10~13% 폭락했다.",
+     "source": "한국경제, 매일경제, 블록미디어",
+     "id": 30,
+     "link": "https://www.mk.co.kr/news/stock/12207212"
+    },
+    {
+     "title": "월가, 엔비디아 목표주가 줄하향…'젠슨 황 리스크'에 관련주 동반 약세",
+     "summary": "황 CEO 퇴진 불확실성으로 주요 투자은행이 목표주가를 낮췄고, 국내 증권가에서도 엔비디아 의존도가 높은 종목들이 직격탄을 맞았다.",
+     "source": "한국경제, 매일경제, 한겨레",
+     "id": 144,
+     "link": "https://www.hankyung.com/article/202611123918i"
+    },
+    {
+     "title": "삼성전자, 첫 AI 스마트안경 '인텔리전트 아이웨어' 12월 10일 출시…65만~75만 원",
+     "summary": "구글 제미나이 탑재로 실시간 통역·검색·길안내 기능을 제공하는 삼성 첫 AI 안경이 뉴욕에서 공개됐으며, 국내 예약판매를 시작했다.",
+     "source": "매일경제, 한겨레, 경향신문",
+     "id": 31,
+     "link": "https://www.mk.co.kr/news/economy/12207244"
+    },
+    {
+     "title": "국내 증시 거래대금 6개월 새 60% 증발…코스피 6000선 아래 박스권",
+     "summary": "5월 65조 원이던 일평균 거래대금이 20조 원대로 떨어져 주식 회전율이 16년 만의 최저치를 기록했다.",
+     "source": "매일경제",
+     "id": 259,
+     "link": "https://www.mk.co.kr/news/stock/12206924"
+    },
+    {
+     "title": "국민연금 엔비디아 평가액 4개월 만에 4조 원 감소",
+     "summary": "엔비디아 주가 하락과 원화 강세로 국민연금 해외주식 평가손실이 확대됐다.",
+     "source": "전자신문",
+     "id": 380,
+     "link": "https://www.etnews.com/20261112000474"
+    },
+    {
+     "title": "금융지주 CEO 3연임 시 주총 75% 찬성 의무화…지배구조 개선안 발표",
+     "summary": "당정이 임추위 전원 독립이사 구성 등 연임 요건을 강화했으나, 4대 지주 이미 적용 중이라 실효성 의문이 제기된다.",
+     "source": "경향신문, 연합뉴스",
+     "id": 157,
+     "link": "https://www.khan.co.kr/article/202611122136015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 엔비디아 CEO 사임 여파와 기술주 매도세로 7만1000달러대까지 하락해 8월 중순 이후 최저치를 기록했습니다. 미국 현물 비트코인 ETF가 5일 연속 순유출됐고 블랙록 IBIT는 9일간 20억 달러 유출됐으며, MSCI는 마이크로스트래티지(MSTR)를 미국 지수에서 제외해 11월 30일까지 매도를 강제했습니다. DTCC가 2027년 하반기 솔라나를 토큰화 증권 서비스 대상에 포함하기로 했고, 앵커리지 디지털 USDPT 스테이블코인이 비자넷 결제망 정산 자산으로 채택됐습니다.",
+   "items": [
+    {
+     "title": "비트코인 7만1000달러대 하락…엔비디아 CEO 사임 여파",
+     "summary": "비트코인이 7만1346달러로 3.48% 하락하며 8월 중순 이후 최저치를 기록, 엔비디아 주가 급락과 기술주 매도세에 동반 약세.",
+     "source": "블록미디어, CoinDesk, Cointelegraph",
+     "id": 46,
+     "link": "https://www.blockmedia.co.kr/archives/1165155?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "블랙록 IBIT 9일 연속 순유출 20억 달러…전략(MSTR) MSCI 지수서 제외",
+     "summary": "미국 현물 비트코인 ETF가 5일 연속 순유출, 블랙록 IBIT만 9일간 20억 달러 유출됐으며 MSCI는 전략(MSTR)을 미국 지수에서 제외해 11월 30일까지 매도 강제.",
+     "source": "Bitcoin Magazine",
+     "id": 293,
+     "link": "https://bitcoinmagazine.com/markets/blackrock-ibit-nine-days-outflows"
+    },
+    {
+     "title": "DTCC, 2027년 하반기 솔라나 토큰화 플랫폼 추가 계획",
+     "summary": "월가 최대 결제기관 DTCC가 캔톤·베수 네트워크와 함께 솔라나를 토큰화 증권 서비스 대상에 2027년 하반기 포함하기로 결정.",
+     "source": "CoinDesk, Cointelegraph, The Block",
+     "id": 61,
+     "link": "https://www.coindesk.com/business/2026/11/12/dtcc-adds-solana-to-wall-street-tokenization-plans-targeting-2027-rollout"
+    },
+    {
+     "title": "앵커리지 디지털 USDPT, 비자넷 결제망 정산 자산으로 채택",
+     "summary": "앵커리지 디지털이 발행·수탁하는 웨스턴유니온 USDPT 스테이블코인이 비자넷 정산 자산으로 사용 가능해짐.",
+     "source": "Decrypt, The Block",
+     "id": 63,
+     "link": "https://decrypt.co/383098/anchorage-digital-stablecoins-settle-payments-visa-network"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 작곡가 이하느리가 제네바 국제음악콩쿠르 작곡 부문 우승을 차지했고, 이대원 회고전이 관람객 30만 명을 넘어 덕수궁관 역대 최다 기록을 세웠습니다. 고 전경철 작가의 자폐 아들을 위한 다큐멘터리가 공개됐고, 작곡가 신동훈이 한국 작곡 붐을 기대하며 포부를 밝혔으며, 뮤지컬 '두 도시 이야기'가 12년 만의 새 프로덕션으로 개막했습니다. 해외에서는 뉴욕타임스가 'Hard Art' 전시를 통해 흑인 추상미술의 정체성별 분류 타당성을 논의했고, 사이트 산타페가 제13회 비엔날레 주제 'There Are Other Worlds'와 아티스트 리스트를 발표했으며, 필립스 컬렉션이 역대 최대 1000만 달러 기부로 '글로벌 비전 펀드'를 출범했습니다.",
+   "items": [
+    {
+     "title": "작곡가 이하느리, 제네바 국제음악콩쿠르 작곡 부문 우승",
+     "summary": "한국예술종합학교 재학 중인 이하느리(20)가 제80회 제네바 국제음악콩쿠르 작곡 부문에서 우승했습니다.",
+     "source": "매일경제, 뉴시스, 한겨레",
+     "id": 367,
+     "link": "https://www.mk.co.kr/news/culture/12206677"
+    },
+    {
+     "title": "이대원 회고전 관람객 30만 명 돌파, 덕수궁관 역대 최다",
+     "summary": "덕수궁 국립현대미술관에서 열린 '세상에서 가장 행복한 화가' 이대원 회고전이 관람객 30만 명을 넘어 역대 최다 기록을 세웠습니다.",
+     "source": "연합뉴스",
+     "id": 452,
+     "link": "https://www.yna.co.kr/view/AKR20261112165800005"
+    },
+    {
+     "title": "故 전경철 작가 자폐 아들을 위한 '네버랜드' 다큐 공개",
+     "summary": "자폐 아들을 둔 고 전경철 작가의 마지막 여정을 담은 다큐멘터리가 공개돼 '나 없이 못 사는 아들을 지구에 남기고 싶다'는 부성애를 조명했습니다.",
+     "source": "연합뉴스",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261112186400005"
+    },
+    {
+     "title": "작곡가 신동훈 \"한국 작곡에도 '붐' 찾아오기를\"",
+     "summary": "작곡가 신동훈이 K팝·영화 등 한국 문화에 대한 세계적 관심을 작곡 분야로 확장하고 싶다는 포부를 밝혔습니다.",
+     "source": "연합뉴스",
+     "id": 239,
+     "link": "https://www.yna.co.kr/view/AKR20261112178200005"
+    },
+    {
+     "title": "뮤지컬 '두 도시 이야기' 12년 만의 새 프로덕션 개막",
+     "summary": "질 산토리엘로 원작 뮤지컬 '두 도시 이야기'가 12년 만에 새롭게 제작돼 광림아트센터에서 개막했으며 원작자도 만족감을 표했습니다.",
+     "source": "뉴시스",
+     "id": 262,
+     "link": "https://www.newsis.com/view/NISX20261112_0003866157"
+    },
+    {
+     "title": "NYT '흑인 추상미술' 전시 조명…정체성별 분류 타당성 제기",
+     "summary": "뉴욕타임스가 'Hard Art' 전시를 통해 흑인 추상미술을 정체성별로 분류하는 것의 타당성을 논의했습니다.",
+     "source": "NYT",
+     "id": 54,
+     "link": "https://www.nytimes.com/2026/11/12/arts/design/hard-art-review-moma-ps1.html"
+    },
+    {
+     "title": "사이트 산타페 제13회 비엔날레 주제 'There Are Other Worlds' 발표",
+     "summary": "큐레이터 에코 에쉰이 '다른 세계들은 이미 우리가 거주하는 세계 안에 존재한다'는 주제로 내년 6월 개막하는 비엔날레 아티스트 리스트를 공개했습니다.",
+     "source": "ARTnews, The Art Newspaper",
+     "id": 182,
+     "link": "https://www.artnews.com/art-news/news/site-santa-fe-13th-international-biennial-artist-list-1234805636/"
+    },
+    {
+     "title": "필립스 컬렉션, 1000만 달러 기부로 '글로벌 비전 펀드' 출범",
+     "summary": "워싱턴 D.C. 필립스 컬렉션이 개인 기부 역대 최대인 1000만 달러를 받아 글로벌 야망과 교육 부문을 지원하는 펀드를 신설했습니다.",
+     "source": "ARTnews",
+     "id": 294,
+     "link": "https://www.artnews.com/art-news/news/phillips-collection-10-million-gift-beatriz-graham-bolton-1234805659/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "구글 딥마인드가 세포 단위 유전자 변이 영향을 예측하는 '알파게놈 2'를 공개해 원인 변이 식별 성능이 2배 향상됐습니다. 앤트로픽이 코딩·과학 특화 모델 '클로드 페이블 5.2'와 '미소스 5.2'를 출시했고, 클래스 A 보통주 IPO 로드쇼를 시작했습니다. 메타가 GPU 클러스터링을 45배 가속하는 'e-민즈' 알고리즘을 오픈소스로 배포했습니다. 엔비디아 젠슨 황 CEO가 부적절한 관계 의혹 조사 후 사임하고 코렛 크레스 CFO가 임시 CEO로 선임됐습니다. 구글이 구조화 의사결정 모델 '제미나이 디시전스' API와 '제미나이 4 카본', '제미나이 인텔리전스' 기능을 확대 출시했고, 구글 딥마인드가 알파프루프 코드로 시그널 암호화 프로토콜을 수학적으로 공식 검증했습니다.",
+   "items": [
+    {
+     "title": "구글 딥마인드, 세포 단위 유전자 변이 예측 '알파게놈 2' 공개",
+     "summary": "구글 딥마인드가 DNA 변이의 세포 유형별 유전자 발현 영향을 예측하는 알파게놈 2를 발표했으며, 원인 변이 식별 성능이 기존 대비 약 2배 향상됐다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217309"
+    },
+    {
+     "title": "앤트로픽, 코딩·과학 특화 '클로드 페이블 5.2'와 '미소스 5.2' 출시",
+     "summary": "앤트로픽이 어려운 기술 작업에 최적화된 클로드 페이블 5.2와 클로드 미소스 5.2를 공개하며 코딩, 금융, 과학 분야 성능을 대폭 높였다.",
+     "source": "Anthropic",
+     "id": 131,
+     "link": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+    },
+    {
+     "title": "메타, GPU 클러스터링 45배 가속 'e-민즈' 오픈소스 공개",
+     "summary": "메타가 기존 k-민즈 대비 GPU에서 최대 45배 빠른 데이터 군집화 알고리즘 e-민즈를 오픈소스로 배포해 AI 검색·추천 시스템 구축 효율을 높였다.",
+     "source": "AI타임스",
+     "id": 127,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217327"
+    },
+    {
+     "title": "엔비디아 젠슨 황 CEO 사임, 코렛 크레스 임시 CEO 선임",
+     "summary": "엔비디아 이사회가 젠슨 황 CEO의 부적절한 관계 의혹 조사 후 사임을 발표하고, CFO 코렛 크레스를 임시 CEO로 임명했다.",
+     "source": "The Verge AI, Ars Technica AI, Wired AI",
+     "id": 16,
+     "link": "https://www.theverge.com/ai-artificial-intelligence/1032028/read-nvidias-internal-emails-jensen-huang"
+    },
+    {
+     "title": "앤트로픽, 클래스 A 보통주 IPO 로드쇼 개시",
+     "summary": "앤트로픽이 기업공개(IPO)를 위한 로드쇼를 시작하며 클래스 A 보통주 공모 절차에 돌입했다.",
+     "source": "Anthropic",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/roadshow-launch"
+    },
+    {
+     "title": "구글, 제미나이 디시전스 API·제미나이 4 카본·제미나이 인텔리전스 확장 출시",
+     "summary": "구글이 예스/노·선택·루브릭 채점 등 구조화 의사결정 모델 '제미나이 디시전 1' API를 제브와 유사한 인터페이스로 공개하고, 제미나이 4 카본과 제미나이 인텔리전스 기능을 더 많은 기기로 확대했다.",
+     "source": "Simon Willison, Google DeepMind, Google AI",
+     "id": 20,
+     "link": "https://simonwillison.net/2026/Nov/11/gemini-decisions-api/"
+    },
+    {
+     "title": "구글 딥마인드, 알파프루프 코드로 시그널 암호화 프로토콜 수학적 검증",
+     "summary": "구글 딥마인드 연구진이 에이전트형 AI를 활용해 시그널 프로토콜 핵심 암호화 보장을 린(Lean) 언어로 300만 줄 증명하며 공식 검증했다.",
+     "source": "Google DeepMind, Ars Technica AI",
+     "id": 129,
+     "link": "https://deepmind.google/blog/introducing-alphaproof-code/"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "더불어민주당 김민석 대표가 최민희 최고위원의 '윤 탄핵 반대' 발언 등 언행 논란으로 당 윤리감찰단에 즉시 감찰을 지시했습니다. 국민의힘은 윤리위원발 '조작 징계 의혹' 폭로로 장동혁 대표 측과 한동훈 의원 측이 충돌했으나 전면전은 자제하는 가운데 한동훈 복당 문제를 둘러싼 찬반이 엇갈리고 있습니다. 트럼프 대통령이 밴스 부통령을 이란 핵협상에서 배제하고 선거 사기 조사에 집중하라고 지시했습니다. 미국 우크라이나 특사단이 푸틴 대통령 회담 후 젤렌스키 대통령과 회동하기 위해 모스크바를 출발했고, 우크라이나는 스타실드 방공체계 제한이 재등장했다고 경고했습니다.",
+   "items": [
+    {
+     "title": "민주당 김민석 대표, 최민희 최고위원 '윤 탄핵 반대' 발언 등 언행 논란으로 즉시 감찰 지시",
+     "summary": "김민석 대표가 최민희 최고위원의 비공개 간담회 발언이 언론에 보도되자 당 윤리감찰단에 감찰을 지시했으며, 민주당은 '심각한 사안'이라며 조사에 착수했다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261112183100001"
+    },
+    {
+     "title": "국민의힘, '조작 징계 의혹' 폭로로 장동혁-한동훈 갈등 격화…한동훈 복당 놓고 당내 분열",
+     "summary": "국민의힘 윤리위원발 조작 징계 의혹으로 장동혁 대표 측과 무소속 한동훈 의원 측이 충돌했으나, 전면전은 자제하는 분위기 속에서 한동훈 복당 문제를 둘러싼 찬반이 엇갈린다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 453,
+     "link": "https://www.yna.co.kr/view/AKR20261112080252001"
+    },
+    {
+     "title": "트럼프 대통령, 밴스 부통령 이란 핵협상 배제 지시…'이란과 합의 필요 없다'며 사기 수사 집중 명령",
+     "summary": "트럼프 대통령이 소셜미디어를 통해 밴스 부통령을 이란 핵협상에서 빼고 선거 사기 조사에 집중하라고 발표하며, 이란 핵합의 전망에 의문을 키웠다.",
+     "source": "NYT",
+     "id": 279,
+     "link": "https://www.nytimes.com/2026/11/12/us/politics/trump-vance-iran-fraud.html"
+    },
+    {
+     "title": "미국 우크라이나 특사단, 푸틴 회담 후 젤렌스키와 회동 위해 모스크바 출발…스타실드 제한 재등장 경고",
+     "summary": "미국 특사들이 푸틴 대통령과 회담한 뒤 키예프로 이동해 젤렌스키 대통령과 만날 예정이며, 우크라이나는 스타실드 방공체계 제한이 재등장했다고 경고했다.",
+     "source": "Bloomberg",
+     "id": 285,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-12/us-envoys-witkoff-kushner-putin-talks-ukraine-zelenskyy-opportunity"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him",
+     "summary": "Mr. Huang, Nvidia’s chief executive, is already facing scrutiny over an affair with a Chinese businesswoman who U.S. int…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/11/technology/jensen-huang-nvidia-affair.html"
+    },
+    {
+     "title": "What we know as Nvidia CEO Jensen Huang resigns over affair allegations",
+     "summary": "The billionaire tech executive has left the company following reports of a second extramarital affair.",
+     "source": "BBC",
+     "link": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "Data Centers Will Continue to Be Built, Despite Midterm Elections",
+     "summary": "Big technology companies saw the tide turn against their giant A.I. projects, but they have the means to weather delays.",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/12/technology/voters-data-centers-construction.html"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "잉글랜드 프리미어리그 크리스털 팰리스가 강등권 탈출을 위해 피에르 사지 감독을 16경기 만에 경질하고 프랭크 감독 선임을 위한 막바지 협상을 진행 중입니다. 맨체스터 유나이티드도 마이클 캐릭 감독을 15경기 만에 해임해 최근 3시즌 연속 감독 교체라는 혼란이 지속되고 있습니다.",
+   "items": [
+    {
+     "title": "크리스털 팰리스, 피에르 사지 감독 16경기 만에 경질…프랭크 감독 선임 막바지 협상",
+     "summary": "강등권에 처진 팰리스가 사지 감독을 해임하고 프랭크 감독 영입을 위한 최종 협상을 진행 중이다.",
+     "source": "BBC",
+     "id": 92,
+     "link": "https://www.bbc.co.uk/sport/football/articles/cv5y18lkk87do?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "맨체스터 유나이티드, 마이클 캐릭 감독 15경기 만에 경질…3시즌 연속 감독 교체 혼란 지속",
+     "summary": "캐릭 감독이 2년 계약 후 15경기 만에 해임돼 맨유는 최근 3시즌 동안 세 번째 감독 교체를 맞았다.",
+     "source": "BBC",
+     "id": 207,
+     "link": "https://www.bbc.co.uk/sport/football/articles/cm0rl4kwn8vqo?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "기타 해외": [
+   "Mistral AI",
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-13",
+   "sky": "흐림",
+   "now": "9°",
+   "lo": "8°",
+   "hi": "17°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 +2°",
+   "precip": "강수 가능성 낮음(20%)",
+   "tomorrow": "약한 비 9°/12°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-13",
+   "sky": "흐림",
+   "now": "9°",
+   "lo": "7°",
+   "hi": "17°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 0°",
+   "precip": "강수 가능성 낮음(38%)",
+   "tomorrow": "비 12°/14°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-12",
+   "sky": "흐림",
+   "now": "18°",
+   "lo": "14°",
+   "hi": "26°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −5°, 최저 0°",
+   "precip": "강수 가능성 낮음(5%)",
+   "tomorrow": "비 15°/20°"
+  }
+ ],
+ "message": {
+  "ko": "내가 느리다고 느껴져도, 천천히 숨 쉬면 답이 보이기 시작해요. 언제나 당신 편이에요.",
+  "en": "Even if you feel you're moving slowly, breathe slowly and the answer begins to show. Always on your side."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 84,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-12T16:09:43.721106+00:00"
+}
