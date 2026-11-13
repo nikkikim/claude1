@@ -1,0 +1,488 @@
+{
+ "headline": "한중 외교장관 회담서 한반도 평화 협력 확인…미 대선 후 정국 요동·러우 전쟁 지속·스포츠계 감독 교체",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "한중 외교장관 회담에서 한반도 평화와 안정이 양국 공동이익임을 확인하고 한국인 무비자 입국 연장 등 현안을 논의했습니다. 북한은 헌법 개정으로 국기 비율을 변경하고 폴더블 스마트폰을 공개했으며, 미국은 북한 연계 해킹 그룹의 가상자산 12억 달러 압류를 승인받았습니다. 러시아-우크라이나 전쟁이 격화되는 가운데 트럼프 2기 행정부 출범을 앞두고 미·중·러 정상회담설과 아세안 정상회의 등 외교 일정이 주목받고 있습니다.",
+   "items": [
+    {
+     "title": "한중 외교장관 회담, 한반도 평화 공동이익 확인",
+     "summary": "조현 외교부 장관과 왕이 중국 외교부장이 베이징에서 만나 한반도 평화·안정이 양국 공동이익이라며 협력을 다짐했고, 한국인 무비자 입국 연장 등 현안도 논의했다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261113174652083"
+    },
+    {
+     "title": "북한, 헌법 개정으로 인공기 비율 변경·폴더블폰 공개",
+     "summary": "북한이 1948년 건국 이후 처음으로 헌법을 개정해 국기 가로세로 비율을 바꿨고, 화면이 접히는 폴더블 스마트폰을 선보이며 IT 역량을 과시했다.",
+     "source": "연합뉴스",
+     "id": 453,
+     "link": "https://www.yna.co.kr/view/AKR20261113030351504"
+    },
+    {
+     "title": "미국, 북한 해킹 탈취 가상자산 12억 달러 압류 승인",
+     "summary": "미 법무부가 북한 연계 해킹 그룹이 바이낸스에서 훔친 12억 달러 규모 가상자산에 대한 압류·동결 법원 승인을 받았다.",
+     "source": "Yonhap English",
+     "id": 47,
+     "link": "https://en.yna.co.kr/view/AEN20261113008800315"
+    },
+    {
+     "title": "트럼프 2기 행정부 출범 앞두고 미·중·러 정상회담설·아세안 정상회의 등 외교 일정 주목",
+     "summary": "시진핑·트럼프·푸틴 3자 회담 개최 가능성이 거론되고, 트럼프 대통령이 마닐라 아세안 정상회의에서 '팍스 실리카' 참여를 압박할 예정이다.",
+     "source": "DW, SCMP, Foreign Policy",
+     "id": 107,
+     "link": "https://www.dw.com/en/beijing-faces-its-russia-dilemma-amid-talk-of-xi-trump-putin-summit/a-79942427?maca=en-rss-en-all-1573-rdf"
+    },
+    {
+     "title": "러시아-우크라이나 전쟁 격화…자포리자 공습·흑해 함정 피격·나토 철수 요구",
+     "summary": "러시아가 자포리자 공습으로 30명 부상시키고, 우크라이나 드론이 핀란드만 러시아 군함을 타격했으며, 러시아는 나토 동부 전력 철수를 평화협상 조건으로 내걸었다.",
+     "source": "Kyiv Independent, Bloomberg, Al Jazeera",
+     "id": 445,
+     "link": "https://kyivindependent.com/russia-strikes-zaporizhzhia-injures-13-including-5-children/"
+    },
+    {
+     "title": "이란, 바레인 주둔 미 조기경보 레이더 공격 주장…미군 드론 격추로 반박",
+     "summary": "이란 혁명수비대가 바레인 내 미 레이더 타격을 주장했으나, 미군은 이란 공격 드론 2기를 격추했다고 발표했다.",
+     "source": "연합뉴스, Middle East Eye",
+     "id": 452,
+     "link": "https://www.yna.co.kr/view/AKR20261113126651009"
+    },
+    {
+     "title": "콩고 에볼라 확산·아이티 갱단 장악 경기장 탈환·수단 금 밀수 UAE 유입 등 분쟁·보건 위기 지속",
+     "summary": "콩고 에볼라 발생지가 반군 폭력과 겹쳐 대응이 어렵고, 아이티 보안군이 2년 만에 국립경기장 탈환, 수단 밀수 금 591톤이 UAE로 유입된 것으로 나타났다.",
+     "source": "NYT, France 24, Middle East Eye",
+     "id": 48,
+     "link": "https://www.nytimes.com/2026/11/13/world/africa/ebola-congo-isis.html"
+    }
+   ],
+   "id": "world"
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 젠슨 황 CEO가 불륜 스캔들로 사임하고 콜레트 크레스 CFO가 임시 CEO로 선임되면서 엔비디아 주가가 11% 이상 폭락해 반도체 섹터가 동반 하락했습니다. 미국 10월 PPI가 예상치를 하회하며 뉴욕증시가 상승 출발했으나, 중기부 창업 사업과 금융권에서 연쇄적인 개인정보 유출 사고가 발생했습니다. 정부는 석유 최고가격을 5차례 연속 동결했고, 이재명 대통령은 적대적 M&A 규제 전수조사와 자본시장법 개정을 지시했습니다.",
+   "items": [
+    {
+     "title": "젠슨 황 엔비디아 CEO 불륜 스캔들로 사임, 임시 CEO에 콜레트 크레스 CFO 선임",
+     "summary": "젠슨 황이 중국 스파이 의혹 여성과의 불륜 등 복수의 불륜 의혹으로 12일(현지시간) CEO 및 이사회에서 사임했고, 콜레트 크레스 CFO가 임시 CEO로 임명됐다.",
+     "source": "한국경제, 경향신문, NYT",
+     "id": 26,
+     "link": "https://www.hankyung.com/article/202611136086i"
+    },
+    {
+     "title": "엔비디아 주가 급락에 반도체 섹터 동반 하락…월가 '매도' 경고도",
+     "summary": "엔비디아 주가가 11% 이상 폭락하며 필라델피아 반도체 지수를 끌어내렸고, 마이클 버리 등 유명 투자자들이 매도를 경고했으나 개인 투자자들은 저가 매수에 나섰다.",
+     "source": "한국경제, 매일경제, Bloomberg",
+     "id": 140,
+     "link": "https://www.hankyung.com/article/2026111360727"
+    },
+    {
+     "title": "미 10월 PPI 전년비 6.5% 상승…예상치 하회에 증시 상승 출발",
+     "summary": "10월 생산자물가지수(PPI)가 전년 대비 6.5% 올라 시장 예상치(6.6%)를 밑돌았고, 전월 대비 0.3% 상승에 그치며 연준의 금리 인상 압력이 완화돼 뉴욕증시가 상승 출발했다.",
+     "source": "블록미디어, 토큰포스트, Investing.com",
+     "id": 45,
+     "link": "https://www.blockmedia.co.kr/archives/1165673?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "중기부 '2차 모두의 창업' 참가자 818명 개인정보 유출…5개월 만에 재발",
+     "summary": "중소벤처기업부 주관 '2차 모두의 창업' 사업에서 AI 솔루션 공급기업 아미쿠스렉스의 취약한 API를 노린 해킹으로 참가자 818명의 개인정보가 유출돼 1차 사고와 판박이 양상을 보였다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261113174151030"
+    },
+    {
+     "title": "금융보안원·KB캐피탈·더존비즈온 연쇄 해킹…금융권 보안 비상",
+     "summary": "금융보안원이 246개 공격 IP를 차단하고, KB캐피탈에서 임직원·고객 1800여명 정보가 유출됐으며, 더존비즈온 해킹 여파로 전남광주 기관 4곳도 유출 우려가 제기됐다.",
+     "source": "매일경제, 전자신문, 연합뉴스",
+     "id": 30,
+     "link": "https://www.mk.co.kr/news/economy/12208349"
+    },
+    {
+     "title": "정부, 석유 최고가격 5차례 연속 동결…휘발유 1784원 유지",
+     "summary": "국제유가 하락에도 중동 정세 불안과 해상운임 부담을 고려해 12차 석유 최고가격을 4주간 동결, 휘발유 리터당 1784원·경유 1773원·등유 1380원을 유지하기로 했다.",
+     "source": "매일경제, 한겨레, 경향신문",
+     "id": 371,
+     "link": "https://www.hani.co.kr/arti/economy/economy_general/1287274.html"
+    },
+    {
+     "title": "이재명 대통령, 적대적 M&A 규제 전수조사 지시…자본시장법 개정 추진",
+     "summary": "이 대통령이 M&A 활성화를 위해 적대적 M&A를 가로막는 규제를 전수조사하라고 지시했고, 의무공개매수제 도입 등 자본시장 정상화 방안을 논의했다.",
+     "source": "매일경제, 연합뉴스",
+     "id": 29,
+     "link": "https://www.mk.co.kr/news/stock/12208451"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "크라켄 모회사 페이워드의 3분기 조정 EBITDA가 66% 감소했으나 펀딩 계정은 37% 증가했고, 미국 예측시장과 AI 에이전트 진출로 수익 다각화를 추진합니다. 로빈후드의 10월 암호화폐 거래량은 48% 줄었으나 이벤트 계약 거래는 2배 이상 늘었습니다. 테더 지원 Twenty One Capital은 비트코인 평가익으로 3분기 10.9억 달러 순이익을 냈으나 영업손실을 기록했습니다.",
+   "items": [
+    {
+     "title": "크라켄 모회사 페이워드, 3분기 조정 EBITDA 66% 감소…미국 예측시장·AI 에이전트 진출",
+     "summary": "페이워드의 3분기 조정 EBITDA가 전년비 3분의 1로 줄었으나 펀딩 계정은 37% 증가했고, 미국 예측시장과 개인금융 AI 에이전트 출시로 수익 다각화를 추진한다.",
+     "source": "The Block, CoinDesk",
+     "id": 62,
+     "link": "https://www.theblock.co/news/business/2026-11-13-kraken-parent-payward-posts-66-drop-in-q3-adjusted-ebitda-plans-us-prediction-markets-and-personal-finance-ai-agent-439721"
+    },
+    {
+     "title": "로빈후드 10월 암호화폐 거래량 48% 감소…이벤트 계약은 2배 이상 증가",
+     "summary": "로빈후드의 10월 암호화폐 거래대금이 170억 달러로 전년비 48% 줄었으나, 이벤트 계약 거래는 2배 이상 늘어 수익 구조 변화가 감지됐다.",
+     "source": "Bitcoin Magazine",
+     "id": 63,
+     "link": "https://bitcoinmagazine.com/news/robinhood-crypto-volume-falls-48-percent"
+    },
+    {
+     "title": "테더 지원 Twenty One Capital, 3분기 순이익 10.9억 달러…비트코인 평가익 덕분",
+     "summary": "Twenty One Capital이 비트코인 가격 상승에 따른 평가익으로 3분기 10.9억 달러 순이익을 냈으나 영업손실 480만 달러를 기록해 본업 수익성은 부진했다.",
+     "source": "The Block",
+     "id": 176,
+     "link": "https://www.theblock.co/news/business/2026-11-13-tether-backed-twenty-one-capital-reports-1-09-billion-q3-net-income-on-bitcoin-gains-439711"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서 AI가 작곡하고 부른 곡 '머무르'가 멜론 톱100 사상 첫 1위를 차지했고, 국립현대미술관 신임 관장에 기혜경 홍익대 교수가 임명됐으며 연극 '투신 Two Scenes'가 개막했습니다. 해외에서는 뉴욕 ADAA 페어와 아트위크 뉴욕이 개막해 나라 요시토모 작품 등이 주목받았고, 파리 포토가 사진 200주년을 기념하며 열렸습니다. 영국 테이트 브리튼은 블룸즈버리 그룹 전시로 초기 영국 고흐 수용사를 조명하고, 중앙아시아에 신규 미술관과 비엔날레가 잇달아 출범했습니다.",
+   "items": [
+    {
+     "title": "AI 작곡·가창 곡 '머무르', 멜론 톱100 사상 첫 1위",
+     "summary": "AI가 작곡하고 부른 '꿈꾸던 어른이 되었나요?'가 13일 멜론 톱100 차트 1위에 올라 국내 주요 음원 플랫폼에서 AI 창작곡이 처음 정상을 차지했다.",
+     "source": "한겨레, 경향신문, 조선일보",
+     "id": 34,
+     "link": "https://www.hani.co.kr/arti/culture/music/1287281.html"
+    },
+    {
+     "title": "국립현대미술관 신임 관장에 기혜경 홍익대 교수 임명",
+     "summary": "국립현대미술관 새 관장으로 기혜경 홍익대 교수가 선임됐다.",
+     "source": "한겨레",
+     "id": 148,
+     "link": "https://www.hani.co.kr/arti/culture/culture_general/1287222.html"
+    },
+    {
+     "title": "연극 '투신 투 신스'·'투신 Two Scenes' 개막…타인의 추락 방관하는 현대인 조명",
+     "summary": "극공작소 마방진 창단 20주년작 '투신 Two Scenes'가 마포아트센터에서 개막해 CCTV 속 투신 사건을 재구성하며 방관자의 심리를 다뤘다.",
+     "source": "연합뉴스, 뉴시스, 헤럴드경제",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261113174000005"
+    },
+    {
+     "title": "뉴욕 ADAA 페어 개막…현대미술 거장부터 신진까지 폭넓게 출품",
+     "summary": "ADAA 페어가 대형 추상화부터 조용한 회화까지 현대·동시대 미술 스펙트럼을 선보이며 아트위크 뉴욕의 포문을 열었다.",
+     "source": "NYT",
+     "id": 52,
+     "link": "https://www.nytimes.com/2026/11/12/arts/design/adaa-fair-american-art-dealers-armory-hopper.html"
+    },
+    {
+     "title": "아트위크 뉴욕서 나라 요시토모 작품 대거 출품…데이비드 즈위르너 두 개 전시장 채워",
+     "summary": "첼시 데이비드 즈위르너 갤러리가 나라 요시토모 회화로 두 개 공간을 채워 개막일 수시간 줄서기 행렬이 이어졌다.",
+     "source": "ARTnews",
+     "id": 65,
+     "link": "https://www.artnews.com/art-news/market/new-york-art-week-2026-gallery-shows-prices-1234805711/"
+    },
+    {
+     "title": "파리 포토 개막…그랑팔레 246개 갤러리 참여, 사진 200주년 기념",
+     "summary": "파리 포토가 그랑팔레에서 VIP 프리뷰를 시작으로 246개 출품자와 함께 사진 매체 200주년을 기념하며 개막했다.",
+     "source": "ARTnews",
+     "id": 179,
+     "link": "https://www.artnews.com/art-news/market/paris-photo-2026-report-photography-bicentennial-1234805587/"
+    },
+    {
+     "title": "센트럴아시아 미술 붐…신규 미술관·비엔날레 잇달아 출범",
+     "summary": "중앙아시아 지역에 새로운 미술관과 비엔날레가 연이어 생겨나며 문화 지형이 급격히 변화하고 있다.",
+     "source": "Artnet News",
+     "id": 182,
+     "link": "https://news.artnet.com/multimedia/central-asia-art-boom-2830389"
+    },
+    {
+     "title": "테이트 브리튼, 블룸즈버리 그룹 전시로 초기 영국 고흐 수용사 조명",
+     "summary": "바네사 벨과 던컨 그랜트 중심의 블룸즈버리 그룹 전시가 영국 미술계의 초기 빈센트 반 고흐 수용 과정을 새롭게 조명한다.",
+     "source": "The Art Newspaper",
+     "id": 214,
+     "link": "https://www.theartnewspaper.com/2026/11/13/tates-bloomsbury-group-exhibition-throws-fresh-light-on-early-british-enthusiasm-for-van-gogh"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "구글이 제미나이 4 하이드로젠을 전 세계 검색에 적용해 역대 최대 업그레이드를 단행했습니다. 엔비디아 젠슨 황 CEO가 중국 스파이 연루 의혹 등으로 사임하며 미 의회 조사가 시작됐고, 앤트로픽은 제조업 전용 '클로드 포 매뉴팩처링'을 출시했습니다. MS 365 전 세계 장애로 아웃룩·팀즈·코파일럿 등 AI 연동 서비스가 하루 가까이 중단됐으며, 오픈AI 코덱스와 챗GPT 활용 기업 사례에서 생산성 50% 향상 효과가 보고됐습니다. 미스트랄 AI는 엔터프라이즈 에이전트 배포 플랫폼을, 라마.cpp는 1.0 버전을 각각 출시했습니다.",
+   "items": [
+    {
+     "title": "구글, 제미나이 4 하이드로젠 전 세계 검색에 적용…'역대 최대 업그레이드'",
+     "summary": "구글이 최신 모델 제미나이 4 하이드로젠을 글로벌 검색에 배포해 복합 질의 이해·비교표·이미지 제공 능력이 크게 향상됐다고 발표했다.",
+     "source": "AI타임스, Google AI, The Verge AI",
+     "id": 125,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217360"
+    },
+    {
+     "title": "엔비디아 젠슨 황 CEO 전격 사임…중국 스파이 연루·트럼프 연계 의혹으로 미 의회 조사 착수",
+     "summary": "젠슨 황이 33년 만에 엔비디아 CEO에서 물러났으며, 중국 스파이 연루설과 트럼프 연계 의혹으로 미 상무장관 압박과 민주당 주도의 의회 조사가 시작됐다.",
+     "source": "The Verge AI, Ars Technica AI, Wired AI",
+     "id": 20,
+     "link": "https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/"
+    },
+    {
+     "title": "앤트로픽, 제조업 전용 '클로드 포 매뉴팩처링' 출시…17개 스킬·오토데스크·MS365 연동",
+     "summary": "앤트로픽이 견적·품질검사·설비분석 등 제조업 핵심 업무를 지원하는 17개 스킬과 주요 엔지니어링 툴 연동을 갖춘 전용 플러그인을 선보였다.",
+     "source": "AI타임스",
+     "id": 239,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217361"
+    },
+    {
+     "title": "MS 365 전 세계 장애로 아웃룩·팀즈·코파일럿·챗GPT·클로드 연동 중단…하루 가까이 복구 지연",
+     "summary": "마이크로소프트 365 대규모 장애로 이메일·협업·AI 비서뿐 아니라 챗GPT·클로드 업무 연동까지 영향을 받으며 아시아태평양 업무시간까지 이어졌다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217394"
+    },
+    {
+     "title": "오픈AI 코덱스·챗GPT로 곤돌라·홀리데이 엑스트라 개발 생산성 50%↑·예약 전환율 향상",
+     "summary": "코덱스와 챗GPT를 활용한 기업 사례에서 리드 엔지니어 산출량 50% 증가와 고객 전문성 앱 전환·예약 전환율 개선 효과가 보고됐다.",
+     "source": "OpenAI",
+     "id": 126,
+     "link": "https://openai.com/business/customer-stories/gondola"
+    },
+    {
+     "title": "미스트랄 AI, 엔터프라이즈 에이전트 배포 플랫폼 '미스트랄 스튜디오·르 총크' 출시",
+     "summary": "미스트랄이 모델·데이터·인프라 완전 제어 하에 기업용 에이전트·워크플로·앱을 빠르게 구축·배포하는 스튜디오와 르 총크를 공개했다.",
+     "source": "Mistral AI",
+     "id": 12,
+     "link": "https://mistral.ai/news/build-with-studio/"
+    },
+    {
+     "title": "라마.cpp v1.0.0 릴리스…로컬 AI 생태계 기반 강화",
+     "summary": "로컬 LLM 추론 엔진 라마.cpp가 1.0 버전으로 업데이트돼 안정성과 성능 기반을 다졌다.",
+     "source": "Hugging Face",
+     "id": 11,
+     "link": "https://huggingface.co/blog/ggml-org/llama-cpp-v1"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "대법원이 한덕수 전 총리 석방 가능성 보도에 대해 이례적으로 '단정 자제'를 요청했습니다. 이재명 대통령은 범LG 3세 구본현 씨 검거를 계기로 '법을 지켜야 한다'고 강조했고, 국회 교육위는 사립대 반값등록금 지원 예산 2조 7000억 원 증액을 의결했습니다. 미국 민주당에서 크리스 밴홀런 상원의원이 척 슈머 원내대표에 도전장을 냈습니다.",
+   "items": [
+    {
+     "title": "대법원, 한덕수 전 총리 석방 보도에 '단정 자제' 요청",
+     "summary": "대법원이 구속만기일(20일)을 앞둔 한덕수 전 총리 석방 가능성 보도에 대해 이례적으로 '단정 말라'는 공지를 언론에 보냈다.",
+     "source": "오마이뉴스, 한겨레",
+     "id": 43,
+     "link": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003284793"
+    },
+    {
+     "title": "이재명 대통령, 범LG 3세 구본현 검거에 '법 지켜야' 강조",
+     "summary": "이 대통령이 주가조작 혐의로 8년간 도피하던 범LG가 3세 구본현 씨 검거를 계기로 '새로운 한국에서는 법을 지켜야 한다'고 밝혔다.",
+     "source": "연합뉴스",
+     "id": 123,
+     "link": "https://www.yna.co.kr/view/AKR20261113181200001"
+    },
+    {
+     "title": "국회 교육위, 사립대 반값등록금 예산 2.7조 원 증액 의결",
+     "summary": "교육위원회 예결소위가 사립대 반값등록금 지원 사업 예산을 2조 7000억 원 늘리는 안을 통과시켰다.",
+     "source": "연합뉴스",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261113182800001"
+    },
+    {
+     "title": "미 민주당 밴홀런 상원의원, 슈머 원내대표에 도전장",
+     "summary": "진보 성향 크리스 밴홀런(메릴랜드) 의원이 중도파 척 슈머 원내대표에 맞서 차기 원내대표 경선 출마를 선언했다.",
+     "source": "연합뉴스, NYT, NBC News",
+     "id": 233,
+     "link": "https://www.yna.co.kr/view/AKR20261113182300071"
+    }
+   ],
+   "id": "politics"
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "MS 365 전 세계 장애가 18시간 넘게 지속돼 아웃룩·팀즈·코파일럿 등 서비스에 영향을 줬으며, 원인은 해킹이 아닌 서버 헬스체크 실패로 밝혀졌습니다. 삼성·구글·젠틀몬스터 협업 AI 안경 '인텔리전트 아이웨어'가 한국과 미국에서 사전예약 완판되며 초기 흥행에 성공했습니다. 일레븐랩스는 기업용 AI 회의록·받아쓰기 앱 'ElevenAI'를 시범 공개했습니다.",
+   "items": [
+    {
+     "title": "MS 글로벌 아웃데이지 18시간 넘게 지속…서버 헬스체크 실패 원인",
+     "summary": "아웃룩·팀즈·코파일럿 등 MS 365 및 클라우드 서비스가 전 세계적으로 장애를 일으켰으며, MS는 해킹이 아닌 서버 예기치 않은 가용 불가로 다른 시스템에 부담을 준 것이 원인이라고 밝혔다.",
+     "source": "한겨레, BBC, Guardian",
+     "id": 149,
+     "link": "https://www.hani.co.kr/arti/economy/it/1287277.html"
+    },
+    {
+     "title": "삼성·구글·젠틀몬스터 AI 안경 '인텔리전트 아이웨어' 사전예약 완판",
+     "summary": "삼성전자·구글·젠틀몬스터 협업 AI 안경이 한국과 미국에서 사전예약 시작 수시간 만에 주요 제품 품절, 뉴욕 체험 행사도 예약 마감되며 초기 흥행에 성공했다.",
+     "source": "전자신문",
+     "id": 158,
+     "link": "https://www.etnews.com/20261113000294"
+    },
+    {
+     "title": "일레븐랩스, 기업용 AI 회의록·받아쓰기 앱 'ElevenAI' 시범 공개",
+     "summary": "음성 AI 스타트업 일레븐랩스가 회의 내용 기록·요약·후속 작업 생성과 받아쓰기 기능을 결합한 기업용 앱 ElevenAI를 뉴욕 서밋에서 선보이고 무료 사전 이용 신청을 받았다.",
+     "source": "토큰포스트",
+     "id": 273,
+     "link": "https://www.tokenpost.kr/news/ai/437960"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "축구 대표팀이 모레노 체제 첫 경기에서 사우디 원정 전반을 0-1로 뒤진 채 마쳤으며 손흥민과 이강인이 선발 출전했습니다. 야구 대표팀은 APBC 일본전에서 8회 동점을 만들었으나 9회 대량 실점으로 5-9 역전패해 대회 2연패를 기록했습니다.",
+   "items": [
+    {
+     "title": "축구 대표팀, 사우디 원정 전반 0-1 뒤진 채 종료…손흥민·이강인 선발",
+     "summary": "클린스만 감독 경질 후 모레노 체제 첫 경기에서 한국이 사우디아라비아에 전반 0-1로 끌려갔으며, 손흥민과 이강인 등 핵심 선수들이 선발로 나섰다.",
+     "source": "연합뉴스",
+     "id": 25,
+     "link": "https://www.yna.co.kr/view/AKR20261114000800007"
+    },
+    {
+     "title": "야구 대표팀, APBC 일본전 8회 동점 만들고도 5-9 역전패",
+     "summary": "아시아프로야구챔피언십(APBC) 일본전에서 한국이 8회 극적 동점을 이뤘으나 9회 대량 실점하며 5-9로 져 대회 2연패를 기록했다.",
+     "source": "연합뉴스, Yonhap English",
+     "id": 139,
+     "link": "https://www.yna.co.kr/view/AKR20261113180600007"
+    }
+   ],
+   "id": "sports"
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "기타 해외": [
+   "Mistral AI",
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-14",
+   "sky": "약한 이슬비",
+   "now": "10°",
+   "lo": "9°",
+   "hi": "12°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −3°, 최저 +2°",
+   "precip": "비 예보(강수확률 100%, 약 1.0mm)",
+   "tomorrow": "대체로 맑음 7°/15°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-14",
+   "sky": "비",
+   "now": "12°",
+   "lo": "11°",
+   "hi": "14°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −3°, 최저 +3°",
+   "precip": "비 예보(강수확률 100%, 약 18.1mm)",
+   "tomorrow": "이슬비 10°/18°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-13",
+   "sky": "비",
+   "now": "16°",
+   "lo": "15°",
+   "hi": "19°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −7°, 최저 +1°",
+   "precip": "비 예보(강수확률 60%, 약 9.2mm)",
+   "tomorrow": "약한 이슬비 12°/22°"
+  }
+ ],
+ "message": {
+  "ko": "바람이 찬 아침에도, 당신의 속도는 틀리지 않았어요. 오늘의 당신에게 박수를!",
+  "en": "Even on a cold, windy morning, your pace is not wrong. Applause for today's you!"
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-13T15:34:49.415563+00:00"
+}
