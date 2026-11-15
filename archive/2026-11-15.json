@@ -1,0 +1,494 @@
+{
+ "headline": "미·중·러 선전 정상회담 앞두고 우려 고조, 북한 최측근 방러·이란 유조선 피격 등 안보 불안 확산",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "미·중·러 정상이 오는 19일 중국 선전에서 만나 무역·안보 현안을 논의할 예정이며, 북한 조용원 당 비서가 러시아를 방문해 북러 동맹 관계를 과시했습니다. 이란 호르무즈 해협에서 유조선 3척이 기뢰 피격으로 화재가 발생했고, 미국은 우크라이나에 돈바스 양보 시 나토 가입을 제안한 것으로 전해졌습니다. 스페이스X가 스타십 우주선 본체를 발사대 기계팔로 공중 회수하는 데 사상 처음 성공했고, 아세안 정상회의가 필리핀 마닐라에서 개막해 주요국 외교전이 펼쳐지고 있습니다.",
+   "items": [
+    {
+     "title": "미·중·러 선전 정상회담 임박…'제2 얄타회담' 우려",
+     "summary": "트럼프, 푸틴, 시진핑이 오는 19일 중국 선전에서 만나 무역·안보 현안을 논의할 예정이며, 주변국들은 강대국 밀실 합의 가능성을 우려하고 있다.",
+     "source": "연합뉴스, LA Times, The Diplomat",
+     "id": 329,
+     "link": "https://www.yna.co.kr/view/AKR20261115009600009"
+    },
+    {
+     "title": "북한 조용원 당 비서 방러…북러 '전투적 우의·동맹' 과시",
+     "summary": "김정은 최측근 조용원 노동당 비서가 대표단을 이끌고 러시아를 방문, 북러 관계 강화와 동맹 관계 공고화를 확인했다고 조선중앙통신이 보도했다.",
+     "source": "연합뉴스, 경향신문, Yonhap English",
+     "id": 330,
+     "link": "https://www.yna.co.kr/view/AKR20261115005600504"
+    },
+    {
+     "title": "이란 호르무즈 해협서 유조선 3척 기뢰 피격·화재",
+     "summary": "이란 해군은 호르무즈 해협에서 유조선 3척이 기뢰를 맞아 화재가 발생했다고 밝혔으며, 이란 혁명수비대(IRGC)는 2척 피격을 확인했다.",
+     "source": "Al-Monitor, BBC, Middle East Eye",
+     "id": 72,
+     "link": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz"
+    },
+    {
+     "title": "미국, 우크라에 '돈바스 양보 시 나토 가입' 제안",
+     "summary": "젤렌스키 우크라이나 대통령은 미국 협상단이 동부 돈바스 지역 철수 대가로 나토 가입을 제안했다고 밝혔으나, 미국 측은 확인하지 않았다.",
+     "source": "Sky News, BBC, Kyiv Independent",
+     "id": 102,
+     "link": "https://news.sky.com/story/us-asks-if-ukraine-would-give-up-parts-of-donbas-for-nato-membership-zelenskyy-says-13612188"
+    },
+    {
+     "title": "후티 반군 드론, 사우디 동부 상공서 격추",
+     "summary": "사우디 주도 연합군은 사우디 동부 지역에서 후티 반군이 발사한 드론 1대를 요격·파괴했다고 발표했다.",
+     "source": "Middle East Eye",
+     "id": 101,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/houthi-drone-shot-down-over-saudi-arabias-eastern-region"
+    },
+    {
+     "title": "스페이스X, 스타십 우주선 본체 첫 공중 회수 성공",
+     "summary": "스페이스X가 스타십 6차 시험비행에서 우주선 상단을 발사대 기계팔 '젓가락'으로 잡아 회수하는 데 사상 처음 성공했다.",
+     "source": "연합뉴스, BBC, France 24",
+     "id": 498,
+     "link": "https://www.yna.co.kr/view/AKR20261115010500091"
+    },
+    {
+     "title": "아세안 정상회의 마닐라 개막…한미일 등 주요국 외교전",
+     "summary": "아세안 회원국과 한국·미국·일본 등 주요국 정상이 참석한 아세안 정상회의가 필리핀 마닐라에서 개막해 무역·안보·에너지 위기 등을 논의한다.",
+     "source": "연합뉴스, Japan Times, SCMP",
+     "id": 228,
+     "link": "https://www.yna.co.kr/view/AKR20261114048100084"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "스페이스X가 스타십 로켓 첫 회수에 성공하며 완전 재사용 로켓 개발의 이정표를 세웠고, 마이크로소프트가 36시간 만에 글로벌 서비스 장애를 복구했습니다. 젠슨 황 CEO 사임 파문으로 엔비디아와 AI 관련 주가 변동성이 확대되면서 개인 투자자 신용융자 잔고가 44조 원을 돌파했습니다. 중앙그룹 회생 계열사 매각이 본격화되고 시중은행이 청약 철회 신용대출에도 고금리를 부과해 5년간 18억 원 수익을 올렸으며, LG전자 테네시 공장 세탁가전 누적 생산이 1천만 대를 넘어섰습니다.",
+   "items": [
+    {
+     "title": "스페이스X, 스타십 로켓 첫 회수 성공…완전 재사용 로켓 이정표",
+     "summary": "스페이스X가 스타십 우주선을 발사 지점으로 되돌려 '젓가락' 타워로 잡아내는 데 처음 성공하며 완전 재사용 로켓 개발에 핵심 진전을 이뤘다.",
+     "source": "한국경제, NYT, Bloomberg",
+     "id": 25,
+     "link": "https://www.hankyung.com/article/2026111568607"
+    },
+    {
+     "title": "MS 글로벌 장애 36시간 만에 복구…아웃룩·팀즈·코파일럿 정상화",
+     "summary": "마이크로소프트가 네트워크 용량 업그레이드 문제로 발생한 전 세계 서비스 장애를 36시간 만에 완전히 복구했다고 밝혔다.",
+     "source": "한겨레, BBC, The Guardian",
+     "id": 34,
+     "link": "https://www.hani.co.kr/arti/economy/economy_general/1287340.html"
+    },
+    {
+     "title": "젠슨 황 스캔들로 엔비디아·AI주 변동성 확대…개인 빚투 44조 원 돌파",
+     "summary": "젠슨 황 CEO 사임 파문으로 필라델피아 반도체지수가 급락하는 등 AI 관련주가 흔들렸고, 개인 투자자 신용융자 잔고가 44조 원을 넘어섰다.",
+     "source": "매일경제, 한국경제, 한겨레",
+     "id": 143,
+     "link": "https://www.mk.co.kr/news/stock/12208238"
+    },
+    {
+     "title": "중앙그룹 회생 4개사 매각 본격화…휘닉스중앙 본입찰 진행",
+     "summary": "회생절차 중인 중앙그룹 4개 계열사 매각을 위한 관계인설명회가 열리고 휘닉스중앙은 본입찰에 들어가는 등 M&A 절차가 가속화되고 있다.",
+     "source": "매일경제",
+     "id": 28,
+     "link": "https://www.mk.co.kr/news/stock/12209084"
+    },
+    {
+     "title": "시중은행, 청약 철회 신용대출에도 연 12% 금리 부과…5년간 이자 18억 원 수익",
+     "summary": "대출 실행 후 빠르게 철회해도 최고 연 12% 금리를 물리는 관행으로 주요 은행이 최근 5년간 약 18억 원의 이자 수입을 올렸다.",
+     "source": "매일경제",
+     "id": 29,
+     "link": "https://www.mk.co.kr/news/economy/12209081"
+    },
+    {
+     "title": "LG전자 테네시 공장 세탁가전 누적 생산 1천만 대 돌파",
+     "summary": "LG전자가 미국 테네시 세탁가전 공장에서 누적 생산 1천만 대를 달성하며 북미 생산 거점 1위를 굳혔다.",
+     "source": "경향신문",
+     "id": 38,
+     "link": "https://www.khan.co.kr/article/202611151000011/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "한-투르크메니스탄 세관상호지원협정 발효…무역·통관 협력 강화",
+     "summary": "한국과 투르크메니스탄 간 세관상호지원협정이 발효돼 정보 교환과 통관 협력이 제도화됐다.",
+     "source": "연합뉴스",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261115014200504"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 한 달간 17% 급락해 6만 4000달러 선이 붕괴됐고 이더리움 낙폭이 더 컸습니다. 미국 비트코인 현물 ETF에서 2주 연속 10억 달러 이상 순유출이 이어졌고 블랙록 IBIT는 11거래일 연속 유출을 기록했습니다. 카바 렌드 해킹으로 380만 달러 피해가 발생해 KAVA 토큰이 40% 폭락했고, 메가이더리어드가 직원 20% 감원과 함께 AI 사업으로 전환을 발표했습니다.",
+   "items": [
+    {
+     "title": "비트코인 한 달 17% 급락, 3개월 만 6만 4000달러 아래로…이더리움 낙폭 더 커",
+     "summary": "비트코인이 1개월간 17% 이상 떨어져 6만 4000달러 선이 붕괴됐고, 이더리움은 24시간 5%대 하락으로 낙폭이 더 가팔랐다.",
+     "source": "블록미디어, 토큰포스트, CoinDesk",
+     "id": 44,
+     "link": "https://www.blockmedia.co.kr/archives/1166015?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "미 비트코인 현물 ETF 2주 연속 10억 달러 이상 순유출…블랙록 11일 연속 유출",
+     "summary": "미국 현물 비트코인 ETF에서 2주 연속 약 15.5억 달러가 빠져나갔고, 블랙록 IBIT는 11거래일 연속 순유출을 기록했다.",
+     "source": "The Block, Cointelegraph",
+     "id": 281,
+     "link": "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337"
+    },
+    {
+     "title": "카바 렌드 해킹으로 380만 달러 피해…KAVA 토큰 40% 폭락",
+     "summary": "카바 렌드에서 약 4920만 KAVA가 BNB체인으로 브리지돼 매각되면서 380만 달러 손실이 발생하고 KAVA 가격이 40% 가까이 급락했다.",
+     "source": "The Block",
+     "id": 62,
+     "link": "https://www.theblock.co/news/defi/2026-11-14-kava-lend-loses-roughly-3-8-million-to-hack-sending-kava-token-down-nearly-40-440350"
+    },
+    {
+     "title": "메가이더리어드, 직원 20% 감원하며 AI 사업으로 전환",
+     "summary": "이더리움 스케일링 프로젝트 메가이더리어드가 구조조정으로 인력 20%를 줄이고 AI 사업에 집중하기로 했다.",
+     "source": "CoinDesk, Cointelegraph",
+     "id": 174,
+     "link": "https://www.coindesk.com/business/2026/11/14/ethereum-scaling-project-megaeth-slashes-staff-by-20-as-it-pursues-ai-business"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 AI 음악 프로젝트 '머무르' 곡이 멜론 톱100 1위를 처음 기록했고, 15세 바이올리니스트 이현정이 롱티보 국제 콩쿠르 3위에 입상했습니다. 제이슨 므라즈 내한 공연과 울산암각화박물관 2년 연속 10만 관람객 돌파, 서울·베를린 문화 페스티벌 개최 등 다양한 문화 행사가 이어졌습니다. 해외에서는 유대인 상속인이 소더비 경매 출품 반고흐 작품 매각에 이의를 제기했고, ADAA 페어가 새 이름으로 축소 재개했으며 휘트니 미술관이 드 쿠닝 작품을 크리스티 경매에 출품했습니다.",
+   "items": [
+    {
+     "title": "AI 음악 프로젝트 '머무르' 곡, 멜론 톱100 1위 첫 기록",
+     "summary": "AI를 활용해 만든 '꿈꾸던 어른이 되었나요?'가 발매 5개월 만에 국내 최대 음원 플랫폼 멜론 일간 차트 1위에 올랐다.",
+     "source": "뉴시스",
+     "id": 350,
+     "link": "https://www.newsis.com/view/NISX20261115_0003868276"
+    },
+    {
+     "title": "바이올리니스트 이현정(15), 롱티보 국제 콩쿠르 3위 입상",
+     "summary": "만 15세 이현정이 프랑스 파리에서 열린 2026 롱티보 콩쿠르 바이올린 부문에서 3위와 상금 1만2000유로를 수상했다.",
+     "source": "한국경제, 뉴시스",
+     "id": 27,
+     "link": "https://www.hankyung.com/article/202611146662i"
+    },
+    {
+     "title": "제이슨 므라즈 내한 공연…'오늘이 가장 젊은 날' 메시지 전해",
+     "summary": "가수 제이슨 므라즈가 한국에서 공연하며 '사랑 전도사'다운 무대와 긍정적 메시지로 관객과 소통했다.",
+     "source": "연합뉴스",
+     "id": 122,
+     "link": "https://www.yna.co.kr/view/AKR20261114048900005"
+    },
+    {
+     "title": "울산암각화박물관, 2년 연속 연간 관람객 10만 명 돌파",
+     "summary": "올해 11월 8일 기준 누적 관람객 10만54명을 기록해 작년보다 40일 빨리 10만 명을 넘어섰다.",
+     "source": "연합뉴스",
+     "id": 332,
+     "link": "https://www.yna.co.kr/view/AKR20261113128000057"
+    },
+    {
+     "title": "제1회 서울·베를린 문화 페스티벌, 베를린 슈프레강변서 성황리 개최",
+     "summary": "서울시 지원으로 베를린 이스트사이드 갤러리에서 서울 인디밴드 공연 등 문화교류 행사가 열려 1000여 명이 참석했다.",
+     "source": "헤럴드경제",
+     "id": 253,
+     "link": "https://biz.heraldcorp.com/article/10937227"
+    },
+    {
+     "title": "유대인 상속인, 소더비 경매 출품 반고흐 '피어나는 밤나무' 1.8억 달러 매각에 이의 제기",
+     "summary": "나치 시대 강압적 매각이었다며 소송을 예고했고, 소더비 측은 원만히 해결하겠다고 밝혔다.",
+     "source": "NYT",
+     "id": 52,
+     "link": "https://www.nytimes.com/2026/11/13/arts/design/van-gogh-sale-sothebys.html"
+    },
+    {
+     "title": "ADAA 페어, 1년 공백 뒤 새 이름·축소 규모로 뉴욕 파크애비뉴 아모리에서 재개",
+     "summary": "63개 회원 갤러리가 참여하고 휘트니 미술관과 협력하는 등 새로운 형식으로 11월 13~16일 열렸다.",
+     "source": "ARTnews, The Art Newspaper",
+     "id": 65,
+     "link": "https://www.artnews.com/art-news/market/adaa-fair-2026-best-booths-sales-new-york-1234805934/"
+    },
+    {
+     "title": "휘트니 미술관, 드 쿠닝 '옐로 리버' 1200만~1800만 달러 추정가 크리스티 경매 출품",
+     "summary": "소장품 정리 차원에서 1958년작을 매각해 향후 구입 기금으로 활용할 계획이다.",
+     "source": "Artforum",
+     "id": 463,
+     "link": "https://www.artforum.com/news/the-whitney-museum-sends-de-kooning-to-auction-1234763584/"
+    }
+   ],
+   "id": "culture"
+  },
+  {
+   "topic": "AI",
+   "overview": "앤트로픽이 클로드 페이블 5.2와 미토스 5.2를 출시해 코딩·금융·과학 성능을 대폭 향상시켰고, 구글이 제미나이 4 하이드로젠과 카본을 공개하며 검색·API·가격 체계를 개편했습니다. 오픈AI가 챗GPT 월렛을 출시해 닷츠 에이전트가 사용자 승인하에 카드 결제를 수행하도록 했습니다. 엔비디아 투자자들이 젠슨 황 복귀를 요구하는 가운데 MS 365 전 세계 서비스 장애가 복구됐고, 아마존이 월드 프로덕트 그래프로 상품 정보 통합을 추진하며 랭체인이 30억 달러 밸류에이션으로 투자 유치에 성공했습니다.",
+   "items": [
+    {
+     "title": "Anthropic, 클로드 페이블 5.2·미토스 5.2 출시…코딩·금융·과학 성능 대폭 향상",
+     "summary": "가장 까다로운 기술 작업에 특화된 새 모델로 벤치마크 신기록을 세웠다고 밝혔다.",
+     "source": "Anthropic",
+     "id": 129,
+     "link": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+    },
+    {
+     "title": "Google, 제미나이 4 하이드로젠·카본 공개…검색·API·가격 체계 개편",
+     "summary": "하이드로젠은 저비용 모델로 전 세계 검색에 적용되고, 카본은 상위 모델로 API 제공을 시작했다.",
+     "source": "Google DeepMind, Google AI, Simon Willison",
+     "id": 9,
+     "link": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/"
+    },
+    {
+     "title": "OpenAI, 챗GPT 월렛 출시…닷츠 에이전트가 사용자 승인하에 카드 결제 수행",
+     "summary": "미국 챗GPT 프로 구독자부터 순차 적용되며 아멕스·체이스·마스터·비자 카드 연동 가능하다.",
+     "source": "OpenAI, The Verge AI",
+     "id": 8,
+     "link": "https://openai.com/index/introducing-chatgpt-wallet"
+    },
+    {
+     "title": "엔비디아 투자자들 \"젠슨 황 복귀 검토해야\"…머스크 등 거물 가세",
+     "summary": "젠슨 황 전 엔비디아 CEO의 복귀를 요구하는 목소리가 실리콘밸리 기술 업계에서 주요 투자자들로 이어지고 있다. 엔비디아 지분 20억달러 이상을 보유한 투자사 두 곳이 이사회에 후임 CEO 선임을 서두르지 말고, 황…",
+     "source": "TechCrunch AI, 한국경제(AI타임스), The Verge AI",
+     "id": 125,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217413"
+    },
+    {
+     "title": "MS 365 전 세계 서비스 24시간 장애 완전 복구…원인은 잘못된 업데이트",
+     "summary": "아웃룩·팀즈 등 협업 도구 중단으로 금융권은 팩스·전화로 대체 업무 처리했다.",
+     "source": "AI타임스, Wired AI",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217414"
+    },
+    {
+     "title": "아마존, '월드 프로덕트 그래프'로 전 세계 상품 정보 통합·인덱싱 추진",
+     "summary": "자사 미판매 제품까지 수집해 외부 AI 에이전트도 아마존 경유하도록 유도한다.",
+     "source": "AI타임스, The Verge AI",
+     "id": 234,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217412"
+    },
+    {
+     "title": "AI 에이전트 스타트업 랭체인, 30억 달러 밸류에이션으로 투자 유치",
+     "summary": "모델·플랫폼 중립적 에이전트 관리 도구 랭스미스 고객 7000곳 확보가 배경이다.",
+     "source": "TechCrunch AI",
+     "id": 502,
+     "link": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+    }
+   ],
+   "id": "ai"
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "여야가 '이재명 탈옥법' 특검과 장외집회로 정면충돌했고, 민주당 내 친명·친청 계파 갈등이 치킨게임 양상으로 치닫고 있습니다. 박남춘 전 인천시장이 인천공항공사 사장에 취임하며 낙하산 논란이 일었고, 북한 라자루스 해킹조직이 국내 정부·금융·통신 서버 30여 곳을 표적으로 공격 시도를 한 정황이 확인됐습니다.",
+   "items": [
+    {
+     "title": "여야, '이재명 탈옥법' 특검·장외집회로 정면충돌",
+     "summary": "국민의힘이 부산역에서 특검법 규탄 장외집회를 열자 민주당은 '예산국회 팽개치고 대통령 조롱'이라 비판하며 맞섰다.",
+     "source": "한겨레, 경향신문",
+     "id": 150,
+     "link": "https://www.hani.co.kr/arti/politics/politics_general/1287341.html"
+    },
+    {
+     "title": "민주당 내 친명·친청 계파 갈등 '치킨게임' 양상",
+     "summary": "당권파의 '최민희 제명' 요구에 친청계가 '정풍운동'으로 맞서며 정청래 의원 참전 여부가 주목된다.",
+     "source": "연합뉴스",
+     "id": 333,
+     "link": "https://www.yna.co.kr/view/AKR20261114042300001"
+    },
+    {
+     "title": "박남춘 전 인천시장, 인천공항공사 사장 취임…낙하산 논란",
+     "summary": "박 전 시장이 19일 제11대 사장으로 취임하며, 정권 교체 때마다 반복되는 낙하산 인사 관행이 재연됐다는 비판이 나온다.",
+     "source": "경향신문, 오마이뉴스",
+     "id": 39,
+     "link": "https://www.khan.co.kr/article/202611150946011/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "북한 라자루스, 국내 정부·금융·통신 서버 30곳 공격 시도",
+     "summary": "북한 정찰총국 연계 해킹조직 라자루스가 PHP 취약점을 악용해 한국 주요 기관 서버 30여 곳을 표적으로 삼은 정황이 확인됐다.",
+     "source": "연합뉴스, 조선일보",
+     "id": 123,
+     "link": "https://www.yna.co.kr/view/AKR20261114033800017"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "스페이스X가 스타십 슈퍼헤비 부스터를 발사대 '메카질라' 타워의 젓가락 팔로 첫 포착에 성공하며 완전 재사용 로켓 개발에 진전을 이뤘습니다. 젠슨 황 엔비디아 CEO가 불륜·중국 정보기관 연루 의혹으로 사임해 실리콘밸리에 충격을 줬고 기술주 급락과 밈 확산이 이어졌습니다. 마이크로소프트가 네트워크 용량 업그레이드 문제로 발생한 글로벌 서비스 장애를 36시간 만에 완전 복구했습니다.",
+   "items": [
+    {
+     "title": "스페이스X, 스타십 '젓가락' 타워 첫 포착 성공…완전 재사용 로켓 눈앞",
+     "summary": "스페이스X가 스타십 비행 15차에서 슈퍼헤비 부스터를 발사대 '메카질라' 타워의 젓가락 팔로 잡아내는 데 처음 성공했다.",
+     "source": "The Verge, Ars Technica, TechCrunch",
+     "id": 82,
+     "link": "https://www.theverge.com/science/1033930/spacex-chopstick-starship-catch"
+    },
+    {
+     "title": "젠슨 황 엔비디아 CEO 스캔들로 사임…실리콘밸리 충격, 기술주·밈 확산",
+     "summary": "젠슨 황 CEO가 33년 만에 불륜·중국 정보기관 연루 의혹으로 사임하며 엔비디아 주가가 급락하고 AI 밈 소재가 됐다.",
+     "source": "NYT, Bloomberg, Decrypt",
+     "id": 51,
+     "link": "https://www.nytimes.com/2026/11/14/technology/jensen-huang-nvidia-board.html"
+    },
+    {
+     "title": "MS 글로벌 장애 36시간 만에 완전 복구…네트워크 용량 업그레이드 원인",
+     "summary": "마이크로소프트가 아웃룩·팀즈·코파일럿 등 전 세계 서비스 장애를 36시간 만에 해결했으며 사이버공격·AI 에이전트 연관성은 없다고 밝혔다.",
+     "source": "The Guardian, CoinDesk, NYT",
+     "id": 97,
+     "link": "https://www.theguardian.com/technology/2026/nov/14/microsoft-says-services-fully-restored-after-global-outage"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "한국 스케이트보드 간판 강준이(18)가 세계 최고 권위 SLS 대회에서 통산 두 번째 우승을 차지했습니다. 웨일스가 럭비 경기에서 뉴질랜드 올블랙스를 상대로 1953년 이후 73년 만에 첫 승리를 거두며 역대 최고 승리를 기록했습니다.",
+   "items": [
+    {
+     "title": "강준이, 스케이트보드 SLS 대회 두 번째 정상 등극",
+     "summary": "한국 스케이트보드 간판 강준이(18)가 세계 최고 권위 스트리트 리그 스케이트보딩(SLS) 대회에서 통산 두 번째 우승을 차지했다.",
+     "source": "연합뉴스",
+     "id": 24,
+     "link": "https://www.yna.co.kr/view/AKR20261115015000007"
+    },
+    {
+     "title": "웨일스, 73년 만에 럭비 올블랙스 격파…'역대 최고 승리'",
+     "summary": "웨일스가 뉴질랜드 올블랙스를 상대로 1953년 이후 첫 승리를 거두며 73년 징크스를 깼다.",
+     "source": "BBC, Sky News",
+     "id": 202,
+     "link": "https://www.bbc.co.uk/sport/rugby-union/articles/cmkg57rz2re9o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-15",
+   "sky": "흐림",
+   "now": "11°",
+   "lo": "7°",
+   "hi": "15°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +5°, 최저 −2°",
+   "precip": "강수 가능성 낮음(24%)",
+   "tomorrow": "흐림 6°/16°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-15",
+   "sky": "약한 이슬비",
+   "now": "13°",
+   "lo": "10°",
+   "hi": "18°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +6°, 최저 −1°",
+   "precip": "비 예보(강수확률 61%, 약 1.1mm)",
+   "tomorrow": "흐림 8°/18°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-14",
+   "sky": "비",
+   "now": "19°",
+   "lo": "13°",
+   "hi": "22°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +2°, 최저 −1°",
+   "precip": "비 예보(강수확률 45%, 약 6.8mm)",
+   "tomorrow": "흐림 14°/22°"
+  }
+ ],
+ "message": {
+  "ko": "마음처럼 몸이 따라 주지 않아도, 좋은 일은 천천히, 그러나 분명히 오고 있어요. 천천히, 그러나 힘차게.",
+  "en": "Even if your body won't follow your heart, good things are coming, slowly but surely. Slowly, but with strength."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-15T01:03:33.209046+00:00"
+}
