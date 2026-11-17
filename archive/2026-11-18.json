@@ -1,0 +1,493 @@
+{
+ "headline": "트럼프 아시아 순방·쿼드 정상회의 개최, 크림반도 다리 우크라이나 공격·이란 충돌 격화, 한국 축구 카타르전 승리·상주 규모 3.6 지진",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "트럼프 대통령이 쿼드 정상회의에 처음 참석해 중국 견제와 핵심광물 협력을 강조했고, 김정은 위원장과의 중국 회담 가능성을 시사했으나 중국은 부인했습니다. 우크라이나는 크림반도 케르치 다리를 복합 공격해 일부를 붕괴시켰고, 러시아는 즉각 키이우 등 전역에 대규모 미사일 공습으로 보복했습니다. 미국은 이란 케슈름 섬을 공습했고 이란은 바레인 미군 기지 타격을 주장했으며, 미국은 26년 만에 홍역 퇴치 지위를 상실했습니다. 세르비아에서는 학생 주도 정당이 14년 만의 정권교체 후 의회에 첫 등원했습니다.",
+   "items": [
+    {
+     "title": "트럼프, 필리핀 쿼드 정상회의 첫 참석…중국 견제·핵심광물 협력 강조",
+     "summary": "트럼프 대통령이 마닐라에서 열린 쿼드(미·일·호·인도) 정상회의에 처음 참석해 경제적 강압 반대와 핵심광물 협력 협정을 발표하며 인도태평양 안보 결속을 과시했습니다.",
+     "source": "연합뉴스, NYT, Bloomberg",
+     "id": 447,
+     "link": "https://www.yna.co.kr/view/AKR20261118000600071"
+    },
+    {
+     "title": "트럼프 \"김정은과 중국서 만날 수 있어\"…북미정상회담 가능성 시사",
+     "summary": "트럼프 대통령이 아시아 순방 중 김정은 북한 국무위원장과 중국에서 만날 수 있다고 밝혔으나, 중국 외교부는 관련 정보가 없다고 일축했습니다.",
+     "source": "연합뉴스, NYT, Korea Times",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261117167952071"
+    },
+    {
+     "title": "우크라이나, 크림반도 케르치 다리 '7단계 작전'으로 공격…일부 붕괴",
+     "summary": "젤렌스키 대통령이 수주간 계획한 미사일·드론 복합 공격으로 러시아 점령 크림반도와 본토를 잇는 전략적 다리의 일부가 붕괴됐습니다.",
+     "source": "BBC, NYT, Kyiv Independent",
+     "id": 85,
+     "link": "https://www.bbc.co.uk/news/articles/cw772jk4rvmxo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "러시아, 키이우 등 우크라이나 전역에 대규모 탄도미사일 공습 단행",
+     "summary": "크림 다리 공격 직후 러시아가 키이우 북부·남부 다리 등 주요 인프라를 겨냥한 대규모 미사일 공격을 감행했습니다.",
+     "source": "Kyiv Independent",
+     "id": 223,
+     "link": "https://kyivindependent.com/key-bridges-in-kyiv-struck-in-massive-russian-ballistic-missile-attack-across-ukraine/"
+    },
+    {
+     "title": "미국, 이란 케슈름 섬 공습…이란 \"바레인 미군 레이더 기지 3차례 타격\" 주장",
+     "summary": "미국이 호르무즈 해협 이란 케슈름 섬을 공격했고, 이란은 바레인 내 미군 레이더 기지를 3차례 타격했다고 주장했으나 미국은 첫 두 차례는 요격됐다고 밝혔습니다.",
+     "source": "Middle East Eye, Al-Monitor, CBS News",
+     "id": 101,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/us-attacks-irans-qeshm-island-strait-hormuz-official"
+    },
+    {
+     "title": "미국, 26년 만에 홍역 퇴치 지위 상실…멕시코·볼리비아도 동시 상실",
+     "summary": "범미보건기구(PAHO)가 미국 내 홍역 지속 확산으로 2000년 이후 유지되던 퇴치 지위 상실을 공식 선언했습니다.",
+     "source": "DW, Al Jazeera, BBC",
+     "id": 107,
+     "link": "https://www.dw.com/en/us-and-mexico-lose-measles-free-status/a-79973966?maca=en-rss-en-all-1573-rdf"
+    },
+    {
+     "title": "세르비아 학생 주도 '학생 리스트' 정당, 14년 만의 정권교체 후 의회 첫 등원",
+     "summary": "10월 총선 승리한 학생 운동 출신 의원들이 수백 명의 지지 속에 의회에 첫 등원하며 세르비아 진보당(SNS) 14년 집권을 끝냈습니다.",
+     "source": "Al Jazeera, DW, France 24",
+     "id": 106,
+     "link": "https://www.aljazeera.com/news/2026/11/17/election-winning-student-movement-enters-serbias-new-parliament?traffic_source=rss"
+    }
+   ],
+   "id": "world"
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 실적 발표 전 젠슨 황 전 CEO 사퇴 여파와 AI 반도체 규제 우려로 뉴욕 증시 기술주가 급락했고, 코스피도 5000선 아래로 내려앉으며 13거래일 만에 2월 초 수준으로 후퇴했습니다. IMF는 한국의 올해 성장률 전망을 3.9%로 0.6%p 상향했으나 추가 긴축 필요성을 권고했습니다. 미국은 중국 AI 반도체 클라우드 우회로까지 봉쇄하는 수출 통제 강화 규칙을 발표했습니다. 공정위는 쿠팡과 김범석 의장의 총수 지정자료 허위제출 혐의 고발 심의에 착수했고, 삼성·SK하이닉스는 미국 법원에서 범용 D램 장기계약 부분만 담합 가능성을 인정받았습니다. 국제회계사연맹은 글로벌 투자자가 재무제표급 ESG 공시를 원한다고 밝혔습니다.",
+   "items": [
+    {
+     "title": "뉴욕 증시 기술주 급락, 엔비디아 실적 앞두고 젠슨 황 사퇴 여파 지속",
+     "summary": "엔비디아 실적 발표를 앞두고 젠슨 황 전 CEO 사퇴 충격과 AI 반도체 규제 우려로 나스닥100이 1% 하락하는 등 기술주 매도세가 이어졌다.",
+     "source": "Bloomberg, MarketWatch, 한국경제",
+     "id": 54,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-16/stock-market-today-dow-s-p-live-updates"
+    },
+    {
+     "title": "코스피 5000선 붕괴… 13거래일 만에 6000→5000대 후퇴",
+     "summary": "엔비디아발 AI 악재와 외국인 매도 공세로 코스피가 5000선 아래로 내려앉으며 2월 초 수준으로 되돌아갔다.",
+     "source": "매일경제, 한국경제, 한겨레",
+     "id": 141,
+     "link": "https://www.mk.co.kr/news/stock/12211563"
+    },
+    {
+     "title": "IMF, 한국 올해 성장률 3.9%로 0.6%p 상향… 내년 3.3% 전망",
+     "summary": "AI 투자 확대 등에 힘입어 잠재성장률도 2%대 중반까지 오를 것으로 봤으나, 고물가 대응을 위해 추가 긴축이 필요하다고 권고했다.",
+     "source": "경향신문, 연합뉴스",
+     "id": 38,
+     "link": "https://www.khan.co.kr/article/202611172127005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "미국, 중국 AI 반도체 '클라우드 우회로'까지 봉쇄… 수출 통제 강화",
+     "summary": "해외 서버를 통한 중국 기업의 AI 연산 임대까지 규제하고 동남아 수출 시 사전 허가를 의무화하는 새 규칙을 발표했다.",
+     "source": "경향신문, NYT",
+     "id": 262,
+     "link": "https://www.khan.co.kr/article/202611172045005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "공정위, 쿠팡·김범석 총수 지정자료 허위제출 혐의 고발 심의 착수",
+     "summary": "심사관이 동일인 지정 관련 자료를 허위로 제출했다며 쿠팡 법인과 김범석 의장 고발 의견을 내 전체회의 심의가 시작됐다.",
+     "source": "연합뉴스, 매일경제",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261117163200002"
+    },
+    {
+     "title": "삼성·SK하이닉스, 美 법원서 범용 D램 장기계약만 '짬짜미' 인정… 다른 주장 기각",
+     "summary": "메모리 가격 담합 소송에서 법원은 범용 D램 장기계약 부분만 공동행위 가능성을 인정하고 나머지 청구는 기각했다.",
+     "source": "한겨레",
+     "id": 34,
+     "link": "https://www.hani.co.kr/arti/economy/global/1287825.html"
+    },
+    {
+     "title": "국제회계사연맹 \"글로벌 투자자, 재무제표급 ESG 공시 원해\"",
+     "summary": "ISSB 설립을 주도한 리 화이트 CEO가 데이터 정확성과 경영진 이해도를 강조하며 AI 시대 회계사 수요 증가를 전망했다.",
+     "source": "매일경제",
+     "id": 28,
+     "link": "https://www.mk.co.kr/news/stock/12211811"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 엔비디아 주가 동반 약세 속에 2.5% 하락해 6만3269달러를 기록했습니다. 웰스파고와 골드만삭스는 3분기 비트코인 ETF 보유를 2배 이상 확대하며 기관 자금 유입이 지속됐습니다. 러시아는 중앙은행 인가 아래 비트코인·이더리움·테더 개인 거래를 공식 허용하고 거래소 29곳과 대형 은행의 시장 진입을 준비 중입니다. 이더리움 글램스터담 업그레이드 테스트에서 결제 누락 결함이 발견돼 스마트 계약 안정성 우려가 제기됐습니다.",
+   "items": [
+    {
+     "title": "비트코인 2.5% 하락 6만3269달러, 엔비디아 주가 동반 약세",
+     "summary": "비트코인이 미국 증시 개장 후 매도세에 밀려 6만3269달러까지 하락했고, 엔비디아 주가도 3% 넘게 떨어지며 가상자산과 기술주가 동반 약세를 보였습니다.",
+     "source": "토큰포스트, Cointelegraph",
+     "id": 158,
+     "link": "https://www.tokenpost.kr/news/cryptocurrency/439934"
+    },
+    {
+     "title": "웰스파고·골드만삭스, 3분기 비트코인 ETF 보유 2배 이상 확대",
+     "summary": "웰스파고는 IBIT 보유를 23억5000만 달러로, 골드만삭스는 현물 비트코인 ETF 보유를 12억8000만 달러로 각각 늘리며 기관 자금 유입이 지속됐습니다.",
+     "source": "Bitcoin Magazine",
+     "id": 394,
+     "link": "https://bitcoinmagazine.com/news/goldman-sachs-bitcoin-etf-holdings"
+    },
+    {
+     "title": "러시아, 개인 대상 비트코인·이더리움·테더 거래 공식 허용",
+     "summary": "러시아 중앙은행이 3종 디지털자산 거래를 인가하고 투자자 자격별 구매 한도를 차등 적용하며 거래소 29곳과 대형 은행의 시장 진입을 준비 중입니다.",
+     "source": "블록미디어",
+     "id": 157,
+     "link": "https://www.blockmedia.co.kr/archives/1167051?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "이더리움 글램스터담 업그레이드 테스트서 결제 누락 결함 발견",
+     "summary": "차기 업그레이드 시뮬레이션에서 NFT 수령 후 대금 미지급·인출 수수료 미부과 등 내부 결제 누락 사례가 확인돼 스마트 계약 안정성 우려가 제기됐습니다.",
+     "source": "블록미디어",
+     "id": 474,
+     "link": "https://www.blockmedia.co.kr/archives/1166851?utm_source=general&utm_medium=rss"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "",
+   "items": [
+    {
+     "title": "광주비엔날레 72일간 45만명 관람…'너는 네 삶을 바꿔야 한다' 주제 폐막",
+     "summary": "제16회 광주비엔날레가 72일간 45만 관객을 동원하며 막을 내렸다.",
+     "source": "연합뉴스",
+     "id": 234,
+     "link": "https://www.yna.co.kr/view/AKR20261117161800054"
+    },
+    {
+     "title": "한국 창작춤 선구자 배정혜 안무가 별세…향년 82세",
+     "summary": "원로 무용가 배정혜 전 국립무용단장이 폐렴으로 별세했다.",
+     "source": "한겨레, 조선일보, 경향신문",
+     "id": 146,
+     "link": "https://www.hani.co.kr/arti/culture/music/1287797.html"
+    },
+    {
+     "title": "제34회 대산문학상 수상자 발표…은희경·이수명·김주연 등",
+     "summary": "소설가 은희경, 시인 이수명, 평론가 김주연 등이 수상자로 선정됐다.",
+     "source": "매일경제, 조선일보",
+     "id": 362,
+     "link": "https://www.mk.co.kr/news/culture/12211351"
+    },
+    {
+     "title": "국립현대미술관 과천관 '조지아 오키프'전 개최…독자적 조명",
+     "summary": "남편 스티글리츠 그늘에서 벗어나 오키프 고유의 작품세계를 조명한다.",
+     "source": "경향신문",
+     "id": 261,
+     "link": "https://www.khan.co.kr/article/202611172038005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "서울 인사동에 '조선 순백자' 한자리 모인 전시 개막",
+     "summary": "달항아리부터 사발까지 조선 백자 명품들이 전시된다.",
+     "source": "한겨레",
+     "id": 257,
+     "link": "https://www.hani.co.kr/arti/culture/music/1287761.html"
+    },
+    {
+     "title": "아부다비, 프리즈 첫 개최·구겐하임 개관으로 미술 허브 부상",
+     "summary": "프리즈 아부다비 19~22일 개최, 프랭크 게리 설계 구겐하임 다음달 개관 예정.",
+     "source": "뉴시스",
+     "id": 31,
+     "link": "https://www.newsis.com/view/NISX20261117_0003871701"
+    },
+    {
+     "title": "쿠사마 야요이 '인피니티 넷' 1510만 달러 낙찰…경매 신기록",
+     "summary": "소더비 뉴욕 경매에서 1960년작 No.3P.B.가 종전 기록 1050만 달러를 경신했다.",
+     "source": "Artsy, Artnet News",
+     "id": 181,
+     "link": "https://www.artsy.net/article/artsy-editorial-yayoi-kusama-infinity-net-painting-sells-record-151-million-sothebys"
+    },
+    {
+     "title": "반고흐 '피어나는 밤나무' 1.8억 달러 경매, 상속인 분쟁 합의로 진행",
+     "summary": "유대인 상속인 청구로 논란됐던 작품이 블라키에-아리에타 가문과 피셔 가문 합의로 경매 진행.",
+     "source": "NYT, ARTnews, Artnet News",
+     "id": 52,
+     "link": "https://www.nytimes.com/2026/11/17/arts/design/van-gogh-jewish-heirs-nazi-chestnut-trees-sothebys.html"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "텐센트는 일상 업무 특화 MoE 모델 'Hy4 플래시'를 공개해 작업 비용을 95% 절감했다고 밝혔습니다. 앤트로픽은 클래스 A 주식 공모를 위한 IPO 로드쇼를 시작했습니다. 구글은 제미나이 4 하이드로젠을 전 세계 검색에 적용하고 디시전스 API를 공개했습니다. 오픈AI는 칠레 정부와 책임 있는 AI 도입 협력을 맺고, 전 세계 연구자 20만 명에게 프론티어 모델 무료 제공을 확대했으며, 아동 성착취물 대응 신규 도구와 가이드, 파트너십을 발표했습니다. 메타는 AI 테스트 시스템 '캐칭 지트테스트'로 상반기 개인정보 버그 74건을 사전 차단하고 중대 사고를 20% 줄였습니다.",
+   "items": [
+    {
+     "title": "텐센트 'Hy4 플래시' 출시…일상 업무 특화·작업 비용 95% 절감",
+     "summary": "텐센트가 2240억 매개변수 중 토큰당 120억만 활성화하는 MoE 구조로 문서·프레젠테이션·자료조사 등 일상 업무에 최적화한 저비용 모델 Hy4 플래시를 공개, 기존 모델 대비 작업당 비용을 최대 95% 줄이면서도 사용자 만족도는 클로드 하이쿠 5.5 수준에 근접했다고 밝혔다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217484"
+    },
+    {
+     "title": "앤트로픽, 클래스 A 주식 공모 위한 IPO 로드쇼 개시",
+     "summary": "앤트로픽이 PBC(공익법인) 형태로 클래스 A 보통주 최초 공모를 위한 로드쇼를 시작하며 역대 최대 규모 상장 중 하나가 될 것으로 예상된다.",
+     "source": "Anthropic, The Guardian",
+     "id": 10,
+     "link": "https://www.anthropic.com/news/roadshow-launch"
+    },
+    {
+     "title": "구글, 제미나이 4 하이드로젠 전 세계 검색에 적용·디시전스 API 공개",
+     "summary": "구글이 제미나이 4 하이드로젠을 글로벌 검색에 도입해 더 시각적이고 직관적인 응답을 제공하고, 빠르고 보정된 멀티모달 의사결정을 위한 제미나이 디시전스 API를 출시했다.",
+     "source": "Google AI",
+     "id": 127,
+     "link": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/"
+    },
+    {
+     "title": "오픈AI, 칠레 정부와 책임 있는 AI 도입·공공부문 역량 강화 협력",
+     "summary": "오픈AI가 칠레 정부와 파트너십을 맺고 책임 있는 AI 채택 지원, 공공부문 기술 역량 구축, 현지 스타트업의 AI 애플리케이션 개발을 돕기로 했다.",
+     "source": "OpenAI",
+     "id": 126,
+     "link": "https://openai.com/index/introducing-openai-for-chile"
+    },
+    {
+     "title": "오픈AI, 전 세계 연구자 20만 명에 프론티어 모델 무료 제공 확대",
+     "summary": "오픈AI가 'ChatGPT for Academic Researchers' 프로그램을 확대해 20만 명의 연구자에게 최신 프론티어 모델 무료 접근 권한을 부여했다.",
+     "source": "OpenAI",
+     "id": 238,
+     "link": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
+    },
+    {
+     "title": "오픈AI, 온라인 아동 성착취물 대응 신규 도구·가이드·파트너십 발표",
+     "summary": "오픈AI가 아동 성착취물 예방·탐지·대응을 위한 새로운 도구와 실무 가이드, 파트너십을 공개하며 안전 인프라를 강화했다.",
+     "source": "OpenAI",
+     "id": 348,
+     "link": "https://openai.com/index/strengthening-online-child-safety"
+    },
+    {
+     "title": "메타, AI 테스트 시스템 '캐칭 지트테스트'로 개인정보 버그 74건 사전 차단",
+     "summary": "메타가 AI가 직접 테스트 코드를 작성·실행해 오류를 검증하는 시스템을 도입, 올 상반기 개인정보 관련 중대 버그 74건을 발견하고 동일 기간 중대 사고를 20% 줄였다.",
+     "source": "AI타임스",
+     "id": 125,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217492"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "이재명 대통령은 아세안 정상회의를 마치고 APEC 참석차 중국으로 출국했으며, 다카이치 일본 총리와 4번째 회담을 통해 셔틀외교 정례화와 공급망·에너지 안보 협력 강화에 합의했습니다. 수능 이틀 전 경북 상주에서 올해 최대 규모 3.6 지진이 발생했으나 원전 영향은 없었습니다. 이 대통령은 수능 AI 부정행위 근절을 위해 최고등급 재난문자 추가 발송, 1억 원 포상금 검토, 사후 AI 업로드 추적 등 특단을 지시했습니다. 세무사 시험 AI 부정행위 수석합격자는 13시간 경찰 조사 후 귀가했습니다.",
+   "items": [
+    {
+     "title": "이 대통령, 아세안 일정 마무리 후 APEC 참석차 중국 출국…한일 정상회담 개최",
+     "summary": "이재명 대통령이 필리핀 아세안 정상회의를 마치고 APEC 정상회의 참석을 위해 중국으로 향했으며, 다카이치 일본 총리와 4번째 회담을 통해 셔틀외교 정례화와 공급망·에너지 안보 협력 강화에 합의했습니다.",
+     "source": "연합뉴스, Yonhap English, Korea Times",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261117162700001"
+    },
+    {
+     "title": "수능 이틀 전 경북 상주 규모 3.6 지진…올해 최대, 원전 영향 없어",
+     "summary": "17일 오후 11시 10분 경북 상주 북서쪽 22km 지점에서 올해 한반도 최대 규모 3.6 지진이 발생했으나 원자력안전위원회는 원전 안전에 영향이 없다고 밝혔습니다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 6,
+     "link": "https://www.yna.co.kr/view/AKR20261118002600017"
+    },
+    {
+     "title": "이 대통령, 수능 AI 부정행위 근절 특단 지시…재난문자 추가 발송·1억 포상금 검토",
+     "summary": "이 대통령이 마닐라에서 화상 회의를 주재하며 수능 당일 최고등급 재난문자 불시 추가 발송, AI 부정행위 신고 포상금 1억 원 검토, 사후 AI 업로드 추적 등 강력 대응을 지시했습니다.",
+     "source": "한겨레, 경향신문, 오마이뉴스",
+     "id": 152,
+     "link": "https://www.khan.co.kr/article/202611172222001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "세무사 시험 AI 부정행위 수석합격자 13시간 경찰 조사 후 귀가",
+     "summary": "초소형 카메라와 AI를 이용해 제63회 세무사 시험에서 부정행위를 저지른 수석합격자가 자수해 13시간 경찰 조사를 받고 귀가했습니다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 236,
+     "link": "https://www.yna.co.kr/view/AKR20261117042652004"
+    }
+   ],
+   "id": "politics"
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "영하 242도 달 남극 탐사…NASA '원자력 로봇' 개발",
+     "summary": "미국 항공우주국 NASA가 원자력으로 움직이는 달 탐사 로봇을 개발하고 있습니다. 달 남극 탐사 로봇 '프로미스(PROMISE)'는 원자력 발전 장치를 탑재해 태양광 없이도 작동할 수 있습니다. 최대 1m 깊이의 토…",
+     "source": "전자신문",
+     "link": "https://www.etnews.com/20261116000514"
+    },
+    {
+     "title": "Trump Administration Moves to Close A.I. Chip Loophole Ahead of China Trip",
+     "summary": "The rules have been a topic of fierce debate in the administration and would cut back on a booming data center business…",
+     "source": "NYT",
+     "link": "https://www.nytimes.com/2026/11/16/us/politics/trump-china-ai-chip-loophole.html"
+    },
+    {
+     "title": "PJM Proposes Grid Overhaul to Speed Up Data Center Connections",
+     "summary": "The largest US grid is proposing a “fast energization” plan to speed up connection for data centers and power plants in…",
+     "source": "Bloomberg",
+     "link": "https://www.bloomberg.com/news/articles/2026-11-17/pjm-proposes-grid-overhaul-to-speed-up-data-center-connections"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "한국 축구가 카타르 원정에서 1-0으로 승리하며 11월 A매치 2연전을 1승 1무로 마쳤으나, 슈팅 21개에 1골에 그친 공격 효율성이 과제로 남았습니다. 모레노 감독은 재계약 가능성을 열어두며 시간과 신뢰 구축의 중요성을 강조했습니다.",
+   "items": [
+    {
+     "title": "한국 축구, 카타르에 1-0 승리…모레노호 올해 마지막 A매치 마무리",
+     "summary": "한국이 도하 원정에서 카타르를 1-0으로 꺾으며 11월 A매치 2연전을 1승 1무로 마쳤으나, 슈팅 21개에 1골 그친 공격 효율성이 과제로 남았습니다.",
+     "source": "연합뉴스, Yonhap English, Korea Times",
+     "id": 160,
+     "link": "https://en.yna.co.kr/view/AEN20261118000251315"
+    },
+    {
+     "title": "모레노 감독 \"한국 대표팀 재신임 가능성 당연히 생각…시간과 신뢰 중요\"",
+     "summary": "모레노 감독이 카타르전 후 기자회견에서 대표팀 재계약 가능성을 열어두며 구단과의 신뢰 구축이 필요하다고 강조했습니다.",
+     "source": "연합뉴스",
+     "id": 24,
+     "link": "https://www.yna.co.kr/view/AKR20261118004600007"
+    }
+   ],
+   "id": "sports"
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-18",
+   "sky": "약한 비",
+   "now": "8°",
+   "lo": "1°",
+   "hi": "9°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −3°, 최저 −8°",
+   "precip": "비 예보(강수확률 80%, 약 1.8mm)",
+   "tomorrow": "대체로 맑음 -2°/4°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-18",
+   "sky": "약한 이슬비",
+   "now": "11°",
+   "lo": "6°",
+   "hi": "12°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −3°, 최저 −4°",
+   "precip": "강수 가능성 낮음(20%)",
+   "tomorrow": "구름 조금 2°/8°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-17",
+   "sky": "흐림",
+   "now": "17°",
+   "lo": "11°",
+   "hi": "21°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −1°, 최저 −4°",
+   "precip": "강수 가능성 낮음(5%)",
+   "tomorrow": "흐림 11°/19°"
+  }
+ ],
+ "message": {
+  "ko": "잠이 부족한 아침에도, 길 위의 모든 순간이 작품의 일부예요. 잘 다녀와요.",
+  "en": "Even on a morning short on sleep, every moment on the road is part of the work. Go well."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-17T16:59:58.448759+00:00"
+}
