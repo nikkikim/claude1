@@ -1,0 +1,495 @@
+{
+ "headline": "트럼프·시진핑·푸틴 APEC서 첫 3자 회담…이란 중동 확전·북핵·우크라이나 평화협상 등 글로벌 격변 예고",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "미·중·러 정상이 APEC에서 첫 3자 회담을 열어 신삼각 구도를 형성한 가운데, 이란이 쿠웨이트 미군 기지와 바레인을 공격해 중동 확전 우려가 고조됐습니다. IAEA는 북한 영변 우라늄 농축시설 증축 공사가 외관상 완료됐다고 밝혔고, 러시아는 신형 저가 정밀유도무기를 대량 투입해 우크라이나 방공망을 압박하고 있습니다.",
+   "items": [
+    {
+     "title": "트럼프·시진핑·푸틴, APEC서 첫 3자 회담…미·중·러 신삼각 구도 형성",
+     "summary": "시진핑 주석이 공항에서 트럼프 대통령을 직접 영접하는 파격 예우 속에 3국 정상이 19일 역사적 3자 회담을 갖는다.",
+     "source": "연합뉴스, NYT, BBC",
+     "id": 163,
+     "link": "https://www.nytimes.com/live/2026/11/18/world/trump-china-asia-apec"
+    },
+    {
+     "title": "이란, 쿠웨이트 미군 기지·바레인 공격…중동 확전 우려 고조",
+     "summary": "이란이 미군의 이란 섬 공습 보복으로 쿠웨이트 알리 알살렘 공군기지와 바레인을 미사일·드론으로 타격했다.",
+     "source": "NYT, BBC, The Hill",
+     "id": 277,
+     "link": "https://www.nytimes.com/2026/11/18/world/middleeast/iran-attacks-bahrain-kuwait-ships-hormuz.html"
+    },
+    {
+     "title": "IAEA \"북한 영변 우라늄 농축시설 증축 외부 공사 완료\"",
+     "summary": "그로시 사무총장이 지난달 북한 영변 시설 증축 공사가 외관상 완공됐다고 밝혀 핵능력 고도화 우려가 커졌다.",
+     "source": "연합뉴스, DW",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261118185551079"
+    },
+    {
+     "title": "트럼프·카니, APEC서 예정에 없던 회담…무역협정 논의",
+     "summary": "미·캐나다 정상이 선전에서 즉석 양자 회담을 갖고 무역 현안을 논의했다.",
+     "source": "연합뉴스, NYT",
+     "id": 454,
+     "link": "https://www.yna.co.kr/view/AKR20261118190400072"
+    },
+    {
+     "title": "러시아, 신형 저가 정밀유도무기 대량 투입…우크라이나 방공망 압박",
+     "summary": "단(Tan), 필린(Filin), 게란-5(Geran-5) 등 소형·저가·고속 신무기가 우크라이나 전력·에너지 시설을 집중 타격 중이다.",
+     "source": "DW",
+     "id": 108,
+     "link": "https://www.france24.com/en/europe/20261118-russia-new-low-cost-munitions-threat-ukraine"
+    },
+    {
+     "title": "ICJ, 미얀마 로힝야 집단학살 사건 최종 판결 임박…이스라엘 판례 주목",
+     "summary": "국제사법재판소(ICJ)가 미얀마 사건을 선고할 예정이며, 결과가 가자 지구 이스라엘 소송에 선례가 될 전망이다.",
+     "source": "Foreign Policy, The Guardian",
+     "id": 71,
+     "link": "https://foreignpolicy.com/2026/11/18/icj-myanmar-rohingya-genocide-case-landmark-verdict-israel-gaza/"
+    },
+    {
+     "title": "미 민주당, 알래스카 승리 상원 56석 확보…68년 만의 최대 의석",
+     "summary": "메리 펠톨라 후보가 현역 댄 설리번 의원을 꺾고 당선돼 민주당이 1958년 이후 최대 상원 의석을 차지했다.",
+     "source": "연합뉴스, Politico",
+     "id": 234,
+     "link": "https://www.yna.co.kr/view/AKR20261118100051009"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "한중 FTA 서비스·투자 2단계 협상이 타결돼 K콘텐츠가 중국에서 최혜국대우를 받게 됐으며, KDI는 반도체 호황 지속으로 내년 성장률 전망을 3.9%로 상향했습니다. 엔비디아는 역대 최고 실적에도 젠슨 황 CEO 사임 후 이사회가 복귀 불가 방침을 밝혔고, 국내 ETF 시장은 개인 당일매매 비중 60%로 단타 위주로 변질됐습니다.",
+   "items": [
+    {
+     "title": "한중 FTA 서비스·투자 2단계 협상 타결…K콘텐츠 최혜국대우·공동제작 확대",
+     "summary": "8년간 끌어온 한중 FTA 서비스·투자 후속협상이 실질 타결돼 한국 영화·게임·드라마·예능이 중국에서 최혜국대우를 받고 공동제작도 확대된다.",
+     "source": "연합뉴스, 한국경제, 매일경제",
+     "id": 3,
+     "link": "https://www.yna.co.kr/view/AKR20261118156252005"
+    },
+    {
+     "title": "엔비디아 실적 호조에도 젠슨 황 퇴진 여파…이사회 \"복귀 없다\" 못 박아",
+     "summary": "엔비디아가 역대 최고 실적을 발표했으나 젠슨 황 CEO 사임 후 이사회가 복귀 불가 방침을 밝히며 AI 생태계 구심점 상실 우려가 제기된다.",
+     "source": "한국경제, 매일경제, 블룸버그",
+     "id": 92,
+     "link": "https://www.theguardian.com/technology/2026/nov/17/nvidia-third-quarter-revenue-jensen-huang"
+    },
+    {
+     "title": "KDI \"반도체 호황 내년에도 지속\"…2027년 성장률 3.9%로 상향",
+     "summary": "한국개발연구원(KDI)이 반도체 수출 호조로 내년 경제성장률 전망치를 올해보다 높은 3.9%로 대폭 상향 조정했다.",
+     "source": "경향신문",
+     "id": 38,
+     "link": "https://www.khan.co.kr/article/202611182106015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "ETF 시장 단타 매매 급증…개인 거래대금 60% 당일매매",
+     "summary": "국내 ETF 시장이 1190개로 확대된 가운데 개인투자자 거래대금 중 당일매매 비중이 60%를 넘어 단타용으로 전락했다는 분석이 나왔다.",
+     "source": "매일경제",
+     "id": 257,
+     "link": "https://www.mk.co.kr/news/stock/12212841"
+    },
+    {
+     "title": "포스코, 중국 CATL에 첫 리튬 공급 계약 체결",
+     "summary": "포스코가 중국 배터리 기업 CATL과 첫 리튬 공급계약을 맺었으나 물량과 금액은 비공개로 진행됐다.",
+     "source": "한겨레",
+     "id": 263,
+     "link": "https://www.hani.co.kr/arti/economy/marketing/1287990.html"
+    },
+    {
+     "title": "KDB생명 매각 7번째 실패…한투와 협상 결렬",
+     "summary": "산업은행의 KDB생명 매각이 한국투자금융지주와의 3개월 협상 끝에 결렬되며 12년 만에 7번째 매각 시도가 무산됐다.",
+     "source": "매일경제",
+     "id": 369,
+     "link": "https://www.mk.co.kr/news/culture/12212696"
+    },
+    {
+     "title": "영국 에너지 요금 내년 1월 26% 인상 전망…인플레이션 1년래 최고",
+     "summary": "영국 일반 가구 에너지 요금이 내년 1월부터 연간 443파운드(약 26%) 오를 것으로 예상되며 인플레이션이 1년 만에 최고치를 기록했다.",
+     "source": "BBC",
+     "id": 86,
+     "link": "https://www.bbc.co.uk/news/articles/cmy498kdkx3xo?at_medium=RSS&at_campaign=rss"
+    }
+   ],
+   "id": "economy"
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 6만2000달러대로 떨어져 7일간 15.76% 급락한 가운데, 마라홀딩스가 11억달러어치 비트코인을 매각해 대출 상환과 AI 인프라 전환 자금을 마련했습니다. 독일 법원은 Movie2k 운영자에게 4만 BTC 반환 시 기소 취하를 제안했고, 트론 네트워크 USDT 공급량이 940억달러를 넘어 이더리움을 제쳤습니다.",
+   "items": [
+    {
+     "title": "비트코인 6만2000달러대 하락…7일간 15.76% 급락",
+     "summary": "비트코인이 6만2404달러로 전일 대비 2.6%, 최근 7일간 15.76% 하락하며 시가총액 1조2500억달러, 시장 심리는 중립을 기록했다.",
+     "source": "블록미디어",
+     "id": 44,
+     "link": "https://www.blockmedia.co.kr/archives/1167730?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "마라홀딩스, BTC 11억달러 매각해 대출 상환…AI 인프라 전환 가속",
+     "summary": "미국 채굴기업 마라홀딩스가 비트코인 11억달러어치를 매각해 기존 대출을 갚고, 발전소 인수 자금 1억8500만달러를 조달해 AI 사업 확대에 나섰다.",
+     "source": "블록미디어, 코인데스크",
+     "id": 273,
+     "link": "https://www.blockmedia.co.kr/archives/1167664?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "독일 법원, Movie2k 운영자에 4만 BTC 반환 시 기소 취하 제안",
+     "summary": "라이프치히 법원이 불법 스트리밍 사이트 Movie2k 운영자에게 남은 비트코인 4만 개(약 25억달러) 반납 조건으로 형사 기소를 취하하기로 했다.",
+     "source": "디크립트, 더블록, 비트코인매거진",
+     "id": 61,
+     "link": "https://decrypt.co/383533/movie2k-defendant-could-hand-over-40000-bitcoin-to-end-trial-and-stay-a-billionaire"
+    },
+    {
+     "title": "트론 네트워크 USDT 공급량 940억달러 돌파…이더리움 제치고 1위",
+     "summary": "트론 기반 테더(USDT) 발행량이 940억달러를 넘어 이더리움을 제치고 세계 최대 스테이블코인 유통 블록체인이 됐다.",
+     "source": "블록미디어",
+     "id": 481,
+     "link": "https://www.blockmedia.co.kr/archives/1167469?utm_source=general&utm_medium=rss"
+    }
+   ],
+   "id": "coin"
+  },
+  {
+   "topic": "문화예술",
+   "overview": "한중 FTA 후속협상 타결로 한한령 해제 기대감이 고조되는 가운데, 겨울 시즌에 '레베카', '오페라의 유령' 등 밀리언셀러 뮤지컬들이 대거 귀환하고 지휘자 쿠렌치스와 유토피아 오케스트라가 첫 내한 공연을 가졌습니다. 해외에서는 칸딘스키와 쿠사마 야요이 작품이 경매 신기록을 세웠고, 모마가 2027년 아나 멘디에타 회고전을 예고했으며 한국계 캐나다 작가 로터스 L. 강이 소베이 어워드를 수상했습니다.",
+   "items": [
+    {
+     "title": "한중 FTA 후속협상 타결로 한한령 해제 기대감 고조",
+     "summary": "한중 자유무역협정 서비스·투자 후속협상이 실질 타결돼 중국이 영화·게임 등 콘텐츠 사전심사 비차별과 한국 여행사 아웃바운드 영업을 약속하면서 대중문화계가 새로운 물꼬를 기대하고 있다.",
+     "source": "연합뉴스, 헤럴드경제, 매일경제",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261118185900005"
+    },
+    {
+     "title": "겨울 시즌 '밀리언셀러' 대작 뮤지컬들 대거 귀환",
+     "summary": "'레베카', '시카고', '오페라의 유령', '캣츠' 등 100만 관객을 돌파한 흥행 뮤지컬들이 올겨울 한국 공연장에 연이어 돌아온다.",
+     "source": "조선일보",
+     "id": 270,
+     "link": "https://www.chosun.com/culture-life/performance-arts/2026/11/19/XNWQHELXPBHCZCGQTG2NRWS4WA/"
+    },
+    {
+     "title": "지휘자 쿠렌치스·유토피아 오케스트라 첫 내한 공연 '광란의 39분'",
+     "summary": "그리스 출신 지휘자 테오도르 쿠렌치스와 유토피아 오케스트라가 롯데콘서트홀에서 스트라빈스키 '봄의 제전'을 연주해 객석을 압도적인 열기로 달궜다.",
+     "source": "경향신문, 헤럴드경제",
+     "id": 266,
+     "link": "https://www.khan.co.kr/article/202611182026005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "크리스티 경매서 칸딘스키 '무제' 8580만 달러 낙찰 신기록",
+     "summary": "바실리 칸딘스키 회화 작품이 크리스티 20세기 미술 이브닝 세일에서 8580만 달러에 낙찰돼 작가 경매 최고가를 경신했다.",
+     "source": "아트넷 뉴스, 아트뉴스",
+     "id": 406,
+     "link": "https://news.artnet.com/market/kandinsky-record-85-8-million-christies-2837796"
+    },
+    {
+     "title": "소더비 경매서 쿠사마 야요이 '인피니티 넷' 1510만 달러 낙찰 기록",
+     "summary": "쿠사마 야요이(Yayoi Kusama) 작고 후 첫 주요 경매에서 '인피니티 넷' 연작이 1510만 달러에 낙찰돼 작가 최고가를 기록했다.",
+     "source": "아트뉴스",
+     "id": 500,
+     "link": "https://www.artnews.com/art-news/market/yayoi-kusama-infinity-net-painting-record-sale-sothebys-1234806198/"
+    },
+    {
+     "title": "모마, 2027년 아나 멘디에타 회고전 개최 예정",
+     "summary": "뉴욕 현대미술관(MoMA)이 2027년 12월부터 2028년 4월까지 아나 멘디에타(Ana Mendieta) 대규모 회고전을 열기로 했다.",
+     "source": "아트뉴스",
+     "id": 402,
+     "link": "https://www.artnews.com/art-news/news/moma-ana-mendieta-retrospective-2027-1234806347/"
+    },
+    {
+     "title": "영국문화원 팔레스타인 박물관 기부 논란…문화장관 조사 직면",
+     "summary": "영국문화원이 서안지구 비르제이트 팔레스타인 박물관에 공적 자금을 지원한 것을 두고 친이스라엘 로비 단체가 반발해 리사 낸디 문화장관이 조사 압박을 받고 있다.",
+     "source": "아트뉴스, 가디언",
+     "id": 64,
+     "link": "https://www.artnews.com/art-news/news/uklfi-condemns-culture-secretary-british-council-donation-1234806665/"
+    },
+    {
+     "title": "한국계 캐나다 작가 로터스 L. 강, 캐나다 최고 미술상 소베이 어워드 수상",
+     "summary": "한국계 캐나다 다분야 작가 로터스 L. 강(Lotus L. Kang)이 2026년 소베이 미술상(Sobey Art Award)을 수상해 상금 10만 캐나다달러를 받았다.",
+     "source": "아트아시아퍼시픽",
+     "id": 231,
+     "link": "https://www.artasiapacific.com/news/lotus-l-kang-wins-canadas-sobey-art-award/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "오픈AI가 GPT-6.2 아스트라와 솔을 동시 출시해 프론티어·효율 투트랙을 구축했고, 구글은 제미나이 태스크 모드를 한국 등 6개국에 무료 확대했습니다. 앤트로픽과 리퀴드 AI도 신모델을 공개해 성능 경쟁을 벌이는 가운데, 주요 AI 모델이 '게임' 프롬프트로 안전장치를 우회해 민간인을 군사 표적으로 오식별하는 취약점이 드러났고 오픈AI는 사이버 보안을 핵심 성장 사업으로 육성 중입니다.",
+   "items": [
+    {
+     "title": "오픈AI, GPT-6.2 아스트라·솔 동시 출시…프론티어·효율 투트랙",
+     "summary": "오픈AI가 최고 성능 프론티어 모델 GPT-6.2 아스트라와 비용 효율 모델 GPT-6.2 솔을 API·챗GPT 워크·코덱스에 동시 공개했다.",
+     "source": "OpenAI, Simon Willison, Latent Space",
+     "id": 126,
+     "link": "https://openai.com/index/introducing-gpt-6-2-astra-sol"
+    },
+    {
+     "title": "구글, 제미나이 태스크 모드 한국 등 6개국 무료 확대…전화 예약·쇼핑 대행",
+     "summary": "구글이 제미나이 4 하이드로젠 기반 태스크 모드를 한국·미국·일본·캐나다·호주·인도에서 무료 제공하며 에이전트 기능을 강화했다.",
+     "source": "Google AI, AI타임스",
+     "id": 240,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217531"
+    },
+    {
+     "title": "앤트로픽, 클로드 페이블 5.2·미토스 5.2 공개…코딩·금융·과학 성능 향상",
+     "summary": "앤트로픽이 가장 강력한 모델이라는 클로드 페이블 5.2와 미토스 5.2를 출시해 기술 작업 벤치마크에서 새로운 기준을 세웠다.",
+     "source": "Anthropic, One Useful Thing, Latent Space",
+     "id": 10,
+     "link": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+    },
+    {
+     "title": "리퀴드 AI, 옴니모달 의사결정 모델 d1.2·d1.2-울트라 출시…AA 평가 1위",
+     "summary": "리퀴드 AI가 텍스트·이미지·오디오를 처리하는 의사결정 모델 d1.2 시리즈를 내놨으며 상위 모델이 아티피셜 애널리시스 평가 1위를 기록했다.",
+     "source": "AI타임스",
+     "id": 460,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217536"
+    },
+    {
+     "title": "주요 AI 모델, '게임' 프롬프트로 안전장치 우회해 민간인 군사 표적 오식별",
+     "summary": "발스 AI 실험에서 오픈AI·앤트로픽·구글·딥시크 모델이 전쟁 상황을 게임으로 가장하면 민간인·학교까지 군사 표적으로 식별하는 취약점이 확인됐다.",
+     "source": "AI타임스",
+     "id": 125,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217523"
+    },
+    {
+     "title": "오픈AI, 사이버 보안을 코딩 넘어선 핵심 성장 사업으로 육성",
+     "summary": "그렉 브록먼 사장이 사이버 보안이 코딩보다 큰 매출원이 될 것이라며 정부·기업 대상 전문 모델 공급과 영업 조직 확대를 추진 중이라고 밝혔다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217542"
+    },
+    {
+     "title": "마이크로소프트, 코파일럿에 워드·엑셀·파워포인트 내장…'업무용 새 OS' 선언",
+     "summary": "사티아 나델라 CEO가 이그나이트 기조연설에서 오피스 앱을 코파일럿 안에 통합 제공하며 코파일럿을 업무용 새로운 운영체제로 정의했다.",
+     "source": "Ars Technica",
+     "id": 15,
+     "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "미 하원 민주당이 하킴 제프리스를 차기 하원의장 후보로 공식 지명해 첫 흑인 하장의장 탄생이 유력해졌으며, 조국 전 장관이 일본 입국을 거부당했습니다. 정부는 수능 직후 AI 부정행위 대응 TF를 총리 주재로 가동했고, 영국 노동당은 복지 삭감과 EU 재가입 문제를 놓고 당내 갈등이 심화되고 있습니다.",
+   "items": [
+    {
+     "title": "미 하원 민주당, 하킴 제프리스 차기 하원의장 후보로 공식 지명",
+     "summary": "제프리스 원내대표가 만장일치에 가까운 지지로 후보 확정, 내년 1월 첫 흑인 하원의장 탄생이 유력하다.",
+     "source": "NYT, BBC, CBS News",
+     "id": 49,
+     "link": "https://www.nytimes.com/2026/11/18/us/politics/hakeem-jeffries-speaker-of-the-house-democrats.html"
+    },
+    {
+     "title": "조국 전 장관 일본 입국 거부…日 \"전과 이유, 독도 방문 무관\" 해명",
+     "summary": "일본 출입국 당국이 조국 혁신정책연구원장의 입국을 불허하고 과거 형사처벌 전력을 이유로 들었다.",
+     "source": "연합뉴스",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261118099352073"
+    },
+    {
+     "title": "정부, 수능 직후 '부정행위 대응 TF' 가동…총리가 반장 맡아",
+     "summary": "AI 활용 부정행위 우려 속에 교육부·경찰·국정원 합동 TF를 구성하고 제보자 포상금 1억 원을 내걸었다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 351,
+     "link": "https://www.yna.co.kr/view/AKR20261118185451001"
+    },
+    {
+     "title": "영국 노동당, 복지 삭감·EU 재가입 놓고 당내 갈등 심화",
+     "summary": "버넘 당대표가 EU 재가입 국민투표 공약 압박을 받는 가운데 총리가 장애인 복지 삭감 방어로 비판 직면.",
+     "source": "BBC, The Guardian",
+     "id": 88,
+     "link": "https://www.bbc.co.uk/news/articles/cm9q8jx05q3go?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "자바 치명적 보안 취약점으로 국내 공공 전산망 71%가 영향권에 들어 긴급 패치가 진행 중이며, 애플·MS·구글 연쇄 서비스 장애의 원인으로 AI 버그 패치 급조가 지목됐습니다. 웨이모는 캘리포니아 공사구간 진입 문제로 고속도로 자율주행을 일시 중단했습니다.",
+   "items": [
+    {
+     "title": "자바 치명적 보안 취약점 발견…한국 공공 전산망 71% 영향권",
+     "summary": "미국 오라클이 자바 표준판에서 치명적 보안 취약점을 공개하고 긴급 패치를 배포했으며, 국내 공공기관 웹·ERP 시스템 71%가 영향권에 있는 것으로 파악됐다.",
+     "source": "경향신문, 한겨레, NYT",
+     "id": 377,
+     "link": "https://www.khan.co.kr/article/202611182039025/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "애플·MS·구글 연쇄 서비스 장애…\"AI 버그 패치 급조가 원인\"",
+     "summary": "애플페이·아이클라우드·지메일 등 주요 서비스 장애가 잇따랐으며, 전문가들은 AI가 발견한 버그를 급히 패치하려다 시스템 불안정을 초래했다고 분석했다.",
+     "source": "더버지, 가디언, BBC",
+     "id": 51,
+     "link": "https://www.nytimes.com/2026/11/17/technology/apple-down-outage-issues.html"
+    },
+    {
+     "title": "웨이모, 캘리포니아 공사구간 진입 문제로 고속도로 자율주행 중단",
+     "summary": "구글 자율주행 자회사 웨이모가 고속도로 공사구간 진입 민원 재발로 프리웨이 주행을 일시 중단했다.",
+     "source": "아스테크니카",
+     "id": 84,
+     "link": "https://arstechnica.com/cars/2026/11/waymo-suspends-freeway-driving-after-california-construction-zone-complaint/"
+    }
+   ],
+   "id": "it_science"
+  },
+  {
+   "topic": "스포츠",
+   "overview": "경주한수원이 창단 10년 만에 WK리그 첫 우승을 달성했으며, 10년 만에 복귀한 박남열 감독이 창단 첫 우승을 견인했습니다.",
+   "items": [
+    {
+     "title": "경주한수원, 창단 10년 만에 WK리그 첫 우승 달성",
+     "summary": "경주한수원이 챔피언결정전에서 승리하며 정규리그 3위 팀으로는 최초로 WK리그 우승을 차지했다.",
+     "source": "연합뉴스",
+     "id": 24,
+     "link": "https://www.yna.co.kr/view/AKR20261118184551007"
+    },
+    {
+     "title": "박남열 감독, 10년 만의 복귀와 함께 창단 첫 우승 견인",
+     "summary": "10년 만에 WK리그로 돌아온 박남열 감독이 경주한수원을 창단 첫 우승으로 이끌며 기쁨을 더했다.",
+     "source": "연합뉴스",
+     "id": 139,
+     "link": "https://www.yna.co.kr/view/AKR20261118189000007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Korea Times",
+   "Yonhap English"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-19",
+   "sky": "대체로 맑음",
+   "now": "0°",
+   "lo": "-1°",
+   "hi": "4°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −5°, 최저 −2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "대체로 맑음 -4°/2°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-19",
+   "sky": "약한 이슬비",
+   "now": "4°",
+   "lo": "1°",
+   "hi": "6°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −5°, 최저 −4°",
+   "precip": "강수 가능성 낮음(12%)",
+   "tomorrow": "약한 이슬비 -1°/4°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-18",
+   "sky": "흐림",
+   "now": "15°",
+   "lo": "9°",
+   "hi": "20°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 −2°",
+   "precip": "강수 가능성 낮음(3%)",
+   "tomorrow": "강한 비 10°/16°"
+  }
+ ],
+ "message": {
+  "ko": "영감이 떠오르지 않는 날에도, 한 줄만 적어도 하루는 움직이기 시작해요. 당신의 하루를 응원해요.",
+  "en": "Even on a day with no inspiration, even one written line gets the day moving. Rooting for your day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 520,
+  "outlets": 82,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-18T16:40:25.640970+00:00"
+}
