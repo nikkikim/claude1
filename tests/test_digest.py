@@ -1996,7 +1996,8 @@ def test_weather_is_split_into_city_cards_not_one_run_on_line():
     cards = nd._weather_cards(d)
     assert len(cards) == 1 and len(cards[0]["rows"]) >= 3 and cards[0]["sky"].split()[0]    # 아이콘 + 하늘 상태
     md = nd.render_markdown(d, day)
-    block = [ln for ln in md.splitlines() if ln.startswith("> ") and ("최저" in ln or "어제" in ln or "강수" in ln or "비" in ln)]
+    assert any(ln.startswith("### ") and "서울" in ln for ln in md.splitlines())      # 도시 이름은 카테고리 제목(###)과 같은 크기
+    block = [ln for ln in md.splitlines() if ("최저" in ln or "어제" in ln or "강수" in ln)]
     assert len(block) >= 3 and all(len(ln) < 60 for ln in block)               # 한 줄에 몰아 쓰지 않고 줄마다 한 항목
     assert "최저" not in nd.render_markdown({"headline": "h", "sections": []}, day)
     h = nd.render_html(d, day)

@@ -1428,7 +1428,7 @@ def render_html(digest: dict, date: datetime) -> str:
             rows = "".join(f'<div style="margin:2px 0">{e(icon)}&nbsp; {e(text)}</div>' for icon, text in c["rows"])
             tag = f' <span style="font-weight:400;font-size:12px;color:#667">{e(c["tag"])}</span>' if c["tag"] else ""
             parts.append(f'<div style="{border}padding:8px 0 10px;font-size:14px;line-height:1.55">'
-                         f'<div style="font-size:15px;margin-bottom:3px"><b>{e(c["city"])}</b>{tag} &nbsp;{e(c["sky"])}</div>'
+                         f'<div style="font-size:16px;margin-bottom:3px"><b>{e(c["city"])}</b>{tag} &nbsp;{e(c["sky"])}</div>'
                          f"{rows}</div>")
         parts.append("</div>")
     ko, en = _message_line(digest)
@@ -1617,10 +1617,11 @@ def render_markdown(digest: dict, date: datetime) -> str:
     cards = _weather_cards(digest)
     if cards:
         out.append("## 🌤 오늘의 날씨")
-        for c in cards:   # 도시마다 인용 블록 + 항목별 줄바꿈 → 메일에서 도시별로 묶여 보임
+        for c in cards:   # 도시 이름은 카테고리 이름과 같은 크기의 제목(###), 아래에 하늘 상태와 항목별 줄
+            icon0, _, sky = c["sky"].partition(" ")
             tag = f" {_md(c['tag'])}" if c["tag"] else ""
-            out.append(f"> **{_md(c['city'])}**{tag} · {_md(c['sky'])}  ")
-            out.extend(f"> {icon} {_md(text)}  " for icon, text in c["rows"])
+            out.extend([f"### {icon0} {_md(c['city'])}{tag}", "", f"**{_md(sky)}**  "])
+            out.extend(f"{icon} {_md(text)}  " for icon, text in c["rows"])
             out.append("")
     ko, en = _message_line(digest)
     if ko:
