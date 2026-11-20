@@ -1,0 +1,521 @@
+{
+ "headline": "러시아의 폴란드 미사일 도발·우크라 공습 격화, 한미일 통일외교 연쇄 회동, 민주당 조희대 대법원장 탄핵 당론 채택",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "러시아가 우크라이나 대규모 공습 중 폴란드 영토에 미사일을 떨어뜨려 나토 회원국이 처음으로 직접 피격됐으며, 푸틴 대통령은 크림대교 보복을 공언한 뒤 키이우 교량 3곳을 타격해 민간인 사상자가 발생했습니다. 미·중·러 3자 회담은 핵 위험 감축 선언에 그쳤고, 이란 혁명수비대는 중동 역외 인프라 공격까지 경고하며 긴장을 높였습니다. 예멘 후티 반군은 임시수도 아덴 인근까지 진격해 정부군 분열 속에 함락 위기를 맞았으며, EU와 영국은 브렉시트 8년 만에 식품 무역 장벽 완화와 청년 교류 확대에 합의했습니다. 엘살바도르 부켈레 대통령은 헌법 논란 속에서도 3선 도전을 공식화했습니다.",
+   "items": [
+    {
+     "title": "러시아 미사일, 폴란드 영토 타격…나토 회원국 첫 직접 피격",
+     "summary": "러시아의 우크라이나 대규모 공습 중 Kh-101 미사일 2기와 드론 1기가 폴란드 영토에 떨어져 폴란드 방공망이 작동했으며, 투스크 총리는 '러시아의 도발'로 규정하고 나토 차원 대응을 시사했습니다.",
+     "source": "BBC, Kyiv Independent, CBS News",
+     "id": 90,
+     "link": "https://www.bbc.co.uk/news/articles/c6x29gn4pdn9o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "러시아, 키이우 교량 3곳 미사일 타격…푸틴 '크림대교 보복' 실행",
+     "summary": "푸틴 대통령이 크림대교 공격 보복을 공언한 뒤 러시아가 키이우 시내 주요 교량 3곳을 탄도미사일로 타격해 최소 8명이 사망하고 민간 인프라 피해가 컸습니다.",
+     "source": "NBC News, BBC, The Guardian",
+     "id": 198,
+     "link": "https://www.nbcnews.com/world/ukraine/russia-strikes-kyiv-bridges-ukraine-crimea-putin-zelenskyy-apec-trump-rcna610372"
+    },
+    {
+     "title": "트럼프·시진핑·푸틴 선전 3자 회담, 핵 위험 감축 선언에 그쳐",
+     "summary": "선전(심천)에서 열린 미·중·러 정상회담은 공동성명에서 '핵 위험 감축'을 언급했으나 전쟁 종식이나 구체적 군축 합의는 없어 '상징적 승리'에 그쳤다는 평가가 지배적입니다.",
+     "source": "NYT, Foreign Policy, SCMP",
+     "id": 311,
+     "link": "https://foreignpolicy.com/2026/11/19/trump-xi-putin-trilateral-talks-nuclear-disarmament-un-icc-oil/"
+    },
+    {
+     "title": "이란 혁명수비대, 중동 밖 인프라 공격 위협…미·이스라엘 긴장 고조",
+     "summary": "이란 혁명수비대 고위 관계자가 미·이스라엘의 추가 공습 시 중동 역외 인프라까지 타격하겠다고 경고했으며, 게슘섬 상공에서 폭발음·섬광이 관측돼 긴장이 고조되고 있습니다.",
+     "source": "Al-Monitor, 연합뉴스",
+     "id": 312,
+     "link": "https://www.al-monitor.com/originals/2026/11/irans-irgc-threatens-infrastructure-attacks-beyond-middle-east-amid-us-israel"
+    },
+    {
+     "title": "예멘 후티 반군, 임시수도 아덴 진격…정부군 분열로 함락 위기",
+     "summary": "후티 반군이 아덴 인근까지 접근해 정부군이 분열된 가운데 주민들은 잔류 또는 피란을 강요받고 있으며, 사우디 지원 세력은 호데이다 항구 공습을 정당화했습니다.",
+     "source": "Al-Monitor, Middle East Eye",
+     "id": 77,
+     "link": "https://www.al-monitor.com/originals/2026/11/yemens-aden-divided-government-forces-prepare-houthi-assault"
+    },
+    {
+     "title": "EU·영국, 브렉시트 8년 만에 '관계 재설정' 정상회담…식품·청년 합의",
+     "summary": "EU와 영국 정상이 브뤼셀 회담에서 식품 무역 장벽 완화와 18~31세 청년 3년 체류·취업·학업 허용에 합의했으나 대학 등록금 문제는 차기 협상으로 미뤘습니다.",
+     "source": "연합뉴스, The Guardian, SCMP",
+     "id": 124,
+     "link": "https://www.yna.co.kr/view/AKR20261120177951098"
+    },
+    {
+     "title": "부켈레 엘살바도르 대통령, 3선 도전 공식화…헌법 논란 속 후보 등록",
+     "summary": "철권통치 비판을 받는 나이브 부켈레 대통령이 헌법 금기에도 3연임 도전을 위해 대선 후보 등록을 마쳤으며, 여론조사상 압도적 지지율을 보이고 있습니다.",
+     "source": "연합뉴스",
+     "id": 243,
+     "link": "https://www.yna.co.kr/view/AKR20261121000700087"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "앤트로픽 상장 후 AI 거품 우려로 나스닥 100이 3% 급락한 여파로 국내 증시도 코스피·코스닥이 5%대 동반 폭락하며 매도 사이드카가 발동됐습니다. 삼성전자·SK하이닉스 등 반도체 대형주가 곤두박질치며 개인 투자자 손실이 확대됐고, 앤트로픽 주가는 상장 이틀째 하락해 공모가 대비 상승분을 대부분 반납했습니다. 트럼프 계좌의 엔비디아 반복 매매가 확인됐고, 미 의회는 중국산 자동차 수입을 사실상 차단하는 초당적 법안 연내 처리를 앞두고 있습니다. 공동주택 공시가 현실화율이 69%로 동결됐으나 집값 상승 지역은 보유세 인상이 불가피합니다.",
+   "items": [
+    {
+     "title": "앤트로픽 상장 후 AI 거품 우려로 나스닥 100 3% 급락",
+     "summary": "앤트로픽 IPO 이후 기술주 매도세가 확산되며 나스닥 100이 3% 하락, 2020년 이후 최장 하락세를 기록했다.",
+     "source": "Bloomberg, BBC, Financial Times",
+     "id": 59,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-19/stock-market-today-dow-s-p-live-updates"
+    },
+    {
+     "title": "앤트로픽 주가 상장 이틀째 5.43% 하락, 장중 10% 넘게 떨어지기도",
+     "summary": "차익실현 매물과 기술주 전반 약세로 앤트로픽 주가가 공모가 대비 상승분 대부분을 반납했다.",
+     "source": "블록미디어, Bloomberg, MarketWatch",
+     "id": 169,
+     "link": "https://www.blockmedia.co.kr/archives/1168690?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "국내 증시 '검은 금요일'…코스피·코스닥 5%대 동반 폭락",
+     "summary": "앤트로픽발 기술주 약세에 외국인·기관 매도 공세로 코스피 4900선 붕괴, 양 시장 매도 사이드카 발동.",
+     "source": "경향신문, 매일경제, 한겨레",
+     "id": 490,
+     "link": "https://www.khan.co.kr/article/202611201605001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "삼성전자·SK하이닉스 등 반도체주 곤두박질, 삼전닉스 개미 멘탈 '바닥'",
+     "summary": "AI 투자 회의론과 금리 인상 우려로 대형 반도체주 주가가 급락하며 개인 투자자 손실 확대.",
+     "source": "한국경제, 매일경제, 연합뉴스",
+     "id": 31,
+     "link": "https://www.hankyung.com/article/2026112004446"
+    },
+    {
+     "title": "트럼프 계좌, 9월에도 엔비디아 주식 반복 매수·매도",
+     "summary": "재집권 후 8월까지 103차례 거래된 엔비디아를 9월에도 추가 매수·매도한 것으로 확인.",
+     "source": "매일경제",
+     "id": 34,
+     "link": "https://www.mk.co.kr/news/stock/12214899"
+    },
+    {
+     "title": "미 의회, 중국산 자동차 수입 사실상 차단하는 초당적 법안 연내 처리 임박",
+     "summary": "BYD·지리 등 중국 완성차와 부품 수입을 막는 법안이 초당적 지지로 통과 전망, 벤츠 등 예외 검토.",
+     "source": "매일경제",
+     "id": 35,
+     "link": "https://www.mk.co.kr/news/business/12214980"
+    },
+    {
+     "title": "공시가 현실화율 69% 동결…집값 오른 지역 보유세 상승 불가피",
+     "summary": "내년 공동주택 공시가격 시세반영률이 올해 수준으로 묶였으나 상승 지역은 공시가·보유세 오를 전망.",
+     "source": "경향신문",
+     "id": 44,
+     "link": "https://www.khan.co.kr/article/202611202007001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    }
+   ],
+   "max_items": 7
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 6만 달러선 아래로 내려앉으며 7월 이후 최저치를 기록했고, 미국 현물 비트코인 ETF에서 하루 5.8억 달러 순유출이 발생했다. 앤트로픽발 기술주 매도세와 금리 인상 베팅이 위험자산 회피를 부추겼다. 미 상원은 전쟁·암살·사망 연계 예측시장 계약을 금지하는 DEATH BETS Act를 통과시켰고, 홍콩은 암호화폐 라이선스 대상을 브로커·수탁자로 확대한다. 바이낸스 해킹 자금 6억 달러가 크로스체인 프로토콜을 통해 이동 중이다.",
+   "items": [
+    {
+     "title": "비트코인 5만9000~6만 달러대 하락…7월 이후 최저",
+     "summary": "기술주 매도세와 금리 인상 베팅, ETF 자금 유출로 비트코인이 6만 달러선 붕괴 후 5만9000달러대까지 하락.",
+     "source": "블록미디어, Bitcoin Magazine, CoinDesk",
+     "id": 50,
+     "link": "https://www.blockmedia.co.kr/archives/1168698?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "미국 현물 비트코인 ETF 하루 5.8억 달러 순유출, 11월 누적 35억 달러",
+     "summary": "블랙록 IBIT 중심으로 대규모 자금 이탈, 국채 수익률 상승과 연준 금리 인상 전망이 악재로 작용.",
+     "source": "Decrypt, The Block, CoinDesk",
+     "id": 411,
+     "link": "https://decrypt.co/383685/bitcoin-etfs-shed-582m-in-a-day-as-btc-drops-below-62k"
+    },
+    {
+     "title": "미 상원, 전쟁·암살·사망 예측시장 계약 금지 'DEATH BETS Act' 통과",
+     "summary": "내부자 거래 우려로 미 규제 거래소의 해당 계약 상장 금지 법안이 상원 통과, 하원 표결 대기.",
+     "source": "Cointelegraph, Decrypt, The Block",
+     "id": 65,
+     "link": "https://cointelegraph.com/news/us-senate-advances-prediction-market-restrictions-with-death-bets-act?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "홍콩, 암호화폐 라이선스 규제 대상을 브로커·자문사·수탁자로 확대 추진",
+     "summary": "현행 거래소 중심에서 중개·보관·자문 업체까지 라이선스 의무화로 규제 범위 확대.",
+     "source": "CoinDesk",
+     "id": 183,
+     "link": "https://www.coindesk.com/policy/2026/11/20/hong-kong-moves-to-extend-crypto-licensing-rules-to-brokers-advisers-and-custodians"
+    }
+   ],
+   "max_items": 4
+  },
+  {
+   "topic": "문화예술",
+   "overview": "해외 미술시장에서 반 고흐 '피어나는 밤나무'가 소더비 경매에서 1억9040만 달러에 낙찰돼 작가 최고가를 경신했고, 힐마 아프 클린트와 칸딘스키 작품도 각각 작가 경매 기록을 새로 썼습니다. 소더비 인상파·모던 아트 저녁 경매는 총 7억7780만 달러로 단일 밤 기준 역대 최고액을 기록했습니다. 국내에서는 후암동 미술관의 도레 연재와 아부다비 자이드 국립박물관 개관 소식, 서울 DDP에서 역대 최대 규모의 대한민국 관광기념품 박람회가 개막했습니다.",
+   "items": [
+    {
+     "title": "반 고흐 '피어나는 밤나무' 소더비 경매서 1억 9,040만 달러 낙찰, 작가 최고가 경신",
+     "summary": "빈센트 반 고흐의 1890년작 '피어나는 밤나무'가 뉴욕 소더비 경매에서 1억 9,040만 달러에 낙찰되어 기존 최고가 1억 1,720만 달러를 크게 넘어섰으며, 나치 시대 반환 청구 분쟁이 경매 직전 합의로 해결되었습니다.",
+     "source": "NYT, ARTnews, Artforum",
+     "id": 292,
+     "link": "https://www.nytimes.com/2026/11/18/arts/design/van-gogh-painting-auction-sothebys.html"
+    },
+    {
+     "title": "힐마 아프 클린트 'Ser III No. 5' 스톡홀름 경매서 1,270만 달러 낙찰, 작가 경매 기록 경신",
+     "summary": "스웨덴 부코프스키 경매에서 힐마 아프 클린트의 1920년 추상화 'Ser III No. 5'가 추정가 80만 달러의 16배인 1,270만 달러에 낙찰되어 작가 최고 경매가를 기록했습니다.",
+     "source": "ARTnews, Hyperallergic",
+     "id": 188,
+     "link": "https://www.artnews.com/art-news/news/hilma-af-klint-painting-auction-record-sweden-1234807039/"
+    },
+    {
+     "title": "소더비 인상파·모던 아트 저녁 경매 총 7억 7,780만 달러 기록, 반 고흐·세잔 등 고가 낙찰",
+     "summary": "소더비 뉴욕에서 열린 두 차례 인상파·모던 아트 저녁 경매가 총 7억 7,780만 달러를 기록해 단일 밤 기준 경매사 역대 최고액을 경신했으며, 세잔 '아를르캥'이 1억 1,100만 달러에 낙찰되었습니다.",
+     "source": "ARTnews",
+     "id": 189,
+     "link": "https://www.artnews.com/art-news/market/sothebys-modern-art-sale-blaquier-arrieta-van-gogh-1234806802/"
+    },
+    {
+     "title": "크리스티 21세기 미술 저녁 경매 1억 4,590만 달러, 바스키아 3,290만 달러로 최고가",
+     "summary": "크리스티 뉴욕 록펠러센터 경매에서 21세기 미술 56점이 1억 4,590만 달러에 낙찰되었으나 추정치에는 미달했으며, 바스키아 작품이 3,290만 달러로 최고가를 기록했습니다.",
+     "source": "ARTnews, Artnet News",
+     "id": 511,
+     "link": "https://www.artnews.com/art-news/market/christies-21st-century-art-sale-november-2026-1234806916/"
+    },
+    {
+     "title": "크리스티 20세기 미술 저녁 경매서 칸딘스키 'Betonte Ecken' 8,580만 달러 낙찰, 작가 기록 경신",
+     "summary": "바실리 칸딘스키의 1922~23년작 'Betonte Ecken'이 크리스티 뉴욕 경매에서 8,580만 달러에 낙찰되어 작가 경매 최고가를 경신했습니다.",
+     "source": "Artsy",
+     "id": 516,
+     "link": "https://www.artsy.net/article/artsy-editorial-record-breaking-858-million-kandinsky-leads-christie-s-november-2026-new-york-evening-sale"
+    },
+    {
+     "title": "10세 안팎 子사망…“부모가 돈 벌려고 죽였다” 화가가 분노한 이유[이원율의 후암동 미술관-귀스타브 도레 편]",
+     "summary": "후암동 미술관은 무한한 디지털 공간에 걸맞은 초장편 문화예술 스토리텔링 연재물의 ‘원조 맛집’입니다. ■기자 구독■을 누르시면 매 주말 새로운 예술 이야기를 즐기실 수 있습니다. 기사는 역사적 사실 기반에 일부 상상…",
+     "source": "헤럴드경제",
+     "link": "https://biz.heraldcorp.com/article/10944479"
+    },
+    {
+     "title": "사막의 곡선이 빚은 웅장한 공간…자이드 국립박물관",
+     "summary": "[아부다비=뉴시스] 사진·박현주 미술전문기자 = 20일(현지시간) 아랍에미리트(UAE) 아부다비 사디야트섬에 자리한 자이드 국립박물관 내부 전경. 영국 건축가 노먼 포스터가 이끄는 포스터 앤드 파트너스가 설계한 박물…",
+     "source": "뉴시스",
+     "link": "https://www.newsis.com/view/NISX20261120_0003877383"
+    },
+    {
+     "title": "세계 홀리는 K-굿즈 한자리에…‘대한민국 관광기념품 박람회’ 개막",
+     "summary": "143개 기업·기관이 참여한 역대 최대 규모의 관광기념품 박람회가 20일 서울 동대문디자인플라자(DDP)에서 개막했다. 우수 기념품의 유통 판로를 넓히고 산업 경쟁력을 높이기 위해 마련된 자리다. 행사장에는 올해 관…",
+     "source": "헤럴드경제",
+     "link": "https://biz.heraldcorp.com/article/10944404"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "한국에서 수능·국가시험 AI 부정행위 파문이 확산되자 대통령이 국가시험 전면 개편을 지시했고, 금감원은 세무사 수석 합격자를 고소하는 등 수사가 진행 중입니다. 교육당국은 수능 이후 논술·면접에서도 빅테크 협조로 AI 커닝을 추적 중이며, 주요 외신들이 이를 집중 보도했습니다. 앤트로픽은 IPO를 마무리했고, 오픈AI는 GPT-6.2 응답 대기시간 설정 시 API 요금 할인 옵션을 도입했습니다. 구글은 제미나이 4 네온과 툴 리트리벌 프리뷰를 공개했고, 메타는 AI가 기억 관리 방식을 스스로 개선하는 자기개선 메모리 기술을 발표했습니다. 미공개 모델 '게슈탈트'가 디자인 벤치마크에서 인간 전문가와 주요 AI 모델을 제치고 1위를 차지했습니다.",
+   "items": [
+    {
+     "title": "대통령 \"기존 방식으론 AI 부정행위 막기 어려워…국가시험 전면 개편\"",
+     "summary": "이재명 대통령이 수능·공무원·자격시험 등 국가시험 전반을 AI 환경에 맞춰 전면 개편하라고 지시하며 근본적 제도 변화를 예고했다.",
+     "source": "동아일보, 조선일보, 연합인포맥스",
+     "id": 24,
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9QbzYzSmRtel9FMFotbjF4TU5yQThVMTR5ZkkxTDF6Z0FJS2d1WldhbVNMV0RnQWd4Qm5BTVJrRTc3MHg4UTU3SGdBU1hDYzRuTzNnVDZ1cGgwODlQRTd5ZUhfNm9jeUxYa2hLTl9sbVU5SXRIWW1j0gFmQVVfeXFMTnhha2RyM0V5WkpXOHczZDFmTkVrOHhMcjJTUGNFWUc2dUtnN3ZrT1p4MVoyZWFSMjNEb1pCeTJvZ00wV2t5V253cDBaTkt5TDhYa2F0MktQc1BnTVRyUnl2ZjRsNlVn?oc=5"
+    },
+    {
+     "title": "금감원, 'AI 커닝' 세무사 수석 합격자 고소…공인회계사 시험서도 부정행위 적발",
+     "summary": "금융감독원이 AI 활용 부정행위 혐의로 세무사 시험 수석 합격자를 검찰에 고소하고 회계사 시험에서도 유사 사례를 적발해 수사 의뢰했다.",
+     "source": "연합인포맥스",
+     "id": 144,
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9vc25QZjZ2SzdOclhzYjBfN1g4dG9PTDdBRHpRRlZWd0U5NVphVDhVV3ktNElUZGRqUS1heU9uQWZ1MXhQWXdfZzYtYXVKR280VnN0NXd1VFhDby1EakRvemh3dzJKYWZtQUhJVm5ybUw?oc=5"
+    },
+    {
+     "title": "수능 끝나도 'AI 커닝' 추적 지속…빅테크 협조로 논술·면접 부정행위 가린다",
+     "summary": "교육당국이 수능 이후 대학별 논술·면접 전형에서도 AI 부정행위를 추적하기 위해 빅테크 기업 협조를 받아 의심 신호를 분석 중이다.",
+     "source": "연합뉴스",
+     "id": 260,
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1HYlhhMXdqT19Da0FKRGNERTRleVhZNkpvRUJQRmZDdWFvaUdqSWxhdTIzLXZlcTE3T2NZckVHcEljcWVJay11X0xkdWRONHJUamEzLWtfMHpXRUHSAWBBVV95cUxQTUFXVmVDMnIyYV9tT1FiXzVZZ1ZuU2ZBbUtiSm1MdDI1LTFPUDZmS1ZmNlRkYWh3cjVqRUhvTVlvNVltQU0yTy1GdXRJZS00ajE0TUVzWW1XaXBCeGJhaGw?oc=5"
+    },
+    {
+     "title": "NYT·가디언·코리아타임스 등 외신, 한국 'AI 부정행위 파문·시험 개편' 집중 보도",
+     "summary": "주요 외신들이 한국의 수능·국가시험 AI 컨닝 스캔들과 정부의 전면 개편 추진을 상세히 전하며 국제적 관심을 반영했다.",
+     "source": "NYT, The Guardian, The Korea Times",
+     "id": 25,
+     "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPbVdyNlZRVEZ1REdCa3hWQnhDRmRYZ2VCSVpUVlloNWhYaGFCVHlsbEozMHAtbFp1NFFHbmFIU1RKOVhfYXh2TmQ0SW50Ym41bDNwVFgxUFF3VVlLOFB4X0tXTnBuVTVSeFJLc01Zb0NqVXBvdzZBdGRJSjRNQjNnTmlxWXhTZHhtbU1LdFFrYVluR252Mm5B?oc=5"
+    },
+    {
+     "title": "Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement",
+     "summary": "Today Anthropic, PBC announced the closing of its initial public offering of an aggregate of 1,127,000,000 shares of its…",
+     "source": "Anthropic, Latent Space, TechCrunch",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/ipo-close"
+    },
+    {
+     "title": "오픈AI, GPT-6.2 응답 대기시간 2·8시간 설정 시 API 요금 30~40% 할인",
+     "summary": "개발자가 응답 완료 목표 시간을 길게 잡으면 표준 요금 대비 최대 40% 저렴하게 쓸 수 있는 새로운 과금 옵션을 도입했다.",
+     "source": "AI타임스",
+     "id": 249,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217632"
+    },
+    {
+     "title": "구글, 제미나이 4 네온 출시…원소 주기율표 작명법·툴 리트리벌 프리뷰 공개",
+     "summary": "제미나이 4 시리즈에 네온(Neon)을 추가하고 API에서 수백 개 도구에 적은 토큰으로 접근하는 툴 리트리벌 기능을 프리뷰로 선보였다.",
+     "source": "AI타임스, Google AI, Simon Willison",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217633"
+    },
+    {
+     "title": "메타, AI가 기억 관리 방식 스스로 개선하는 '자기개선 메모리' 기술 발표",
+     "summary": "AI 에이전트가 작업 경험을 바탕으로 무엇을 기억하고 언제 불러올지 결정하는 지침을 자율적으로 개선하는 연구 결과를 공개했다.",
+     "source": "AI타임스",
+     "id": 364,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217629"
+    },
+    {
+     "title": "미공개 모델 '게슈탈트', 디자인 벤치마크서 인간 전문가·주요 AI 모델 제치고 1위",
+     "summary": "콘트라 랩스와 벤치플로우가 개발한 '프론티어 디자인 벤치마크' 블라인드 평가에서 정체불명의 모델 게슈탈트가 인간 디자이너와 기존 AI 모델들을 모두 앞섰다.",
+     "source": "AI타임스",
+     "id": 130,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217630"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "민주당이 조희대 대법원장 탄핵소추안을 당론으로 채택해 연내 본회의 처리를 추진하며 이재명 대통령 파기환송심 과정도 탄핵 사유에 포함시켰으나, 곽상언 의원이 공개 반대 입장을 밝혀 당내 이견이 표출됐습니다. 정동영 통일장관은 주한미대사와 유엔사령관을 연이어 만나 대북정책과 정전협정 준수를 논의했습니다. 공군사관학교 생도가 명예시험 중 스마트폰으로 시험지를 촬영해 퇴교 처분됐고, 청와대는 시험 공정성 회복 TF와 국가시험 부정행위 제보센터를 가동했습니다.",
+   "items": [
+    {
+     "title": "민주당, 조희대 대법원장 탄핵소추 당론 채택…'이재명 파기환송심'도 사유 포함",
+     "summary": "민주당이 의원총회에서 조희대 대법원장 탄핵소추안을 당론으로 의결하고 연내 본회의 처리를 추진하기로 했으며, 이재명 대통령 공직선거법 파기환송심 과정도 탄핵 사유로 명시했습니다.",
+     "source": "연합뉴스, 경향신문, 한겨레",
+     "id": 171,
+     "link": "https://en.yna.co.kr/view/AEN20261120008800315"
+    },
+    {
+     "title": "정동영 통일장관, 스틸 주한미대사·브런슨 유엔사령관 연쇄 회동",
+     "summary": "정동영 장관이 미셸 스틸 대사와 대북정책 전반을 논의하고, 브런슨 유엔사령관과는 판문점에서 만나 정전협정 준수와 한반도 긴장 완화를 위한 정부-유엔사 협력을 강조했습니다.",
+     "source": "연합뉴스, 한겨레, 경향신문",
+     "id": 244,
+     "link": "https://www.yna.co.kr/view/AKR20261119163451504"
+    },
+    {
+     "title": "공군사관학교 생도, 명예시험 중 스마트폰으로 시험지 촬영…퇴교 처분",
+     "summary": "감독관 없는 명예시험 도중 생도가 스마트폰으로 시험지를 촬영한 사실이 적발돼 퇴교 조치됐으며, 청와대는 '시험 공정성 회복 TF'를 구성하고 국가시험 부정행위 제보센터를 가동했습니다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 128,
+     "link": "https://www.yna.co.kr/view/AKR20261120176600504"
+    },
+    {
+     "title": "곽상언 민주당 의원, 조희대 대법원장 탄핵 당론에 공개 반대",
+     "summary": "곽상언 의원이 페이스북을 통해 당 지도부의 탄핵 당론 추진에 반대 입장을 밝히며 '국민이 어떻게 보겠느냐'고 우려를 표해 당내 이견이 표출됐습니다.",
+     "source": "경향신문",
+     "id": 164,
+     "link": "https://www.khan.co.kr/article/202611201734001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "앤트로픽 IPO로 창업 초기 합류 AI 연구원들이 하룻밤 새 억만장자 반열에 올랐습니다. 캘리포니아주 검찰은 젠슨 황의 중국 연계 의혹으로 엔비디아에 소환장을 발부했고, 미 상무부는 중국 군 연계 기업 등에 엔비디아 AI 칩 80만 개 이상 수출을 승인한 것으로 확인돼 안보 우려가 제기됐습니다.",
+   "items": [
+    {
+     "title": "앤트로픽 IPO로 AI 연구원들 '하룻밤 새 억만장자' 등극",
+     "summary": "창업 초기 합류 연구원들 주식 가치가 수천만 달러 이상으로 불어난 것으로 보도.",
+     "source": "NYT, BBC, The Guardian",
+     "id": 291,
+     "link": "https://www.nytimes.com/2026/11/19/technology/anthropic-ipo-employees-payout.html"
+    },
+    {
+     "title": "캘리포니아주 검찰, 젠슨 황 중국 연계 의혹으로 엔비디아 소환장 발부",
+     "summary": "엔비디아와 전 CEO가 투자자 오도 가능성 등 '밝은 적신호'로 조사 대상에 올랐음.",
+     "source": "TechCrunch",
+     "id": 430,
+     "link": "https://techcrunch.com/2026/11/20/california-ag-subpoenas-nvidia-over-worries-about-huangs-ties-with-china/"
+    },
+    {
+     "title": "미 상무부, 중국 군 연계 기업 등에 엔비디아 AI 칩 80만 개 이상 수출 승인",
+     "summary": "의회 공개 자료에서 대중 수출 통제 예외 승인 내역 확인, 안보 우려 제기.",
+     "source": "NYT",
+     "id": 175,
+     "link": "https://www.nytimes.com/2026/11/19/business/economy/nvidia-chips-commerce-china-huang.html"
+    }
+   ],
+   "max_items": 3
+  },
+  {
+   "topic": "스포츠",
+   "overview": "피겨 김서영이 시니어 그랑프리 5차 대회 쇼트 프로그램에서 개인 최고점을 기록하며 3위에 올랐습니다. 남자 프로배구 한국전력이 현대캐피탈을 꺾고 5년 만에 1라운드 1위로 마쳤습니다.",
+   "items": [
+    {
+     "title": "피겨 김서영, 시니어 그랑프리 5차 쇼트 3위…개인 최고점",
+     "summary": "피겨스케이팅 기대주 김서영(명지대)이 2026-2027 국제빙상경기연맹(ISU) 피겨 시니어 그랑프리 5차 대...",
+     "source": "연합뉴스",
+     "id": 30,
+     "link": "https://www.yna.co.kr/view/AKR20261121000500007"
+    },
+    {
+     "title": "남자배구 한국전력, 현대 꺾고 5년 만에 1위로 1라운드 마쳐",
+     "summary": "남자 프로배구 한국전력이 현대캐피탈 연승 행진에 제동을 걸고 1라운드를 1위로 마쳤다.",
+     "source": "연합뉴스",
+     "id": 265,
+     "link": "https://www.yna.co.kr/view/AKR20261120177200007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "동아일보",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "토큰포스트",
+   "Yonhap English",
+   "연합인포맥스",
+   "연합뉴스TV",
+   "시사저널e",
+   "매일신문",
+   "뉴스핌"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "The New York Times",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "The Guardian",
+   "The Korea Times",
+   "Anadolu Ajansı",
+   "South China Morning Post",
+   "Korea JoongAng Daily"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-21",
+   "sky": "맑음",
+   "now": "-3°",
+   "lo": "-4°",
+   "hi": "1°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −1°, 최저 −1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "구름 조금 -5°/4°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-21",
+   "sky": "대체로 맑음",
+   "now": "0°",
+   "lo": "-1°",
+   "hi": "5°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 −1°",
+   "precip": "강수 가능성 낮음(2%)",
+   "tomorrow": "맑음 -3°/6°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-20",
+   "sky": "대체로 맑음",
+   "now": "12°",
+   "lo": "8°",
+   "hi": "17°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 −3°",
+   "precip": "강수 가능성 낮음(1%)",
+   "tomorrow": "흐림 7°/20°"
+  }
+ ],
+ "message": {
+  "ko": "세상 소식이 어수선하게 들려도, 가끔은 돌아가는 길이 더 아름다워요. 좋은 하루 보내요.",
+  "en": "Even when the news of the world sounds chaotic, a roundabout path is sometimes more beautiful. Have a good day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 524,
+  "outlets": 97,
+  "failed_feeds": [
+   "Import AI"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-20T16:19:11.129623+00:00"
+}
