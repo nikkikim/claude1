@@ -1250,7 +1250,7 @@ def test_weather_and_message_render_everywhere():
     assert "&lt;today&gt;" in nd.render_html(d, day) and "<today>" not in nd.render_html(d, day)
     md = nd.render_markdown(d, day)
     assert md.index("오늘의 날씨") < md.index("오늘의 한마디")
-    assert nd._weather_lines({}) == [] and "오늘의 날씨" not in nd.render_html({"headline": "h", "sections": []}, day)
+    assert nd._weather_cards({}) == [] and "오늘의 날씨" not in nd.render_html({"headline": "h", "sections": []}, day)
 
 
 def test_weather_is_placed_above_core_summary():
@@ -1944,3 +1944,60 @@ def test_missing_categories_in_a_batch_are_requested_again_separately(monkeypatc
         assert all("요약" in i["summary"] for i in topics[cat]["items"])
     assert len(calls) == 3 + 3 and not out.get("partial")                          # 묶음 3 + 빠진 카테고리 재요청 3(정치·사회+스포츠, 코인+IT, AI)
     assert "documenta → 도큐멘타" in nd.SYSTEM_PROMPT
+
+
+# ---------- 2026-11-20: 'AI × 교육·시험(수능 AI 컨닝 등)' 주제 보강 + 메일 가독성 ----------
+
+def test_is_ai_education_detects_cheating_and_school_topics_only():
+    assert nd.is_ai_education("수능 'AI 커닝' 추적…빅테크 협조로 부정행위 가린다")
+    assert nd.is_ai_education("After A.I. Cheating Scandal, South Korea Adopts New Restrictions")
+    assert nd.is_ai_education("Teachers fear AI cheating", "") and nd.is_ai_education("대학가 생성형 AI 표절 비상")
+    assert not nd.is_ai_education("엔비디아, 새 AI 칩 공개")                 # AI지만 교육·시험 아님
+    assert not nd.is_ai_education("수능 한파 예보, 수험생 건강 관리")         # 수능이지만 AI 아님
+    assert not nd.is_ai_education("The AIR show opens", "school bus")        # 'AIR' 같은 단어는 AI로 보지 않음
+
+
+def test_ai_education_articles_get_ai_hint_and_survive_the_total_cap(tmp_path):
+    rss = ('<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>%s</channel></rss>')
+    def item(t, n):
+        return (f"<item><title>{t}</title><link>https://ex.com/{n}</link>"
+                "<pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item>")
+    soc = tmp_path / "soc.xml"
+    soc.write_text(rss % "".join(item(f"일반 사회 기사 {i}", i) for i in range(6)), encoding="utf-8")
+    edu = tmp_path / "edu.xml"
+    edu.write_text(rss % item("수능 AI 부정행위 108건 적발", 100), encoding="utf-8")
+    cfg = {"feeds": [{"outlet": "사회", "region": "국내", "category": "정치·사회", "url": str(soc)},
+                     {"outlet": "교육", "region": "국내", "category": "정치·사회", "url": str(edu)}],
+           "max_total_articles": 1, "max_age_hours": 26, "max_items_per_feed": 10}
+    arts = nd.fetch_articles(cfg, now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))
+    hit = [a for a in arts if "부정행위" in a.title]
+    assert len(hit) == 1 and hit[0].category == "AI"            # 힌트가 정치·사회 → AI, 상한(1건)을 넘어도 빠지지 않음
+    assert len(arts) == 2                                       # 일반 기사 1건 + 상한 밖으로 추가된 주제 기사 1건
+
+
+def test_google_news_feed_splits_outlet_from_title(tmp_path):
+    f = tmp_path / "gn.xml"
+    f.write_text('<?xml version="1.0"?><rss version="2.0"><channel><title>gn</title>'
+                 "<item><title>'AI 커닝' 세무사 수석 고소 - 연합인포맥스</title><link>https://news.google.com/rss/articles/x</link>"
+                 "<description>&lt;a&gt;관련 기사 제목들&lt;/a&gt;</description><pubDate>Tue, 03 Nov 2026 01:00:00 GMT</pubDate></item></channel></rss>",
+                 encoding="utf-8")
+    cfg = {"feeds": [{"outlet": "구글뉴스", "region": "국내", "category": "AI", "google_news": True, "url": str(f)}], "max_age_hours": 26}
+    a = nd.fetch_articles(cfg, now=datetime(2026, 11, 3, 3, 0, tzinfo=timezone.utc))[0]
+    assert a.outlet == "연합인포맥스" and a.title == "'AI 커닝' 세무사 수석 고소" and a.summary == "" and a.category == "AI"
+
+
+def test_prompt_asks_for_ai_education_topic_in_ai_category():
+    assert "AI와 교육·시험 이슈" in nd.SYSTEM_PROMPT and "컨닝" in nd.SYSTEM_PROMPT and nd.CATEGORY_LIMITS["AI"] >= 9
+
+
+def test_weather_is_split_into_city_cards_not_one_run_on_line():
+    d = {"headline": "h", "sections": [], "weather": [nd.parse_weather("서울", SEOUL_RAW)]}
+    day = datetime(2026, 11, 4)
+    cards = nd._weather_cards(d)
+    assert len(cards) == 1 and len(cards[0]["rows"]) >= 3 and cards[0]["sky"].split()[0]    # 아이콘 + 하늘 상태
+    md = nd.render_markdown(d, day)
+    block = [ln for ln in md.splitlines() if ln.startswith("> ") and ("최저" in ln or "어제" in ln or "강수" in ln or "비" in ln)]
+    assert len(block) >= 3 and all(len(ln) < 60 for ln in block)               # 한 줄에 몰아 쓰지 않고 줄마다 한 항목
+    assert "최저" not in nd.render_markdown({"headline": "h", "sections": []}, day)
+    h = nd.render_html(d, day)
+    assert h.count("<div style=\"margin:2px 0\">") >= 3 and "·  어제" not in h

@@ -61,7 +61,7 @@ CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
 
 # 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인 → 문화예술 → AI)이며, 값은 카테고리별 최대 항목 수
-CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8, "AI": 7,
+CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8, "AI": 9,
                    "정치·사회": 4, "IT·과학": 3, "스포츠": 2}
 CATEGORIES = list(CATEGORY_LIMITS)
 MIN_DOMESTIC_ART = 3          # 문화예술에 국내 소식이 최소 몇 건 들어가야 하는지
@@ -171,6 +171,20 @@ def _entry_time(entry) -> datetime | None:
     return None
 
 
+# 'AI × 교육·시험' 이슈(수능·국가시험 AI 부정행위/컨닝, 표절·대필, AI 탐지, 학교·대학의 AI 정책 등)는 독자가 놓치면 안 되는 주제라
+# 기사 수 상한에 밀리지 않게 하고 'AI' 카테고리 힌트를 붙인다.
+_AI_TERM = re.compile(r"(?<![A-Za-z])(?:AI|A\.I\.)(?![a-z])|인공지능|생성형|챗GPT|ChatGPT|챗봇|chatbot|\bLLM\b|제미나이|Gemini|클로드|Claude|코파일럿|Copilot", re.I)
+_EDU_TERM = re.compile(r"컨닝|커닝|부정행위|수능|시험|입시|대입|표절|대필|과제|교육|학교|학생|대학|교사|교수|수업|교과서|응시|"
+                       r"cheat|exam|plagiar|school|student|universit|teacher|classroom|campus|homework|essay|test-taker", re.I)
+AI_EDU_EXTRA = 14   # 상한(max_total_articles)을 넘더라도 추가로 더 담는 'AI × 교육' 기사 수
+_AI_EDU_REHINT_FROM = ("정치·사회", "IT·과학", "종합", "세계 이슈", "스포츠", "AI")   # 이 힌트 기사만 'AI'로 바꿈(미술·경제·코인은 그대로)
+
+
+def is_ai_education(title: str, summary: str = "") -> bool:
+    text = f"{title} {summary}"
+    return bool(_AI_TERM.search(text) and _EDU_TERM.search(text))
+
+
 def _norm_title(title: str) -> str:
     """'(종합)', '(종합2보)', '[속보]' 같은 접미사를 떼어 같은 사건의 속보/종합 기사를 중복으로 본다."""
     t = re.sub(r"\((?:종합|속보|\d보)[^)]*\)|\[(?:속보|단독|종합)\]", "", title)
@@ -269,6 +283,11 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 link = entry.get("link") or ""
                 if not title or not link:
                     continue
+                entry_outlet = outlet
+                if feed.get("google_news"):   # 구글 뉴스 검색 피드: 제목 끝 ' - 매체명'을 떼어 실제 매체로 표시
+                    head, sep, tail = title.rpartition(" - ")
+                    if sep and head and 0 < len(tail) <= 30:
+                        title, entry_outlet = head.strip(), tail.strip()
                 if _KANA.search(title):  # 일본어 기사(예: 조선일보 일본어판)는 한국어 브리핑에서 제외
                     continue
                 published = _entry_time(entry)
@@ -279,13 +298,17 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
                 if key in seen or tkey in seen:
                     continue
                 seen.update({key, tkey})
+                summary = "" if feed.get("google_news") else _excerpt(entry, feed.get("category", "종합"))  # 구글 뉴스 요약은 관련 기사 제목 나열이라 버림
+                category = feed.get("category", "종합")
+                if category in _AI_EDU_REHINT_FROM and is_ai_education(title, summary):
+                    category = "AI"
                 items.append(Article(
-                    outlet=outlet,
+                    outlet=entry_outlet,
                     region=feed.get("region", ""),
-                    category=feed.get("category", "종합"),
+                    category=category,
                     title=title,
                     link=link,
-                    summary=_excerpt(entry, feed.get("category", "종합")),
+                    summary=summary,
                     published=published,
                 ))
                 if len(items) >= per_feed:
@@ -298,6 +321,14 @@ def fetch_articles(config: dict, now: datetime | None = None) -> list[Article]:
         for items in per_feed_lists:
             if rank < len(items) and len(articles) < max_total:
                 articles.append(items[rank])
+    # 'AI × 교육·시험' 기사는 상한에 밀려 빠지지 않게 추가로 더 담는다(수능 AI 컨닝처럼 화제인 주제를 놓치지 않기 위함)
+    taken = {id(a) for a in articles}
+    extra = 0
+    for items in per_feed_lists:
+        for a in items:
+            if id(a) not in taken and a.category == "AI" and is_ai_education(a.title, a.summary) and extra < AI_EDU_EXTRA:
+                articles.append(a)
+                extra += 1
     return articles
 
 
@@ -409,16 +440,43 @@ def fetch_weather(cities=WEATHER_CITIES) -> list[dict]:
     return out
 
 
-def _weather_lines(digest: dict) -> list[str]:
-    lines = []
-    ref = None
+def _sky_icon(sky: str) -> str:
+    for pat, icon in (("천둥", "⛈️"), ("눈|싸락", "❄️"), ("비|소나기|이슬비", "🌧️"), ("안개", "🌫️"), ("흐림", "☁️"),
+                      ("구름", "⛅"), ("대체로 맑음", "🌤️"), ("맑음", "☀️")):
+        if re.search(pat, sky or ""):
+            return icon
+    return "🌡️"
+
+
+def _weather_cards(digest: dict) -> list[dict]:
+    """도시별 날씨 카드. 한 줄로 이어 쓰면 읽기 힘들어, 도시마다 '제목 + 항목 줄'로 나눠 메일·마크다운·텍스트·텔레그램이 같이 쓴다.
+    {"city": "서울", "tag": "(현지 11/3일)" 또는 "", "sky": "⛅ 구름 조금", "rows": [(아이콘, 내용), ...]}"""
+    cards, ref = [], None
     for w in digest.get("weather") or []:
         ref = ref or w["date"]
         tag = f"(현지 {int(w['date'][5:7])}/{int(w['date'][8:10])}일)" if w["date"] != ref else ""
-        now = f" · 지금 {w['now']}" if w.get("now") else ""
-        tomorrow = f" · 내일 {w['tomorrow']}" if w.get("tomorrow") else ""
-        lines.append(f"{w['city']}{tag}: {w['sky']}{now} · 최저 {w['lo']} / 최고 {w['hi']} · {w['mood']}({w['diff']}) · {w['precip']}{tomorrow}")
-    return lines
+        now = f"지금 {w['now']} · " if w.get("now") else ""
+        mood = str(w.get("mood", ""))
+        mood_icon = "🔺" if "따뜻" in mood else ("🔻" if "쌀쌀" in mood else "➖")
+        precip = str(w.get("precip", ""))
+        precip_icon = "❄️" if precip.startswith("눈") else ("☔" if precip.startswith("비") else "☂️")
+        rows = [("🌡️", f"{now}최저 {w['lo']} / 최고 {w['hi']}"),
+                (mood_icon, f"{mood} ({w['diff']})"),
+                (precip_icon, precip)]
+        if w.get("tomorrow"):
+            rows.append(("📅", f"내일 {w['tomorrow']}"))
+        cards.append({"city": w["city"], "tag": tag, "sky": f"{_sky_icon(w['sky'])} {w['sky']}", "rows": rows})
+    return cards
+
+
+CATEGORY_ICONS = {"세계 이슈": "🌍", "경제·증시": "📈", "코인": "🪙", "문화예술": "🎨", "AI": "🤖",
+                  "정치·사회": "🏛️", "IT·과학": "🔬", "스포츠": "⚽"}
+
+
+def _cat(topic: str) -> str:
+    """카테고리 이름 앞에 아이콘을 붙여 훑어보기 쉽게 한다(모르는 카테고리는 그대로)."""
+    icon = CATEGORY_ICONS.get(topic)
+    return f"{icon} {topic}" if icon else topic
 
 
 # ---------- 정기 알림(6개월마다 해야 하는 저장소 설정 등) ----------
@@ -486,6 +544,9 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 4. AI: 생성형 AI 업계 동향. **새 모델 출시·업데이트, 벤치마크·리더보드 변화, 가격·API·기능 변경, 교육·업무 활용 사례와 도구,
    주요 AI 기업(OpenAI·Anthropic·Google·Meta·Mistral·딥시크 등)의 움직임, AI 규제·정책**을 우선하고, 국내 소식도 포함하세요.
    AI와 직접 관련된 기사는 'IT·과학'이 아니라 **'AI'** 로 분류합니다('IT·과학'에는 AI가 아닌 기술·과학만).
+   **AI와 교육·시험 이슈**(수능·국가시험·자격시험의 AI 부정행위(컨닝), 표절·대필, AI 탐지, 정부·학교·대학의 AI 대응·정책, AI 교과서·수업 활용,
+   교육 현장의 AI 반발·찬반 논쟁)는 국내·해외 모두 정치·사회나 IT·과학이 아니라 **'AI'** 로 분류하고 우선 담으세요.
+   해당 기사가 있으면 최소 3건(국내 소식 위주, 해외 사례가 있으면 1건 이상)을 넣고, AI overview에서도 이 흐름을 한 문장으로 짚으세요.
    문화예술에는 **국내(한국) 매체의 국내 소식을 최소 3건** 반드시 포함하세요(목록에 있다면).
 
 규칙:
@@ -1349,7 +1410,7 @@ def render_html(digest: dict, date: datetime) -> str:
     e = html.escape
     parts = [
         '<div style="max-width:640px;margin:0 auto;font-family:-apple-system,'
-        "'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#222;line-height:1.6\">",
+        "'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#222;background:#fff;font-size:15px;line-height:1.6\">",
         f'<h1 style="font-size:20px;margin:0 0 4px">📰 {date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</h1>',
         f'<p style="margin:0 0 20px;color:#555">{e(digest.get("headline", ""))}</p>',
     ]
@@ -1358,11 +1419,17 @@ def render_html(digest: dict, date: datetime) -> str:
                      f'<div style="font-weight:700;margin-bottom:4px">{e(n.get("title", ""))}</div>')
         parts.extend(f'<p style="margin:4px 0;font-size:14px">{e(x)}</p>' for x in n.get("lines", []))
         parts.append("</div>")
-    weather = _weather_lines(digest)
-    if weather:
-        parts.append('<div style="background:#eef6ff;border-radius:8px;padding:12px 16px;margin:0 0 8px">'
-                     '<div style="font-weight:700;margin-bottom:4px">🌤 오늘의 날씨</div>')
-        parts.extend(f'<p style="margin:4px 0;font-size:14px">{e(x)}</p>' for x in weather)
+    cards = _weather_cards(digest)
+    if cards:
+        parts.append('<div style="background:#eef6ff;color:#222;border-radius:8px;padding:12px 16px 4px;margin:0 0 8px">'
+                     '<div style="font-weight:700;font-size:15px;margin-bottom:6px">🌤 오늘의 날씨</div>')
+        for i, c in enumerate(cards):
+            border = "border-top:1px solid #cfe0f5;" if i else ""
+            rows = "".join(f'<div style="margin:2px 0">{e(icon)}&nbsp; {e(text)}</div>' for icon, text in c["rows"])
+            tag = f' <span style="font-weight:400;font-size:12px;color:#667">{e(c["tag"])}</span>' if c["tag"] else ""
+            parts.append(f'<div style="{border}padding:8px 0 10px;font-size:14px;line-height:1.55">'
+                         f'<div style="font-size:15px;margin-bottom:3px"><b>{e(c["city"])}</b>{tag} &nbsp;{e(c["sky"])}</div>'
+                         f"{rows}</div>")
         parts.append("</div>")
     ko, en = _message_line(digest)
     if ko:
@@ -1372,22 +1439,23 @@ def render_html(digest: dict, date: datetime) -> str:
                      f'<p style="margin:4px 0;font-size:14px;color:#555">{e(en)}</p></div>')
     overviews = _overviews(digest)
     if overviews:  # 최상단: 카테고리별 오늘의 핵심
-        parts.append('<div style="background:#f4f6fa;border-radius:8px;padding:14px 16px;margin:0 0 8px;color:#222">'
-                     '<div style="font-weight:700;margin-bottom:4px">📌 카테고리별 오늘의 핵심</div>')
-        parts.extend(f'<p style="margin:8px 0;font-size:14px"><b>{e(t)}</b> · {e(o)}</p>' for t, o in overviews)
+        parts.append('<div style="background:#f4f6fa;border-radius:8px;padding:14px 16px 6px;margin:0 0 8px;color:#222">'
+                     '<div style="font-weight:700;font-size:15px;margin-bottom:6px">📌 카테고리별 오늘의 핵심</div>')
+        parts.extend(f'<div style="margin:0 0 12px;font-size:14px;line-height:1.6"><div style="font-weight:700;margin-bottom:1px">{e(_cat(t))}</div>{e(o)}</div>'
+                     for t, o in overviews)
         parts.append("</div>")
     for sec in digest.get("sections", []):
         parts.append(
             f'<h2 style="font-size:16px;border-bottom:2px solid #222;padding-bottom:4px;'
-            f'margin:24px 0 8px">{e(sec.get("topic", ""))}</h2>'
+            f'margin:28px 0 10px">{e(_cat(sec.get("topic", "")))}</h2>'
         )
         for it in sec.get("items", []):
             parts.append(
-                '<div style="margin:0 0 14px">'
-                f'<a href="{e(_safe_url(it.get("link", "")))}" style="color:#0b57d0;'
+                '<div style="margin:0 0 16px">'
+                f'<a href="{e(_safe_url(it.get("link", "")))}" style="color:#0b57d0;font-size:15px;'
                 f'font-weight:600;text-decoration:none">{e(it.get("title", ""))}</a>'
-                f'<div style="font-size:14px">{e(it.get("summary", ""))}</div>'
-                f'<div style="font-size:12px;color:#888">{e(it.get("source", ""))}</div>'
+                f'<div style="font-size:14px;color:#333;margin-top:2px">{e(it.get("summary", ""))}</div>'
+                f'<div style="font-size:12px;color:#888;margin-top:2px">{e(it.get("source", ""))}</div>'
                 "</div>"
             )
     outlets = digest.get("outlets") or {}
@@ -1410,11 +1478,13 @@ def render_text(digest: dict) -> str:
         out.append(f"[{n.get('title', '')}]")
         out.extend(f"- {x}" for x in n.get("lines", []))
         out.append("")
-    weather = _weather_lines(digest)
-    if weather:
+    cards = _weather_cards(digest)
+    if cards:
         out.append("[오늘의 날씨]")
-        out.extend(f"- {x}" for x in weather)
-        out.append("")
+        for c in cards:
+            out.append(f"■ {c['city']}{(' ' + c['tag']) if c['tag'] else ''} — {c['sky']}")
+            out.extend(f"   {icon} {text}" for icon, text in c["rows"])
+            out.append("")
     ko, en = _message_line(digest)
     if ko:
         out.extend(["[오늘의 한마디]", ko, en, ""])
@@ -1468,18 +1538,20 @@ def render_telegram(digest: dict, date: datetime) -> list[str]:
     blocks = [f"📰 <b>{date.year}년 {date.month}월 {date.day}일 뉴스 브리핑</b>\n{e(digest.get('headline', ''))}"]
     for n in digest.get("notices") or []:
         blocks.append(f"<b>{e(n.get('title', ''))}</b>\n" + "\n".join(e(x) for x in n.get("lines", [])))
-    weather = _weather_lines(digest)
-    if weather:
-        blocks.append("🌤 <b>오늘의 날씨</b>\n" + "\n".join(e(x) for x in weather))
+    cards = _weather_cards(digest)
+    if cards:
+        blocks.append("🌤 <b>오늘의 날씨</b>\n" + "\n\n".join(
+            f"<b>{e(c['city'])}</b>{(' ' + e(c['tag'])) if c['tag'] else ''} {e(c['sky'])}\n" + "\n".join(f"{icon} {e(text)}" for icon, text in c["rows"])
+            for c in cards))
     ko, en = _message_line(digest)
     if ko:
         blocks.append(f"☀️ <b>오늘의 한마디</b>\n{e(ko)}\n<i>{e(en)}</i>")
     overviews = _overviews(digest)
     if overviews:
-        blocks.append("📌 <b>카테고리별 오늘의 핵심</b>\n" + "\n".join(
-            f"<b>{e(t)}</b> · {e(o)}" for t, o in overviews))
+        blocks.append("📌 <b>카테고리별 오늘의 핵심</b>\n\n" + "\n\n".join(
+            f"<b>{e(_cat(t))}</b>\n{e(o)}" for t, o in overviews))
     for sec in digest.get("sections", []):
-        blocks.append(f"\n<b>■ {e(sec.get('topic', ''))}</b>")
+        blocks.append(f"\n<b>■ {e(_cat(sec.get('topic', '')))}</b>")
         for it in sec.get("items", []):
             link = _safe_url(it.get("link", ""))
             blocks.append(
@@ -1539,26 +1611,32 @@ def render_markdown(digest: dict, date: datetime) -> str:
         out.append(f"> **{_md(n.get('title', ''))}**  ")
         out.extend(f"> {_md(x)}  " for x in n.get("lines", []))
         out.append("")
-    weather = _weather_lines(digest)
-    if weather:
+    cards = _weather_cards(digest)
+    if cards:
         out.append("## 🌤 오늘의 날씨")
-        out.extend(f"- {_md(x)}" for x in weather)
-        out.append("")
+        for c in cards:   # 도시마다 인용 블록 + 항목별 줄바꿈 → 메일에서 도시별로 묶여 보임
+            tag = f" {_md(c['tag'])}" if c["tag"] else ""
+            out.append(f"> **{_md(c['city'])}**{tag} · {_md(c['sky'])}  ")
+            out.extend(f"> {icon} {_md(text)}  " for icon, text in c["rows"])
+            out.append("")
     ko, en = _message_line(digest)
     if ko:
         out.extend(["## ☀️ 오늘의 한마디", f"> {_md(ko)}  ", f"> _{_md(en)}_", ""])
     overviews = _overviews(digest)
     if overviews:
         out.append("## 📌 카테고리별 오늘의 핵심")
-        out.extend(f"- **{_md(t)}** · {_md(o)}" for t, o in overviews)
-        out.extend(["", "---", ""])
+        for t, o in overviews:   # 카테고리 이름을 윗줄에 따로 두고 본문은 아랫줄 → 길어도 구분됨
+            out.extend([f"**{_md(_cat(t))}**  ", _md(o), ""])
+        out.extend(["---", ""])
     for sec in digest.get("sections", []):
-        out.append(f"### {_md(sec.get('topic', ''))}")
-        for it in sec.get("items", []):
+        out.append(f"### {_md(_cat(sec.get('topic', '')))}")
+        out.append("")
+        for it in sec.get("items", []):   # 항목 사이를 한 줄 비워 느슨한 목록으로(간격 확보), 출처는 따로 줄
             url = _safe_url(it.get("link", "")).replace(")", "%29").replace(" ", "%20")
             out.append(f"- **[{_md(it.get('title', ''))}]({url})**  \n"
-                       f"  {_md(it.get('summary', ''))} _({_md(it.get('source', ''))})_")
-        out.append("")
+                       f"  {_md(it.get('summary', ''))}  \n"
+                       f"  _{_md(it.get('source', ''))}_")
+            out.append("")
     outlets = digest.get("outlets") or {}
     if outlets:
         out.append("---")
