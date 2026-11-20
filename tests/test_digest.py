@@ -2001,3 +2001,14 @@ def test_weather_is_split_into_city_cards_not_one_run_on_line():
     assert "최저" not in nd.render_markdown({"headline": "h", "sections": []}, day)
     h = nd.render_html(d, day)
     assert h.count("<div style=\"margin:2px 0\">") >= 3 and "·  어제" not in h
+
+
+def test_markdown_puts_a_visible_blank_line_between_categories():
+    d = {"headline": "h", "sections": [
+        {"topic": "세계 이슈", "overview": "가", "items": [{"title": "t1", "summary": "s", "source": "A", "link": "https://ex.com/1"}]},
+        {"topic": "경제·증시", "overview": "나", "items": [{"title": "t2", "summary": "s", "source": "A", "link": "https://ex.com/2"}]}]}
+    md = nd.render_markdown(d, datetime(2026, 11, 20))
+    lines = md.splitlines()
+    second = lines.index("### 📈 경제·증시")
+    assert lines[second - 3:second] == ["", "&nbsp;", ""] and lines.count("&nbsp;") == 2     # 핵심 요약 사이 1 + 본문 카테고리 사이 1
+    assert lines.index("### 🌍 세계 이슈") < second and "&nbsp;" not in lines[:lines.index("**🌍 세계 이슈**  ")]

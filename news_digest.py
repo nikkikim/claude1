@@ -1447,7 +1447,7 @@ def render_html(digest: dict, date: datetime) -> str:
     for sec in digest.get("sections", []):
         parts.append(
             f'<h2 style="font-size:16px;border-bottom:2px solid #222;padding-bottom:4px;'
-            f'margin:28px 0 10px">{e(_cat(sec.get("topic", "")))}</h2>'
+            f'margin:36px 0 10px">{e(_cat(sec.get("topic", "")))}</h2>'
         )
         for it in sec.get("items", []):
             parts.append(
@@ -1604,6 +1604,9 @@ def _md(text: str) -> str:
     return re.sub(r"([\\`*_\[\]<>|~#])", r"\\\1", text)
 
 
+BLANK_LINE = "&nbsp;"   # 마크다운은 빈 줄을 여러 개 써도 하나로 합쳐지므로, 보이는 빈 줄은 이 문자로 만든다
+
+
 def render_markdown(digest: dict, date: datetime) -> str:
     """GitHub 이슈 본문(마크다운). 이슈가 올라오면 GitHub가 알림 메일을 보내준다."""
     out = [f"**{_md(digest.get('headline', ''))}**", ""]
@@ -1625,10 +1628,14 @@ def render_markdown(digest: dict, date: datetime) -> str:
     overviews = _overviews(digest)
     if overviews:
         out.append("## 📌 카테고리별 오늘의 핵심")
-        for t, o in overviews:   # 카테고리 이름을 윗줄에 따로 두고 본문은 아랫줄 → 길어도 구분됨
+        for i, (t, o) in enumerate(overviews):   # 카테고리 이름을 윗줄에 따로 두고 본문은 아랫줄 → 길어도 구분됨
+            if i:
+                out.extend([BLANK_LINE, ""])     # 카테고리 사이에 눈에 보이는 빈 줄 한 줄
             out.extend([f"**{_md(_cat(t))}**  ", _md(o), ""])
         out.extend(["---", ""])
-    for sec in digest.get("sections", []):
+    for n, sec in enumerate(digest.get("sections", [])):
+        if n:
+            out.extend([BLANK_LINE, ""])         # 카테고리 사이에 눈에 보이는 빈 줄 한 줄
         out.append(f"### {_md(_cat(sec.get('topic', '')))}")
         out.append("")
         for it in sec.get("items", []):   # 항목 사이를 한 줄 비워 느슨한 목록으로(간격 확보), 출처는 따로 줄
