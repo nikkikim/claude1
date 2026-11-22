@@ -1,0 +1,515 @@
+{
+ "headline": "북러 밀착 가속화·COP31 결렬·러 선박 피격 등 국제 정세 요동, 국내선 최교진 면직·조희대 탄핵 정국 격화",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "북러 관계 밀착 속에 김정은 위원장이 러시아 대사 신임장을 직접 접수하며 의전을 격상했습니다. 리비아 벵가지와 발트해에서 러시아 선박이 드론 공격으로 추정되는 피격을 잇달아 당했고, 러시아는 우크라이나 에너지 시설을 대규모 타격해 전력난을 가중시켰습니다. COP31 기후총회는 화석연료 퇴출 문구를 둘러싼 이견으로 합의문 채택에 최종 실패했고, 이란이 바레인 민간시설을 공습해 역내 긴장이 고조됐으며 멕시코 군이 FBI 10대 수배 마약 카르텔 보스를 체포했습니다.",
+   "items": [
+    {
+     "title": "김정은, 러시아 대사 신임장 직접 접수…30여 년 만의 의전 격상",
+     "summary": "김정은 북한 국무위원장이 안드레이 포드욜리셰프 주북 러시아 대사로부터 신임장을 직접 받으며 북러 관계 밀착을 대외에 과시했다.",
+     "source": "연합뉴스, 경향신문, Yonhap English",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261122052800079"
+    },
+    {
+     "title": "리비아 벵가지 항구 정박 러시아 선박 폭발…드론 공격 추정",
+     "summary": "리비아 동부 벵가지 해군기지에 정박 중이던 러시아 선박에서 폭발이 발생했으며, 리비아 동부 당국은 무인기 공격 가능성을 제기했다.",
+     "source": "연합뉴스, Bloomberg, Daily Mail",
+     "id": 166,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-22/eastern-libya-says-blast-on-russian-ship-likely-due-to-attack"
+    },
+    {
+     "title": "발트해 러시아 화물선 드론 공격받아 화재…핀란드 \"우크라이나 소행 가능성\"",
+     "summary": "러시아 군 연계 화물선이 발트해에서 우크라이나 드론 공격으로 추정되는 피격을 받아 화재가 발생, 핀란드 국방부는 우크라이나 배후 가능성을 언급했다.",
+     "source": "BBC, The Hill, NBC News",
+     "id": 193,
+     "link": "https://www.bbc.co.uk/news/articles/cj752ddve27ko?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "러시아, 우크라이나 에너지 시설 대규모 타격…전력난 가중",
+     "summary": "러시아 국방부는 우크라이나 발전소와 항만 인프라 등을 타격했다고 밝혔으며, 젤렌스키 대통령은 패트리어트 미사일 인도 지연을 비판했다.",
+     "source": "Bloomberg, Kyiv Independent, Al Jazeera",
+     "id": 366,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-22/russia-hits-ukrainian-energy-facilities-straining-power-supply"
+    },
+    {
+     "title": "COP31 기후총회, 화석연료 이견으로 합의문 채택 최종 실패",
+     "summary": "터키 안탈리아에서 열린 제31차 유엔기후총회가 화석연료 퇴출 문구를 둘러싼 선진국·개도국 대립 끝에 합의문 없이 폐막했다.",
+     "source": "연합뉴스, Al-Monitor, DW",
+     "id": 517,
+     "link": "https://www.yna.co.kr/view/AKR20261122050451109"
+    },
+    {
+     "title": "이란, 바레인 민간시설 공습…바레인 \"범죄적 공격\" 규탄",
+     "summary": "이란 혁명수비대가 바레인 산업시설을 미사일·드론으로 공격해 2명이 부상했으며, 바레인·사우디·카타르가 일제히 규탄했다.",
+     "source": "연합뉴스, Al-Monitor, Middle East Eye",
+     "id": 322,
+     "link": "https://www.yna.co.kr/view/AKR20261122051100079"
+    },
+    {
+     "title": "멕시코 군, FBI 10대 수배 마약 카르텔 보스 '엘 차포 이시드로' 체포",
+     "summary": "멕시코 특수부대가 마약 밀매·고문 혐의로 FBI 10대 지명수배자였던 파우스토 이시드로 메사 플로레스를 교전 끝에 체포했다.",
+     "source": "The Guardian, BBC, NYT",
+     "id": 198,
+     "link": "https://www.theguardian.com/world/2026/nov/21/alleged-mexican-drug-cartel-boss-el-chapo-isidro-meza-flores-arrested"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "정부가 18년 만의 증안펀드 가동 준비에 착수하고 자사주 매입 한도 완화, 불법 공매도 특별감시 등 시장 안정 조치를 발표했습니다. 미국 반도체지수가 10.7% 폭락하고 나스닥이 코로나 이후 최장 하락을 기록하는 등 AI 거품 붕괴 우려가 확산됐으며, 중국 기술주도 시총 2300조 원이 증발해 당국이 유동성 공급에 나섰습니다. 월가에서 금융위기 확률 40% 경고가 나오는 가운데 수출-코스피 10년 상관관계가 깨졌고, 내년 만기 전세 계약 6.4만 가구가 시세 대비 36% 높은 보증금을 마련해야 하며 자영업자 대출금리 격차는 44개월 만에 최대로 벌어졌습니다. 토스는 캐나다 현지 법인을 설립해 인허가와 제휴를 준비 중입니다.",
+   "items": [
+    {
+     "title": "정부, 18년 만의 증안펀드 가동 준비 착수…자사주 매입 한도 완화·불법 공매도 특별감시",
+     "summary": "글로벌 증시 급락에 대응해 경제·금융 수장들이 증안펀드 즉시 가동 준비에 돌입하고 상장사 자사주 매입 한도 3개월 한시 완화, 불법 공매도 집중 감시 등 시장 안정 조치를 발표했다.",
+     "source": "연합뉴스, 한국경제, 매일경제",
+     "id": 3,
+     "link": "https://www.yna.co.kr/view/AKR20261122044351002"
+    },
+    {
+     "title": "미국 반도체지수 10.7% 폭락…AI 거품 붕괴 우려에 나스닥 코로나 이후 최장 하락",
+     "summary": "AI 투자 과열에 대한 경계론이 확산되며 필라델피아 반도체지수가 10% 이상 급락하고 나스닥이 고점 대비 10% 하락해 조정 국면에 진입했다.",
+     "source": "매일경제, 한국경제",
+     "id": 342,
+     "link": "https://www.mk.co.kr/news/stock/12215714"
+    },
+    {
+     "title": "중국 기술주 시총 2300조 원 증발…딥시크發 AI 열풍 꺼지며 당국 유동성 공급 나서",
+     "summary": "중국 AI 스타트업 딥시크 흥행으로 불붙었던 기술주 투자 열기가 식으면서 시가총액 2289조 원이 사라지자 중국 당국이 유동성 공급 카드를 꺼냈다.",
+     "source": "한국경제, 매일경제",
+     "id": 31,
+     "link": "https://www.hankyung.com/article/2026112226427"
+    },
+    {
+     "title": "월가 '금융위기 확률 40%' 경고…수출-코스피 10년 공식도 흔들려",
+     "summary": "월가에서 금융위기 확률을 40%로 보는 목소리가 커지는 가운데, 수출 증가 시 코스피도 오르던 10년간의 상관관계가 깨졌다는 분석이 나왔다.",
+     "source": "한국경제",
+     "id": 242,
+     "link": "https://www.hankyung.com/article/2026112225111"
+    },
+    {
+     "title": "2023년 전세 계약 6.4만 가구 내년 만기…보증금 평균 36% 더 필요",
+     "summary": "2023년 체결된 서울 아파트 전세 계약 6만4000가구가 내년 갱신 만기를 앞두고 시세 대비 평균 36% 높은 보증금을 마련해야 할 상황이다.",
+     "source": "경향신문",
+     "id": 43,
+     "link": "https://www.khan.co.kr/article/202611222116015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "자영업자 대출금리 44개월 만에 최대 차이…금리 인상 우려에 연체율 경고등",
+     "summary": "중소기업 대출금리가 대기업보다 0.26%p 높아 44개월 만에 최대 격차를 보이며 추가 금리 인상 시 자금난 심화가 우려된다.",
+     "source": "경향신문",
+     "id": 255,
+     "link": "https://www.khan.co.kr/article/202611222054005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "토스, 캐나다 현지 법인 설립…인허가·금융사 제휴 준비",
+     "summary": "비바리퍼블리카가 캐나다에 '토스 캐나다' 법인을 설립하고 현지 인허가 취득 및 금융사 제휴를 준비 중이다.",
+     "source": "연합뉴스",
+     "id": 118,
+     "link": "https://www.yna.co.kr/view/AKR20261122044700017"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "비트코인이 18억 달러 청산 파동을 소화한 뒤 6만 달러 선을 회복했습니다. 크라켄 거래소에서 비트코인 가격이 1만 7천 달러까지 일시 폭락했다 복구됐으며 거래소는 해킹 흔적이 없다고 밝혔습니다. 양자 컴퓨팅 발전이 비트코인 브리지·커스터디·기존 보유분까지 광범위한 보안 위협을 제기하고 있으며, 체인플립은 1200만 달러 해킹을 인정하고 자금 90% 반환 시 10% 현상금을 제안했습니다.",
+   "items": [
+    {
+     "title": "비트코인 6만 달러 회복…18억 달러 청산 파동 후 반등",
+     "summary": "대규모 청산 물량 소화 후 비트코인이 6만 달러 선을 되찾으며 단기 반등에 성공했습니다.",
+     "source": "CoinDesk",
+     "id": 170,
+     "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-bounces-9-from-two-year-low-to-retake-usd60-000-as-traders-eye-monday-s-stock-open"
+    },
+    {
+     "title": "크라켄서 비트코인 1만 7천 달러 일시 폭락…거래소 \"정상 처리\"",
+     "summary": "크라켄에서 비트코인 가격이 1만 7천 달러까지 급락했다가 복구됐으며, 거래소는 해킹이나 계정 침해 흔적은 없다고 밝혔습니다.",
+     "source": "Cointelegraph",
+     "id": 273,
+     "link": "https://cointelegraph.com/news/bitcoin-17k-kraken-canadian-dollar-market-trades-stand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "양자 컴퓨팅, 비트코인 브리지·커스터디·수백만 코인에 보안 위협",
+     "summary": "양자 컴퓨터 발전이 비트코인의 브리지, 커스터디, 기존 코인 보유분까지 광범위한 양자 내성 이슈를 제기하고 있습니다.",
+     "source": "CoinDesk",
+     "id": 62,
+     "link": "https://www.coindesk.com/tech/2026/11/22/bitcoin-s-quantum-security-challenge-extends-to-bridges-custodians-and-millions-of-coins"
+    },
+    {
+     "title": "체인플립 1200만 달러 해킹 확인…공격자에 10% 현상금 제안",
+     "summary": "체인플립이 1200만 달러 규모 해킹을 인정하고, 11월 23일까지 자금 90% 반환 시 10% 현상금을 주겠다고 발표했습니다.",
+     "source": "Cointelegraph, The Block",
+     "id": 370,
+     "link": "https://cointelegraph.com/news/chainflip-12m-crypto-hack-10-percent-bounty?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 서울시오페라단 단장에 소프라노 김은경이 임명됐고, 구로문화재단·서울시무용단·퓨전국악밴드 차차웅·극단 나루빈 등이 12월 창작뮤지컬과 무용 공연을 선보입니다. 2026 보드게임 페스타가 서울 강남 세텍에서 열려 가족 관람객이 몰렸고, 피아니스트 백건우 첫 자서전이 출간됐으며 제4회 제주 4·3영화제가 개막해 평화·인권 시각으로 전쟁과 차별 문제를 조명합니다. 해외 문화예술 소식은 입력된 항목에 없습니다.",
+   "items": [
+    {
+     "title": "서울시오페라단 신임 단장에 소프라노 김은경 임명",
+     "summary": "세종문화회관이 서울시오페라단 단장에 소프라노 김은경 씨를 임명했습니다.",
+     "source": "경향신문",
+     "id": 42,
+     "link": "https://www.khan.co.kr/article/202611222021025/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "구로문화재단 창작뮤지컬 '가장 보편의 환상' 12월 개막",
+     "summary": "구로문화재단이 연말 시즌 창작뮤지컬 '가장 보편의 환상'을 12월 10~13일 오류아트홀에서 선보입니다.",
+     "source": "뉴시스",
+     "id": 145,
+     "link": "https://www.newsis.com/view/NISX20261122_0003878230"
+    },
+    {
+     "title": "서울시무용단 '소문' 12월 10~13일 공연",
+     "summary": "서울시무용단이 현대인의 불안을 춤으로 풀어낸 작품 '소문'을 12월 10~13일 무대에 올립니다.",
+     "source": "매일경제",
+     "id": 247,
+     "link": "https://www.mk.co.kr/news/culture/12215560"
+    },
+    {
+     "title": "퓨전국악밴드 차차웅 '낭만도깨비전' 대구 공연",
+     "summary": "한국메세나협회와 메트라이프생명 지원으로 퓨전국악밴드 차차웅의 창작뮤지컬 '낭만도깨비전'이 12월 4일 대구 아양아트센터에서 공연됩니다.",
+     "source": "뉴시스",
+     "id": 426,
+     "link": "https://www.newsis.com/view/NISX20261122_0003878154"
+    },
+    {
+     "title": "극단 나루빈 청소년 뮤지컬 'MBTI' 용인 4개 중학교 순회",
+     "summary": "극단 나루빈이 용인 지역 4개 중학교에서 청소년 뮤지컬 'MBTI'를 12월 7~18일 선보입니다.",
+     "source": "뉴시스",
+     "id": 345,
+     "link": "https://www.newsis.com/view/NISX20261122_0003878064"
+    },
+    {
+     "title": "2026 보드게임 페스타 서울 강남 세텍에서 개최",
+     "summary": "AI 시대 아날로그 놀이 문화로 주목받는 보드게임 페스타가 22일 서울 강남 세텍에서 열려 가족 단위 관람객이 몰렸습니다.",
+     "source": "뉴시스",
+     "id": 248,
+     "link": "https://www.newsis.com/view/NISX20261122_0003878218"
+    },
+    {
+     "title": "피아니스트 백건우 첫 자서전 출간",
+     "summary": "70년 피아노 인생을 담은 거장 백건우의 첫 자서전이 출간됐습니다.",
+     "source": "연합뉴스",
+     "id": 325,
+     "link": "https://www.yna.co.kr/view/AKR20261122037100005"
+    },
+    {
+     "title": "제4회 제주 4·3영화제 개막",
+     "summary": "제주 4·3의 아픔과 세계 곳곳의 전쟁·차별 문제를 평화·인권 시각으로 조명하는 제4회 4·3영화제가 개막했습니다.",
+     "source": "연합뉴스",
+     "id": 475,
+     "link": "https://www.yna.co.kr/view/AKR20261122036800056"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "최교진 교육부 장관이 수능 AI 부정행위 대책 발표로 현장 혼란을 초래한 책임으로 사퇴했고 대통령이 즉각 수리했습니다. 올해 수능에서 전자기기 관련 부정행위 111건이 적발돼 정부는 지난해 수능까지 조사를 확대하고 글로벌 AI 기업과 공조해 추적을 이어가기로 했으며, 여론조사에서 수험생·학부모 90%가 수능 신뢰도 하락을 지적해 국가시험 전면 손질론이 제기됐습니다. 오픈AI는 AI 연구 에이전트 자율 완료율이 7개월 만에 23%에서 46%로 두 배 상승했다고 밝혔고, 앤트로픽은 나스닥 상장을 완료했습니다. 구글은 제미나이 API에 도구 검색 프리뷰를 도입하고 검색 홈페이지를 AI 채팅 중심으로 개편했으며, 리만 가설이 AI 도움으로 두 차례 독립 증명돼 공식 검증이 진행 중입니다. 메타 CAIO가 오픈AI 알트먼 딥페이크 영상을 홍보에 활용했으나 정책 위반이 아니라고 주장했습니다.",
+   "items": [
+    {
+     "title": "최교진 교육부 장관, 수능 AI 부정행위 혼란 책임지고 사퇴",
+     "summary": "수능 전날 긴급 대책 발표로 현장 혼란을 초래한 최교진 장관이 시험 사흘 만인 22일 사의를 표명했고 대통령이 즉각 수리했다.",
+     "source": "경향신문, 연합뉴스, BBC",
+     "id": 153,
+     "link": "https://www.khan.co.kr/article/202611222117005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "수능 AI 부정행위 111건 적발…정부, 글로벌 AI 기업과 협력해 추적 확대",
+     "summary": "올해 수능에서 전자기기 관련 부정행위 111건이 적발됐으며, 정부는 지난해 수능까지 조사를 확대하고 글로벌 AI 기업과 공조해 추적을 이어가기로 했다.",
+     "source": "AI타임스, 전자신문, 경북일보",
+     "id": 229,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217662"
+    },
+    {
+     "title": "수험생·학부모 90% '수능 신뢰도 떨어졌다'…국가시험 전면 손질론 제기",
+     "summary": "여론조사에서 응답자 90%가 수능 신뢰도 하락을 지적했으며, 농민신문 등은 세무사·LEET 등 국가시험 전반의 제도 개선을 촉구했다.",
+     "source": "세계일보, 농민신문",
+     "id": 418,
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5LSDhGUXRXNmYwOVU5SmxRZFAySzR6WXc2dkRITjdnczdYRWtDSzZYcUI5Q05QNHVwQ1dHNDZOWGRzbjk3QklZYnlNa3J2R0JYcEFVeHFzWULSAVRBVV95cUxQUVpNYjUyU1IyVlFod1VZS3k3eExGTWpEeWNVdGRWSFM1d3lOZEdlclhHODMwLWNONHE4LWZneFNmZ3NkczFNVWlkS05Za3hIbHpBZWs?oc=5"
+    },
+    {
+     "title": "오픈AI, AI 연구 에이전트 자율 완료율 7개월 만에 23%→46%로 상승",
+     "summary": "오픈AI가 공개한 2차 '들쭉날쭉한 프론티어' 보고서에서 AI가 2~4시간 걸리는 연구 작업을 스스로 완료하는 비율이 46%로 두 배 늘었다.",
+     "source": "AI타임스",
+     "id": 122,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217657"
+    },
+    {
+     "title": "앤트로픽, 나스닥 상장 완료…11억 2700만 주 주당 83달러 공모",
+     "summary": "앤트로픽이 기업공개(IPO)를 마무리하고 나스닥에 상장했으며, 주관사 초과배정옵션까지 행사돼 총 11억 2700만 주가 공모됐다.",
+     "source": "Anthropic",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/ipo-close"
+    },
+    {
+     "title": "구글, 제미나이 API에 '도구 검색' 프리뷰 도입…수백 개 도구 저비용 활용",
+     "summary": "구글이 제미나이 API에 툴 리트리벌 기능을 프리뷰로 추가해 에이전트가 더 적은 토큰으로 수백 개 도구에 접근할 수 있게 했다.",
+     "source": "Google AI",
+     "id": 10,
+     "link": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+    },
+    {
+     "title": "구글, 검색 홈페이지에 AI 채팅 기록 추가·검색 버튼 제거 개편",
+     "summary": "구글닷컴 검색 홈페이지가 AI 경험으로 전환되며 채팅 기록 패널이 생기고 전통적인 검색 버튼이 사라지는 디자인으로 공식 적용됐다.",
+     "source": "Ars Technica",
+     "id": 15,
+     "link": "https://arstechnica.com/ai/2026/11/googles-latest-search-page-redesign-drops-the-search-button-adds-ai-sidebar/"
+    },
+    {
+     "title": "리만 가설, AI 도움으로 두 차례 독립 증명 주장…린(Lean) 공식 검증 진행 중",
+     "summary": "앤트로픽 연구원 레벤트 알페게가 클로드와 함께 리만 가설 증명을 발표한 데 이어 인간 수학자도 독립 증명을 제출해 수학계가 공식 검증에 나섰다.",
+     "source": "Latent Space, Simon Willison, TechCrunch",
+     "id": 19,
+     "link": "https://latent.space/p/ainews-riemann-hypothesis-proved-twice-independently/"
+    },
+    {
+     "title": "메타 CAIO, 경쟁사 오픈AI 알트먼 딥페이크 영상 홍보에 활용…'정책 위반 아니다' 주장",
+     "summary": "메타 알렉산더 왕 CAIO가 자사 AI 에이전트 '뮤즈' 홍보 영상에 샘 알트먼 딥페이크를 등장시켰으나, 메타는 AI 생성 표시가 있어 정책 위반이 아니라고 밝혔다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217664"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "이재명 대통령이 최교진 교육부 장관 면직안을 재가했습니다. 민주당이 조희대 대법원장 탄핵소추를 연내 처리하기로 했으나 당내에서 중도층 역풍과 분열 봉합 의도를 두고 이견이 나오고 있습니다. 국민의힘은 대법원의 12·3 비상계엄 내란 판단에 공식 입장을 내지 않은 채 민주당 탄핵 공세 비판에 집중하고 있습니다. 한국전력에서 개인정보 152만 건이 유출돼 2차 피해 우려가 확산되고 있습니다.",
+   "items": [
+    {
+     "title": "이재명 대통령, 최교진 교육부 장관 면직안 재가…수능 부정·발언 논란 책임",
+     "summary": "최교진 장관이 수능 부정행위 안일 대처와 부적절 발언으로 사의를 표명하자 이 대통령이 즉각 면직안을 재가했다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 227,
+     "link": "https://www.yna.co.kr/view/AKR20261122024052001"
+    },
+    {
+     "title": "민주당, 조희대 대법원장 탄핵소추 '급가속'…당내 '중도층 역풍' 우려도",
+     "summary": "민주당이 한덕수 총리 판결 절차 문제 등을 탄핵 사유로 삼아 연내 처리 방침을 세웠으나, 당내에서 중도층 이탈과 분열 봉합 의도를 두고 이견이 나온다.",
+     "source": "한겨레, 경향신문, 연합뉴스",
+     "id": 149,
+     "link": "https://www.hani.co.kr/arti/politics/politics_general/1288550.html"
+    },
+    {
+     "title": "국민의힘, '12·3 계엄 내란' 대법원 판단엔 침묵…탄핵 공세에만 몰두",
+     "summary": "대법원이 12·3 비상계엄을 내란으로 판단했음에도 국민의힘은 공식 입장을 내지 않은 채 민주당의 조희대 탄핵 추진 비판에 집중하고 있다.",
+     "source": "경향신문",
+     "id": 256,
+     "link": "https://www.khan.co.kr/article/202611222104005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "한전 개인정보 152만 건 유출…2차 피해 우려 확산",
+     "summary": "한국전력에서 발생한 대규모 개인정보 유출 사고로 피해 범위와 2차 피해 가능성에 대한 국민 불안이 커지고 있다.",
+     "source": "연합뉴스, Yonhap English",
+     "id": 228,
+     "link": "https://www.yna.co.kr/view/AKR20261122049800003"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "NYT와 블룸버그는 AI가 잠재된 코드 취약점을 자동으로 찾아내 공격에 활용하면서 사이버 보안 비용이 급증하고 공격 속도·규모가 커지고 있다고 경고했습니다. 유엔 자율무기 규제 협상이 러시아 반대로 협상 권한조차 확보하지 못한 채 결렬됐습니다.",
+   "items": [
+    {
+     "title": "NYT \"AI가 잠재된 코드 취약점 깨워…사이버 청구서 도래\"",
+     "summary": "NYT는 AI가 수십 년간 방치된 취약 코드를 자동으로 찾아내 공격에 활용하면서 사이버 보안 비용이 급증할 것이라고 경고했습니다.",
+     "source": "NYT",
+     "id": 54,
+     "link": "https://www.nytimes.com/2026/11/21/us/politics/tech-outages-ai-disruptions.html"
+    },
+    {
+     "title": "블룸버그 \"AI가 사이버 공격 가속화…2020년 이후 급증세 유지\"",
+     "summary": "전문가들은 AI가 봇넷 자동화·취약점 스캐닝·피싱 고도화로 공격 속도와 규모를 키우고 있다고 분석했습니다.",
+     "source": "Bloomberg",
+     "id": 59,
+     "link": "https://www.bloomberg.com/news/videos/2026-11-22/how-ai-is-accelerating-cyberattacks-video"
+    },
+    {
+     "title": "유엔 자율무기 규제 협상 결렬…러시아 '필리버스터'로 합의 무산",
+     "summary": "일주일간 진행된 유엔 자율무기 규제 협상이 러시아 반대로 협상 권한조차 확보하지 못한 채 종료됐습니다.",
+     "source": "The Guardian",
+     "id": 303,
+     "link": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "한국 남자 쇼트트랙 대표팀이 김태성 주장의 리더십으로 시즌 두 번째 금메달을 획득했습니다. 수원FC가 K리그2 준우승으로 1년 만의 1부 승격을 확정했고 수원 삼성도 동반 승격했습니다.",
+   "items": [
+    {
+     "title": "쇼트트랙 남자 계주, 김태성 주장 리더십으로 시즌 두 번째 금메달",
+     "summary": "한국 남자 쇼트트랙 대표팀이 5,000m 계주에서 서로를 향한 쓴소리와 경청으로 팀워크를 다지며 우승했다.",
+     "source": "연합뉴스",
+     "id": 29,
+     "link": "https://www.yna.co.kr/view/AKR20261122048200007"
+    },
+    {
+     "title": "수원FC, K리그2 준우승으로 1년 만의 1부 승격…수원 삼성도 동반 승격",
+     "summary": "수원FC가 K리그2 플레이오프를 거쳐 준우승을 차지하며 강등 1년 만에 K리그1 복귀를 확정했다.",
+     "source": "연합뉴스",
+     "id": 241,
+     "link": "https://www.yna.co.kr/view/AKR20261122035352007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "강원일보",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Yonhap English",
+   "MBC 뉴스",
+   "경북일보",
+   "세계일보",
+   "연합뉴스TV",
+   "농민신문"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "구글뉴스(AI cheating)",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "ARTnews",
+   "Artforum",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "France 24",
+   "Korea JoongAng Daily",
+   "Superpower Daily",
+   "Facebook",
+   "Koreabizwire"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-23",
+   "sky": "비",
+   "now": "2°",
+   "lo": "2°",
+   "hi": "12°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +8°, 최저 +6°",
+   "precip": "비 예보(강수확률 100%, 약 14.4mm)",
+   "tomorrow": "대체로 맑음 -2°/5°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-23",
+   "sky": "약한 이슬비",
+   "now": "1°",
+   "lo": "0°",
+   "hi": "12°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +6°, 최저 +3°",
+   "precip": "비 예보(강수확률 88%, 약 0.4mm)",
+   "tomorrow": "흐림 -1°/12°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-22",
+   "sky": "약한 이슬비",
+   "now": "10°",
+   "lo": "8°",
+   "hi": "20°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −1°, 최저 +1°",
+   "precip": "강수 가능성 낮음(11%)",
+   "tomorrow": "흐림 9°/20°"
+  }
+ ],
+ "message": {
+  "ko": "마음이 복잡하게 얽혀 있어도, 한 줄만 적어도 하루는 움직이기 시작해요. 오늘도 잘 해낼 거예요.",
+  "en": "Even if your feelings are tangled, even one written line gets the day moving. You'll do great today."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 521,
+  "outlets": 90,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-22T15:32:02.904559+00:00"
+}
