@@ -1,330 +1,336 @@
 {
- "headline": "앤트로픽 상장 후 AI 거품론 확산에 엔비디아·미국 기술주 폭락, 비트코인 5만7천달러 붕괴…국내 반도체·AI 수혜주도 동반 하락",
+ "headline": "러 미사일 폴란드 낙하·호르무즈 긴장 고조…트럼프-김정은 회담 무산 속 조희대 탄핵 정국 격화",
  "sections": [
   {
    "topic": "세계 이슈",
-   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
-   "backfilled": true,
+   "overview": "러시아 미사일과 드론이 폴란드 동부와 우크라이나 르비우·키이우 인근에 떨어져 나토 영토 침범 우려와 민간인 피해가 보고됐습니다. 이란이 호르무즈 해협에서 바레인 산업시설과 유조선 2척을 공격해 중동 해상 긴장이 고조됐습니다. 트럼프 대통령이 푸틴과 김정은 회담을 추진했으나 북한의 조건으로 무산됐고, COP31 기후총회는 화석연료 퇴출 문구 없이 협상이 연장됐습니다. 멕시코가 FBI 10대 수배 마약왕을 체포했고, 영국은 우크라이나용 장거리 드론을 자국 내 생산해 공급하기로 합의했습니다.",
    "items": [
     {
-     "title": "What's behind the uptick in attacks in the Strait of Hormuz?",
-     "summary": "Reported Strait of Hormuz attacks have been higher in number in October and November than other months since the war bet…",
-     "source": "ABC News",
-     "link": "https://abcnews.com/International/strait-hormuz-attacks-increased-highest-level-iran-war/story?id=138304456"
+     "title": "러 미사일·드론 폴란드 동부 낙하…나토 영토 침범 우려",
+     "summary": "폴란드 당국이 우크라이나 인접 동부 지역에 러시아 미사일과 드론이 떨어졌다고 발표했으며, 연합훈련 중인 미군 기지에서 75km 거리에서 발생해 나토 5조 발동 가능성이 거론된다.",
+     "source": "연합뉴스, Kyiv Independent",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261122039300704"
     },
     {
-     "title": "Gaza civil defence says Israeli fire kills four",
-     "summary": "Gaza's civil defence told AFP that Israeli fire killed four people on Saturday, including three in a strike on a vehicle…",
-     "source": "Al-Monitor",
-     "link": "https://www.al-monitor.com/originals/2026/11/gaza-civil-defence-says-israeli-fire-kills-four"
+     "title": "우크라이나 르비우·키이우 인근 러시아 미사일 공습 피해",
+     "summary": "대시캠 영상에 르비우 주거지 미사일 직격 장면이 포착됐고, 키이우주 비슈호로드 구역 5층 아파트가 드론 공격으로 파손돼 최소 2명 부상했다.",
+     "source": "Al Jazeera, Kyiv Independent",
+     "id": 108,
+     "link": "https://www.aljazeera.com/video/newsfeed/2026/11/22/dashcam-captures-russian-missile-strike-on-lviv-ukraine?traffic_source=rss"
     },
     {
-     "title": "Russia tests NATO’s eastern defences",
-     "summary": "Two Russian missiles and a suspected drone came down in Poland on Friday in what Prime Minister Donald Tusk said was lik…",
-     "source": "France 24",
-     "link": "https://www.france24.com/en/russia-tests-nato-s-eastern-defences"
+     "title": "이란, 호르무즈 해협서 바레인 산업시설 타격·유조선 2척 피격",
+     "summary": "바레인이 이란의 민간 산업시설 공격으로 화재·피해 발생을 발표했고, 호르무즈 해협에서 유조선 2척이 피격돼 중동 해상 긴장이 고조되고 있다.",
+     "source": "Al-Monitor, France 24",
+     "id": 76,
+     "link": "https://www.al-monitor.com/originals/2026/11/bahrain-says-iran-struck-industrial-site-tankers-hit-hormuz"
     },
     {
-     "title": "Russia may need a year to clear collapsed Crimean Bridge section, Ukraine says",
-     "summary": "The president also rejected Russian President Vladimir Putin's claims that the Crimean Bridge was not used for military…",
+     "title": "트럼프, 푸틴 '친구' 칭하며 북미 정상회담 추진했으나 북한 조건로 무산",
+     "summary": "트럼프 대통령이 푸틴을 친구라 부르며 김정은과의 회담을 막판까지 추진했으나, 북한이 받아들이기 어려운 조건을 내걸어 종전선언 등 사전 조치 검토에도 불구하고 성사되지 못했다.",
+     "source": "Korea Times, 연합뉴스",
+     "id": 51,
+     "link": "https://www.koreatimes.co.kr/world/20261122/trump-again-calls-putin-friend-despite-criticism-in-us?utm_source=rss"
+    },
+    {
+     "title": "COP31 기후총회 초안서 화석연료 언급 또 빠져…협상 연장",
+     "summary": "터키에서 열린 유엔 기후총회가 이틀째 연장전에 들어갔으나 최신 초안에도 화석연료 퇴출 문구가 포함되지 않아 합의 도출에 난항을 겪고 있다.",
+     "source": "BBC, Euronews",
+     "id": 89,
+     "link": "https://www.bbc.co.uk/news/articles/cq7827z2841zo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "멕시코, FBI 10대 지명수배 마약왕 '엘 차포 이시드로' 체포",
+     "summary": "멕시코 군특수부대가 파우스토 이시드로 메사 플로레스(엘 차포 이시드로)를 총격전 끝에 체포했으며, 체포 후 폭력 사태로 최소 11명 사망했다.",
+     "source": "NYT, The Guardian",
+     "id": 166,
+     "link": "https://www.nytimes.com/2026/11/21/world/americas/mexico-captures-drug-kingpin.html"
+    },
+    {
+     "title": "영국, 우크라이나용 장거리 드론 자국 내 생산 합의",
+     "summary": "영국과 우크라이나가 '미들 스트라이크' 및 장거리 드론을 영국 영토에서 제조해 우크라이나에 공급하는 협정을 체결했다.",
      "source": "Kyiv Independent",
-     "link": "https://kyivindependent.com/russia-could-take-a-year-to-clear-collapsed-crimean-bridge-section-ukraines-defense-minister-says/"
-    },
-    {
-     "title": "Russia strikes Zelenskyy's hometown, killing 2",
-     "summary": "The attacks follow Russian President Vladimir Putin's vow of a \"painful\" response to Ukraine's attacks this week on the…",
-     "source": "DW",
-     "link": "https://www.dw.com/en/russia-strikes-zelenskyy-s-hometown-killing-2/a-80009458?maca=en-rss-en-all-1573-rdf"
-    },
-    {
-     "title": "'For us he is a killer': Zelensky rebukes Trump for calling Putin his 'friend' - as it's claimed Russian leader increases strikes on Ukraine after every meeting with President",
-     "summary": "Volodymyr Zelensky (pictured) spoke out after Trump described Putin as his 'friend' and said the pair had enjoyed a 'gre…",
-     "source": "Daily Mail",
-     "link": "https://www.dailymail.com/news/article-16311045/killer-Zelensky-Trump-Putin-friend-Russian-strikes-Ukraine.html?ns_mchannel=rss&ito=1490&ns_campaign=1490"
-    },
-    {
-     "title": "Russian attacks kill at least 2, injure 83 across Ukraine, as strikes devastate Kryvyi Rih",
-     "summary": "Overnight on Nov. 21, Russia launched three Iskander-M/KN-23/S-400 ballistic missiles and 148 drones, including 87 jet-p…",
-     "source": "Kyiv Independent",
-     "link": "https://kyivindependent.com/russian-attacks-kill-at-least-2-injure-83-across-ukraine-as-strikes-devastate-kryvyi-rih/"
+     "id": 414,
+     "link": "https://kyivindependent.com/uk-to-produce-middle-strike-long-range-drones-for-ukraine-in-britain/"
     }
    ]
   },
   {
    "topic": "경제·증시",
-   "overview": "앤트로픽의 역대급 IPO 직후 월가에서 AI 투자 과열에 대한 회의론이 터지며 엔비디아 주가가 52주 신저가로 추락하고 나스닥이 베어마켓 진입했다. SEC 회계 조사·젠슨 황 사임설·AI 데이터센터 투자 지연 우려가 겹치며 구리·반도체 장비 등 연관 자산까지 동반 하락했다. 국내에선 SK하이닉스·삼성전자 등 AI 수혜주 조정이 불가피해졌고, 한·일 경제협력·한한령 해제 기대감 등 개별 이슈만 부각됐다.",
+   "overview": "엔비디아 주가 폭락으로 국내 서학개미가 보름간 약 6조6000억 원의 평가손실을 입었습니다. 삼성전자 모바일 부문 적자 지속으로 갤럭시워치 출시 주기가 격년으로 변경됐고, 중국 ESS 배터리 계획 생산능력이 세계 출하량의 두 배에 달해 공급과잉 우려가 커졌습니다. 메모리 가격 급등으로 글로벌 PC 제조사들이 중저가 모델 사양 하향을 검토 중이며, 대중국 자동차 무역적자가 테슬라 상하이산 수입 증가로 역대 최대인 6조 원을 기록했습니다. 공정위가 OK금융그룹 최윤 회장을 일감 몰아주기 혐의로 고발 의견을 냈고, 서울 재건축 52개 단지에 조합원 1인당 평균 1억1000만 원의 부담금이 예상됩니다.",
    "items": [
     {
-     "title": "앤트로픽 IPO 후 AI 거품론에 미 기술주 베어마켓 진입",
-     "summary": "앤트로픽 상장 첫날 기록적 공모에도 불구하고 AI 투자 과열 우려로 나스닥이 코로나 이후 최악의 주간 하락률을 기록하며 베어마켓에 진입했다.",
-     "source": "Financial Times, NYT, Bloomberg",
-     "id": 102,
-     "link": "https://www.ft.com/content/9f3c6ed6-c08f-4710-9683-ee2f5eb25841?syn-25a6b1a6=1"
+     "title": "엔비디아 폭락에 서학개미 6.6조 원 손실",
+     "summary": "엔비디아 주가 하락으로 국내 투자자들이 최근 보름간 약 6조6000억 원의 평가손실을 기록했다.",
+     "source": "한국경제",
+     "id": 31,
+     "link": "https://www.hankyung.com/article/202611222010i"
     },
     {
-     "title": "엔비디아 주가 52주 신저가…SEC 회계 조사·황 사임설 겹악재",
-     "summary": "엔비디아 주가가 SEC 회계 조사 보도와 젠슨 황 CEO 사임설로 13% 급락해 52주 최저가를 경신했으며, 국내 증권가에서도 100달러 붕괴 가능성을 거론한다.",
-     "source": "한국경제, MarketWatch, Bloomberg",
-     "id": 147,
-     "link": "https://www.hankyung.com/article/202611211619i"
+     "title": "삼성전자 모바일 적자 지속, 갤럭시워치 격년 출시 전환",
+     "summary": "삼성전자 MX사업부가 2분기 연속 적자를 내자 갤럭시워치 신제품 출시 주기를 1년에서 2년으로 늘려 수익성 개선에 나선다.",
+     "source": "전자신문",
+     "id": 268,
+     "link": "https://www.etnews.com/20261120000237"
     },
     {
-     "title": "AI 데이터센터 투자 지연 우려에 구리 가격 고점 대비 16% 하락",
-     "summary": "미국 데이터센터 건설 지연 전망으로 전력 설비용 구리 수요가 줄어들 것이라며 구리 가격이 두 달 만에 고점 대비 16% 넘게 떨어졌다.",
-     "source": "매일경제",
-     "id": 150,
-     "link": "https://www.mk.co.kr/news/stock/12215325"
+     "title": "중국 ESS 배터리 계획 생산능력, 세계 출하량 2배 육박",
+     "summary": "중국 ESS 배터리 셀 계획 생산능력이 연간 2000GWh에 근접해 세계 출하량의 두 배 수준으로 공급과잉 우려가 커지고 있다.",
+     "source": "전자신문",
+     "id": 162,
+     "link": "https://www.etnews.com/20261120000236"
     },
     {
-     "title": "SK하이닉스, 키오시아 지분 14.1% 확보…전환사채 주식 전환",
-     "summary": "SK하이닉스가 보유 중이던 키오시아 전환사채를 주식으로 전환해 지분율을 14.1%로 높이며 낸드플래시 동맹을 강화했다.",
-     "source": "한겨레",
-     "id": 479,
-     "link": "https://www.hani.co.kr/arti/economy/marketing/1288382.html"
+     "title": "메모리 가격 폭등에 글로벌 PC 제조사 사양 하향 검토",
+     "summary": "메모리 반도체 가격 급등으로 에이수스 등 PC 제조사들이 중저가 모델 메모리 용량을 16GB에서 8GB로 낮추는 방안을 검토 중이다.",
+     "source": "전자신문",
+     "id": 365,
+     "link": "https://www.etnews.com/20261120000238"
     },
     {
-     "title": "MBK파트너스, 와콤 1조원대 인수 추진…삼성 S펜 공급사",
-     "summary": "MBK파트너스가 일본 디지털 펜 제조사 와콤을 경영진 인수(MBO) 방식으로 1조원대에 인수해 상장폐지를 추진한다.",
-     "source": "경향신문, 매일경제",
-     "id": 160,
-     "link": "https://www.khan.co.kr/article/202611211636001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+     "title": "대중국 자동차 무역적자 6조 원 역대 최대, 테슬라 상하이산 수입 급증",
+     "summary": "중국 상하이 생산 테슬라 전기차 수입 증가 등으로 올해 10월까지 대중국 자동차 무역적자가 약 6조 원으로 역대 최대를 기록했다.",
+     "source": "매일경제, 연합뉴스, 경향신문",
+     "id": 254,
+     "link": "https://www.mk.co.kr/news/economy/12215522"
     },
     {
-     "title": "한국 수출 1조 달러 돌파…일본 제치고 세계 10대 교역국 6위",
-     "summary": "반도체 호황에 힘입어 한국 수출이 사상 처음 1조 달러를 넘어섰고, 대일 무역수지도 흑자 전환하며 교역 순위에서 일본을 앞질렀다.",
-     "source": "매일경제",
-     "id": 151,
-     "link": "https://www.mk.co.kr/news/economy/12215318"
+     "title": "공정위, OK금융그룹 최윤 회장 일감 몰아주기 혐의 고발 의견",
+     "summary": "공정위 심사관이 OK저축은행 부실채권 매각 과정에서 총수일가 계열사에 부당지원한 혐의로 최윤 회장 고발 의견을 냈다.",
+     "source": "경향신문",
+     "id": 44,
+     "link": "https://www.khan.co.kr/article/202611221700001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
     },
     {
-     "title": "대중국 무역수지 4년 만에 흑자…반도체 제외하면 적자 확대",
-     "summary": "반도체 수출 호조로 대중국 무역수지가 4년 만에 흑자로 돌아섰으나, 반도체를 제외한 품목에서는 적자 폭이 커진 것으로 나타났다.",
-     "source": "한겨레",
+     "title": "서울 재건축 52곳 재초환 부담금 평균 1억1000만 원 부과 예상",
+     "summary": "서울 아파트 52개 단지가 재건축초과이익환수 대상이며 조합원 1인당 평균 1억1000만 원의 부담금이 예상된다.",
+     "source": "한겨레, 경향신문",
      "id": 40,
-     "link": "https://www.hani.co.kr/arti/economy/economy_general/1288425.html"
+     "link": "https://www.hani.co.kr/arti/economy/property/1288511.html"
     }
    ]
   },
   {
    "topic": "코인",
-   "overview": "AI 거품 붕괴 우려와 나스닥 폭락 여파로 비트코인이 5만7천달러 아래로 떨어져 2년 만의 최저치를 기록했고, 이더리움·알트코인도 동반 급락했다. 온체인 데이터상 5만9천~6만2천달러 구간의 대규모 롱 청산이 해소되며 반등 기반이 마련됐다는 분석과, 핵심 지지선이 5만3천달러로 낮아졌다는 전망이 공존한다. 거래소 이상 거래·해킹·규제 이슈도 연이어 터졌다.",
+   "overview": "비트코인이 6만 달러 선을 내주며 5만5000달러대까지 하락해 하루 11억 달러 규모 강제청산이 발생했습니다. 사이버(CYBER) 토큰 브리지 익스플로잇 의심으로 업비트와 빗썸이 입출금을 중단했고, 크로스체인 프로토콜 체인플립 해킹으로 486만 달러 유출과 FLIP 토큰 30% 폭락이 있었습니다. SEC가 가짜 암호화폐 거래소로 미국 투자자 3700만 달러를 편취한 혐의로 해외 운영자들을 기소했습니다.",
    "items": [
     {
-     "title": "비트코인 5만7천달러 붕괴…2년 만 최저치 후 6만달러 회복",
-     "summary": "나스닥 폭락과 AI 거품 우려로 비트코인이 5만5천달러대까지 밀렸다가 5만9천~6만2천달러 청산 물량 해소로 6만달러선을 회복했다.",
-     "source": "Bitcoin Magazine, Investing.com, 블록미디어",
-     "id": 183,
-     "link": "https://bitcoinmagazine.com/markets/bitcoin-price-slips-58300-nasdaq"
+     "title": "비트코인 6만 달러 붕괴, 하루 11억 달러 강제청산",
+     "summary": "비트코인이 7월 초 이후 처음 6만 달러 선을 내주며 5만5000달러대까지 밀렸고, 미국 현물 ETF 자금 유출과 연준 금리 인상 우려로 11억 달러 규모 강제청산이 발생했다.",
+     "source": "블록미디어, 코인데스크",
+     "id": 50,
+     "link": "https://www.blockmedia.co.kr/archives/1169095?utm_source=general&utm_medium=rss"
     },
     {
-     "title": "이더리움 10% 급락·ETF 자산 10억달러 하회…XRP도 동반 하락",
-     "summary": "롱 포지션 청산과 ETF 자산 감소로 이더리움이 10% 넘게 떨어졌고, XRP도 10% 하락하며 주요 알트코인이 일제히 약세를 보였다.",
-     "source": "CoinDesk, Cointelegraph",
-     "id": 293,
-     "link": "https://www.coindesk.com/markets/2026/11/21/xrp-falls-10-as-long-bets-unwind-and-etf-assets-slip-below-usd1-billion"
+     "title": "한국 거래소 업비트·빗썸, CYBER 입출금 중단…브리지 익스플로잇 의심",
+     "summary": "사이버(CYBER) 토큰이 솔라나에서 예기치 않게 민팅되고 이더리움 브리지 락박스에서 유출돼 업비트와 빗썸이 입출금을 중단했다.",
+     "source": "코인텔레그래프, 더블록",
+     "id": 65,
+     "link": "https://cointelegraph.com/news/upbit-bithumb-suspend-cyber-transfers-bridge-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
     },
     {
-     "title": "크라켄 거래소 BTC/CAD 50% 할인 이상 거래 발생",
-     "summary": "크라켄에서 비트코인-캐나다달러 페어가 글로벌 시세보다 50% 이상 저렴하게 체결되는 이상 거래가 포착됐다.",
-     "source": "블록미디어",
-     "id": 388,
-     "link": "https://www.blockmedia.co.kr/archives/1168976?utm_source=general&utm_medium=rss"
+     "title": "크로스체인 프로토콜 체인플립 해킹, FLIP 30% 폭락",
+     "summary": "체인플립 금고에서 486만 달러가 유출돼 FLIP 토큰이 30% 급락했으며, 공격자에게 10% 현상금을 제안하며 자금 반환을 유도 중이다.",
+     "source": "코인텔레그래프, 더블록",
+     "id": 177,
+     "link": "https://www.coindesk.com/business/2026/11/21/cross-chain-protocol-chainflip-s-flip-tanks-30-after-suspected-usd4-86-million-vault-drain"
     },
     {
-     "title": "랩드 모네로 토큰 99.8% 폭락…1350만달러 해킹 의심",
-     "summary": "랩드 모네로(wXMR) 토큰 가격이 99.8% 폭락했으며, 운영사는 1350만달러 규모 보안 침해로 인한 의심 거래를 인정하고 보상을 약속했다.",
-     "source": "Cointelegraph",
-     "id": 498,
-     "link": "https://cointelegraph.com/news/wrapped-monero-token-crashes-998-amid-suspected-135m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+     "title": "SEC, 가짜 암호화폐 거래소로 3700만 달러 사기 혐의 기소",
+     "summary": "해외 운영자들이 콜로라도 등록 법인 8개를 앞세워 가짜 거래소와 자문사로 위장, SEC 인증서까지 위조해 미국 투자자 3700만 달러를 편취한 혐의로 기소됐다.",
+     "source": "디크립트",
+     "id": 179,
+     "link": "https://decrypt.co/383752/fraudsters-fake-crypto-exchanges-steal-37-million-sec"
     }
    ]
   },
   {
    "topic": "문화예술",
-   "overview": "국내에서는 일본 애니메이션 '치이카와'가 300만 관객을 돌파하며 올해 애니메이션 흥행 1위를 기록했고, 이희준 작가 개인전과 종묘 앞 재개발 보존 부결 등 전시·유산 이슈가 주목받았다. 해외에서는 프리즈 아부다비 첫 회가 성황리에 개막했고, 뉴욕 경매 주간에서 반 고흐·세잔 작품이 역대급 낙찰가를 경신했으며, 베니스 비엔날레 러시아 배제 요구와 엘 그레코 복원 완료 등 제도·보존 담론도 활발했다.",
+   "overview": "해외에서는 뉴욕 11월 경매 주간이 24억 달러 낙찰로 역대급 실적을 기록하고 프리즈 아부다비가 성공적으로 데뷔하는 등 미술시장 열기가 뜨거웠으며, 베니스 비엔날레 러시아 배제 요구와 베니스 비엔날레 '방문객 상' 비판 등 제도권 논쟁도 이어졌습니다. 국내에서는 '히말라야의 화가' 강찬모 화백 별세와 종묘 앞 세운4구역 유적 보존안 부결로 문화유산 보호 이슈가 부상했고, 정영도·송홍섭 등 작가 개인전과 제주 4·3영화제 개막 등 전시·행사 소식이 이어졌습니다.",
    "items": [
     {
-     "title": "일본 애니메이션 '치이카와' 국내 누적 관객 300만 돌파, 올해 애니메이션 흥행 1위",
-     "summary": "극장판 '치이카와: 인어 섬의 비밀'이 개봉 53일 만에 300만 관객을 넘어 올해 개봉 애니메이션 중 최고 흥행작이 됐으며, '하울의 움직이는 성' 기록도 추격 중이다.",
-     "source": "헤럴드경제, 한겨레, 경향신문",
-     "id": 38,
-     "link": "https://biz.heraldcorp.com/article/10944797"
+     "title": "뉴욕 11월 경매 주간 24억 달러 낙찰…역대급 실적 기록",
+     "summary": "뉴욕 크리스티·소더비·필립스 경매 주간 총 낙찰액이 24억 4천만 달러를 넘어 전년 대비 증가했으며, 구스타프 클림트 초상화 2억 3640만 달러 등 신기록이 다수 나왔습니다.",
+     "source": "NYT, Artnet News, Artsy",
+     "id": 57,
+     "link": "https://www.nytimes.com/2026/11/21/arts/design/art-auction-collectors-heirs-nazi-sothebys-christies-new-york.html"
     },
     {
-     "title": "이희준 작가 개인전 '줄기와 마디' 국제갤러리에서 개막",
-     "summary": "서울 종로구 국제갤러리에서 이희준 작가의 신작 회화·드로잉·조각 40여 점을 소개하는 개인전이 19일 시작했다.",
-     "source": "헤럴드경제",
-     "id": 154,
-     "link": "https://biz.heraldcorp.com/article/10944735"
-    },
-    {
-     "title": "종묘 앞 세운4구역 재개발, 국가유산위 보존 방안 부결로 착공 무산",
-     "summary": "국가유산위원회가 세운4구역 유적 보존 방안을 부결해 내년 3월 예정됐던 착공이 사실상 어려워졌다.",
-     "source": "한겨레, 조선일보",
-     "id": 39,
-     "link": "https://www.hani.co.kr/arti/culture/culture_general/1288428.html"
-    },
-    {
-     "title": "프리즈 아부다비 첫 회 개막, 중동 긴장 속에도 활발한 판매 기록",
-     "summary": "이란 분쟁 등 지정학적 리스크에도 불구하고 프리즈 아부다비 데뷔전이 강력한 보안 속에 열려 딜러들이 자신감을 보이며 작품 판매가 활발히 이뤄졌다.",
-     "source": "ARTnews",
+     "title": "프리즈 아부다비 첫 회 개막…중동 미술시장 새 거점 부상",
+     "summary": "아부다비 마나랏 알 사디야트에서 열린 첫 프리즈 아부다비에 주요 갤러리와 컬렉터가 몰려 활발한 판매가 이뤄졌으며, 중동 지역 미술시장 확대를 알렸습니다.",
+     "source": "ARTnews, Artsy",
      "id": 69,
      "link": "https://www.artnews.com/art-news/market/frieze-abu-dhabi-rebrands-high-quality-art-large-sums-1234806923/"
     },
     {
-     "title": "뉴욕 경매 주간 24억 달러 규모, 반 고흐 '피어나는 밤나무' 1억9040만 달러 낙찰",
-     "summary": "소더비 경매에서 반 고흐 'Châtaigniers en fleurs'가 1억9040만 달러에 팔려 반 고흐 작품 경매 최고가를 경신했고, 세잔 '아를르캥'도 1억1100만 달러에 낙찰됐다.",
-     "source": "ARTnews, Artnet News",
-     "id": 503,
-     "link": "https://www.artnews.com/art-news/market/van-gogh-auction-record-sothebys-chataigniers-en-fleurs-2026-1234806413/"
-    },
-    {
      "title": "EU 10개국, 2027 베니스 건축 비엔날레 러시아 배제 공식 요구",
-     "summary": "폴란드 주도로 오스트리아·독일 등 10개국이 유럽집행위에 러시아 참가를 배제해달라고 요청했으며, 참가가 전쟁을 정상화한다는 이유다.",
+     "summary": "폴란드 주도로 오스트리아·독일 등 EU 10개국이 유럽집행위에 러시아의 2027년 베니스 건축 비엔날레 참가를 막아달라고 요청했습니다.",
      "source": "Artforum",
      "id": 70,
      "link": "https://www.artforum.com/news/no-russian-venice-architecture-biennale-1234763974/"
     },
     {
-     "title": "엘 그레코 '성 마우리티우스 순교' 400년 만의 복원 완료, 원색 되찾아",
-     "summary": "9개월간 진행된 정밀 복원 작업으로 엘 그레코 걸작이 오염과 덧칠을 벗고 원래 색채를 회복했다.",
-     "source": "ARTnews",
-     "id": 502,
-     "link": "https://www.artnews.com/art-news/news/el-greco-martyrdom-saint-maurice-restoration-1234807093/"
+     "title": "베니스 비엔날레 신설 '방문객 라이언스 상' 비판…'예술로 제노사이드 세탁' 지적",
+     "summary": "하이퍼알러직은 새로 도입된 관객 투표 상이 정치적 책임을 회피하는 '독이 든 성배'라며 비엔날레의 윤리적 문제를 제기했습니다.",
+     "source": "Hyperallergic",
+     "id": 461,
+     "link": "https://hyperallergic.com/the-venice-biennales-sham-awards-cannot-artwash-genocide/"
     },
     {
-     "title": "아일랜드 예술인 기본소득 시범사업, 3년간 긍정적 효과 확인",
-     "summary": "2022~2025년 2000명 예술인에게 주당 325유로를 지급한 BIA 파일럿이 생계 안정과 창작 활동 지속에 실질적 도움이 된 것으로 평가됐다.",
-     "source": "ARTnews",
-     "id": 184,
-     "link": "https://www.artnews.com/art-news/news/is-ireland-experiment-in-paying-artists-basic-income-working-1234806168/"
+     "title": "미국 박물관 관람객 코로나 이전 회복…재정난은 여전",
+     "summary": "아트넷 뉴스 보도에 따르면 미 주요 박물관 관람객 수가 팬데믹 이전 수준으로 돌아왔으나 인플레이션과 운영비 상승으로 재정 압박이 지속되고 있습니다.",
+     "source": "Artnet News",
+     "id": 289,
+     "link": "https://news.artnet.com/art-world/american-alliance-museum-report-2026-2839721"
+    },
+    {
+     "title": "충돌하는 색채, 부유하는 자아",
+     "summary": "\"5분 전의 나와 5분 후의 나는 같은 사람일까?\" 추상 회화를 그리는 정영도 작가(41)의 화두다. 서울 PKM갤러리에서 열리고 있는 개인전 '부유하는 아이(Floating I..",
+     "source": "매일경제",
+     "link": "https://www.mk.co.kr/news/culture/12215556"
+    },
+    {
+     "title": "‘히말라야의 화가’ 강찬모 화백 별세…향년 77세",
+     "summary": "‘히말라야의 화가’로 불리며 한지에 설산의 장엄함을 담아온 강찬모 화백이 지난 21일 별세했다. 향년 77세. 1949년 충남 논산에서 태어난 고인은 중앙대에서 서양화를 전공했으나 이후 한국 전통 채색화에 매료돼 일…",
+     "source": "뉴시스",
+     "link": "https://www.newsis.com/view/NISX20261122_0003878211"
+    },
+    {
+     "title": "보건소가 이끄는 건강 걷기여행 챌린지 눈길..양구한반도섬, 박수근미술관 등 6곳",
+     "summary": "강원특별자치도 양구군보건소는 내달 1일부터 13일까지 워크 온 챌린지 ‘12월, 나만의 따뜻한 겨울 보내기 건강 UP! 체온 UP!’ 프로그램을 운영한다. 이번 챌린지는 참가자가 양구의 ▷양구중앙시장 ▷박수근미술관…",
+     "source": "헤럴드경제",
+     "link": "https://biz.heraldcorp.com/article/10945019"
     }
    ]
   },
   {
    "topic": "AI",
-   "overview": "국내에서는 세무사 시험 AI 부정행위 자백 이후 첫 국가자격시험(경비지도사)에서 전자기기 소지 등 6건이 적발됐고, 수능·대학 논술에서도 앞치마 착용·안경 검사·무선 기록 추적 등 감시가 강화되고 있다. 해외에서는 구글이 제미나이 4 네온 출시와 제미나이 앱 GIF 생성 기능 추가, 툴 리트리벌 프리뷰를 선보였고, 앤트로픽이 나스닥 상장을 완료했으며, 클로드 활용 리만 가설 증명 주장이 나와 학계와 업계의 주목을 끌고 있다. METR 보고서는 최신 모델의 장시간 작업 능력이 6개월 만에 16시간에서 40시간으로 늘었으나 판단력 한계는 여전하다고 평가했다.",
+   "overview": "수능과 국가시험 AI 부정행위 논란으로 최교진 교육부 장관이 사퇴했고, 첫 국가자격시험에서도 AI 부정행위 6건이 적발돼 감독이 강화됐습니다. 오픈AI가 실시간 음성 모델 GPT-라이브-1.1 API를 출시하고 대기 요금을 60% 인하했으며, 구글은 제미나이 4 네온과 툴 리트리벌 프리뷰, 저사양 안드로이드 지원을 공개했습니다. 앤트로픽이 나스닥 상장을 완료했고 클로드 활용 리만 가설 증명 주장이 나왔으며, 싱킹머신즈가 노트북 구동 264억 파라미터 잉클링 2 미니 오픈웨이트를 공개했습니다. METR 리포트는 코딩 능력 지수적 향상과 판단 작업 격차를 확인했고, 시그널은 AI 감시 우려로 모바일 스크린샷 기능을 제한했습니다. 메타는 AI 데이터센터 배출량 급증으로 2030 넷제로 목표를 재검토합니다.",
    "items": [
     {
-     "title": "국가자격시험(경비지도사)서 AI 부정행위 6건 적발…세무사 시험 파문 후 첫 시험",
-     "summary": "세무사 시험 수석 합격자의 AI 부정행위 자백 이후 처음 치러진 경비지도사 시험에서 전자기기 소지 등 부정행위 6건이 무작위 전화 벨소리 확인 과정에서 적발됐다.",
-     "source": "연합뉴스, 강원일보, KBC광주방송",
-     "id": 6,
-     "link": "https://www.yna.co.kr/view/AKR20261121051700530"
-    },
-    {
-     "title": "수능·대학 논술 현장, 앞치마·안경 검사·무선 기록 추적으로 AI 커닝 차단 총력",
-     "summary": "수능 종료 후에도 시험장 와이파이·블루투스 기록을 분석해 AI 부정행위를 추적하고, 대학 논술고사장에서는 앞치마 착용과 안경·단추 카메라 검사 등 물리적 통제를 강화했다.",
-     "source": "MBC 뉴스, KBS 뉴스, 한겨레",
+     "title": "수능·국가시험 AI 부정행위 논란 확산…교육부 장관 사퇴",
+     "summary": "AI 컨닝 의혹으로 최교진 교육부 장관이 사의를 표명했으며, 여당은 사퇴로 끝날 일이 아니라며 진상규명을 요구했다.",
+     "source": "BBC, 연합뉴스TV, 연합뉴스",
      "id": 24,
-     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE12VTI5Q3VGem9JSWItV0h1VTU3S0pVYlp6VUN3dkJZeEh1QnhUblNwVFhuZnRMNWREdTU4OWZuRExTVUV2SE1GRnl4bWp5S2xxQnl0RGFJX0ZxSEZ0WGltVG1Dckp3U2h6ZkFhWUtnWTVnNWx6bGNjTtIBeEFVX3lxTE05bXQ4M05Iam8yVWxDOWRsZDRwaWZEcVVELVRXbFFzdDh3MXZLU1dxSnRnOXEtY2NHcHNGdUpxNzhOZmdla3BDMDBKSmdDWXlEeHluU0xlYWV0c0xHVDdxbXNQaWtNcHdWV1VaY3QwT2tqeWo1anB2cg?oc=5"
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1SSTcxcGFoZ0VxWU9QdGFGTi1XVUdiczhfR2JoOEpZOV9rV3lvb0RDSDdfOFpDRndHNU11R0gyay1rYl84Y0thazQyTThWcUpHTEdWYnpVVlN3aFN3bGfSAWNBVV95cUxPamV2VFUyZHNlWXJUMHdCT2NCVUhPWkFMOUJvQjZ4THBRa2FVWTREWkVWQng2cEYtVEYzRG9vYkExSkRQdDI0MFJMYmdoWGltek1qMDB1empEa3FhSDZMQ1l0a3c?oc=5"
     },
     {
-     "title": "구글, 제미나이 4 네온(Gemini 4 Neon) 출시 및 제미나이 API 툴 리트리벌 프리뷰 공개",
-     "summary": "구글 딥마인드가 제미나이 4 네온을 출시하고, 제미나이 API에 수백 개 도구에 접근하면서 토큰을 절약하는 툴 리트리벌 기능을 프리뷰로 제공하기 시작했다.",
-     "source": "Google DeepMind, Google AI, Simon Willison",
+     "title": "첫 국가자격시험서도 AI 부정행위 6건 적발…휴대전화 벨소리·안경 검사 도입",
+     "summary": "수능 대책 발표 후 치러진 첫 국가자격시험에서 AI 활용 부정행위 6건이 적발돼 감독 강화 조치가 즉각 적용됐다.",
+     "source": "전자신문, KBS 뉴스, 연합뉴스",
+     "id": 343,
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE54NVNlTEhvMXJneVNWOXJEWHdoeC0yTnJvbjFRM1pzTFhHOTg4bTVQNWhLSV84eEZPd2ppcVAxdF9FbVZiOFVlbjdoOUw3dw?oc=5"
+    },
+    {
+     "title": "오픈AI, 실시간 음성 모델 'GPT-라이브-1.1' API 출시…대기 요금 60% 인하",
+     "summary": "다국어 발음·인식·지시 수행을 개선하고 유휴 시간 요금을 분당 0.02달러로 낮춰 음성 에이전트 운영 비용을 절감했다.",
+     "source": "AI타임스, OpenAI",
+     "id": 236,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217655"
+    },
+    {
+     "title": "구글, 제미나이 4 네온(Gemini 4 Neon) 공개·툴 리트리벌 프리뷰·저사양 안드로이드 지원",
+     "summary": "신모델 네온과 함께 에이전트가 수백 개 도구에 적은 토큰으로 접근하는 툴 리트리벌을 제미나이 API 프리뷰로 제공하고, 제미나이 앱을 저메모리 기기에서도 쓸 수 있게 했다.",
+     "source": "Google DeepMind, Google AI",
      "id": 9,
      "link": "https://deepmind.google/blog/introducing-gemini-4-neon/"
     },
     {
-     "title": "구글 제미나이 앱에 GIF 생성 기능 추가…오픈AI 챗GPT 이어 이미지·영상 생성 경쟁 가열",
-     "summary": "구글이 제미나이 앱에 텍스트 프롬프트로 3초 길이 GIF를 만드는 기능을 탑재했으며, 기반 모델은 제미나이 옴니 1.2 플래시다.",
-     "source": "AI타임스",
-     "id": 245,
-     "link": "https://www.aitimes.com/news/articleView.html?idxno=217648"
-    },
-    {
-     "title": "앤트로픽(Anthropic), 나스닥 상장(IPO) 완료…클로드 개발사 공개 기업으로 전환",
-     "summary": "앤트로픽이 기업공개를 마무리하며 나스닥에 상장됐고, 시가총액 규모가 거대하지만 안전성 우선 전략의 지속 가능성에 관심이 쏠리고 있다.",
-     "source": "Anthropic, The Verge AI",
+     "title": "앤트로픽 IPO 상장…클로드 활용 리만 가설 증명 주장(두 수학자 독립)",
+     "summary": "앤트로픽이 나스닥 상장을 완료했으며, 소속 수학자 레벤트 알페게가 클로드 도움으로 리만 가설 증명을 주장했고 별개로 인간 단독 증명도 발표됐다.",
+     "source": "Anthropic, The Verge, Simon Willison",
      "id": 11,
      "link": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering"
     },
     {
-     "title": "앤트로픽 수학자 레벤트 알페게, 클로드 도움으로 리만 가설 증명 주장…린(Lean) 코드 1.3GB 공개",
-     "summary": "앤트로픽 소속 수학자가 클로드와 협업해 리만 가설 및 일반화 리만 가설 증명을 발견했다고 밝히고, 형식화된 린 코드 25만 페이지 분량을 공개했다.",
-     "source": "Latent Space, The Verge AI, Simon Willison",
-     "id": 20,
-     "link": "https://latent.space/p/ainews-riemann-hypothesis-proved-twice-independently/"
+     "title": "싱킹머신즈, 노트북 구동 264억 파라미터 '잉클링 2 미니' 오픈웨이트 공개",
+     "summary": "MoE 구조와 중간 계층 반복 실행으로 1000억 미만 모델 중 최고 코딩 성능을 확보해 허깅페이스와 자체 플랫폼 팅커로 배포했다.",
+     "source": "AI타임스, Hugging Face",
+     "id": 126,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217656"
     },
     {
-     "title": "METR 보고서: 최신 AI 모델 작업 수행 시간 6개월 만에 16시간→40시간으로 증가, 판단력 한계는 여전",
-     "summary": "AI 안전성 평가기관 METR이 GPT-6 아스트라, 클로드 오퍼스 5.5 등 최신 모델의 연구개발 역량을 평가한 결과, 장시간 작업 능력은 급격히 향상됐으나 판단력이 필요한 과제에서는 여전히 한계를 보였다.",
-     "source": "AI타임스, MIT Technology Review AI",
-     "id": 129,
-     "link": "https://www.aitimes.com/news/articleView.html?idxno=217649"
+     "title": "METR 시간지평 리포트 업데이트…코딩 능력 지수적 향상, 판단 작업은 여전히 격차",
+     "summary": "AI 평가 비영리 METR이 시간지평 그래프를 갱신해 코딩은 지수적 개선이 계속되나 판단·추론 작업에서는 모델 성능이 상대적으로 낮음을 확인했다.",
+     "source": "MIT Technology Review",
+     "id": 13,
+     "link": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/"
     },
     {
-     "title": "오픈AI, 적대적 증류(adversarial distillation) 방어 다층 접근법 공개…모델 역량 추출 방지",
-     "summary": "오픈AI가 모델 훈련, 안전장치, 탐지, 집행을 결합한 계층적 방식으로 적대적 증류 공격을 막아 역량 추출을 차단하는 체계를 소개했다.",
-     "source": "OpenAI",
-     "id": 8,
-     "link": "https://openai.com/index/combatting-adversarial-distillation"
+     "title": "시그널, AI 감시 우려로 모바일 스크린샷 기능 제한",
+     "summary": "메신저 시그널이 안드로이드·iOS 앱에서 스크린샷 촬영을 차단해 AI 기반 감시·데이터 수집 위험을 줄이려 했다.",
+     "source": "TechCrunch",
+     "id": 14,
+     "link": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance/"
     },
     {
-     "title": "구글, 학교에 AI 검색 도구 강제 연동 논란…페어팩스 카운티는 브라우저 플러그인으로 AI 답변 차단 대응",
-     "summary": "구글이 교육기관에 검색 엔진 사용 시 AI 도구 수용을 요구하자, 버지니아 페어팩스 카운티 교육청이 학생 검색 결과에서 AI 생성 답변을 숨기는 플러그인을 자체 개발해 배포했다.",
-     "source": "EdSurge",
-     "id": 23,
-     "link": "https://www.edsurge.com/news/google-says-schools-cant-have-search-without-ai-some-are-finding-a-way"
+     "title": "메타, AI 데이터센터 배출량 급증으로 2030 넷제로 목표 재검토",
+     "summary": "AI 인프라 확장으로 온실가스 배출이 빅테크 중 최대 폭 증가해 기존 탄소중립 일정 달성이 어렵다고 판단했다.",
+     "source": "Ars Technica",
+     "id": 133,
+     "link": "https://arstechnica.com/ai/2026/11/meta-reconsiders-2030-net-zero-goal-amid-record-emissions-from-ai-data-centers/"
     }
    ]
   },
   {
    "topic": "정치·사회",
-   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
-   "backfilled": true,
+   "overview": "민주당은 최교진 교육부 장관 사의에 전문성 갖춘 후임 선임을 요구했고, 오세훈 서울시장은 조희대 대법원장 탄핵 추진이 대통령 심판으로 이어질 것이라고 발언했습니다. 북미 대화 불발로 이재명 정부 한반도 정책이 시험대에 올랐으며, 미국 연방법원은 트럼프 행정부의 노숙자 정책 변경 시도에 제동을 걸었습니다.",
    "items": [
     {
-     "title": "김민석 \"민주당 큰 고민 중 하나는 청년…더 함께하고 싶다\"(종합)",
-     "summary": "더불어민주당 김민석 대표는 21일 \"민주당이 가진 가장 큰 오늘의 고민 중 하나는 어떻게 청년들과 함께할 것이...",
+     "title": "민주당, 최교진 교육부 장관 사의에 \"전문성 갖춘 후임 선임돼야\"",
+     "summary": "더불어민주당은 최교진 장관 사의 표명에 대해 급변하는 교육환경에 대응할 전문성 있는 인사가 후임으로 선임되기를 바란다고 논평했다.",
      "source": "연합뉴스",
-     "link": "https://www.yna.co.kr/view/AKR20261121040151001"
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261122035200001"
     },
     {
-     "title": "Chinese-Born Neuroscientist Is Detained by ICE While Traveling From Conference",
-     "summary": "Eva Yi Xie was detained on her way back to New Jersey from a neuroscience conference in Washington this week, the latest…",
-     "source": "NYT 교육",
-     "link": "https://www.nytimes.com/2026/11/20/science/chinese-scientist-detained-ice-princeton-eva-yi-xie-.html"
+     "title": "오세훈 \"조희대 탄핵, 대통령 심판 열차 출발 될 것\"",
+     "summary": "오세훈 서울시장이 조희대 대법원장 탄핵 추진이 대통령에 대한 심판으로 이어질 것이라고 발언했다.",
+     "source": "한겨레",
+     "id": 41,
+     "link": "https://www.hani.co.kr/arti/politics/politics_general/1288488.html"
     },
     {
-     "title": "'My biggest fear was getting changed in front of them' - why teenage girls stop playing sport",
-     "summary": "There has been a drop in teenage girls participating in sport. But what are the reasons behind that?",
-     "source": "BBC 교육",
-     "link": "https://www.bbc.co.uk/news/articles/ck9q84gwr533o?at_medium=RSS&at_campaign=rss"
+     "title": "북미 대화 불발로 이재명 정부 한반도 정책 시험대…중·러 관계도 지렛대 삼아야",
+     "summary": "트럼프-김정은 회담 무산으로 북미 정상회담을 통한 남북관계 개선 구상이 어려워져 이재명 정부의 한반도 정책이 시험대에 올랐다는 분석이다.",
+     "source": "경향신문",
+     "id": 45,
+     "link": "https://www.khan.co.kr/article/202611221709001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
     },
     {
-     "title": "Burnham seals trade and youth mobility deals in biggest step towards EU since Brexit",
-     "summary": "Agreements reached on food and drink, emissions and to allow young people to move around continent, but may be derailed…",
-     "source": "The Guardian 교육",
-     "link": "https://www.theguardian.com/politics/2026/nov/20/burnham-trade-youth-mobility-deals-biggest-step-towards-eu-since-brexit"
+     "title": "연방법원, 트럼프 행정부 노숙자 정책 변경 시도에 제동",
+     "summary": "로드아일랜드 연방법원 판사가 주택 보조금에서 정신질환·중독 치료로 지원을 전환하려는 트럼프 행정부 시도를 차단했다.",
+     "source": "NYT",
+     "id": 54,
+     "link": "https://www.nytimes.com/2026/11/21/us/politics/judge-trump-homeless-aid-addiction-treatment.html"
     }
    ]
   },
   {
    "topic": "IT·과학",
-   "overview": "",
+   "overview": "UNIST 교수 8명이 세계 상위 1% 피인용 연구자로 선정됐습니다. 캘리포니아주가 엔비디아의 대중 수출과 투자자 오도 혐의에 형사 위반 수사를 확대했고, 호주 정보기관장은 데이터센터와 AI 확산이 외국 간섭 위험을 높인다고 경고했습니다.",
    "items": [
     {
-     "title": "앤트로픽 연구자 \"AI로 리만 가설 증명\" 주장…수학계 검증 착수",
-     "summary": "앤트로픽 소속 수학자가 AI 클로드 도움으로 리만 가설을 증명했다고 발표했으나 독립 검증이 완료되지 않았고, IPO 직후 공개돼 진위 논란이 일고 있다.",
-     "source": "New Scientist, BBC, Decrypt",
-     "id": 109,
-     "link": "https://www.newscientist.com/article/2600235-mathematicians-are-amazed-by-holy-grail-proof-of-riemann-hypothesis/?utm_campaign=RSS|NSNS&utm_content=home&utm_medium=RSS&utm_source=NSNS"
+     "title": "UNIST 교수 8명, 세계 상위 1% 피인용 연구자(HCR) 선정",
+     "summary": "울산과학기술원 소속 교수 8명이 올해 클래리베이트 '세계에서 가장 영향력 있는 연구자' 명단에 올랐다.",
+     "source": "연합뉴스",
+     "id": 142,
+     "link": "https://www.yna.co.kr/view/AKR20261122023500057"
     },
     {
-     "title": "엔비디아 젠슨 황, 수십 년간 직원 괴롭힘·비밀 합의 의혹",
-     "summary": "엔비디아 공동창업자 젠슨 황이 임원진을 공개적으로 모욕하는 등 괴롭힘을 일삼아 왔으며, 한 임원과는 비밀 합의금을 지급한 것으로 드러났다.",
-     "source": "NYT",
-     "id": 55,
-     "link": "https://www.nytimes.com/2026/11/20/technology/jensen-huang-nvidia-culture.html"
+     "title": "캘리포니아주, 엔비디아 대중 수출·투자자 오도 혐의 형사 위반 수사 확대",
+     "summary": "캘리포니아 당국이 엔비디아의 첨단 칩 중국 불법 수출과 투자자 오도 혐의에 주 형법 위반 가능성까지 포함해 수사 중이다.",
+     "source": "블룸버그",
+     "id": 376,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-21/california-nvidia-probe-covers-potential-criminal-law-violations"
     },
     {
-     "title": "GTA 6 출시 첫날 38억달러 매출…엔터테인먼트 사상 최대",
-     "summary": "록스타게임즈의 GTA 6가 발매 첫날 38억달러(약 5조원)어치 팔려 역대 게임·영화 단일일 매출 신기록을 세웠다.",
-     "source": "BBC, 경향신문, Bloomberg",
-     "id": 274,
-     "link": "https://www.khan.co.kr/article/202611211505001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+     "title": "호주 정보기관장, 데이터센터·AI가 외국 간섭 위험 경고",
+     "summary": "호주 정보기관장이 데이터센터와 AI 확산이 국가를 외국 간섭과 악의적 행위자 위험에 노출시킨다고 경고했다.",
+     "source": "블룸버그",
+     "id": 174,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-22/australia-spy-chief-warns-of-data-center-ai-risks-age-reports"
     }
    ]
   },
@@ -334,27 +340,26 @@
    "backfilled": true,
    "items": [
     {
-     "title": "피겨 김유성, 5차 시니어 그랑프리 4위…개인 최고점",
-     "summary": "피겨스케이팅 기대주 김유성(수리고)이 시니어 그랑프리에서 개인 최고점을 경신하며 4위에 올랐다.",
+     "title": "[프로배구 중간순위] 22일",
+     "summary": "◇ 남자부",
      "source": "연합뉴스",
-     "link": "https://www.yna.co.kr/view/AKR20261121052400007"
+     "link": "https://www.yna.co.kr/view/AKR20261118180854007"
     },
     {
-     "title": "Anderson steps up, Berge impresses - player ratings for Man City v Fulham",
-     "summary": "How Manchester City and Fulham players rated in their Premier League match.",
+     "title": "Verstappen wins extraordinary race as Ferraris collide",
+     "summary": "Red Bull's Max Verstappen wins an extraordinary Las Vegas Grand Prix that featured 34 lead changes and another collision…",
      "source": "BBC",
-     "link": "https://www.bbc.co.uk/sport/football/articles/cqwy06p44g3no?at_medium=RSS&at_campaign=rss"
+     "link": "https://www.bbc.co.uk/sport/formula1/articles/cqx2ex25pvn9o?at_medium=RSS&at_campaign=rss"
     }
    ]
   }
  ],
  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
- "partial": true,
  "outlets": {
   "국내": [
    "연합뉴스",
    "AI타임스",
-   "MBC 뉴스",
+   "BBC",
    "한국경제",
    "매일경제",
    "뉴시스",
@@ -365,12 +370,13 @@
    "오마이뉴스",
    "전자신문",
    "블록미디어",
+   "Korea Times",
    "Yonhap English",
-   "보안뉴스",
-   "지디넷코리아",
+   "연합뉴스TV",
+   "에너지경제신문",
    "KBS 뉴스",
-   "강원일보",
-   "KBC광주방송"
+   "뉴스토마토",
+   "머니투데이"
   ],
   "미국": [
    "OpenAI",
@@ -388,7 +394,7 @@
    "Interconnects",
    "One Useful Thing",
    "EdSurge",
-   "The Korea Times",
+   "구글뉴스(AI cheating)",
    "NYT 교육",
    "NYT",
    "Bloomberg",
@@ -398,7 +404,6 @@
    "Cointelegraph",
    "Decrypt",
    "The Block",
-   "Bitcoin Magazine",
    "ARTnews",
    "Artforum",
    "Hyperallergic",
@@ -419,11 +424,11 @@
    "The Verge",
    "Wired",
    "Ars Technica",
-   "구글뉴스(AI cheating)",
-   "Yahoo",
+   "Superpower Daily",
+   "Bangkok Post",
    "조선일보",
-   "Yonhap News Agency",
-   "Korea JoongAng Daily"
+   "The Business Standard",
+   "The Korea Herald"
   ],
   "영국": [
    "The Guardian AI",
@@ -437,8 +442,7 @@
    "Middle East Eye",
    "Sky News",
    "The Independent",
-   "Daily Mail",
-   "New Scientist"
+   "Daily Mail"
   ],
   "기타 해외": [
    "Al Jazeera",
@@ -447,7 +451,6 @@
    "Euronews",
    "CNA",
    "Kyiv Independent",
-   "The Diplomat",
    "Japan Times",
    "SCMP",
    "Nikkei Asia",
@@ -460,38 +463,38 @@
   {
    "city": "서울",
    "date": "2026-11-22",
-   "sky": "대체로 맑음",
-   "now": "-3°",
+   "sky": "구름 조금",
+   "now": "4°",
    "lo": "-4°",
    "hi": "4°",
    "mood": "어제와 비슷함",
-   "diff": "최고 +3°, 최저 −1°",
+   "diff": "최고 +3°, 최저 0°",
    "precip": "강수 가능성 낮음(0%)",
-   "tomorrow": "강한 비 1°/11°"
+   "tomorrow": "비 2°/13°"
   },
   {
    "city": "대구",
    "date": "2026-11-22",
    "sky": "맑음",
-   "now": "0°",
-   "lo": "-2°",
-   "hi": "6°",
+   "now": "5°",
+   "lo": "-3°",
+   "hi": "7°",
    "mood": "어제와 비슷함",
    "diff": "최고 +2°, 최저 −2°",
    "precip": "강수 가능성 낮음(0%)",
-   "tomorrow": "강한 이슬비 0°/13°"
+   "tomorrow": "약한 이슬비 0°/12°"
   },
   {
    "city": "LA",
-   "date": "2026-11-21",
+   "date": "2026-11-22",
    "sky": "흐림",
-   "now": "10°",
-   "lo": "8°",
+   "now": "11°",
+   "lo": "9°",
    "hi": "20°",
    "mood": "어제와 비슷함",
-   "diff": "최고 +1°, 최저 0°",
-   "precip": "강수 가능성 낮음(0%)",
-   "tomorrow": "흐림 10°/20°"
+   "diff": "최고 0°, 최저 +1°",
+   "precip": "강수 가능성 낮음(18%)",
+   "tomorrow": "흐림 10°/21°"
   }
  ],
  "message": {
@@ -501,12 +504,12 @@
  "notices": [],
  "meta": {
   "articles": 523,
-  "outlets": 96,
+  "outlets": 94,
   "failed_feeds": [
    "Import AI",
    "토큰포스트"
   ]
  },
  "sent": true,
- "sent_at": "2026-11-21T15:32:08.648866+00:00"
+ "sent_at": "2026-11-22T08:21:45.957116+00:00"
 }
