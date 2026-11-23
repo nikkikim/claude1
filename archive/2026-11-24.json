@@ -1,0 +1,518 @@
+{
+ "headline": "COP31 합의 무산·우크라이나 리비아 공습·엔비디아 황 CEO 복귀, 한미 외교안보라인 개편",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "튀르키예 안탈리아에서 열린 COP31이 2주간 협상 끝에 최종 합의문 채택에 실패하며 2009년 코펜하겐 이후 17년 만에 결렬됐습니다. 우크라이나 보안국이 리비아 벵가지항에 정박 중이던 러시아 코르벳함 메르쿠리를 해상 드론 7기로 격침하고 화물선 1척을 손상시켰으며, 러시아 드론 공격 잔해가 키예프 도심에 떨어져 화재와 부상자가 발생했습니다. 엔비디아 젠슨 황 CEO가 성추문과 중국 스파이 연루 의혹으로 사임했다가 이사회 만장일치로 복귀했고 트럼프 대통령이 환영했으며, 인도 라팔 전투기 3대가 2025년 파키스탄과의 공중전에서 격추된 것으로 확인됐습니다. 예멘 후티 반군이 사우디 통신시설 공격으로 17명 사망을 주장했고, 방글라데시 다카 인구밀도가 ㎢당 3만5천 명으로 파리의 1.75배에 달하며 매년 40만 명 유입으로 인프라가 한계에 달했습니다.",
+   "items": [
+    {
+     "title": "COP31, 17년 만에 합의 없이 결렬…지구온난화 대응 '빨간불'",
+     "summary": "튀르키예 안탈리아에서 열린 COP31이 2주간 협상 끝에 최종 합의문 채택에 실패하며 2009년 코펜하겐 이후 17년 만에 결렬됐다.",
+     "source": "연합뉴스, BBC, Al Jazeera",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261123175900099"
+    },
+    {
+     "title": "우크라이나, 리비아 벵가지항 정박 러시아 군함 '메르쿠리' 드론 격침",
+     "summary": "우크라이나 보안국(SBU)이 7기의 해상 드론으로 리비아 연안에 정박 중이던 러시아 코르벳함 메르쿠리를 격침하고 화물선 1척을 손상시켰다.",
+     "source": "BBC, The Guardian, NYT",
+     "id": 88,
+     "link": "https://www.bbc.co.uk/news/articles/cr894gjz0j0yo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "엔비디아 젠슨 황 CEO 전격 복귀…이사회 만장일치, 트럼프도 환영",
+     "summary": "성추문과 중국 스파이 연루 의혹으로 사임했던 젠슨 황이 이사회 만장일치로 CEO에 복귀했으며, 트럼프 대통령은 '위대한 애국자'라며 환영했다.",
+     "source": "연합뉴스, NYT, Bloomberg",
+     "id": 109,
+     "link": "https://www.aljazeera.com/economy/2026/11/23/nvidia-board-reinstates-jensen-huang-as-ceo?traffic_source=rss"
+    },
+    {
+     "title": "러시아 드론 잔해 키예프 도심 추락…화재·부상자 발생",
+     "summary": "러시아 드론 공격 잔해가 키예프 셰우첸키우시스키 구역에 떨어져 화재가 나고 외국인 1명을 포함해 3명이 다쳤다.",
+     "source": "Kyiv Independent",
+     "id": 114,
+     "link": "https://kyivindependent.com/falling-drone-debris-sparks-fire-in-central-kyiv-2-rescued-3-injured-including-foreign-national/"
+    },
+    {
+     "title": "인도 라팔 전투기 3대, 2025년 파키스탄 공중전서 손실 확인",
+     "summary": "세계 공군 전력 연감에 따르면 인도 공군 라팔 3대가 2025년 파키스탄과의 공중전에서 격추된 것으로 나타났다.",
+     "source": "Middle East Eye",
+     "id": 104,
+     "link": "https://www.middleeasteye.net/news/indias-active-rafale-count-reduced-32-after-aerial-conflict-pakistan"
+    },
+    {
+     "title": "예멘 후티, 사우디 통신시설 공격으로 17명 사망 주장",
+     "summary": "후티 반군이 홍해 인근 사우디 통신시설 공격으로 17명이 숨지고 여러 건물이 파괴됐다고 발표했다.",
+     "source": "Middle East Eye",
+     "id": 313,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/yemens-houthis-say-saudi-attack-telecoms-facilities-kills-17"
+    },
+    {
+     "title": "방글라데시 다카, 인구밀도 세계 최고 수준…주택·보건 위기 심화",
+     "summary": "다카 인구밀도가 ㎢당 3만5천 명으로 파리의 1.75배에 달하며 매년 40만 명 유입으로 인프라가 한계에 달했다.",
+     "source": "France 24",
+     "id": 111,
+     "link": "https://www.france24.com/en/tv-shows/focus/20261123-dhaka-bursting-at-the-seams-bangladeshi-capital-faces-public-health-housing-crisis"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 이사회가 젠슨 황을 CEO로 즉시 복직시키기로 만장일치 결정하며 주가가 장중 최대 33% 급등해 시가총액 약 1조 달러 증가했고, 나스닥100 지수가 7% 넘게 뛰며 필라델피아 반도체 지수도 동반 상승했습니다. 코스피는 미국발 AI 거품론과 금리 인상 가능성에 3% 넘게 하락해 4700대 초반까지 후퇴했으며 증안펀드 가동 준비가 급락 방어에 일부 기여했습니다. 정부는 증안펀드 규모 확대 점검을 지시했으나 공매도 규제 강화에는 신중 입장을 보였고, 글로벌 IB들이 2028년 이후 메모리 반도체 업황 둔화를 이유로 삼성전자와 SK하이닉스 목표주가를 잇달아 하향했습니다. 크라우드스트라이크가 지스케일러를 440억 달러에 인수해 사이버보안 업계 최대 규모 M&A를 기록했고, 자영업자 폐업 약 5개월 전부터 매출이 절반 가까이 줄고 신용점수가 급격히 하락하는 패턴이 확인됐습니다.",
+   "items": [
+    {
+     "title": "젠슨 황 엔비디아 CEO 11일 만에 전격 복귀…주가 30%대 폭등",
+     "summary": "엔비디아 이사회가 젠슨 황을 CEO로 즉시 복직시키기로 만장일치 결정했으며, 주가는 장중 최대 33% 급등해 시가총액 약 1조 달러 증가.",
+     "source": "블록미디어, 코인데스크, 블룸버그",
+     "id": 51,
+     "link": "https://www.blockmedia.co.kr/archives/1169517?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "엔비디아 CEO 복귀에 나스닥 7%·S&P 5% 급등…AI 관련주 일제히 랠리",
+     "summary": "젠슨 황 복귀 발표 후 나스닥100 지수가 7% 넘게 뛰고 필라델피아 반도체 지수도 동반 상승하며 기술주 중심 매수세 확산.",
+     "source": "블룸버그, 마켓워치, 블록미디어",
+     "id": 171,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-23/ai-linked-stocks-take-off-after-nvidia-reinstates-jensen-huang"
+    },
+    {
+     "title": "코스피 3% 하락 4700선 턱걸이…AI 거품론·금리 인상 우려 겹쳐",
+     "summary": "미국발 AI 거품론과 금리 인상 가능성에 코스피가 3% 넘게 하락해 연초 수준인 4700대 초반까지 후퇴, 증안펀드 가동 준비가 급락 방어에 일부 기여.",
+     "source": "경향신문, 매일경제",
+     "id": 45,
+     "link": "https://www.khan.co.kr/article/202611232123015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "정부, 증안펀드 대폭 증액 검토…공매도 규제 강화엔 선 그어",
+     "summary": "이형일 부총리가 증안펀드 규모 확대 점검을 지시했으나 공매도 규제 강화에는 신중 입장, 과거 세 차례 실제 매입 때 주가 하락 또는 변동 없던 전례도 거론.",
+     "source": "경향신문, 매일경제, 한겨레",
+     "id": 157,
+     "link": "https://www.khan.co.kr/article/202611232112015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "글로벌 IB, 삼성전자·SK하이닉스 목표가 잇달아 하향…2028년 업황 둔화 우려",
+     "summary": "골드만삭스 등 주요 투자은행이 HBM 시장 성장 전망에도 불구하고 2028년 이후 메모리 반도체 업황 둔화를 이유로 양사 목표주가 낮춰.",
+     "source": "연합뉴스, 한국경제",
+     "id": 345,
+     "link": "https://www.yna.co.kr/view/AKR20261123166100008"
+    },
+    {
+     "title": "크라우드스트라이크, 지스케일러 440억 달러에 인수…사이버보안 공룡 탄생",
+     "summary": "AI 발전으로 해킹 우려 커지자 크라우드스트라이크가 지스케일러를 인수해 클라우드 보안 역량 강화, 사이버보안 업계 최대 규모 M&A.",
+     "source": "한국경제, NYT",
+     "id": 503,
+     "link": "https://www.hankyung.com/article/202611235261i"
+    },
+    {
+     "title": "자영업자 폐업 5개월 전부터 매출 반토막·신용점수 급락…경고 신호 뚜렷",
+     "summary": "폐업 약 5개월 전부터 매출이 절반 가까이 줄고 신용점수가 급격히 하락하는 패턴 확인, 대출 연체율 상승으로 금융권 부실 우려도 커져.",
+     "source": "매일경제",
+     "id": 350,
+     "link": "https://www.mk.co.kr/news/economy/12216423"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "젠슨 황 CEO 복귀 소식에 기술주 랠리가 코인 시장으로 확산되며 비트코인이 6만3684달러까지 상승해 전일 대비 4.91% 증가했습니다. 비트코인 코어가 블록의 AI 스캐너가 발견한 중등도 심각도 버그로 노드 블록 처리가 십수 초간 정지될 수 있던 문제를 수정 배포했습니다. 영국 금융행위감독청(FCA)이 거래소가 자체 자본으로 자사 플랫폼에서 마켓메이킹하는 행위를 전면 금지하는 최종 규칙을 확정했습니다. 트럼프 일가 연관 채굴 기업 아메리칸 비트코인이 비트코인 담보로 2년간 1억5000만 달러 회전 신용한도를 체결했습니다.",
+   "items": [
+    {
+     "title": "비트코인 6만3000달러 돌파…엔비디아 훈풍에 5% 급등",
+     "summary": "젠슨 황 CEO 복귀 소식에 기술주 랠리가 코인 시장으로 확산, 비트코인이 6만3684달러까지 상승하며 전일 대비 4.91% 증가.",
+     "source": "블록미디어, 코인데스크, 비트코인매거진",
+     "id": 163,
+     "link": "https://www.blockmedia.co.kr/archives/1169512?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "비트코인 코어, 블록 AI 스캐너 발견 노드 정지 버그 패치",
+     "summary": "블록(Block)의 AI 스캐너가 발견한 중등도 심각도 버그로 노드 블록 처리가 십수 초간 정지될 수 있던 문제 수정 배포.",
+     "source": "비트코인매거진",
+     "id": 68,
+     "link": "https://bitcoinmagazine.com/news/bitcoin-core-patches-ai-found-node-bug"
+    },
+    {
+     "title": "영국 FCA, 암호화폐 거래소 자체 마켓메이킹 금지 최종 규칙 발표",
+     "summary": "영국 금융행위감독청(FCA)이 거래소가 자체 자본으로 자사 플랫폼에서 마켓메이킹하는 행위를 전면 금지하는 최종 규칙 확정.",
+     "source": "비트코인매거진",
+     "id": 285,
+     "link": "https://bitcoinmagazine.com/news/uk-bars-crypto-exchanges-market-making"
+    },
+    {
+     "title": "에릭 트럼프 지원 아메리칸 비트코인, 팔콘엑스로부터 1억5000만 달러 BTC 담보 신용한도 확보",
+     "summary": "트럼프 일가 연관 채굴 기업 아메리칸 비트코인이 비트코인 담보로 2년간 1억5000만 달러 회전 신용한도 체결.",
+     "source": "코인데스크, 코인텔레그래프, 비트코인매거진",
+     "id": 64,
+     "link": "https://www.coindesk.com/business/2026/11/23/eric-trump-backed-american-bitcoin-secures-usd150-million-loan-against-its-bitcoin"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 내년 4월 개관 앞둔 국립한국문학관이 운영 방향 전문가 토론회를 개최했고, 용산문화재단 출범 기념 뮤지컬 '크리스마스 캐롤'이 12월 11~26일 공연되며, 퐁피두센터 한화에서 마르크 샤갈 작품 65점 중 61점이 국내 첫 공개됐습니다. 서울시발레단이 안무 거장 한스 판 마넨 1주기 헌정 트리플 빌 공연을 올렸고, 조형준 전 안산문화재단 부장이 아르코·대학로예술극장장으로 임명됐습니다. 해외에서는 제60회 베니스 비엔날레가 폐막하며 방문객 사자상 수상자 발표를 앞뒀고, 첫 회 프리즈 아부다비가 견조한 판매를 보인 가운데 뉴욕 마키 옥션 주간 낙찰 총액이 24억 달러를 넘겼으며, 카타르 도하 MIA 파크에 게르하르트 리히터 영구 파빌리온이 개관했습니다.",
+   "items": [
+    {
+     "title": "내년 4월 개관 앞둔 국립한국문학관, 운영 방향 전문가 토론회 개최",
+     "summary": "한국문학 유산 보존·연구·전시를 맡을 국립한국문학관이 27일 개관 후 운영 방향을 논하는 '2026 한국문학포럼'을 연다.",
+     "source": "뉴시스",
+     "id": 256,
+     "link": "https://www.newsis.com/view/NISX20261123_0003879881"
+    },
+    {
+     "title": "용산문화재단 출범 기념 뮤지컬 '크리스마스 캐롤' 12월 11~26일 공연",
+     "summary": "용산문화재단이 출범 기념작으로 찰스 디킨스 원작 뮤지컬 '크리스마스 캐롤'을 용산아트홀 대극장 미르에서 선보인다.",
+     "source": "연합뉴스",
+     "id": 424,
+     "link": "https://www.yna.co.kr/view/AKR20261123160300005"
+    },
+    {
+     "title": "퐁피두 한화 '너머의 여정'전…샤갈 작품 65점 중 61점 국내 첫 공개",
+     "summary": "마르크 샤갈 회화·도자·조각·스테인드글라스 65점을 모은 전시가 퐁피두센터 한화에서 열리며 55년 만에 '전쟁' 연작도 함께 공개된다.",
+     "source": "경향신문",
+     "id": 156,
+     "link": "https://www.khan.co.kr/article/202611232016005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "서울시발레단 '올 포 한스 판 마넨'…거장 1주기 헌정 트리플 빌 공연",
+     "summary": "작고한 안무 거장 한스 판 마넨이 생전 직접 짠 프로그램으로 서울시발레단이 추모 겸 계승 무대를 올린다.",
+     "source": "헤럴드경제",
+     "id": 39,
+     "link": "https://biz.heraldcorp.com/article/10946723"
+    },
+    {
+     "title": "조형준 전 안산문화재단 부장, 아르코·대학로예술극장장 임명",
+     "summary": "한국문화예술위원회가 조형준 씨를 아르코·대학로예술극장장으로 23일 임명했다.",
+     "source": "조선일보",
+     "id": 160,
+     "link": "https://www.chosun.com/culture-life/performance-arts/2026/11/23/TJUFVIT4GRDJLKRTXFJORE6B7A/"
+    },
+    {
+     "title": "베니스 비엔날레 폐막…방문객 사자상 수상자 25일 발표 예정",
+     "summary": "고요 쿠가 기획한 '인 마이너 키스' 주제 제60회 베니스 비엔날레가 일요일 폐막했으며 화요일 방문객 사자상 수상자가 발표된다.",
+     "source": "ARTnews",
+     "id": 69,
+     "link": "https://www.artnews.com/art-news/news/controversial-venice-biennale-closes-morning-links-1234807296/"
+    },
+    {
+     "title": "프리즈 아부다비 개막 초반 대량 판매 기록…뉴욕 옥션 주간 24억 달러 낙찰",
+     "summary": "첫 회 프리즈 아부다비가 견조한 판매를 보인 가운데 뉴욕 마키 옥션 주간 낙찰 총액이 24억 달러를 넘겼다.",
+     "source": "Artnet News, Artsy",
+     "id": 72,
+     "link": "https://news.artnet.com/multimedia/frieze-abu-dhabi-sells-big-and-early-2840039"
+    },
+    {
+     "title": "게르하르트 리히터 도하 파빌리온 개관…이슬람 기하학 패턴 외관",
+     "summary": "카타르 도하 MIA 파크에 게르하르트 리히터 영구 파빌리온이 셀도르프 아키텍츠 협업으로 문을 열었다.",
+     "source": "Designboom",
+     "id": 120,
+     "link": "https://www.designboom.com/architecture/gerhard-richter-pavilion-doha-patterns-islamic-geometry-selldorf-architects/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "교육부 장관 사퇴 후에도 AI 부정행위 논란이 지속되며 지난해 수능 시험지 11만3천 부가 보관 지침에도 파쇄돼 과거 부정행위 검증이 불가능해졌고, 강원도교육청이 고교 시험장에 금속탐지기를 설치해 AI 기기 반입을 막는 등 부정행위 방지 대책을 강화했습니다. 수능 직전 AI 기능 안경 등 신종 장비가 고가에 거래됐을 가능성이 제기됐고, 구글이 제미나이 4 네온·하이드로젠·카본·아르곤을 3주 간격으로 연쇄 출시하며 현재·차기·차차기 모델을 병렬 개발하는 새 파이프라인을 밝혔습니다. 오픈AI 최고연구책임자가 AGI 달성 80% 진전, 재귀적 자기개선(RSI)은 25~50% 수준으로 평가했고, 엔비디아 젠슨 황 CEO가 미 정부 고위층 의견 청취 후 이사회 만장일치로 CEO 겸 이사회 의장에 복직했습니다. 앤트로픽이 기술주 사상 최대 규모 IPO로 810억 달러를 조달했으나 AI 일자리 위협·거품 우려도 제기됐고, METR 보고서에서 코딩 능력은 지수적 향상을 보이나 판단·추론 과제는 여전히 저조한 것으로 나타났으며, 광주 상무역·서구청이 현장 직원들이 생성형 AI로 업무 편의 서비스 15종을 직접 개발·운영 중입니다.",
+   "items": [
+    {
+     "title": "교육부 장관 사퇴 후에도 AI 부정행위 논란 지속…수능 시험지 11만 부 이미 파쇄",
+     "summary": "최교진 장관 사퇴에도 지난해 수능 시험지 11만3천 부가 보관 지침에도 파쇄돼 과거 부정행위 검증이 불가능해졌다는 지적이 제기됐다.",
+     "source": "매일신문, 연합뉴스, 조선일보",
+     "id": 430,
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE14Zm5TMFpZOW5TLUdlaXcxcXRlYk1lOTE3eXFzRUpseUU4c3gwVGoxZHlWY1JrcTJHZGF2eUhHd1JXRVdMdURGU2ZBRWlhR3NUYmktc0JVZnVNa0JoaHRDSHpR?oc=5"
+    },
+    {
+     "title": "강원 고교 시험장에 금속탐지기 투입…'AI 컨닝' 차단 조치 확대",
+     "summary": "강원도교육청이 고교 시험장에 금속탐지기를 설치해 AI 기기 반입을 막는 등 부정행위 방지 대책을 강화했다.",
+     "source": "강원일보",
+     "id": 138,
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9PMjJBdlRJLXFJOWlGTnB5SmFwSjl2NFNScVVYSHVRZmUxaHdLNTRkeWQ4aXJET3RoQjAtYWNyZTFlZDdPcjJoY2ZYbEowMWpJc2pacl95dmVSa2c?oc=5"
+    },
+    {
+     "title": "수능 전 'AI 안경' 등 신종 부정행위 장비 110만 원에 거래 의혹",
+     "summary": "한겨레 단독 보도로 수능 직전 AI 기능 안경 등 신종 장비가 고가에 거래됐을 가능성이 제기됐다.",
+     "source": "한겨레",
+     "id": 245,
+     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBzckgxOGdDQzdoTzh0Qm1COEU1NTdTVzlwWE1RNVlEMThibGk1UkJwLUh3eXhEQ3gxcndnbXJIeDZnRC1VZXN1OTBhTkJlbG5Ed21wN3RudXRtUW96ckI3X2hHVFJKUGRJVUJGRlBkT2hkdw?oc=5"
+    },
+    {
+     "title": "구글, 제미나이 4 네온·하이드로젠·카본·아르곤 3주 간격 연쇄 출시…3세대 동시 개발 체제 공개",
+     "summary": "구글이 대형·중형 모델을 3주마다 번갈아 내놓으며 현재·차기·차차기 모델을 병렬 개발하는 새 파이프라인을 밝혔다.",
+     "source": "AI타임스, Google DeepMind",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217693"
+    },
+    {
+     "title": "오픈AI 최고연구책임자 'AGI 달성 80% 진전…재귀적 자기개선(RSI)은 25~50% 수준'",
+     "summary": "마크 첸 CRO가 팟캐스트에서 AGI 진도와 AI가 스스로 연구·개선하는 RSI 비율을 각각 80%, 25~50%로 평가했다.",
+     "source": "AI타임스",
+     "id": 336,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217703"
+    },
+    {
+     "title": "엔비디아 젠슨 황 CEO 11일 만 복귀…미 정부 고위층 개입·이사회 만장일치",
+     "summary": "스캔들로 사임했던 젠슨 황이 미 정부 고위층 의견 청취 후 이사회 만장일치로 CEO 겸 이사회 의장에 복직했다.",
+     "source": "TechCrunch, The Verge, Ars Technica",
+     "id": 15,
+     "link": "https://www.theverge.com/tech/1039937/nvidia-ceo-jensen-huang-reinstated"
+    },
+    {
+     "title": "앤트로픽 역대 최대 810억 달러 IPO 완료…공동창업자 거액 부호 반열",
+     "summary": "앤트로픽이 기술주 사상 최대 규모 IPO로 810억 달러를 조달했으나 AI 일자리 위협·거품 우려도 함께 제기됐다.",
+     "source": "The Guardian, Anthropic",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering"
+    },
+    {
+     "title": "METR 업데이트 보고서: 코딩 능력 지수적 향상 vs 판단·추론 과제는 여전히 저조",
+     "summary": "AI 평가 비영리 METR이 시간 지평 플롯 업데이트에서 코딩은 지수 곡선을 그리나 판단 필요 과제는 개선 속도가 느리다고 밝혔다.",
+     "source": "MIT Technology Review",
+     "id": 13,
+     "link": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/"
+    },
+    {
+     "title": "광주 상무역·서구청, 실시간 열차 도착 예측·구내식당 예약 등 직원 주도 AI 서비스 15종 구축",
+     "summary": "광주교통공사와 서구청이 전문 개발자 없이 현장 직원들이 생성형 AI로 업무 편의 서비스 15종을 직접 개발·운영 중이다.",
+     "source": "AI타임스",
+     "id": 128,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217697"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "이재명 정부 2기 중폭 개각으로 강금실 첫 여성 국정원장 기용 등 외교안보라인을 전면 물갈이하며 대미관계 재정비와 국정 동력 복원을 노리고 있습니다. 국민의힘 윤리위원들이 한동훈 의원 제명 발표가 윤석열 전 대통령 사형 구형일에 맞춰 기획됐다고 주장하며 파문이 확산되고 있고, 전국장애인차별철폐연대가 국민의힘 김재섭 의원의 장애인 단체 비하 발언에 대해 형사 고소했습니다. 권익위가 수능 부정행위 신고 포상금을 건당 최소 1억~최대 5억 원으로 올렸고 경찰은 스마트기기 활용 부정행위 4건을 수사 중입니다.",
+   "items": [
+    {
+     "title": "이재명 정부 2기 중폭 개각…강금실 첫 여성 국정원장·외교안보라인 전면 물갈이",
+     "summary": "국정원장 강금실, 외교장관 임웅순, 통일장관 홍익표, 행안·문체장관에 70년대생 측근 기용으로 대미관계 재정비와 국정 동력 복원을 노린다.",
+     "source": "경향신문, 한겨레, 연합뉴스",
+     "id": 46,
+     "link": "https://www.khan.co.kr/article/202611232124005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "국민의힘 윤리위원 '한동훈 기획제명 의혹' 추가 폭로…'윤 구형일에 맞춰 제물'",
+     "summary": "전현직 윤리위원이 한동훈 의원 제명 발표가 윤석열 전 대통령 사형 구형일에 맞춰 기획됐다고 주장하며 파문이 확산되고 있다.",
+     "source": "연합뉴스",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261123105252001"
+    },
+    {
+     "title": "전장연, 김재섭 의원 '알카에다·깡패' 발언 고소…장애인 비하 논란",
+     "summary": "전국장애인차별철폐연대가 국민의힘 김재섭 의원의 장애인 단체 비하 발언에 대해 형사 고소했다.",
+     "source": "한겨레",
+     "id": 43,
+     "link": "https://www.hani.co.kr/arti/society/society_general/1288743.html"
+    },
+    {
+     "title": "수능 부정행위 신고 포상금 최대 5억 원…스마트기기 부정 4건 수사 중",
+     "summary": "권익위가 수능 부정행위 신고 포상금을 건당 최소 1억~최대 5억 원으로 올렸고, 경찰은 스마트기기 활용 부정행위 4건을 수사 중이다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 334,
+     "link": "https://www.yna.co.kr/view/AKR20261123164800001"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "ARM CEO 르네 하스가 손정의 소프트뱅크 회장 요청으로 CEO직 유지 결정하며 2033년까지 계약 연장했고, 엔비디아 이사회가 젠슨 황 복귀 전 하스에게 CEO직 제안했으나 거절했습니다. 테슬라가 FSD v15 배포를 시작하며 실시간 생성형 '리얼리티 뷰'를 탑재한 엔드투엔드 운전자 보조 시스템 전면 개편 버전을 출시했습니다. 이통3사와 네이버가 이용자 대신 고객센터 전화·상담을 수행하는 AI 에이전트 서비스 등장에 제동을 걸며 규제·개인정보 이슈를 검토 중입니다.",
+   "items": [
+    {
+     "title": "ARM CEO 르네 하스, 엔비디아 CEO 제안 거절하고 2033년까지 계약 연장",
+     "summary": "손정의 소프트뱅크 회장 요청으로 ARM CEO직 유지 결정, 엔비디아 이사회가 젠슨 황 복귀 전 하스에게 CEO직 제안했으나 거절.",
+     "source": "블룸버그, 한국경제",
+     "id": 173,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-23/arm-ceo-extends-contract-through-2033-after-nvidia-approach"
+    },
+    {
+     "title": "테슬라 FSD v15 배포 시작…실시간 생성형 '리얼리티 뷰' 탑재",
+     "summary": "엔드투엔드 운전자 보조 시스템 전면 개편 버전 v15 출시, 중심 기능은 실시간 생성형 디스플레이 '리얼리티 뷰'.",
+     "source": "더버지",
+     "id": 297,
+     "link": "https://www.theverge.com/transportation/1039919/tesla-fsd-v15-reality-view-gta-nhtsa-safety-rollout"
+    },
+    {
+     "title": "이통3사·네이버, AI 에이전트 고객센터 대리 상담 서비스 '제동'",
+     "summary": "이용자 대신 고객센터 전화·상담 수행하는 AI 에이전트 서비스 등장에 통신사와 네이버가 제동, 규제·개인정보 이슈 검토 중.",
+     "source": "연합뉴스",
+     "id": 248,
+     "link": "https://www.yna.co.kr/view/AKR20261123165600017"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "한국 펜싱이 헝가리 부다페스트에서 열린 국제펜싱연맹(FIE) 총회 시상식에서 여자 에페 대표팀이 시즌 1위를 수상했습니다. 여자프로농구 인천 신한은행이 하나은행을 잡고 4연승을 거두며 단독 선두를 질주했습니다.",
+   "items": [
+    {
+     "title": "한국 펜싱, 국제연맹 총회서 여자 에페 단체전 시즌 1위 수상",
+     "summary": "대한펜싱협회는 22일 헝가리 부다페스트에서 열린 국제펜싱연맹(FIE) 총회 시상식에서 여자 에페 대표팀이 20...",
+     "source": "연합뉴스",
+     "id": 31,
+     "link": "https://www.yna.co.kr/view/AKR20261123171000007"
+    },
+    {
+     "title": "여자농구 신한은행, 하나은행 잡고 4연승…단독 선두 질주",
+     "summary": "여자프로농구 인천 신한은행이 4연승을 거두며 단독 선두를 질주했다.",
+     "source": "연합뉴스",
+     "id": 143,
+     "link": "https://www.yna.co.kr/view/AKR20261123170700007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "경향신문",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Yonhap English",
+   "강원일보",
+   "연합뉴스TV",
+   "매일신문",
+   "중앙일보",
+   "부산경남대표방송 KNN 뉴스"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "Interconnects",
+   "One Useful Thing",
+   "EdSurge",
+   "The Guardian",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Hyperallergic",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "Financial Times",
+   "Korea JoongAng Daily",
+   "https://economy.ac/",
+   "Time Magazine",
+   "South China Morning Post"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-24",
+   "sky": "대체로 맑음",
+   "now": "4°",
+   "lo": "-3°",
+   "hi": "4°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −8°, 최저 −4°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "구름 조금 -4°/6°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-24",
+   "sky": "약한 이슬비",
+   "now": "10°",
+   "lo": "-2°",
+   "hi": "10°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −2°, 최저 −2°",
+   "precip": "비 예보(강수확률 71%, 약 0.2mm)",
+   "tomorrow": "맑음 -3°/7°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-23",
+   "sky": "흐림",
+   "now": "11°",
+   "lo": "11°",
+   "hi": "20°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 0°, 최저 +2°",
+   "precip": "강수 가능성 낮음(20%)",
+   "tomorrow": "흐림 10°/24°"
+  }
+ ],
+ "message": {
+  "ko": "하고 싶은 일이 너무 많아 막막해도, 오늘의 한 걸음이 큰 변화의 시작이에요.",
+  "en": "Even if so much you want to do feels overwhelming, today's step is the start of a big change."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 522,
+  "outlets": 93,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-23T15:15:17.164098+00:00"
+}
