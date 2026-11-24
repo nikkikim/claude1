@@ -455,12 +455,11 @@ def _weather_cards(digest: dict) -> list[dict]:
     for w in digest.get("weather") or []:
         ref = ref or w["date"]
         tag = f"(현지 {int(w['date'][5:7])}/{int(w['date'][8:10])}일)" if w["date"] != ref else ""
-        now = f"지금 {w['now']} · " if w.get("now") else ""
         mood = str(w.get("mood", ""))
         mood_icon = "🔺" if "따뜻" in mood else ("🔻" if "쌀쌀" in mood else "➖")
         precip = str(w.get("precip", ""))
         precip_icon = "❄️" if precip.startswith("눈") else ("☔" if precip.startswith("비") else "☂️")
-        rows = [("🌡️", f"{now}최저 {w['lo']} / 최고 {w['hi']}"),
+        rows = [("🌡️", f"최저 {w['lo']} / 최고 {w['hi']}"),
                 (mood_icon, f"{mood} ({w['diff']})"),
                 (precip_icon, precip)]
         if w.get("tomorrow"):

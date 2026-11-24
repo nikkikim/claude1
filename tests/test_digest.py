@@ -2020,3 +2020,10 @@ def test_workflow_deploy_retries_and_never_fails_the_run_for_a_transient_pages_e
     deploy = wf.split("  deploy:")[1]
     assert deploy.count("uses: actions/deploy-pages@v4") == 3 and deploy.count("continue-on-error: true") == 3   # 3번 시도, 모두 실패해도 실행은 성공 처리
     assert "::warning::" in deploy and "steps.deploy1.outputs.page_url" in deploy
+
+
+def test_weather_first_row_shows_only_daily_low_and_high_not_current_temp():
+    w = nd.parse_weather("서울", SEOUL_RAW)
+    assert w.get("now")                                                       # 데이터에는 지금 기온이 있어도
+    row = nd._weather_cards({"weather": [w]})[0]["rows"][0][1]
+    assert row == f"최저 {w['lo']} / 최고 {w['hi']}" and "지금" not in row    # 메일의 첫 줄에는 하루 최저·최고만
