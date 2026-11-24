@@ -1,0 +1,503 @@
+{
+ "headline": "러시아 군용기 울릉도 영공 근접·국방무관 초치, 트럼프의 엔비디아 황 CEO 복귀 개입 파장, 세네갈 AFCON 우승 복권",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "러시아 군용기가 울릉도 영공에 근접해 한국 전투기가 출격하고 국방부가 러시아 무관을 초치했습니다. 트럼프 전 대통령이 엔비디아 젠슨 황 CEO 복귀에 개입했다는 보도로 의회에서 국가안보 우려와 조사 요구가 제기됐습니다. 중국 차기 지도부 유력 후보인 천지닝 상하이 당서기가 반부패 조사 대상에 올랐고, 이라크 중앙정부가 쿠르드 자치지역의 유전과 국경 통제권 회수를 명령했습니다. 영국은 후티 반군 제재를 단행했으나 사우디아라비아 인권 문제는 거론하지 않았고, CAS는 세네갈의 2025 AFCON 우승 자격을 복권했습니다. 우크라이나는 핀란드만에서 러시아 화물선을 드론으로 공격했다고 인정했습니다.",
+   "items": [
+    {
+     "title": "러 군용기 울릉도 영공 근접…한국 전투기 출격·러 국방무관 초치",
+     "summary": "러시아 군용기 여러 대가 동해 KADIZ 진입 후 울릉도 영공에 매우 근접해 한국 공군이 전투기를 출격시키고 국방부가 주한 러시아 국방무관을 초치해 항의했다.",
+     "source": "연합뉴스, Yonhap English, 한겨레",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261124134153504"
+    },
+    {
+     "title": "트럼프, 엔비디아 황 CEO 복귀 개입…국가안보 논란·주가 급등락",
+     "summary": "트럼프 전 대통령이 젠슨 황 엔비디아 CEO 복귀를 압박했다는 보도가 이어지며 의회 양당에서 국가안보 우려와 조사 요구가 제기되고 주가는 전날 급등분 일부를 반납했다.",
+     "source": "연합뉴스, NYT, BBC",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261124184200072"
+    },
+    {
+     "title": "중국 차기 지도부 후보 상하이 당서기 천지닝 조사…반부패 심화",
+     "summary": "시진핑 주석 주도의 반부패 드라이브 속에서 차기 최고지도부 유력 후보인 천지닝 상하이 당서기가 조사받고 있으며, 이는 수십 년 만의 최대 권력 지각변동으로 평가된다.",
+     "source": "연합뉴스, Bloomberg, Foreign Policy",
+     "id": 121,
+     "link": "https://www.yna.co.kr/view/AKR20261124180951089"
+    },
+    {
+     "title": "이라크, 쿠르드 자치지역 유전·국경 통제권 회수 나서",
+     "summary": "이라크 중앙정부가 쿠르드 자치정부가 장악해온 핵심 유전과 국경 통제권 회수를 명령하며 양측 갈등이 재점화될 조짐을 보이고 있다.",
+     "source": "연합뉴스, Al-Monitor",
+     "id": 448,
+     "link": "https://www.yna.co.kr/view/AKR20261124176451079"
+    },
+    {
+     "title": "영국, 후티 반군 신규 제재 단행…사우디는 언급 안 해",
+     "summary": "영국이 예멘 후티 반군을 제재 대상에 올리고 고위 인사 4명을 지정했으나, 동맹인 사우디아라비아의 인권 문제는 거론하지 않아 이중잣대 비판이 제기된다.",
+     "source": "Al-Monitor, Middle East Eye",
+     "id": 74,
+     "link": "https://www.al-monitor.com/originals/2026/11/uk-targets-houthis-new-sanctions"
+    },
+    {
+     "title": "CAS, 세네갈 2025 AFCON 우승 복권…모로코는 준우승 확정",
+     "summary": "스포츠중재재판소(CAS)가 10개월 전 박탈됐던 세네갈의 2025 아프리카 네이션스컵 우승 자격을 복권시키고 모로코를 준우승으로 확정했다.",
+     "source": "BBC, DW, France 24",
+     "id": 92,
+     "link": "https://www.bbc.co.uk/sport/football/articles/crn80y2l1404o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "우크라이나, 핀란드만 러시아 화물선 드론 공격…젤렌스키 인정",
+     "summary": "우크라이나가 핀란드만에서 러시아 화물선 스파르타 II를 드론으로 공격해 예인됐으며, 젤렌스키 대통령이 자국 소행임을 확인했다.",
+     "source": "Al Jazeera, Kyiv Independent",
+     "id": 108,
+     "link": "https://www.aljazeera.com/video/newsfeed/2026/11/24/russia-tows-it-cargo-ship-back-home-after-ukrainian-drone-attack?traffic_source=rss"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "엔비디아 주가가 젠슨 황 CEO 복귀 랠리 하루 만에 하락 전환했고 나스닥 선물도 2%대 내렸습니다. 앤트로픽 주가는 상장 일주일 만에 공모가 아래로 떨어졌습니다. 코스피는 반도체주 강세로 사흘 만에 5000선을 회복했으나 환율과 수급 불안은 지속됩니다. EU는 내달부터 한국산 하이브리드차 무관세 쿼터를 6만7924대로 제한하는 세이프가드를 시행합니다. 삼성 준감위는 삼성전자 주주환원 유보 과정에 위법이나 이해상충이 없다고 결론 내렸습니다. 국내 회계사 내년 최소선발 인원은 1100명으로 3년 연속 줄었고, 하나저축은행 해킹으로 고객 552명 개인정보가 유출됐습니다.",
+   "items": [
+    {
+     "title": "엔비디아 주가 반락·나스닥 선물 2%대 하락…젠슨 황 복귀 랠리 하루 만에 식어",
+     "summary": "젠슨 황 CEO 복귀 소식에 급등했던 엔비디아 주가가 개장 전 거래에서 하락 전환했고 나스닥 선물도 2.1% 내렸다.",
+     "source": "한국경제, Bloomberg, NYT",
+     "id": 30,
+     "link": "https://www.hankyung.com/article/202611248036i"
+    },
+    {
+     "title": "앤트로픽 주가 공모가 83달러 하회…상장 일주일 만에 상승분 전액 반납",
+     "summary": "AI 스타트업 앤트로픽 주가가 상장 4거래일 만에 공모가 아래로 떨어지며 7%대 추가 하락했다.",
+     "source": "블록미디어, Bloomberg, MarketWatch",
+     "id": 49,
+     "link": "https://www.blockmedia.co.kr/archives/1170044?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "코스피 사흘 만에 5000선 탈환…외국인·기관 동반 매수에 반도체주 강세",
+     "summary": "엔비디아발 반도체 랠리에 힘입어 코스피가 5000선을 회복했으나 환율·수급 불안은 지속된다.",
+     "source": "경향신문, 매일경제, 한국경제",
+     "id": 270,
+     "link": "https://www.khan.co.kr/article/202611242145025/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "EU, 내달부터 한국산 하이브리드차 무관세 쿼터 6만7924대 제한…세이프가드 시행",
+     "summary": "EU 집행위가 200일간 한국산 하이브리드차 무관세 수출 물량을 국가별로 배정해 신규 수출 확대를 제한한다.",
+     "source": "매일경제, 연합뉴스, The Guardian",
+     "id": 34,
+     "link": "https://www.mk.co.kr/news/economy/12217527"
+    },
+    {
+     "title": "삼성 준감위 \"삼성전자 주주환원 유보, 이재용 증여세 이해상충 아니다\"",
+     "summary": "삼성 준법감시위가 삼성전자 주주환원 결정 과정에 준법 위반이나 이해상충이 없다고 결론 내렸다.",
+     "source": "한겨레, 연합뉴스",
+     "id": 154,
+     "link": "https://www.hani.co.kr/arti/economy/marketing/1288926.html"
+    },
+    {
+     "title": "국내 회계사 내년 최소선발 1100명…3년 연속 감축, AI 확산·수습처 부족 영향",
+     "summary": "공인회계사 최소선발인원이 올해보다 50명 줄어든 1100명으로 결정됐다.",
+     "source": "매일경제, 한겨레, 연합뉴스",
+     "id": 148,
+     "link": "https://www.mk.co.kr/news/stock/12217444"
+    },
+    {
+     "title": "하나저축은행 해킹으로 고객 552명 개인정보 유출…금융권 보안 비상",
+     "summary": "하나금융 계열 저축은행에서 모바일웹 시스템 공격으로 고객 개인정보가 유출됐다.",
+     "source": "연합뉴스, 매일경제, 경향신문",
+     "id": 237,
+     "link": "https://www.yna.co.kr/view/AKR20261124174000002"
+    }
+   ]
+  },
+  {
+   "topic": "코인",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "CertiK Trains Interpol Investigators to Trace and Freeze Stolen Crypto",
+     "summary": "The blockchain security firm walked officers from across Asia and the South Pacific through a real wallet-theft case at…",
+     "source": "Decrypt",
+     "link": "https://decrypt.co/383857/certik-trains-interpol-investigators-to-trace-and-freeze-stolen-crypto"
+    },
+    {
+     "title": "Bitcoin ETFs see another $570 million in net outflows as November total nears $5 billion and BTC dips below $60K",
+     "summary": "BlackRock's IBIT bitcoin exchange-traded fund again led the outflows, with $509.3 million exiting the fund on Monday.",
+     "source": "The Block",
+     "link": "https://www.theblock.co/news/markets/2026-11-24-bitcoin-etfs-another-570-million-net-outflows-november-total-nears-5-billion-btc-dips-below-60k-445548"
+    },
+    {
+     "title": "South Korea Unveils Crypto Bill Capping Exchange Ownership at 20%",
+     "summary": "Bitcoin Magazine South Korea Unveils Crypto Bill Capping Exchange Ownership at 20% South Korea’s financial regulator unv…",
+     "source": "Bitcoin Magazine",
+     "link": "https://bitcoinmagazine.com/news/south-korea-crypto-bill-exchange-ownership-cap"
+    },
+    {
+     "title": "South Korea proposes bank-led stablecoins, 20% cap on crypto exchange stakes",
+     "summary": "The draft bill would also reopen domestic initial coin offerings after a ban dating to 2017 and require issuers to discl…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/south-korea-draft-bill-crypto-innovation-user-protection?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 대림미술관 설립 30주년 소장품전, 2026 부산국제아동도서전 개최, 국보 삼국사기와 삼국유사 첫 동시 전시, 박지현과 '하이퍼나이프'의 국제에미상 수상 불발 소식이 있었습니다. 해외에서는 프리즈 LA 2027 참가 갤러리 102곳과 아트바젤 홍콩 2027 참가 갤러리 232곳이 발표됐고, 독일이 나치 피해 여호와의 증인 아카이브 반환에 합의했습니다. 러시아 공습으로 키이우와 오데사의 문화유산이 손상됐습니다.",
+   "items": [
+    {
+     "title": "대림미술관 설립 30주년 기념 소장품전 개최",
+     "summary": "서촌 대림미술관이 재단 설립 30주년을 맞아 김창열 등 국내외 유명 작가 작품 70여 점을 선보이는 소장품전을 연다.",
+     "source": "경향신문",
+     "id": 375,
+     "link": "https://www.khan.co.kr/article/202611242047005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "2026 부산국제아동도서전 12월 개최",
+     "summary": "주제 '지도에 없는 세상'으로 20개국 174개 출판사와 작가 200여 명이 참여하는 아동도서전이 부산 벡스코에서 열린다.",
+     "source": "조선일보",
+     "id": 46,
+     "link": "https://www.chosun.com/culture-life/book/2026/11/24/43ZOSGCIJVCY5LW7Y73ETDBJFI/"
+    },
+    {
+     "title": "삼국사기·삼국유사 백제박물관서 첫 동시 전시",
+     "summary": "국보 삼국사기와 삼국유사가 서울 한성백제박물관 특별전에서 처음으로 한자리에 전시된다.",
+     "source": "경향신문",
+     "id": 157,
+     "link": "https://www.khan.co.kr/article/202611242056045/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "박지현·'하이퍼나이프' 국제에미상 수상 불발",
+     "summary": "배우 박지현과 디즈니+ 시리즈 '하이퍼나이프'가 제54회 국제에미상 시상식에서 각각 여우주연상과 작품상 수상에 실패했다.",
+     "source": "경향신문",
+     "id": 42,
+     "link": "https://www.khan.co.kr/article/202611242206001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "프리즈 LA 2027 참가 갤러리 102곳 발표",
+     "summary": "프리즈 로스앤젤레스가 2027년 제8회 참가 갤러리 102곳(신규 29곳)을 공개하며 블루칩 갤러리 다수 복귀를 알렸다.",
+     "source": "아트넷 뉴스, 아트뉴스, 더 아트 뉴스페이퍼",
+     "id": 70,
+     "link": "https://news.artnet.com/market/frieze-los-angeles-2027-exhibitors-2840743"
+    },
+    {
+     "title": "아트바젤 홍콩 2027 참가 갤러리 232곳 발표",
+     "summary": "아트바젤 홍콩이 2027년 참가 갤러리 232곳(신규 31곳)과 새 층별 구성을 공개했으며 전년 대비 소폭 감소했다.",
+     "source": "아트뉴스, 아트시, 더 아트 뉴스페이퍼",
+     "id": 183,
+     "link": "https://www.artnews.com/art-news/market/art-basel-hong-kong-2027-exhibitor-list-1234807256/"
+    },
+    {
+     "title": "독일, 나치 피해 여호와의 증인 아카이브 반환 합의",
+     "summary": "독일 정부가 드레스덴 군사박물관 소장 나치 박해 기록 아카이브를 여호와의 증인 측에 반환하기로 합의했다.",
+     "source": "아트뉴스, 뉴욕타임스",
+     "id": 67,
+     "link": "https://www.artnews.com/art-news/news/south-african-artist-and-curator-tamlin-blake-found-dead-1234807445/"
+    },
+    {
+     "title": "러시아 공습으로 키이우·오데사 문화유산 피해",
+     "summary": "우크라이나 문화부에 따르면 러시아 드론 공습으로 키이우 성 볼로디미르 대성당 등 문화유산이 손상됐다.",
+     "source": "아트포럼",
+     "id": 69,
+     "link": "https://www.artforum.com/news/russian-strikes-kyiv-odesa-landmarks-heritage-sites-1234764108/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "앤트로픽이 코드 리뷰·수정·승인 자동화 도구 '클로드 십' 베타를 출시했고, 중국 Z.ai가 루프 트랜스포머 모델 GLM-5.4를 공개했습니다. 국내 주요 시험에서 AI 부정행위가 확산돼 교육당국이 감시 강화와 징계 강화를 추진 중입니다. 삼성SDS는 임원 인사로 AX 진용을 재편했고, KT는 육군교육사령부와 AI 기반 지휘통제체계 고도화 MOU를 체결했습니다. 구글은 제미나이 API에 툴 리트리벌 프리뷰를 추가했고, 오픈AI와 시스코는 오픈소스 리눅스 런타임 '시루도'를 공개했습니다. 엔비디아 이사회는 젠슨 황을 CEO로 즉시 복직시켰고, 아마존은 AI 에이전트가 제로데이 취약점을 자동 탐지·악용한 사례를 보고했습니다.",
+   "items": [
+    {
+     "title": "앤트로픽 '클로드 십' 베타 출시…코드 리뷰·수정·승인 자동화",
+     "summary": "앤트로픽이 PR 리뷰·수정 도구 'PR 스튜어드'와 승인 도구 '클로드 어프루벌스'를 포함한 클로드 십을 베타로 공개해 개발 병목 해소를 노린다.",
+     "source": "AI타임스, 테크크런치 AI, 더 버지 AI",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217729"
+    },
+    {
+     "title": "Z.ai, 루프 트랜스포머 적용 'GLM-5.4' 출시",
+     "summary": "중국 Z.ai가 약 7500억 매개변수 규모의 루프 트랜스포머 모델 GLM-5.4를 공개하며 2~3조 규모 모델급 성능을 주장했으나 제3자 벤치마크는 미제시했다.",
+     "source": "AI타임스, 사이먼 윌리슨, 라텐트 스페이스",
+     "id": 241,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217728"
+    },
+    {
+     "title": "한국 주요 시험 AI 부정행위 확산…교육당국 강력 대응",
+     "summary": "수능·리트·세무사·공무원·교원임용시험 등에서 AI 커닝 사례가 적발돼 교육부와 시도교육청이 감시 장비 도입, 서논술형 평가 전환, 전 과목 0점·퇴학 등 징계 강화를 추진 중이다.",
+     "source": "BBC, 코리아 타임스, 강원일보",
+     "id": 23,
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBMWVNwYnhkNnFRTG5fMXU3WTdUVXBrZi00akxkZm9PdmlNaDJ3VUVfSnhNOFUtNlFlTjZNQ01BYVdVZEtLVVJxY09UVUJRaEVFbm9fUGl3YkItUDZxWVHSAWNBVV95cUxQLVA4VGIzMjV3TC1EM3pCWFlDQlNaM296MENYNUNIdzZYSDVQSTZPNHRhYzRWNndYdHIydlJQYVc3SFF6TV9jLUF5OTBJUGJyUkxBUi1CbUU0YUZYdWl4UFRhQzQ?oc=5"
+    },
+    {
+     "title": "삼성SDS 임원 인사로 AX 진용 재편…부사장 4명 승진",
+     "summary": "삼성SDS가 2027년 정기 임원 인사에서 부사장 4명·상무 6명 승진으로 AX 시장 대응 조직을 강화했다.",
+     "source": "AI타임스",
+     "id": 351,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217750"
+    },
+    {
+     "title": "KT-육군교육사령부, AI 기반 지휘통제체계 고도화 MOU",
+     "summary": "KT가 육군 차세대 지휘통제체계 'KCCS-Army' 연구·발전을 위해 AI·클라우드·5G 기술 공유와 전투실험 공동 추진 협약을 체결했다.",
+     "source": "AI타임스",
+     "id": 521,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217745"
+    },
+    {
+     "title": "구글 제미나이 API에 '툴 리트리벌' 프리뷰 추가",
+     "summary": "구글이 제미나이 API에 수백 개 도구에 접근하면서 토큰 사용을 줄이는 툴 리트리벌 기능을 프리뷰로 공개했다.",
+     "source": "구글 AI",
+     "id": 129,
+     "link": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+    },
+    {
+     "title": "오픈AI·시스코, 리눅스 런타임 '시루도' 오픈소스 공개",
+     "summary": "오픈AI와 시스코가 패치 배포 중 실행 시스템을 보호하는 오픈소스 리눅스 런타임 시루도(Shirudo)를 발표했다.",
+     "source": "오픈AI",
+     "id": 8,
+     "link": "https://openai.com/index/introducing-shirudo"
+    },
+    {
+     "title": "젠슨 황 엔비디아 CEO 복귀…이사회 즉시 복직 의결",
+     "summary": "엔비디아 이사회가 사임 11일 만에 젠슨 황을 CEO 겸 이사회 의장으로 복직시켰으며 미국 정부 고위층 입김이 작용했다는 보도도 나왔다.",
+     "source": "아스 테크니카 AI, 와이어드 AI, 더 버지 AI",
+     "id": 355,
+     "link": "https://arstechnica.com/ai/2026/11/jensen-huang-reinstated-as-nvidia-ceo-board-chair/"
+    },
+    {
+     "title": "아마존, AI 에이전트가 제로데이 취약점 자동 탐지·악용 사례 보고",
+     "summary": "아마존이 케언(Cairn) 프레임워크 상에서 AI 에이전트가 인간 개입 최소화로 동아시아 대학 서버의 제로데이 취약점을 찾아 루트 권한을 탈취했다고 밝혔다.",
+     "source": "아스 테크니카 AI",
+     "id": 133,
+     "link": "https://arstechnica.com/security/2026/11/amazon-says-hackers-ai-agents-found-and-exploited-0-day-with-little-human-input/"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "더불어민주당이 조희대 대법원장 탄핵소추를 추진하며 사법부와 전면전 양상을 보이고 있습니다. 김민석 대표의 신천지 해산 발언으로 여당 내분이 격화됐고, 이용철 법무장관 후보자는 이재명 대통령 형사재판 공소 취소 가능성 질의에 긍정 답변해 논란이 일었습니다.",
+   "items": [
+    {
+     "title": "조희대 대법원장 탄핵 추진…민주당 \"사유 합치면 중대성 넘쳐\"",
+     "summary": "더불어민주당이 조희대 대법원장 탄핵소추를 추진하며 한덕수 전 총리 판결 비판 토론회를 여는 등 사법부와 전면전 양상이다.",
+     "source": "경향신문, 한겨레",
+     "id": 159,
+     "link": "https://www.khan.co.kr/article/202611242140005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "김민석 대표 '신천지 해산' 발언에 여당 내분 격화",
+     "summary": "김민석 대표의 신천지 해산 검토 발언 후 정청래 의원이 '해당행위'로 규정하고 중진들이 분열 대책 논의에 나서는 등 당내 갈등이 심화됐다.",
+     "source": "경향신문, 한겨레",
+     "id": 271,
+     "link": "https://www.khan.co.kr/article/202611242136015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "이용철 법무장관 후보자, 이재명 대통령 공소취소 질의에 \"예\"",
+     "summary": "이용철 후보자가 청문회에서 이재명 대통령 형사재판 공소 취소 가능성을 묻는 질문에 긍정 답변해 논란이 일고 있다.",
+     "source": "연합뉴스",
+     "id": 125,
+     "link": "https://www.yna.co.kr/view/AKR20261124131152004"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "미국 상무부가 엔비디아 AI 칩의 중국 우회 공급 혐의로 싱가포르 기업 메가스피드를 엔티티 리스트에 추가했습니다. 트럼프 행정부가 부통령 주도로 젠슨 황 엔비디아 CEO 복귀를 압박해 이사회 결정을 뒤집었으며, 황 CEO는 다음 주 상원 청문회에 출석할 예정입니다. 아마존은 유럽 로켓으로 카이퍼 위성 36기를 발사해 스타링크와 본격 경쟁에 나섰습니다.",
+   "items": [
+    {
+     "title": "트럼프 행정부, 엔비디아 스캔들 중심 싱가포르 메가스피드 거래 블랙리스트 지정",
+     "summary": "미국 상무부가 엔비디아 AI 칩을 중국에 우회 공급한 혐의를 받는 싱가포르 기업 메가스피드를 엔티티 리스트에 추가해 수출 통제를 강화했습니다.",
+     "source": "NYT, BBC",
+     "id": 281,
+     "link": "https://www.nytimes.com/2026/11/23/business/trump-administration-megaspeed-trade-blacklist-nvidia.html"
+    },
+    {
+     "title": "젠슨 황 엔비디아 CEO 복귀, 트럼프 행정부 개입·정치권 비판·상원 청문회 예정",
+     "summary": "트럼프 행정부가 부통령 밴스 주도로 젠슨 황 복귀를 압박해 이사회 결정을 뒤집었으며, 여야 정치인 비판 속에 황 CEO가 다음 주 상원 청문회에 출석할 예정입니다.",
+     "source": "NYT, Bloomberg, The Guardian",
+     "id": 54,
+     "link": "https://www.nytimes.com/2026/11/23/technology/jensen-huang-nvidia-board-trump.html"
+    },
+    {
+     "title": "아마존, 카이퍼 위성 36기 발사…스타링크 경쟁 본격화",
+     "summary": "아마존이 유럽 로켓으로 저궤도 통신 위성 36기를 발사해 자사 카이퍼 네트워크 구축을 시작하며 일론 머스크의 스타링크와 본격 경쟁에 나섰습니다.",
+     "source": "Bloomberg",
+     "id": 59,
+     "link": "https://www.bloomberg.com/news/articles/2026-11-24/european-rocket-launches-satellites-for-amazon-s-starlink-rival"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "대한항공, OK저축은행에 풀세트 진땀승…헤난 감독 복귀 후 연승(종합)",
+     "summary": "남자 프로배구 대한항공이 5세트 듀스까지 이어진 접전 끝에 OK저축은행을 꺾고 2연승을 달렸다. 대한항...",
+     "source": "연합뉴스",
+     "link": "https://www.yna.co.kr/view/AKR20261124180251007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "BBC",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Yonhap English",
+   "대한민국 정책브리핑",
+   "강원일보",
+   "연합뉴스TV",
+   "충청뉴스",
+   "헤드라인제주"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "One Useful Thing",
+   "EdSurge",
+   "The Korea Times",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "ARTnews",
+   "Artforum",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "The Korea Herald",
+   "Korea JoongAng Daily",
+   "Time Magazine",
+   "구글뉴스(AI cheating)",
+   "Financial Times"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-25",
+   "sky": "구름 조금",
+   "now": "-3°",
+   "lo": "-4°",
+   "hi": "7°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +2°, 최저 −1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "구름 조금 6°/14°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-25",
+   "sky": "맑음",
+   "now": "-2°",
+   "lo": "-3°",
+   "hi": "8°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 −2°, 최저 −1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "대체로 맑음 2°/15°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-24",
+   "sky": "흐림",
+   "now": "11°",
+   "lo": "11°",
+   "hi": "23°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +2°, 최저 0°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 10°/24°"
+  }
+ ],
+ "message": {
+  "ko": "조금 뒤처진 것 같아도, 자신을 믿는 만큼 길이 열려요. 행복한 하루 되세요.",
+  "en": "Even if you feel a little behind, the road opens as far as you believe in yourself. Wishing you a happy day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 525,
+  "outlets": 94,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트",
+   "Hyperallergic"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-24T15:13:51.293771+00:00"
+}
