@@ -2013,3 +2013,10 @@ def test_markdown_puts_a_visible_blank_line_between_categories():
     second = lines.index("### 📈 경제·증시")
     assert lines[second - 3:second] == ["", "&nbsp;", ""] and lines.count("&nbsp;") == 2     # 핵심 요약 사이 1 + 본문 카테고리 사이 1
     assert lines.index("### 🌍 세계 이슈") < second and "&nbsp;" not in lines[:lines.index("**🌍 세계 이슈**  ")]
+
+
+def test_workflow_deploy_retries_and_never_fails_the_run_for_a_transient_pages_error():
+    wf = (Path(__file__).resolve().parent.parent / ".github/workflows/daily-news.yml").read_text(encoding="utf-8")
+    deploy = wf.split("  deploy:")[1]
+    assert deploy.count("uses: actions/deploy-pages@v4") == 3 and deploy.count("continue-on-error: true") == 3   # 3번 시도, 모두 실패해도 실행은 성공 처리
+    assert "::warning::" in deploy and "steps.deploy1.outputs.page_url" in deploy

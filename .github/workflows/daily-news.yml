@@ -143,7 +143,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy1.outputs.page_url || steps.deploy2.outputs.page_url || steps.deploy3.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -158,5 +158,25 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-      - id: deployment
+      # 2026-11-24 실측: 업로드 직후 GitHub가 방금 올린 파일을 '0개'로 답하는 일시 오류로 배포가 두 번 실패(메일은 이미 정상 발송된 뒤).
+      # 일시 오류는 잠시 뒤 되풀이하고, 끝내 안 되면 실패 알림 메일이 오지 않도록 경고만 남긴다(다음 실행이 사이트를 다시 올림).
+      - id: deploy1
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait before retrying deploy
+        if: ${{ steps.deploy1.outcome == 'failure' }}
+        run: sleep 45
+      - id: deploy2
+        if: ${{ steps.deploy1.outcome == 'failure' }}
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait before last retry
+        if: ${{ steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure' }}
+        run: sleep 90
+      - id: deploy3
+        if: ${{ steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure' }}
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Warn if site deploy kept failing (not fatal)
+        if: ${{ steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure' && steps.deploy3.outcome == 'failure' }}
+        run: echo "::warning::웹사이트 배포가 3번 모두 실패했습니다. 메일 발송에는 영향이 없고, 다음 실행에서 사이트가 다시 올라갑니다."
