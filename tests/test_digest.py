@@ -418,7 +418,7 @@ def _titles(digest, topic):
 
 
 def test_focus_categories_come_first_with_art_prioritised():
-    assert nd.CATEGORIES[:4] == ["세계 이슈", "경제·증시", "코인", "문화예술"]
+    assert nd.CATEGORIES[:4] == ["세계 이슈", "경제·증시", "코인·금·환율", "문화예술"]
     assert nd.CATEGORY_LIMITS["문화예술"] >= nd.CATEGORY_LIMITS["정치·사회"]
 
 
@@ -448,7 +448,7 @@ def test_crypto_news_in_any_feed_moves_to_coin_and_general_feeds_get_classified(
             _a("CBS News", "미국", "종합", "Ceasefire talks resume as Russia strikes Ukraine"),
             _a("Fox News", "미국", "종합", "Local school board votes on bus routes")]
     d = nd.headlines_only(arts)
-    assert any("Binance" in t for t in _titles(d, "코인"))
+    assert any("Binance" in t for t in _titles(d, "코인·금·환율"))
     assert any("Ceasefire" in t for t in _titles(d, "세계 이슈"))
     assert any("school board" in t for t in _titles(d, "정치·사회"))
     assert "종합" not in [sec["topic"] for sec in d["sections"]]
@@ -526,7 +526,7 @@ def test_previous_digest_failure_is_non_fatal(monkeypatch):
 
 
 def test_prompt_states_reader_focus_and_limits():
-    for needle in ("예술가", "세계 이슈", "코인", "문화예술", "국내와 해외", "아이돌"):
+    for needle in ("예술가", "세계 이슈", "코인·금·환율", "문화예술", "국내와 해외", "아이돌"):
         assert needle in nd.SYSTEM_PROMPT
     assert "문화예술 8개" in nd.SYSTEM_PROMPT and "세계 이슈 7개" in nd.SYSTEM_PROMPT
 
@@ -858,9 +858,9 @@ def test_validate_tolerates_query_string_and_trailing_slash_differences():
 
 
 def test_validate_keeps_a_link_only_in_the_first_category():
-    d = {"sections": [{"topic": "코인", "items": [_item(0)]}, {"topic": "IT·과학", "items": [_item(0), _item(1)]}]}
+    d = {"sections": [{"topic": "코인·금·환율", "items": [_item(0)]}, {"topic": "IT·과학", "items": [_item(0), _item(1)]}]}
     out = nd.validate_digest(d, _arts(2))
-    assert [(s["topic"], len(s["items"])) for s in out["sections"]] == [("코인", 1), ("IT·과학", 1)]
+    assert [(s["topic"], len(s["items"])) for s in out["sections"]] == [("코인·금·환율", 1), ("IT·과학", 1)]
 
 
 def test_validate_enforces_category_limits_and_drops_empty_sections():
@@ -1640,7 +1640,7 @@ def test_fetch_drops_japanese_titles(tmp_path):
 # ---------- AI 카테고리 ----------
 
 def test_ai_category_is_configured_between_art_and_politics():
-    assert nd.CATEGORIES[:5] == ["세계 이슈", "경제·증시", "코인", "문화예술", "AI"]
+    assert nd.CATEGORIES[:5] == ["세계 이슈", "경제·증시", "코인·금·환율", "문화예술", "AI"]
     assert nd.CATEGORY_LIMITS["AI"] >= 6 and "AI" in nd.KEYWORDS
     assert "생성형 AI를 활용" in nd.SYSTEM_PROMPT and "벤치마크" in nd.SYSTEM_PROMPT and "'AI'" in nd.SYSTEM_PROMPT
     assert "벤치마크 점수" in nd.SYSTEM_PROMPT                               # 모델 정보를 지어내지 말라는 지시
@@ -1878,7 +1878,7 @@ def _batch_fake(monkeypatch, fail_topics=()):
 
 
 def _many_articles():
-    cats = ("세계 이슈", "정치·사회", "경제·증시", "코인", "문화예술", "AI", "IT·과학", "스포츠")
+    cats = ("세계 이슈", "정치·사회", "경제·증시", "코인·금·환율", "문화예술", "AI", "IT·과학", "스포츠")
     return [_art2(f"O{i}", "국내", cat, f"{cat} 기사 {i}", "미술관 전시 작가", f"https://ex.com/{cat}/{i}")
             for i in range(25) for cat in cats]          # 200건
 
@@ -1901,7 +1901,7 @@ def test_one_failed_batch_becomes_partial_with_headline_backfill(monkeypatch):
     out = nd.summarize(_many_articles(), "openrouter")
     assert out["partial"] is True
     by_topic = {s["topic"]: s for s in out["sections"]}
-    assert by_topic["경제·증시"].get("backfilled") and by_topic["코인"].get("backfilled")            # 실패한 묶음은 원문 헤드라인으로
+    assert by_topic["경제·증시"].get("backfilled") and by_topic["코인·금·환율"].get("backfilled")            # 실패한 묶음은 원문 헤드라인으로
     assert not by_topic["세계 이슈"].get("backfilled") and not by_topic["AI"].get("backfilled")      # 나머지는 AI 요약
 
 
@@ -1939,7 +1939,7 @@ def test_missing_categories_in_a_batch_are_requested_again_separately(monkeypatc
     monkeypatch.setenv("OPENROUTER_MODELS", "m1")
     out = nd.summarize(_many_articles(), "openrouter")
     topics = {s["topic"]: s for s in out["sections"]}
-    for cat in ("코인", "AI", "IT·과학"):                                          # 빼먹었던 카테고리가 AI 요약으로 채워짐
+    for cat in ("코인·금·환율", "AI", "IT·과학"):                                          # 빼먹었던 카테고리가 AI 요약으로 채워짐
         assert cat in topics and not topics[cat].get("backfilled"), cat
         assert all("요약" in i["summary"] for i in topics[cat]["items"])
     assert len(calls) == 3 + 3 and not out.get("partial")                          # 묶음 3 + 빠진 카테고리 재요청 3(정치·사회+스포츠, 코인+IT, AI)
@@ -2027,3 +2027,34 @@ def test_weather_first_row_shows_only_daily_low_and_high_not_current_temp():
     assert w.get("now")                                                       # 데이터에는 지금 기온이 있어도
     row = nd._weather_cards({"weather": [w]})[0]["rows"][0][1]
     assert row == f"최저 {w['lo']} / 최고 {w['hi']}" and "지금" not in row    # 메일의 첫 줄에는 하루 최저·최고만
+
+
+# ---------- 2026-11-25: '코인' 카테고리를 '코인·금·환율'로 확대 ----------
+
+def test_market_category_covers_coin_gold_and_fx():
+    cat = "코인·금·환율"
+    assert nd.CATEGORIES[:4] == ["세계 이슈", "경제·증시", cat, "문화예술"] and nd.CATEGORY_LIMITS[cat] >= 6
+    for needle in ("금값", "환율", "코인"):
+        assert needle in nd.SYSTEM_PROMPT.split(cat, 1)[1][:700]               # 프롬프트가 세 시장을 모두 설명
+    arts = [_a("조선비즈", "국내", "경제·증시", "원·달러 환율, 0.5원 오른 1342.9원"),
+            _a("연합뉴스", "국내", "경제·증시", "국제 금값 3620달러선 약세…금 시세 하락"),
+            _a("Reuters", "미국", "경제·증시", "Gold prices slip as dollar index climbs"),
+            _a("한국경제", "국내", "경제·증시", "코스피 급락…환율 1400원 돌파"),          # 증시 중심 기사는 경제·증시에 남는다
+            _a("블록미디어", "국내", cat, "비트코인 6만 달러선 회복")]
+    d = nd.headlines_only(arts)
+    mk = _titles(d, cat)
+    assert any("환율, 0.5원" in t for t in mk) and any("금값" in t for t in mk) and any("Gold prices" in t for t in mk)
+    assert any("비트코인" in t for t in mk) and not any("코스피" in t for t in mk)
+    assert any("코스피" in t for t in _titles(d, "경제·증시"))
+
+
+def test_market_category_feeds_and_site_color_exist_for_new_and_old_names():
+    import json as _json
+    root = Path(__file__).resolve().parent.parent
+    feeds = _json.loads((root / "feeds.json").read_text(encoding="utf-8"))["feeds"]
+    assert not [f for f in feeds if f["category"] == "코인"]                  # 예전 이름이 남아 별도 카테고리가 생기면 안 됨
+    mk = [f for f in feeds if f["category"] == "코인·금·환율"]
+    assert len(mk) >= 10 and sum(1 for f in mk if f.get("google_news")) >= 4
+    app = (root / "site/app.js").read_text(encoding="utf-8")
+    assert '"코인·금·환율"' in app and '"코인"' in app                         # 옛 보관 파일('코인')도 색이 나옴
+    assert nd._cat("코인") == "🪙 코인" and nd._cat("코인·금·환율") == "🪙 코인·금·환율"

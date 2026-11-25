@@ -60,8 +60,8 @@ KST = timezone(timedelta(hours=9))
 CONFIG_PATH = Path(__file__).with_name("feeds.json")
 
 
-# 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인 → 문화예술 → AI)이며, 값은 카테고리별 최대 항목 수
-CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인": 4, "문화예술": 8, "AI": 9,
+# 독자가 중점적으로 보는 순서(세계 이슈 → 경제·증시 → 코인·금·환율 → 문화예술 → AI)이며, 값은 카테고리별 최대 항목 수
+CATEGORY_LIMITS = {"세계 이슈": 7, "경제·증시": 7, "코인·금·환율": 6, "문화예술": 8, "AI": 9,
                    "정치·사회": 4, "IT·과학": 3, "스포츠": 2}
 CATEGORIES = list(CATEGORY_LIMITS)
 MIN_DOMESTIC_ART = 3          # 문화예술에 국내 소식이 최소 몇 건 들어가야 하는지
@@ -96,13 +96,17 @@ KEYWORDS = {
              "은행", "반도체", "펀드"),
             ("markets?", "investors?", "profit", "revenue", "tariffs?", "trade", "bank", "economy", "economic",
              "prices?", "rally", "selloff", "rates?"))),
-    "코인": (
+    "코인·금·환율": (
         _kw(("비트코인", "이더리움", "코인", "가상자산", "암호화폐", "블록체인", "리플", "솔라나", "스테이블", "바이낸스",
-             "업비트", "빗썸", "디파이", "토큰", "알트코인", "도지"),
+             "업비트", "빗썸", "디파이", "토큰", "알트코인", "도지",
+             "금값", "금 시세", "금시세", "금 가격", "국제 금", "금 선물", "금 현물", "골드바", "금괴",
+             "원·달러", "원/달러", "원달러", "달러 환율", "외환시장", "외환", "달러인덱스", "달러 지수", "엔화", "위안화", "엔·달러"),
             ("bitcoin", "btc", "ethereum", "ether", "eth", "crypto", "cryptocurrency", "stablecoins?", "binance",
              "coinbase", "solana", "ripple", "xrp", "defi", "blockchain", "tokens?", "altcoins?", "dogecoin",
-             "tether", "nfts?")),
-        _kw(("거래소", "ETF", "해킹", "NFT"), ("etf", "exchange", "wallet", "mining", "halving"))),
+             "tether", "nfts?",
+             "gold prices?", "gold futures", "bullion", "forex", "dollar index", "usd/krw", "exchange rates?",
+             "currency", "currencies", "yen", "yuan")),
+        _kw(("거래소", "ETF", "해킹", "NFT", "환율", "안전자산"), ("etf", "exchange", "wallet", "mining", "halving", "gold", "safe haven"))),
     "AI": (
         re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])|인공지능|생성형|챗GPT|챗봇|거대언어모델|파운데이션 ?모델|오픈AI|앤트로픽|앤스로픽|"
                    r"클로드|제미나이|딥시크|라마|벤치마크|리더보드|파인튜닝|프롬프트|"
@@ -132,7 +136,7 @@ KEYWORDS = {
              "poetry", "literature", "book", "design", r"architect\w*", "heritage", "concert", "music"))),
 }
 # 키워드로 가려 뽑을 때 점수 0인 기사를 버릴지(True) 채워 넣을지(False)
-STRICT_CATEGORIES = {"경제·증시", "코인", "문화예술"}
+STRICT_CATEGORIES = {"경제·증시", "코인·금·환율", "문화예술"}
 AI_PRIMARY_SOURCES = {"OpenAI", "Anthropic", "Google DeepMind", "Google AI", "Mistral AI", "Hugging Face"}   # 모델 출시 등 1차 발표를 내는 곳
 
 
@@ -468,7 +472,7 @@ def _weather_cards(digest: dict) -> list[dict]:
     return cards
 
 
-CATEGORY_ICONS = {"세계 이슈": "🌍", "경제·증시": "📈", "코인": "🪙", "문화예술": "🎨", "AI": "🤖",
+CATEGORY_ICONS = {"세계 이슈": "🌍", "경제·증시": "📈", "코인·금·환율": "🪙", "코인": "🪙", "문화예술": "🎨", "AI": "🤖",
                   "정치·사회": "🏛️", "IT·과학": "🔬", "스포츠": "⚽"}
 
 
@@ -535,8 +539,11 @@ SYSTEM_PROMPT = f"""당신은 한 사람의 독자를 위한 개인 뉴스 에�
 
 독자가 가장 중요하게 보는 세 영역 (분량도 이 순서·비중으로 배분):
 1. 세계 이슈: 전쟁·분쟁, 국가 간 관계·외교·제재·안보, 선거 등 세계 정세. 한반도·동아시아 관련 소식도 포함.
-2. 경제·시장: 국제·국내 경제, 주식(지수·환율·금리·주요 종목·실적)과 코인(비트코인·이더리움·규제·거래소·ETF)의 시장 동향.
-   코인 기사는 '코인' 카테고리로, 주식·거시경제는 '경제·증시'로 나눕니다.
+2. 경제·시장: 국제·국내 경제, 주식(지수·금리·물가·주요 종목·실적)의 시장 동향은 '경제·증시'로 담습니다.
+   **'코인·금·환율'** 카테고리는 세 가지 시장을 한꺼번에 정리하는 곳입니다: ① 코인(비트코인·이더리움·규제·거래소·ETF),
+   ② 금(국제 금값·국내 금 시세·금 ETF·안전자산 흐름), ③ 환율(원/달러·달러 인덱스·엔화·위안화 등 외환시장).
+   세 가지 중 기사가 있는 것은 빠뜨리지 말고 골고루 담고(한 가지가 항목 대부분을 차지하지 않게), overview에도 코인·금·환율의 오늘 흐름을 각각 한 문장씩 짚으세요.
+   환율·금 기사는 '경제·증시'가 아니라 이 카테고리로 분류합니다.
 3. 문화예술: 국내외 미술계 소식을 최우선(전시, 미술관·갤러리, 비엔날레·아트페어, 옥션·미술시장, 작가·큐레이터 동정,
    수상·공모, 소장품·반환·복원 이슈)으로 하고, 그다음 공연·영화·문학·건축·디자인. 국내 소식과 해외 소식을 모두 담으세요.
    아이돌·연예인 가십, 방송 화제성 기사는 예술계 맥락이 없으면 제외합니다.
@@ -1078,7 +1085,7 @@ def refine_overviews(digest: dict, articles: list[Article], provider: str) -> di
     return {**digest, "sections": sections}
 
 
-BATCHES = (("세계 이슈", "정치·사회", "스포츠"), ("경제·증시", "코인", "IT·과학"), ("문화예술", "AI"))
+BATCHES = (("세계 이슈", "정치·사회", "스포츠"), ("경제·증시", "코인·금·환율", "IT·과학"), ("문화예술", "AI"))
 BATCH_MIN_ARTICLES = 150   # 기사가 이 수 이상이면 요청을 카테고리 묶음별로 쪼개서 동시에 보낸다(무료 모델이 큰 요청 하나에 멈추는 일이 실측으로 잦았음)
 
 
@@ -1284,10 +1291,10 @@ def art_score(a: Article) -> int:
 
 def _reclassify(a: Article) -> Article:
     """헤드라인 모드 전용: 피드 카테고리가 부정확한 기사를 키워드로 바로잡는다.
-    - 어느 피드에 있든 코인 핵심어가 있으면 '코인'
+    - 어느 피드에 있든 코인·금·환율 핵심어가 있으면 '코인·금·환율'
     - '종합' 피드 기사는 가장 관련 높은 카테고리로, 해당 없으면 '정치·사회'"""
-    if a.category != "코인" and topic_score("코인", a) >= 3:
-        return replace(a, category="코인")
+    if a.category != "코인·금·환율" and topic_score("코인·금·환율", a) >= 3:
+        return replace(a, category="코인·금·환율")
     if a.category in ("IT·과학", "종합") and topic_score("AI", a) >= 3:  # AI 핵심어가 있는 일반 IT 기사는 AI로
         return replace(a, category="AI")
     if a.category == "종합":
@@ -1326,7 +1333,7 @@ def _pick_scored(items: list[Article], cat: str, limit: int) -> list[Article]:
 
 def headlines_only(articles: list[Article], headline: str = "AI 요약 없이 헤드라인만 제공합니다") -> dict:
     """AI 없이(비용 0원) 카테고리별 헤드라인만 묶는 모드. 카테고리별 비중은 CATEGORY_LIMITS를 따르고,
-    세계 이슈·경제·코인·문화예술은 키워드로 관련 기사를 우선 고른다."""
+    세계 이슈·경제·코인·금·환율·문화예술은 키워드로 관련 기사를 우선 고른다."""
     by_cat: dict[str, list[Article]] = {}
     for a in map(_reclassify, articles):
         by_cat.setdefault(a.category, []).append(a)
