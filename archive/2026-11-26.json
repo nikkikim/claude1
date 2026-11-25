@@ -1,0 +1,539 @@
+{
+ "headline": "북한 스위스 외교사무소 폐쇄·러시아 50만명 손실·미국 3분기 4.3% 성장, 국내 정치권 조희대 탄핵·국힘 내홍 격화, 한국 U-17 월드컵 16강·전북 ACLE 완패",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "북한이 김여정 담화 하루 만에 평양 주재 스위스 외교사무소를 전격 폐쇄하며 대외 강경 기조를 드러냈고, 러시아가 우크라이나 전쟁으로 약 50만 명의 인명 손실을 입었다는 자국 통계가 유출됐다. 미국 경제는 AI 투자와 소비 호조로 3분기 4.3% 성장하며 3년 만의 최고치를 기록했고, 후티 반군이 사우디 최대 정유시설과 자잔 항구를 공격하는 등 중동 긴장이 고조됐다. 이라크 대법원의 쿠르드 국경·유전 장악 판결, 스페인의 카나리아 제도 하루 2000명 이주민 유입, 독일의 2027년 예산안 갈등 등도 주요 국제 이슈로 부상했다.",
+   "items": [
+    {
+     "title": "북한, 김여정 담화 하루 만에 평양 주재 스위스 외교사무소 전격 폐쇄",
+     "summary": "북한이 자국 내 송도원국제소년단야영소에 대한 스위스 당국의 제재에 반발해 평양 주재 스위스 외교사무소를 폐쇄하고 대표에게 48시간 내 철수를 요구했다.",
+     "source": "연합뉴스, 경향신문",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261125095351504"
+    },
+    {
+     "title": "러시아 자체 통계로 우크라이나 전쟁 인명 손실 약 50만 명 확인",
+     "summary": "유출된 러시아 공식 자료에서 전면전 이후 사망률 급증으로 약 50만 명이 전쟁으로 숨진 것으로 나타났다.",
+     "source": "BBC",
+     "id": 95,
+     "link": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "미국 3분기 GDP 성장률 4.3% 기록… 3년 만에 최고치",
+     "summary": "견조한 소비와 AI 관련 기업 투자가 맞물려 미국 경제가 3분기 연율 4.3% 성장하며 2021년 이후 최고치를 찍었다.",
+     "source": "연합뉴스, Axios",
+     "id": 488,
+     "link": "https://www.yna.co.kr/view/AKR20261125186251072"
+    },
+    {
+     "title": "후티 반군, 사우디 최대 정유시설과 자잔 항구 연이어 공격",
+     "summary": "예멘 후티 반군이 사우디아라비아의 최대 정유시설과 홍해 자잔 항구를 겨냥해 발사체를 발사했다고 주장했다.",
+     "source": "Middle East Eye",
+     "id": 111,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-say-they-attacked-saudi-arabias-largest-oil-refinery-retaliation"
+    },
+    {
+     "title": "이라크 연방대법원, 쿠르드 자치정부 국경·유전 장악권 중앙정부에 부여",
+     "summary": "이라크 최고법원이 쿠르드 지역 국경 통과점과 유전 관리 권한을 바그다드 중앙정부가 넘겨받을 수 있다고 판결했다.",
+     "source": "Al Jazeera",
+     "id": 116,
+     "link": "https://www.aljazeera.com/news/2026/11/25/iraqs-top-court-rules-government-can-take-over-kurdish-borders-oil-fields?traffic_source=rss"
+    },
+    {
+     "title": "스페인 카나리아 제도, 하루 2000명 넘는 이주민 유입으로 역대 최대 기록",
+     "summary": "스페인 총선 직전 카나리아 제도에 하루 2000명 이상 이주민이 도착해 당국이 '전례 없는 이주 압박'을 호소했다.",
+     "source": "DW",
+     "id": 117,
+     "link": "https://www.dw.com/en/spain-canary-islands-witness-1-day-migration-record/a-80052770?maca=en-rss-en-all-1573-rdf"
+    },
+    {
+     "title": "독일 2027년 예산안 5610억 유로… 연금·국방비 증액에 연정 위기",
+     "summary": "역대 최대 규모 예산안에도 연금·국방비 지출 증가로 재정 압박이 커지며 연립정부 내 갈등이 표면화되고 있다.",
+     "source": "DW",
+     "id": 243,
+     "link": "https://www.dw.com/en/€561-billion-and-still-not-enough-germany-s-2027-budget-exposes-a-coalition-on-the-brink/a-80052664?maca=en-rss-en-all-1573-rdf"
+    }
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "미국 10월 근원 PCE가 3.8%로 예상을 웃돌면서 12월 금리 인상 기대가 커졌고, 트럼프 행정부의 신규 관세 예고와 AI 투자 과열에 대한 회의론이 겹쳐 나스닥이 4% 넘게 급락했다. 국내 증시도 코스피가 6%대 낙폭을 기록하며 사이드카가 빈번히 발동됐고, 증안펀드 확대 논의가 진행 중이다.",
+   "items": [
+    {
+     "title": "美 10월 근원 PCE 3.8% 상승…12월 금리 인상 힘 실려",
+     "summary": "미국 10월 근원 PCE 물가지수가 전년 대비 3.8% 올라 시장 예상치를 상회하며 연준의 12월 금리 인상 가능성이 한층 커졌다.",
+     "source": "한국경제, 연합뉴스, NYT",
+     "id": 32,
+     "link": "https://www.hankyung.com/article/2026112506871"
+    },
+    {
+     "title": "나스닥 4%대 급락…AI 투자 신뢰 흔들리며 기술주 매도 가속",
+     "summary": "AI 투자 과열에 대한 우려와 금리 인상 전망이 맞물려 나스닥 100 지수가 이틀 연속 4% 넘게 하락하며 베어마켓 진입 직전까지 갔다.",
+     "source": "한국경제, 매일경제, NYT",
+     "id": 31,
+     "link": "https://www.hankyung.com/article/202611260727i"
+    },
+    {
+     "title": "엔비디아 시간외 6% 급락…젠슨 황 복귀 효과 하루 만에 소멸",
+     "summary": "젠슨 황 CEO 복귀 소식으로 반등했던 엔비디아 주가가 물가·관세 충격과 AI 투자 회의론에 시간외 거래에서 6% 넘게 하락했다.",
+     "source": "한국경제, 매일경제, Bloomberg",
+     "id": 278,
+     "link": "https://www.hankyung.com/article/202611250671i"
+    },
+    {
+     "title": "코스피 6.16% 폭락 4697선…사이드카·서킷브레이커 빈발",
+     "summary": "국내 증시가 글로벌 위험자산 회피 흐름에 동참하며 코스피가 308포인트 급락, 올해에만 사이드카 102회·서킷브레이커 11회 발동되는 극한 변동성을 보였다.",
+     "source": "경향신문, 매일경제, 연합뉴스",
+     "id": 170,
+     "link": "https://www.khan.co.kr/article/202611252121025/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "트럼프, 한국 등 14개국에 '과잉생산 관세' 예고…한국 15% 상한 유지",
+     "summary": "미국이 중국·일본·EU 등 14개 교역상대국에 과잉생산 관세 부과를 예고했으나 한국에는 기존 한미 합의대로 15% 상한이 적용된다.",
+     "source": "매일경제, 한국경제, 연합뉴스",
+     "id": 161,
+     "link": "https://www.mk.co.kr/news/world/12218736"
+    },
+    {
+     "title": "은행권 가계대출 금리 연 5% 돌파…14년여 만 최고",
+     "summary": "10월 예금은행 가계대출 가중평균금리가 연 5.02%로 2년 11개월 만에 5%를 넘었고, 주담대 금리도 연 4.98%로 14년 7개월 만 최고치를 기록했다.",
+     "source": "경향신문, 한국은행",
+     "id": 44,
+     "link": "https://www.khan.co.kr/article/202611252127035/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    },
+    {
+     "title": "산은, 10조 원대 증안펀드 추가 출자 타진…시장 안정 조치 확대",
+     "summary": "산업은행이 기존 증권시장안정펀드 참여 금융사들을 대상으로 추가 출자를 논의하며 증시 변동성 완화를 위한 안전판 강화에 나섰다.",
+     "source": "연합뉴스",
+     "id": 257,
+     "link": "https://www.yna.co.kr/view/AKR20261125183800002"
+    }
+   ]
+  },
+  {
+   "topic": "코인·금·환율",
+   "overview": "비트코인이 5만 7천 달러대까지 밀리며 9%대 주간 낙폭을 기록했고, 금값도 온스당 3,500달러 선 아래로 하락했다. 달러 인덱스는 104.6 부근에서 강세를 보이며 원/달러 환율을 1,343원대로 밀어 올렸다.",
+   "items": [
+    {
+     "title": "비트코인 5만 7천 달러대 하락…주간 낙폭 9% 확대",
+     "summary": "미국 물가 상승과 관세 우려, AI 주식 매도세가 겹치며 비트코인이 5만 7,624달러까지 밀려 일주일 새 9.36% 하락했다.",
+     "source": "블록미디어, CoinDesk, Cointelegraph",
+     "id": 413,
+     "link": "https://www.blockmedia.co.kr/archives/1170637?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "국제 금값 3,531달러로 추가 하락…달러 강세·금리 인상 예고에 압박",
+     "summary": "미국 인플레이션 재가속과 관세 리스크로 달러가 강세를 보이면서 금값이 온스당 3,500달러 선을 위협받으며 3,531달러까지 후퇴했다.",
+     "source": "글로벌이코노믹, Yahoo Finance, Kitco",
+     "id": 69,
+     "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNaGVkbkdZZWlWUGJzVXVzazVlTEFzTXVZU2c2TGpIcnJrOXVzeU5hNFNMY3hfVTZrWUp3RU5aY1dVb2FiZG8xVXE4YTlibmFnYjIyOHVzdHNvb2ZBLXpvb3pFc1B4d2k4VTluVDY0QTdiQXl0M2htWGt5a0F0TzlFaFlzaGtuN2M?oc=5"
+    },
+    {
+     "title": "원/달러 환율 1,343.2원…美 기술주 약세·달러 강세에 소폭 상승",
+     "summary": "뉴욕장 위험회피 흐름 속에 달러 인덱스가 104.6 부근까지 오르면서 원/달러 환율이 0.8원 오른 1,343.2원에 마감했다.",
+     "source": "연합인포맥스, Chosunbiz, 진일보/전남일보",
+     "id": 70,
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE94LVU5U0NSNm84M0RkeVp6ZHR1S3otZ2tRVFpOUlhGYXozWGdGNGJ5N2l4b1BfeldKdkRWSU5WN0EybTNFTDVOQTBTY2FwRDVudTFkQ3NVRDZpd2NJMDBnWnpBRnlYSUY2bEZRVy1iNWE?oc=5"
+    },
+    {
+     "title": "프랭클린템플턴, 크립토 인덱스 ETF에 하이퍼리퀴드(HYPE) 편입",
+     "summary": "글로벌 자산운용사 프랭클린템플턴이 디지털자산 지수 ETF에 하이퍼리퀴드 토큰을 추가하며 기관 투자자 접근성을 확대한다.",
+     "source": "블록미디어, The Block, CoinDesk",
+     "id": 176,
+     "link": "https://www.blockmedia.co.kr/archives/1170699?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "빗썸 해킹 피해자 7,159명→추가 확인…보름 넘게 정보 유출 지속",
+     "summary": "가상자산거래소 빗썸에서 당초 알려진 7,159명보다 많은 고객·임직원 개인정보가 유출된 사실이 뒤늦게 확인됐다.",
+     "source": "전자신문",
+     "id": 175,
+     "link": "https://www.etnews.com/20261125000606"
+    },
+    {
+     "title": "미 DOJ, 역대 최대 800명 대상 스캠 단속…암호화폐 사기 포함",
+     "summary": "미 법무부가 역대 최대 규모 스캠 단속으로 800여 명을 기소했으며 이 중 암호화폐 관련 사기 사건도 다수 포함됐다.",
+     "source": "Bitcoin Magazine",
+     "id": 68,
+     "link": "https://bitcoinmagazine.com/news/doj-largest-ever-scam-crackdown-crypto"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "서울에 동전 1만6000개 숨긴 작가…이번엔 말하는 다람쥐와 두꺼비",
+     "summary": "벽면 콘센트에서 다람쥐가 고개를 내밀고 말을 건넨다. 커다란 바위 아래에서는 두꺼비가 자신의 내면세계를 이야기한다. 악보에 붙인 스티커는 음악이 되고, '1톤'이라고 적힌 조형물은 풍선처럼 머리 위에 떠 있다. 익숙…",
+     "source": "뉴시스",
+     "link": "https://www.newsis.com/view/NISX20261125_0003883187"
+    },
+    {
+     "title": "Warhol’s Watches",
+     "summary": "Piaget’s second collaboration with The Andy Warhol Foundation for the Visual Arts translates the pop artist’s 1986 Camou…",
+     "source": "ARTnews",
+     "link": "https://www.artnews.com/art-news/sponsored-content/piaget-warhols-watches-1234805785/"
+    },
+    {
+     "title": "Bhukhara Biennial 2027 Announces Theme and First Batch of Artists",
+     "summary": "The Bukhara Biennial has revealed the preliminary artist lineup for its second edition, titled “The Long Welcome,” which…",
+     "source": "ArtAsiaPacific",
+     "link": "https://www.artasiapacific.com/news/bhukhara-biennial-2027-announces-theme-and-first-batch-of-artists/"
+    },
+    {
+     "title": "지워지다시피 한 ‘해방기 미술’ 한데 모아…“경계선을 돌파한 시도”",
+     "summary": "‘좌편향 논란’ 부산시립미술관 특별전…미술사학자 최열과 살펴보니미술사학자 최열(오른쪽)이 부산시립미술관 전시장 들머리에 걸린 이쾌대의 ‘군상 | -해방고지’를 가리키며 강선주 학예연구사와 이야기를 나누고 있다.(오른…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611252022005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "Nick Cave and Indian pavilion awarded Venice Biennale 2026’s “Visitor Lions” prizes.",
+     "summary": "American artist Nick Cave and the Indian pavilion have been awarded the Visitors’ Lions at the 2026 Venice Biennale . La…",
+     "source": "Artsy",
+     "link": "https://www.artsy.net/article/artsy-editorial-nick-cave-indian-pavilion-awarded-venice-biennale-2026s-visitor-lions-prizes"
+    },
+    {
+     "title": "A Sculptural Playground in Shanghai Is Designed for Human-Powered Play",
+     "summary": "In Shanghai’s Jing’an Sculpture Park, a monumental new installation by Brooklyn’s Wade and Leta has a clear goal: to get…",
+     "source": "Colossal",
+     "link": "https://www.thisiscolossal.com/2026/11/wade-leta-catching-feelings-shanghai/"
+    },
+    {
+     "title": "Sophie O’Brien Named Senior Curator, Exhibitions, at MCA Australia",
+     "summary": "The Museum of Contemporary Art Australia (MCA) in Sydney has announced Sophie O’Brien as its new senior curator of exhib…",
+     "source": "Artforum",
+     "link": "https://www.artforum.com/news/sophie-obrien-senior-curator-exhibitions-at-mca-australia-1234764007/"
+    },
+    {
+     "title": "‘좌편향’ 논란 부른 부산시립미술관 전시, 직접 가봤더니···우리가 잊고 있던 해방기 미술",
+     "summary": "미술사학자 최열(오른쪽)이 부산시립미술관 전시장 들머리에 걸린 이쾌대의 ‘군상Ⅰ-해방고지’(1948)를 가리키며 강선주 학예연구사와 이야기를 나누고 있다. 훗날 월북한 이쾌대는 해방 소식을 주고받는 사람들과 바닥에…",
+     "source": "경향신문",
+     "link": "https://www.khan.co.kr/article/202611251600001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "오픈AI \"범용 AI GPT-6, 전문 모델 없이 단백질 설계…실험서 검증\"",
+     "summary": "오픈AI가 범용 AI 모델 'GPT-6' 제품군이 별도의 전문 모델을 호출하거나 작업별로 추가 학습하지 않고도 새로운 단백질을 설계할 수 있다고 밝혔다. 실제 실험실에서도 설계한 단백질의 표적 결합을 확인한 것으로,…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217758"
+    },
+    {
+     "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+     "summary": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding acros…",
+     "source": "OpenAI",
+     "link": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities"
+    },
+    {
+     "title": "How Gemini is changing the game for Golden State's organization and fans.",
+     "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, a…",
+     "source": "Google AI",
+     "link": "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state/"
+    },
+    {
+     "title": "Three LLM inflection points in twelve months",
+     "summary": "I gave a keynote at the AI Engineer Code Summit a couple of weeks ago, constructed around the idea that there have been…",
+     "source": "Simon Willison",
+     "link": "https://simonwillison.net/2026/Nov/24/llm-inflection-points/"
+    },
+    {
+     "title": "앤트로픽, AI 샌드박스 탈출 평가 '사이렌' 공개…최대 32% 접근 시도",
+     "summary": "앤트로픽이 AI 에이전트가 스스로 보안 경계를 위반하는지를 측정하는 평가 도구를 공개했다. 최신 클로드 모델도 의도적으로 취약하게 만든 격리 환경에서 최대 32%의 외부 접근 비율을 기록했지만, 명백한 권한 위반은…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217763"
+    },
+    {
+     "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
+     "summary": "This story originally appeared in The Algorithm, our weekly newsletter on AI. To get stories like this in your inbox fir…",
+     "source": "MIT Technology Review AI",
+     "link": "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/"
+    },
+    {
+     "title": "What Happens When AI Outruns Title I Schools?",
+     "summary": "The development of artificial intelligence (AI) is accelerating faster than anyone could have imagined since ChatGPT was…",
+     "source": "EdSurge",
+     "link": "https://www.edsurge.com/news/what-happens-when-ai-outruns-title-i-schools"
+    },
+    {
+     "title": "오픈AI, 기업용 AI 에이전트 정확도 높이는 데이터 도구 '아테나' 개발 중",
+     "summary": "오픈AI가 기업용 AI 에이전트의 데이터 분석 정확도를 높이기 위한 데이터 관리 도구를 개발하고 있다. 기업마다 다른 데이터 구조와 업무 용어, 지표의 의미를 AI가 정확하게 이해하도록 해 실제 업무에서 발생하는 오…",
+     "source": "AI타임스",
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217778"
+    },
+    {
+     "title": "Clay helps sales teams win with Codex and ChatGPT",
+     "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models…",
+     "source": "OpenAI",
+     "link": "https://openai.com/business/customer-stories/clay-plugins-openai"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "야권이 조희대 대법원장 탄핵을 추진하며 범진보 5당 연대를 모색 중이고, 여당인 국민의힘은 윤리위 징계 조작 의혹으로 내홍이 깊어지고 있다. 강금실 국정원장 후보자는 '친중·반미' 논란 속에 청문회 준비를 시작했고, 이재명 대통령은 2030년까지 연 24만 호 공적주택 공급 계획을 밝혔다. 청해부대 파병 연장 동의안이 국회 소위를 통과했고, 불법 외국인 배달라이더 적발 급증과 사적 검문 논란도 제기됐다.",
+   "items": [
+    {
+     "title": "민주당 등 범진보 5당, 조희대 대법원장 탄핵 공동 추진 합의",
+     "summary": "김민석 민주당 대표가 조희대 대법원장 탄핵을 위해 혁신당·진보당 등 범진보 5당 연대를 제안했고, 각 당이 환영 입장을 밝혔다.",
+     "source": "경향신문, 한겨레",
+     "id": 45,
+     "link": "https://www.khan.co.kr/article/202611252103005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "국민의힘 윤리위 '친한계 조작 징계' 의혹으로 당내 갈등 격화",
+     "summary": "전현직 당직자와 윤리위원장까지 가세한 폭로전으로 친한동훈계 징계가 조작됐다는 의혹이 제기되며 당내 내홍이 심화되고 있다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 259,
+     "link": "https://www.yna.co.kr/view/AKR20261125091052001"
+    },
+    {
+     "title": "강금실 국정원장 후보자 청문회 준비 착수… 야당 '친중·반미' 공세 예고",
+     "summary": "강금실 후보자가 인사청문회 준비 사무실로 출근을 시작했으며, 야당은 과거 발언 등을 문제 삼아 '친중·반미' 프레임으로 공세를 펼칠 전망이다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261125112951504"
+    },
+    {
+     "title": "이재명 대통령, 2030년까지 매년 공적주택 24만 호 공급·중산층 선택지 확대",
+     "summary": "이 대통령이 공적주택 공급 속도전을 주문하며 중산층도 선택할 수 있는 품질·입지의 주거 사다리 역할을 강조했다.",
+     "source": "한겨레, 경향신문",
+     "id": 41,
+     "link": "https://www.hani.co.kr/arti/politics/bluehouse/1289142.html"
+    }
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "",
+   "items": [
+    {
+     "title": "젠슨 황 엔비디아 CEO, 직원들에 사과…\"규정 위반·끔찍한 실수\" 인정",
+     "summary": "황 CEO가 복귀 하루 만에 사내 이메일로 코드 오브 컨덕트 위반을 인정하고 치료를 받고 있다고 밝히며 사과했다.",
+     "source": "NYT, Bloomberg, The Guardian",
+     "id": 56,
+     "link": "https://www.nytimes.com/2026/11/24/technology/jensen-huang-apology-nvidia-ceo.html"
+    },
+    {
+     "title": "화웨이, 美 영업비밀 탈취 혐의 10건 유죄…래커티어링은 무죄",
+     "summary": "뉴욕 연방법원 배심원이 화웨이의 T-모바일·시스코 영업비밀 절도 혐의 10건에 대해 유죄 평결을 내렸다.",
+     "source": "BBC, The Guardian, Ars Technica",
+     "id": 99,
+     "link": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "메타 내부서 AI 콘텐츠 모더레이션 전환 우려…\"알고리즘 실수 규모 커질 것\"",
+     "summary": "메타 직원들이 인간 모더레이터를 AI로 대체하는 속도가 너무 빨라 대규모 오류 발생 위험이 있다고 지적했다.",
+     "source": "The Guardian",
+     "id": 107,
+     "link": "https://www.theguardian.com/technology/2026/nov/25/meta-insiders-concerned-push-to-ai-content-moderation"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "한국 U-17 축구대표팀이 조별리그 3전 전승으로 16강에 진출했고, 전북 현대는 ACLE 원정 경기에서 가시마 앤틀러스에 0-3 완패했다. 잉글랜드 프리미어리그에서는 레노 요로의 퇴장 판정 번복을 둘러싸고 맨유와 심판진 간 갈등이 이어졌고, 잉글랜드 럭비 대표팀은 뉴질랜드와의 재대결을 앞두고 5명을 교체했다.",
+   "items": [
+    {
+     "title": "한국 U-17 월드컵 조별리그 3전 전승으로 16강 진출… 에콰도르 3-2 제압",
+     "summary": "한국이 FIFA U-17 월드컵 조별리그 마지막 경기에서 에콰도르를 3-2로 꺾고 3승 무패로 16강에 올랐다.",
+     "source": "연합뉴스",
+     "id": 30,
+     "link": "https://www.yna.co.kr/view/AKR20261125187300007"
+    },
+    {
+     "title": "전북 현대, ACLE 5차전 원정서 가시마 앤틀러스에 0-3 완패",
+     "summary": "K리그1 전북 현대가 AFC 챔피언스리그 엘리트 원정 경기에서 일본 가시마 앤틀러스에 0-3으로 크게 졌다.",
+     "source": "연합뉴스",
+     "id": 156,
+     "link": "https://www.yna.co.kr/view/AKR20261125179351007"
+    }
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "partial": true,
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "강원일보",
+   "유스연합",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Korea Times",
+   "Yonhap English",
+   "글로벌이코노믹",
+   "연합인포맥스",
+   "연합뉴스TV",
+   "CBC뉴스",
+   "Chosunbiz",
+   "헬로디디",
+   "국제뉴스",
+   "CNews",
+   "울산MBC",
+   "게임톡",
+   "진일보 | 전남일보",
+   "KBS 뉴스",
+   "국제신문"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "One Useful Thing",
+   "EdSurge",
+   "The Korea Times",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "Yahoo Finance",
+   "CNBC",
+   "Investing.com 외환",
+   "Investing.com 원자재",
+   "ARTnews",
+   "Artforum",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "The Cool Down",
+   "USA Today",
+   "www.tmgm.com",
+   "조선일보",
+   "Kitco",
+   "BigGo Finance",
+   "구글뉴스(AI cheating)",
+   "Bloomberg.com",
+   "The Business Times",
+   "The Korea Herald"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-26",
+   "sky": "구름 조금",
+   "now": "6°",
+   "lo": "6°",
+   "hi": "15°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +8°, 최저 +9°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "약한 이슬비 8°/15°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-26",
+   "sky": "대체로 맑음",
+   "now": "2°",
+   "lo": "2°",
+   "hi": "16°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +7°, 최저 +5°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "맑음 8°/20°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-25",
+   "sky": "흐림",
+   "now": "20°",
+   "lo": "11°",
+   "hi": "25°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 +1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 12°/30°"
+  }
+ ],
+ "message": {
+  "ko": "하늘이 잔뜩 흐려도, 한숨 돌리고 나면 다시 걸을 힘이 생겨요. 행복한 하루 되세요.",
+  "en": "Even when the sky is thick with clouds, after a breather, the strength to walk again returns. Wishing you a happy day."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 523,
+  "outlets": 113,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트",
+   "Hyperallergic"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-25T18:08:45.174123+00:00"
+}
