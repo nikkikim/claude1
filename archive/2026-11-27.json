@@ -1,0 +1,599 @@
+{
+ "headline": "ECB 총재에 데코스 내정·북한 러 지원 중단설·국힘 '조작징계' 내홍 격화·영국 순이민 30년래 최저·이집트 유조차 폭발 31명 사망",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "유럽중앙은행(ECB) 차기 총재로 비둘기파 성향의 파블로 에르난데스 데코스 스페인 중앙은행 총재가 내정됐습니다. 우크라이나는 북한이 러시아에 대한 군사 지원을 일시 중단했다고 주장했고, 트럼프 전 미국 대통령은 푸틴 러시아 대통령에게 유럽 전역 군사 공격 중단을 요청했다고 밝혔습니다. 영국의 순이민자 수가 팬데믹 제외 30년 만의 최저치를 기록했고, 이집트 카이로에서 유조차 폭발로 최소 31명이 사망했습니다. 나토는 폴란드 영공 감시를 위해 AWACS 정찰기 배치를 승인했습니다.",
+   "items": [
+    {
+     "title": "ECB 차기 총재에 스페인 데코스 내정…비둘기파 성향",
+     "summary": "파블로 에르난데스 데코스 BIS 사무총장이 크리스틴 라가르드 총재 후임으로 낙점됐으며, 통화완화 선호 성향으로 분류된다.",
+     "source": "연합뉴스, SCMP, France 24",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261126196051082"
+    },
+    {
+     "title": "우크라이나 \"북한, 러시아 군사지원 일시 중단\" 주장",
+     "summary": "우크라이나 정보당국이 북한의 남북 긴장 완화 관련 러시아 발언에 반발해 무기·병력 지원을 멈췄다고 밝혔다.",
+     "source": "연합뉴스",
+     "id": 2,
+     "link": "https://www.yna.co.kr/view/AKR20261126194000109"
+    },
+    {
+     "title": "트럼프 \"푸틴에 유럽 전역 군사공격 중단 요청…합의 가능성 크다\"",
+     "summary": "트럼프 미 대통령이 지난주 중국 선전에서 푸틴 러시아 대통령을 만나 유럽 대상 군사행동 중단을 요청했다고 SNS로 공개했다.",
+     "source": "조선일보, Kyiv Independent, Al-Monitor",
+     "id": 166,
+     "link": "https://www.chosun.com/international/international_general/2026/11/27/GYZWCY3CMIZGKNBWG5RGCNZZGQ/"
+    },
+    {
+     "title": "영국 순이민 7만7천 명…팬데믹 제외 30년 만 최저",
+     "summary": "2026년 6월까지 1년간 순유입이 77,000명으로 집계돼 EU 역외 유입 감소가 주원인으로 지목됐다.",
+     "source": "BBC, Sky News, NYT",
+     "id": 109,
+     "link": "https://news.sky.com/story/uk-net-migration-falls-to-77000-latest-data-shows-13616677"
+    },
+    {
+     "title": "이집트 카이로 순환도로 유조차 폭발…최소 31명 사망",
+     "summary": "연료 탱크로리 전복·화재로 차량·오토바이 다수 소실되고 21명 부상, 당국이 원인 조사 중이다.",
+     "source": "The Guardian, Al-Monitor",
+     "id": 217,
+     "link": "https://www.theguardian.com/world/2026/nov/25/people-killed-fuel-tanker-crash-ignites-large-fire-cairo-highway"
+    },
+    {
+     "title": "프랑스 국민배우 드파르디외, 2018년 성폭행 혐의로 재판 회부",
+     "summary": "파리 항소법원이 여배우 샬롯 아르노 성폭행 혐의에 대한 드파르디외의 항소를 기각하고 정식 재판을 명령했다.",
+     "source": "Al Jazeera, DW, France 24",
+     "id": 347,
+     "link": "https://www.aljazeera.com/news/2026/11/26/paris-court-orders-gerard-depardieu-to-stand-trial-for-rape-sexual-assault?traffic_source=rss"
+    },
+    {
+     "title": "나토, 폴란드 영공 감시용 AWACS 정찰기 배치 승인",
+     "summary": "러시아 순항미사일 3발이 폴란드 영토에 낙하한 뒤 공중 조기경보통제기를 투입해 동부 측면 경계 강화에 나섰다.",
+     "source": "Euronews",
+     "id": 235,
+     "link": "https://www.euronews.com/2026/11/26/nato-deploys-awacs-airborne-radar-to-monitor-polish-airspace"
+    }
+   ],
+   "id_list": [
+    1,
+    2,
+    166,
+    109,
+    217,
+    347,
+    235
+   ]
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "한국은행이 기준금리를 3.25%로 0.25%포인트 인상했으나 은행주는 하락하고 반도체주로 자금이 이동하는 머니무브 현상이 나타났습니다. 3분기 가계 실질소득이 현금성 지원 축소와 이자·조세 부담 증가로 2.1% 감소해 10분기 만에 뒷걸음질쳤습니다. 한은은 성장률 전망을 상향하면서도 매파 기조를 유지하며 내년 금리 3.5~3.75%를 전망했습니다. 정부는 자본시장 개혁기구 위원장에 김용범 메리츠금융지주 부회장을 임명해 전권을 위임했습니다. 국내 ETF 시장이 500조 원 규모로 성장했으나 대형주 쏠림과 단타 매매 심화로 액티브형 ETF 규제 완화 필요성이 제기됐습니다.",
+   "items": [
+    {
+     "title": "한은 기준금리 0.25%p 인상…은행주 일제히 하락 '선반영·머니무브'",
+     "summary": "한국은행이 기준금리를 3.25%로 올렸으나 금리 수혜주인 은행주들은 하락했으며, 반도체주로 자금이 이동하는 머니무브 현상이 나타났다.",
+     "source": "매일경제",
+     "id": 33,
+     "link": "https://www.mk.co.kr/news/stock/12219785"
+    },
+    {
+     "title": "3분기 가계 실질소득 2.1% 감소…10분기 만에 뒷걸음질",
+     "summary": "현금성 지원 축소와 이자·조세 부담 증가로 올해 3분기 가구당 월평균 실질소득이 2.1% 줄어 10분기 만에 감소 전환했다.",
+     "source": "매일경제, 경향신문",
+     "id": 34,
+     "link": "https://www.mk.co.kr/news/economy/12219746"
+    },
+    {
+     "title": "한은, 성장률 상향에도 '매파' 유지…내년 금리 3.5~3.75% 전망",
+     "summary": "한은이 올해·내년 성장률 전망을 3.9%, 4.1%로 높였으나 신현송 총재는 금리 인상 기조를 이어가며 내년 추가 인상 가능성을 시사했다.",
+     "source": "한겨레, 경향신문",
+     "id": 39,
+     "link": "https://www.hani.co.kr/arti/economy/economy_general/1289314.html"
+    },
+    {
+     "title": "자본시장 개혁기구 수장에 김용범 메리츠 부회장…민간에 전권 부여",
+     "summary": "정부가 이재명 대통령 주문으로 자본시장 개혁기구를 출범시키고 위원장에 김용범 메리츠금융지주 부회장을 임명해 개혁 전권을 위임했다.",
+     "source": "연합뉴스, 매일경제, 한겨레",
+     "id": 128,
+     "link": "https://www.yna.co.kr/view/AKR20261126171651002"
+    },
+    {
+     "title": "ECB 차기 총재에 파블로 에르난데스 데 코스 스페인 중앙은행 총재 내정",
+     "summary": "크리스틴 라가르드 총재 조기 퇴임에 따라 유럽중앙은행 차기 총재로 파블로 에르난데스 데 코스가 낙점됐다.",
+     "source": "NYT, Cointelegraph",
+     "id": 174,
+     "link": "https://www.nytimes.com/2026/11/26/business/ecb-pablo-hernandez-de-cos.html"
+    },
+    {
+     "title": "미국 연준 매파 기조 지속…주가 변동성 속 기술주 반등",
+     "summary": "연준의 추가 금리 인상 우려가 지속되는 가운데 AI 관련 기술주 반등으로 유럽·아시아 증시가 상승 전환했다.",
+     "source": "Financial Times, Bloomberg",
+     "id": 105,
+     "link": "https://www.ft.com/content/3890f725-66dd-4613-8a60-d9e3ea38d25a?syn-25a6b1a6=1"
+    },
+    {
+     "title": "국내 ETF 시장 대형주 쏠림 심화…자본시장연구원 '액티브형 규제 완화' 제언",
+     "summary": "국내 ETF 시장이 500조 원 규모로 성장했으나 AI·반도체 대형주 편중과 단타 매매가 심화돼 액티브형 ETF 규제 완화가 필요하다는 지적이 나왔다.",
+     "source": "매일경제",
+     "id": 270,
+     "link": "https://www.mk.co.kr/news/stock/12219765"
+    }
+   ],
+   "id_list": [
+    33,
+    34,
+    39,
+    128,
+    174,
+    105,
+    270
+   ]
+  },
+  {
+   "topic": "코인·금·환율",
+   "overview": "비트코인이 6만 달러 선에서 횡보하는 가운데 JP모건은 전략(Strategy)의 NAV 배율이 역대 최저로 떨어져 비트코인 '항복' 국면을 시사한다고 분석했습니다. 이더리움의 바이낸스 순유입이 6개월래 최대인 2억8300만 달러를 기록해 매도 압력 우려가 커졌습니다. 국제 금값이 달러 강세와 연준 매파 기조로 15개월래 저점 근방에서 하방 압력을 받았습니다. 원/달러 환율은 달러인덱스 숨고르기 속에 1,342.7원으로 소폭 하락 마감했습니다. 스페인은 자금세탁 방지를 위해 법원 명령 없이 암호화폐 계좌 동결 권한을 부여했고, 스위스는 2028년부터 57개국과 암호화폐 세금 정보 자동 교환을 시작합니다.",
+   "items": [
+    {
+     "title": "비트코인 6만 달러 횡보…전략(Strategy) NAV 배율 역대 최저 '항복 신호'",
+     "summary": "JP모건은 전략의 비트코인 보유액 대비 밸류에이션이 역대 최저로 떨어져 비트코인 '항복' 국면을 시사한다고 분석했다.",
+     "source": "The Block",
+     "id": 65,
+     "link": "https://www.theblock.co/news/markets/2026-11-26-jpmorgan-bitcoin-capitulation-strategy-low-nav-multiple-447007"
+    },
+    {
+     "title": "이더리움 바이낸스 순유입 6개월래 최대…매도 폭탄 우려",
+     "summary": "일주일 새 2억8300만 달러 상당 이더리움이 바이낸스로 순유입돼 6개월래 최대치를 기록했으며, 미국 현물 ETF 자금 이탈도 지속돼 추가 하락 경계감이 커졌다.",
+     "source": "블록미디어",
+     "id": 286,
+     "link": "https://www.blockmedia.co.kr/archives/1170966?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "국제 금값 15개월래 저점 근방…달러 강세·연준 매파에 압박",
+     "summary": "금 현물 가격이 온스당 3,500달러 선을 이탈했다 3,570달러대 회복했으나, 연준 금리 인상 기대와 달러 강세로 하방 압력이 지속됐다.",
+     "source": "Bloomberg, 글로벌이코노믹, Kitco",
+     "id": 67,
+     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNaVRLSjFab0MyQWowTUVnM2VxUmFoTDVfc1cwdGtnM3JDckRZeDk3YnJGN2xyWm1CaFFMdXYxTWJqakhDcjZNQy1CYmFQWWdDZkx6UGRDM05XQlFGSGwxLUJhY2RPTGZ3dkFWMlJfOXpCTUtzRm0xcHozMzQ0SHZ6d01oaGViakhV?oc=5"
+    },
+    {
+     "title": "원/달러 환율 0.5원 내린 1,342.7원 마감…달러인덱스 숨고르기",
+     "summary": "미국 추수감사절 휴장 속 달러인덱스가 2026년 고점 아래서 횡보하며 원/달러 환율은 1,342원대 초중반에서 소폭 하락 마감했다.",
+     "source": "연합인포맥스, Chosunbiz, 서울파이낸스",
+     "id": 68,
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9aWEhxdjVDYWdYTGVQUHA0RDlVUXo5d1JfZlVLMHVKQVBrb0RMY1J0a3RaMDNnVGtJSHpyYTNSc0tWLTZxZU5yS2g3QWlNNFR2Q0ltLVF5d2RtRUJrNTFHTFhpNXhfNDdyODdUYXluQkc?oc=5"
+    },
+    {
+     "title": "스페인, 법원 명령 없이 암호화폐 계좌 동결 권한 부여",
+     "summary": "스페인 금융정보분석원(SEPBLAC)이 자금세탁 방지를 위해 암호화폐·은행·결제 계좌를 최대 5영업일간 법원 명령 없이 동결할 수 있게 됐다.",
+     "source": "Decrypt, CoinDesk",
+     "id": 64,
+     "link": "https://decrypt.co/384063/spain-lets-its-financial-intelligence-unit-freeze-crypto-accounts-without-a-court-order"
+    },
+    {
+     "title": "스위스, 2028년부터 57개국과 암호화폐 세금 정보 자동 교환 승인",
+     "summary": "스위스 연방위원회가 57개 관할권과 암호화폐 자산 세금 정보 교환을 2028년부터 개시하기로 결정했다.",
+     "source": "The Block",
+     "id": 302,
+     "link": "https://www.theblock.co/news/regulation/2026-11-26-switzerland-approves-57-jurisdictions-for-crypto-data-exchange-from-2028-446821"
+    }
+   ],
+   "id_list": [
+    65,
+    286,
+    67,
+    68,
+    64,
+    302
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 노벨문학상 수상자 한강의 소설 '작별하지 않는다'가 이탈리아 로마에서 연극으로 개막했고, 김애란 작가가 교보출판 어워즈 '올해의 작가'로 선정됐습니다. 조지아 오키프의 1930년작 풍경화가 40년 만에 발견돼 경매에 출품되며, 바이올리니스트 김지연이 세종솔로이스츠와 후배 연주자 무대를 마련했습니다. 제20회 차범석희곡상에 이양구 작가의 '잔류시민'이 수상했습니다. 해외에서는 후르 알 카시미가 2028 베니스 비엔날레 큐레이터로 임명됐고, 브뤼셀에서 시트로엥 차고를 개조한 '카날' 미술관이 개관했습니다. 리사 마레이 슈미트가 2027년부터 스위스 쿤스트무제움 베른과 파울 클레 센터 관장을 맡습니다.",
+   "items": [
+    {
+     "title": "한강 '작별하지 않는다' 이탈리아 로마서 연극 개막",
+     "summary": "노벨문학상 수상자 한강의 소설 '작별하지 않는다'를 원작으로 한 연극이 26일 로마 테아트로 발레 국립극장에서 개막해 12월 6일까지 공연된다.",
+     "source": "뉴시스, 연합뉴스",
+     "id": 157,
+     "link": "https://www.newsis.com/view/NISX20261126_0003885346"
+    },
+    {
+     "title": "김애란, 교보출판 어워즈 '올해의 작가' 선정",
+     "summary": "소설가 김애란이 저서 '그랬다고 적었다'로 제13회 교보 출판 어워즈 올해의 작가로 뽑혔다.",
+     "source": "경향신문",
+     "id": 163,
+     "link": "https://www.khan.co.kr/article/202611262028015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "조지아 오키프 1930년작 풍경화, 40년 만에 발견돼 경매 출품",
+     "summary": "미국 아파트 옷장에서 40년간 보관돼 있던 조지아 오키프의 1930년작 풍경화가 발견돼 경매에 나온다.",
+     "source": "매일경제",
+     "id": 35,
+     "link": "https://www.mk.co.kr/news/world/12219796"
+    },
+    {
+     "title": "바이올리니스트 김지연, 세종솔로이스츠와 후배 연주자 무대 마련",
+     "summary": "김지연이 28일 서울과 내달 부산에서 세종솔로이스츠와 함께 신동훈 작곡 '겨울 소나타' 아시아 초연 등 후배들을 소개하는 공연을 연다.",
+     "source": "경향신문",
+     "id": 42,
+     "link": "https://www.khan.co.kr/article/202611262037005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "제20회 차범석희곡상, 이양구 작가 '잔류시민' 수상",
+     "summary": "차범석연극재단과 조선일보가 공동 운영하는 차범석희곡상 장막 희곡 부문 수상작으로 이양구 작가의 '잔류시민'이 선정됐다.",
+     "source": "조선일보",
+     "id": 46,
+     "link": "https://www.chosun.com/culture-life/performance-arts/2026/11/27/UJ6TMRW5V5GRJGBLQT4MK6V2RU/"
+    },
+    {
+     "title": "후르 알 카시미, 2028 베니스 비엔날레 큐레이터 임명",
+     "summary": "샤르자 아트 파운데이션 디렉터인 후르 알 카시미가 제62회 베니스 비엔날레(2028) 시각예술부문 큐레이터로 임명됐다.",
+     "source": "Artnet News, Artsy, The Art Newspaper",
+     "id": 76,
+     "link": "https://news.artnet.com/art-world/hoor-al-qasimi-venice-biennale-2842478"
+    },
+    {
+     "title": "브뤼셀 시트로엥 차고 개조 '카날' 미술관 개관",
+     "summary": "브뤼셀의 1930년대 시트로엥 차고 건물을 개조한 4만㎡ 규모의 현대미술·건축 미술관 카날이 퐁피두 센터 협력 프로그램으로 문을 열었다.",
+     "source": "Dezeen, NYT",
+     "id": 106,
+     "link": "https://www.dezeen.com/2026/11/26/kanal-museum-brussels-renovation-atelier-kanal/"
+    },
+    {
+     "title": "리사 마레이 슈미트, 쿤스트무제움 베른·파울 클레 센터 관장 선임",
+     "summary": "베를린 브뤼케 미술관 관장인 리사 마레이 슈미트가 2027년 8월부터 스위스 쿤스트무제움 베른과 파울 클레 센터 관장을 맡는다.",
+     "source": "ARTnews, The Art Newspaper",
+     "id": 73,
+     "link": "https://www.artnews.com/art-news/news/lisa-schmidt-director-kunstmuseum-bern-zentrum-paul-klee-1234808049/"
+    }
+   ]
+  },
+  {
+   "topic": "AI",
+   "overview": "경찰이 AI를 이용한 부정행위를 자수한 세무사시험 수석합격자에 대해 구속영장을 신청했습니다. 서울대는 2025학년도 수시 면접에 AI 부정행위 감시 전담 '스마트 감독관'을 처음 도입했고, 서울시교육청은 고등학교에 금속탐지기 8300대를 배치해 AI 기기 반입을 차단합니다. 뉴욕주는 13세 미만 대상 AI 챗봇 장난감 제조·판매를 5년간 금지하는 법안을 시행했습니다. 영국 법원에서 미공개 AI 사용으로 인한 허위 증언·판례 제출로 최소 25건 이상 재판이 영향을 받은 것으로 드러났습니다. 오픈AI는 기업 데이터 보호를 위한 '프라이빗 추론' 기능을 시험 운영 중이며, 구글은 제미나이 API에 '툴 리트리벌' 프리뷰를 도입했습니다. 앤스로픽이 IPO 가격을 확정하고 공모 절차에 들어갔으며, 캐릭터AI는 2100만 이용자 채팅 기록 매각 시도로 42개 주 검찰총장의 제동을 받았습니다.",
+   "items": [
+    {
+     "title": "경찰, 'AI 부정행위 자수' 세무사시험 수석 구속영장 신청",
+     "summary": "세무사시험 수석합격자가 AI를 이용한 부정행위를 자수하자 경찰이 구속영장을 신청했으며, 연합뉴스TV·YTN·MBC 등 다수 매체가 보도했다.",
+     "source": "경향신문, 연합뉴스TV, YTN",
+     "id": 22,
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBtdFlMOVl0MVB1bzBDNlJ2NnRQQndxbFVNTVgyNzNXcXkxb1V2WG1ISTR5T0FnYnhuWVZxbHRoWW05N3BoeFAyVEp6XzNta283Y1NGQ3JOSjJ6d9IBX0FVX3lxTE9tQUhIQUoxUGFadGZFMGs5cEYtcU83NTRzckV4V2x1SldHaXZUaWNIWWQ2WWpkYWoxMDh1dGI3TXM1MVE5WndSdjd4ZTk3QTU4WkE1S1VJMTdjaXI1VzVF?oc=5"
+    },
+    {
+     "title": "서울대, 수시 면접에 AI 부정행위 전담 '스마트 감독관' 배치",
+     "summary": "서울대가 2025학년도 수시 면접에서 생성형 AI 활용 부정행위를 감시하기 위한 전담 인력인 '스마트 감독관'을 처음 도입했다.",
+     "source": "조선일보",
+     "id": 144,
+     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPbHJuc1FqVnp6RmJtTHVpX1d3UWlxU2plb2tlLTBabm9sTzZaZTE1SzdXcWlXWFVybXlRbkpHc0pRWkpoQ2dQSUt6RjFvWm56THNvS09HdGFFWlZ5bkNzZU5YWkFZTnlaQkNVRkdUWFI0XzVEaThlVlM5YnBJSkJBaWcyUFFNbTZ6R0NRVGFuZ00?oc=5"
+    },
+    {
+     "title": "뉴욕주, 13세 미만 대상 AI 챗봇 장난감 제조·판매 5년간 금지",
+     "summary": "캐시 호철 뉴욕주지사가 부적절한 대화·정서적 의존·개인정보 침해 우려로 어린이용 AI 챗봇 장난감의 제조·유통·판매를 5년간 금지하는 법안에 서명했다.",
+     "source": "AI타임스",
+     "id": 132,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217833"
+    },
+    {
+     "title": "잉글랜드·웨일스 법원, 미공개 AI 사용으로 25건 이상 재판 영향",
+     "summary": "가디언 조사 결과 2026년 들어 AI가 생성한 허위 증언·판례·법령이 제출돼 최소 25건 이상의 재판이 영향을 받은 것으로 드러났다.",
+     "source": "The Guardian AI",
+     "id": 18,
+     "link": "https://www.theguardian.com/technology/2026/nov/26/dozens-of-court-cases-in-england-and-wales-affected-by-undisclosed-ai-use-in-2026"
+    },
+    {
+     "title": "오픈AI, 기업 데이터 보호 강화 '프라이빗 추론' 시험 운영",
+     "summary": "오픈AI가 AI 연산 과정 중에도 민감 데이터 접근을 차단하는 '프라이빗 추론(Private Inference)' 기능을 소수 기업 고객 대상으로 테스트 중이다.",
+     "source": "AI타임스",
+     "id": 366,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217828"
+    },
+    {
+     "title": "구글, 제미나이 API에 '툴 리트리벌' 프리뷰 도입",
+     "summary": "구글이 제미나이 API에서 수백 개 도구에 접근하면서 토큰 사용을 줄이는 '툴 리트리벌(Tool Retrieval)' 기능을 프리뷰로 공개했다.",
+     "source": "Google AI",
+     "id": 253,
+     "link": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+    },
+    {
+     "title": "앤스로픽, 기업공개(IPO) 가격 확정",
+     "summary": "앤스로픽이 최초 기업공개(IPO) 가격을 확정하고 공모 절차에 들어갔다.",
+     "source": "Anthropic, TechCrunch AI",
+     "id": 11,
+     "link": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering"
+    },
+    {
+     "title": "캐릭터AI, 2100만 이용자 채팅 기록 매각 시도…42개 주 검찰총장 제동",
+     "summary": "파산 절차 중인 캐릭터AI가 이용자 2100만 명의 비공개 채팅 기록을 경매하려 하자 42개 주 검찰총장이 매각 중단을 요구했다.",
+     "source": "The Verge AI",
+     "id": 15,
+     "link": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats"
+    },
+    {
+     "title": "서울 고교에 금속탐지기 8300대 배치…AI 부정행위 대응",
+     "summary": "서울시교육청이 수능·내신 등 시험장에서 AI 기기 반입을 막기 위해 고등학교에 금속탐지기 8300대를 설치했다.",
+     "source": "농민신문",
+     "id": 521,
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9xN3F1djRqd0pweTBZRmRVVm5IclctR3dhNkF4Z0RmNVA3cnlnT0x0VmhtZGFaYlZRRV9FOTZFSUFtLXk2OU93N2NDN21kaFk0czFGTFYxeFl5Zw?oc=5"
+    }
+   ]
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "국민의힘에서 최고위원 간 '조작징계' 공방이 벌어지며 황경성 윤리위원이 해임되고 긴급 의원총회가 소집됐습니다. 민주당 중진 만찬에서 단결과 민생을 강조했으나 친명·비명 갈등으로 주요 의원들이 불참했습니다. 헌법재판소가 노동조합법상 '제3자 개입금지' 조항을 위헌 결정해 33년 만의 판례 변경을 이끌어냈습니다. 중국이 한국인 반도체 엔지니어를 간첩 혐의로 3년째 구금 중이며 정부가 석방 교섭을 진행 중입니다.",
+   "items": [
+    {
+     "title": "국민의힘 최고위 '조작징계' 공방…황경성 윤리위원 해임·긴급 의총 소집",
+     "summary": "장동혁·우재준 최고위원이 징계 개입 의혹으로 충돌하고 당이 황경성 윤리위원을 해임했으며, 내달 2일 긴급 의원총회를 열기로 했다.",
+     "source": "경향신문, 연합뉴스, 한겨레",
+     "id": 44,
+     "link": "https://www.khan.co.kr/article/202611262119015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "민주당 중진 만찬 '단결·민생' 강조 속 김민석·정청래 불참",
+     "summary": "계파 대립 와중에도 중진들이 만찬 회동을 가졌으나 친명·비명 간 갈등으로 주요 의원들이 참석하지 않았다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261126193800001"
+    },
+    {
+     "title": "헌재, 노조법 '제3자 개입금지' 위헌 결정…33년 만 판례 변경",
+     "summary": "헌법재판소가 노동조합 및 노동관계조정법상 제3자 개입 금지 조항을 위헌으로 판단해 오랜 판례를 뒤집었다.",
+     "source": "한겨레",
+     "id": 162,
+     "link": "https://www.hani.co.kr/arti/society/society_general/1289339.html"
+    },
+    {
+     "title": "중국, 한국인 반도체 엔지니어 간첩 혐의 3년째 구금…정부 석방 교섭 중",
+     "summary": "국내 반도체 기업 출신 엔지니어가 기술 유출 신고 중 반간첩법 위반으로 체포돼 구금됐으며, 국정원이 맞교환 제안을 거부한 것으로 전해졌다.",
+     "source": "경향신문",
+     "id": 281,
+     "link": "https://www.khan.co.kr/article/202611262112015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    }
+   ],
+   "id_list": [
+    44,
+    5,
+    162,
+    281,
+    470
+   ]
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "구글이 외부 AI 서비스의 지메일·캘린더 등 업무 데이터 대규모 접근 시 이용료를 부과하는 정책을 시행합니다. 오픈AI는 챗GPT 프로 사용량 축소 방침을 철회했으나 12월부터 고급 모델·업무 기능에 토큰 기반 통합 사용량 제한을 적용할 계획입니다. 미국 FCC가 스페이스X의 AI 컴퓨팅 수요 대응을 위한 100만 기 위성 데이터센터 '스타마인드' 구축 계획을 승인했습니다.",
+   "items": [
+    {
+     "title": "구글, 외부 AI의 지메일·캘린더 대량 접근에 이용료 부과",
+     "summary": "구글이 자사 업무 데이터(이메일·일정·문서)에 외부 AI 서비스가 대규모로 접근할 경우 요금을 부과하는 정책을 시행한다.",
+     "source": "연합뉴스",
+     "id": 28,
+     "link": "https://www.yna.co.kr/view/AKR20261126188700017"
+    },
+    {
+     "title": "오픈AI, 챗GPT 프로 사용량 축소 철회…12월 토큰 제한 예정",
+     "summary": "오픈AI가 프로 구독자 사용량 축소 방침을 철회했으나, 내달부터 고급 모델·업무 기능에 토큰 기반 통합 사용량 제한을 적용할 계획이다.",
+     "source": "블록미디어",
+     "id": 397,
+     "link": "https://www.blockmedia.co.kr/archives/1170946?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "FCC, 스페이스X 우주 AI 데이터센터 '스타마인드' 위성망 승인",
+     "summary": "미국 FCC가 스페이스X의 AI 컴퓨팅 수요 대응을 위한 100만 기 위성 데이터센터 구축 계획을 승인했다.",
+     "source": "BBC, TechCrunch",
+     "id": 96,
+     "link": "https://www.bbc.co.uk/news/articles/cwp836l8n1jgo?at_medium=RSS&at_campaign=rss"
+    }
+   ],
+   "id_list": [
+    28,
+    397,
+    96,
+    180,
+    149,
+    54,
+    435
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "남자배구 삼성화재가 1,114일 만에 프로배구 남자부 선두에 올랐습니다. 영국이 데이비스컵 8강에서 독일을 꺾고 2019년 이후 처음으로 4강에 진출했습니다.",
+   "items": [
+    {
+     "title": "남자배구 삼성화재, 1,114일 만에 선두 등극",
+     "summary": "삼성화재가 26일 경기 승리로 프로배구 남자부 순위표 최상단에 오르며 명가 재건 신호탄을 쐈다.",
+     "source": "연합뉴스",
+     "id": 150,
+     "link": "https://www.yna.co.kr/view/AKR20261126192351007"
+    },
+    {
+     "title": "영국, 데이비스컵 4강 진출…2019년 이후 처음",
+     "summary": "패튼-스컵스키 조가 독일과의 8강 결정 복식에서 승리해 그레이트브리튼을 준결승으로 이끌었다.",
+     "source": "BBC",
+     "id": 97,
+     "link": "https://www.bbc.co.uk/sport/tennis/articles/c5m2lvevrk1mo?at_medium=RSS&at_campaign=rss"
+    }
+   ],
+   "id_list": [
+    150,
+    97,
+    200
+   ]
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "경향신문",
+   "에듀플러스",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Yonhap English",
+   "글로벌이코노믹",
+   "연합인포맥스",
+   "유스연합",
+   "게임톡",
+   "Chosunbiz",
+   "연합뉴스TV",
+   "CBC뉴스",
+   "서울파이낸스",
+   "YTN",
+   "뉴스버스",
+   "KB Think",
+   "MBC 뉴스",
+   "뉴스투데이",
+   "머니투데이",
+   "농민신문",
+   "OhmyNews",
+   "문화일보"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Ars Technica AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "EdSurge",
+   "Fortune",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "BullionVault",
+   "Reuters",
+   "Investing.com 외환",
+   "Investing.com 원자재",
+   "ARTnews",
+   "Artforum",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "LA Times",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "조선일보",
+   "USA Today",
+   "FOREX.com",
+   "Korea JoongAng Daily",
+   "Kitco",
+   "Traders Union",
+   "The Cool Down",
+   "Mining.com",
+   "FXStreet"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "The Guardian 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-27",
+   "sky": "흐림",
+   "now": "7°",
+   "lo": "7°",
+   "hi": "15°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +1°, 최저 +1°",
+   "precip": "비 예보(강수확률 76%, 약 0.0mm)",
+   "tomorrow": "구름 조금 1°/8°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-27",
+   "sky": "맑음",
+   "now": "8°",
+   "lo": "7°",
+   "hi": "19°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +4°, 최저 +5°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "이슬비 4°/10°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-26",
+   "sky": "흐림",
+   "now": "19°",
+   "lo": "11°",
+   "hi": "28°",
+   "mood": "어제와 비슷함",
+   "diff": "최고 +4°, 최저 −1°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "흐림 16°/32°"
+  }
+ ],
+ "message": {
+  "ko": "마음이 급해질 때에도, 작은 기쁨 하나는 분명 만날 수 있을 거예요. 언제나 당신 편이에요.",
+  "en": "Even when you feel rushed, you will surely meet one small joy. Always on your side."
+ },
+ "notices": [],
+ "meta": {
+  "articles": 524,
+  "outlets": 112,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트",
+   "Hyperallergic"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-26T17:51:50.520819+00:00"
+}
