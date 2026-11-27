@@ -1,0 +1,546 @@
+{
+ "headline": "이란·이스라엘·우크라이나 등 중동·유럽 전선 긴장 고조, 국내 정치권 윤리위 징계·산불 등 내홍, 스포츠계 계약 연장·연승 소식",
+ "sections": [
+  {
+   "topic": "세계 이슈",
+   "overview": "이란 혁명수비대가 미국의 해상봉쇄를 돌파하겠다며 공중·해상 행동을 예고했고, 이스라엘 드론 공습으로 가자 북부에서 팔레스타인인 1명이 사망했습니다. 우크라이나 아조우 부대가 도네츠크 점령지의 러시아 연료창고를 파괴했으며, 트럼프 전 대통령은 나토 사무총장 회담 뒤 독자 공동성명을 발표했습니다. 캐나다 대법원은 퀘벡주의 공공부문 종교 상징 금지법을 대부분 지지했고, 스페인 총선과 대만 타이베이 시장 선거를 앞두고 정치 지형이 요동치고 있습니다.",
+   "items": [
+    {
+     "title": "이란 혁명수비대, 美 해상봉쇄 돌파 결의…공중·해상 행동 예고",
+     "summary": "이란 이슬람혁명수비대(IRGC)가 미국의 해상봉쇄를 돌파하겠다는 확고한 의지를 밝히며 공중·해상에서 행동하겠다고 선언했습니다.",
+     "source": "연합뉴스",
+     "id": 1,
+     "link": "https://www.yna.co.kr/view/AKR20261128003300079"
+    },
+    {
+     "title": "이스라엘 드론 공습으로 가자 북부서 팔레스타인인 1명 사망",
+     "summary": "이스라엘 드론이 가자지구 북부 차량을 공격해 팔레스타인 남성 1명이 숨지고 여러 명이 다쳤습니다.",
+     "source": "Middle East Eye",
+     "id": 336,
+     "link": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-vehicle-kills-palestinian-man-northern-gaza"
+    },
+    {
+     "title": "우크라이나 아조우 부대, 도네츠크 점령지 러시아 연료창고 파괴",
+     "summary": "우크라이나 아조우 연대가 '헬-3' 작전으로 러시아군이 위장·전자전으로 방어하던 연료 저장소를 파괴했습니다.",
+     "source": "Kyiv Independent",
+     "id": 450,
+     "link": "https://kyivindependent.com/ukraines-azov-announces-hell-3-operation-destroys-russian-fuel-depot-in-occupied-donetsk-oblast/"
+    },
+    {
+     "title": "트럼프, 나토 사무총장 회담 뒤 독자 공동성명 발표",
+     "summary": "도널드 트럼프 미국 대통령이 나토 사무총장과의 회담 후 멋대로 첨언한 공동성명을 발표했습니다.",
+     "source": "연합뉴스",
+     "id": 354,
+     "link": "https://www.yna.co.kr/view/AKR20261128002600071"
+    },
+    {
+     "title": "캐나다 대법원, 퀘벡 공공부문 종교 상징 금지법 대부분 지지",
+     "summary": "캐나다 최고법원이 교사·경찰 등 공무원의 종교 상징 착용을 금지한 퀘벡주 법을 대체로 합헌 판결했습니다.",
+     "source": "The Guardian, NYT",
+     "id": 213,
+     "link": "https://www.theguardian.com/world/2026/nov/27/canadas-top-court-upholds-quebec-law-barring-public-sector-workers-from-wearing-religious-symbols"
+    },
+    {
+     "title": "스페인 총선 앞두고 좌파 결집 시도…우파 연합 견제",
+     "summary": "페드로 산체스 스페인 총리가 일요일 총선을 앞두고 좌파 표 결집을 호소하며 우파 연합을 견제하고 있습니다.",
+     "source": "Al Jazeera",
+     "id": 109,
+     "link": "https://www.aljazeera.com/news/2026/11/27/spains-pedro-sanchez-bets-on-left-wing-voting-surge-to-defy-election-polls?traffic_source=rss"
+    },
+    {
+     "title": "대만 타이베이 시장 후보 푸마 셴, 中 제재에도 인기 상승",
+     "summary": "중국 제재를 받은 푸마 셴이 타이베이 차기 시장 유력 후보로 부상하며 대만 정치 지형에 변수로 떠올랐습니다.",
+     "source": "NYT",
+     "id": 49,
+     "link": "https://www.nytimes.com/2026/11/27/world/asia/puma-shen-taiwan-election-china.html"
+    }
+   ],
+   "id": "world"
+  },
+  {
+   "topic": "경제·증시",
+   "overview": "국민연금 기금적립금이 3개월 새 202조 원 감소해 상반기 수익의 절반가량을 반납했고, 국내주식 수익률 하락이 최대 원인이었습니다. 증안펀드 증액 기대감과 외국인 대규모 순매수에 힘입어 코스피와 코스닥이 큰 폭으로 반등했으며, SK하이닉스는 자사주 매입 속도를 2배로 늘렸습니다. 미국 증시는 기술주 반등으로 상승 마감했고, 한국은행 총재는 통화정책 고려 순서에서 주가를 후순위로 두는 것으로 관측됐습니다.",
+   "items": [
+    {
+     "title": "국민연금 3개월 새 적립금 202조 원 감소…국내주식 수익률 하락 최대",
+     "summary": "국민연금 기금적립금이 1,866조 원에서 1,664조 원으로 10.8% 줄어들며 상반기 수익의 절반가량을 반납했고, 국내주식 수익률이 40.99%포인트 깎이며 가장 큰 타격을 입었다.",
+     "source": "매일경제, 한겨레, 경향신문",
+     "id": 31,
+     "link": "https://www.mk.co.kr/news/economy/12220533"
+    },
+    {
+     "title": "증안펀드 기대감에 코스피 4%·코스닥 8% 급등…외국인 조 단위 매수",
+     "summary": "정부의 증권시장안정펀드 증액 기대감과 외국인 대규모 순매수에 힘입어 코스피가 4,900선을 회복하고 코스닥이 8% 이상 뛰는 등 국내 증시가 큰 폭으로 반등했다.",
+     "source": "매일경제, 한겨레",
+     "id": 473,
+     "link": "https://www.mk.co.kr/news/stock/12220396"
+    },
+    {
+     "title": "SK하이닉스, 주가 하락 대응 위해 자사주 매입 속도 2배로 확대",
+     "summary": "SK하이닉스가 최근 주가 하락에 대응해 진행 중인 자사주 매입 일일 주문량을 2배로 늘려 주주가치 제고에 나섰다.",
+     "source": "연합뉴스",
+     "id": 25,
+     "link": "https://www.yna.co.kr/view/AKR20261127165200003"
+    },
+    {
+     "title": "미국 증시, 변동성 장세 끝에 기술주 반등으로 상승 마감",
+     "summary": "추수감사절 연휴 후 재개된 뉴욕 증시에서 엔비디아 등 기술주가 반등하며 S&P500과 나스닥이 상승 전환해 한 주를 마감했다.",
+     "source": "NYT, Bloomberg, MarketWatch",
+     "id": 393,
+     "link": "https://www.nytimes.com/2026/11/27/business/stocks-tech-stocks-ai.html"
+    },
+    {
+     "title": "트럼프 신규 관세 위협, 과거 대비 영향력 제한적이라는 분석 제기",
+     "summary": "주요국이 1차 관세 때 무역 경로를 재편해 둔 데다 트럼프 임기 이후를 바라보고 있어 새로운 관세 부과 영향이 크지 않을 것이라는 전망이 나왔다.",
+     "source": "BBC",
+     "id": 90,
+     "link": "https://www.bbc.co.uk/news/articles/c6r7g4e3yep1o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "한국은행 총재, 통화정책 고려 순서 '환율→물가→주가'로 후순위 둔 주가",
+     "summary": "신현송 한은 총재가 금리 결정 시 환율과 물가 안정을 최우선으로 두고 주가는 후순위로 고려하는 것으로 관측됐다.",
+     "source": "매일경제",
+     "id": 474,
+     "link": "https://www.mk.co.kr/news/economy/12220459"
+    },
+    {
+     "title": "산업연구원, 반도체 초과세수 비반도체 주력산업에 투자해 쏠림 완화 제안",
+     "summary": "반도체 호황기 법인세 초과세수 일부를 비반도체 주력 산업에 투입해 '반도체 쏠림' 구조를 개선해야 한다는 국책연구기관 제언이 나왔다.",
+     "source": "경향신문",
+     "id": 482,
+     "link": "https://www.khan.co.kr/article/202611271611001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=economy_news"
+    }
+   ]
+  },
+  {
+   "topic": "코인·금·환율",
+   "overview": "AI 요약에서 빠져 원문 헤드라인으로 보충했습니다.",
+   "backfilled": true,
+   "items": [
+    {
+     "title": "XRP 연내 2달러 회복 확률 5%…2027년 말도 23% 그쳐",
+     "summary": "엑스알피(XRP)가 최근 한 달간 26% 하락한 가운데 예측시장에서도 추가 하락 가능성에 무게가 실리고 있다. 폴리마켓과 칼시에서는 연내 2달러 회복보다 0.80달러 하락 가능성을 높게 평가하는 것으로 나타났다. 2…",
+     "source": "블록미디어",
+     "link": "https://www.blockmedia.co.kr/archives/1171610?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "Bitcoin price drops below $59K as Anthropic joins tech stock rebound",
+     "summary": "Bitcoin price volatility returned at the Wall Street open as BTC/USD dropped to local lows of $58,700 while stocks and g…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/markets/bitcoin-price-below-59k-anthropic-tech-stock-rebound?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "Russia’s VTB Opens Bitcoin Trading as Central Bank Finalizes Crypto Test",
+     "summary": "Bitcoin Magazine Russia’s VTB Opens Bitcoin Trading as Central Bank Finalizes Crypto Test VTB began letting qualified in…",
+     "source": "Bitcoin Magazine",
+     "link": "https://bitcoinmagazine.com/news/russia-vtb-bitcoin-trading-crypto-test"
+    },
+    {
+     "title": "바이낸스 출금 제한 전면 해제⋯토큰화 증권 사업 확대 움직임",
+     "summary": "세계 최대 디지털자산(가상자산) 거래소 바이낸스가 64억달러 규모의 해킹 피해 발생 4주 만에 출금 제한을 전면 해제했다. 피해 자산 회수 작업이 이어지는 가운데 기업공개(IPO)와 주식자본시장 전문가 채용에도 나섰…",
+     "source": "블록미디어",
+     "link": "https://www.blockmedia.co.kr/archives/1171561?utm_source=general&utm_medium=rss"
+    },
+    {
+     "title": "Here’s what happened in crypto today",
+     "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price,…",
+     "source": "Cointelegraph",
+     "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+    },
+    {
+     "title": "[외환] 원·달러 환율 1337.9원 마감···4.8원↓",
+     "summary": "",
+     "source": "서울파이낸스",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE02NFhpWkM4OUNGQ1Npb2NpU0dlX2drRVBEMVF0Vk9tNGtneUlDT0NyOXpZTFdBZWFJNEtMUFlSaUxrclhXODJ1VXAyMVp6ZFU0Y09mSHo0a0FlNkJQaVIzTlRxdXBYUVBWeVE?oc=5"
+    }
+   ]
+  },
+  {
+   "topic": "문화예술",
+   "overview": "국내에서는 제63회 한국문학상과 제72회 현대문학상 수상자가 발표됐고, 강유정 문체부 장관 후보자의 논문 자기표절 공방과 국악계 성폭력 근절을 위한 공동성명에 5658명이 서명했습니다. 해외에서는 베니스 비엔날레 사상 첫 아랍인 큐레이터가 선임됐고, 바외 타피스트리가 영국 박물관 이동 중 미세 손상을 입었으며, 브뤼셀 카날 미술관이 구 시트로엥 차고에 개관했고 크리스티 경매에서 마리 앙투아네트 소장품이 고가에 낙찰됐습니다.",
+   "items": [
+    {
+     "title": "제63회 한국문학상 수상자 5명 선정",
+     "summary": "한국문인협회가 안혜경·홍금자·권갑하·최성배·조한숙 작가를 제63회 한국문학상 수상자로 발표했다.",
+     "source": "연합뉴스",
+     "id": 4,
+     "link": "https://www.yna.co.kr/view/AKR20261127154300005"
+    },
+    {
+     "title": "제72회 현대문학상 소설 배수아·시 안태운 수상",
+     "summary": "현대문학사가 소설 부문 배수아 '결혼기념일', 시 부문 안태운 '얼굴들 님들 장면들' 외 6편을 수상작으로 선정했다.",
+     "source": "경향신문, 조선일보",
+     "id": 274,
+     "link": "https://www.khan.co.kr/article/202611271506011/?utm_source=khan_rss&utm_medium=rss&utm_campaign=culture_news"
+    },
+    {
+     "title": "강유정 문체부 장관 후보자 논문 자기표절 공방",
+     "summary": "김승수 의원이 강 후보자의 박사학위 논문에 본인 학술지 논문을 출처 표기 없이 인용했다고 지적했고, 후보자 측은 연구윤리 위반이 아니라고 반박했다.",
+     "source": "한겨레, 연합뉴스",
+     "id": 35,
+     "link": "https://www.hani.co.kr/arti/culture/culture_general/1289496.html"
+    },
+    {
+     "title": "국악계 성폭력 근절 공동성명 5658명 서명",
+     "summary": "전통공연예술인 긴급행동이 기자간담회를 열고 광범위하고 장기간 이어진 가해 실태를 알리며 제도 개선을 촉구했다.",
+     "source": "헤럴드경제",
+     "id": 153,
+     "link": "https://biz.heraldcorp.com/article/10952327"
+    },
+    {
+     "title": "베니스 비엔날레 2028년 첫 아랍 큐레이터 후르 알카시미 선임",
+     "summary": "샤르자 아트 파운데이션 디렉터인 후르 알카시미가 제62회 베니스 비엔날레 큐레이터로 임명돼 사상 첫 아랍인 큐레이터가 됐다.",
+     "source": "ArtAsiaPacific, Artsy, NYT",
+     "id": 119,
+     "link": "https://www.artasiapacific.com/news/hoor-al-qasimi-appointed-curator-of-2028-venice-biennale/"
+    },
+    {
+     "title": "바외 타피스트리 영국 박물관 이동 후 미세 손상 확인",
+     "summary": "프랑스 문화부 최종 보고서에 따르면 1000년 된 타피스트리가 노르망디에서 브리티시 뮤지엄으로 이동하는 과정에서 미세하지만 가시적인 손상이 발생했다.",
+     "source": "ARTnews",
+     "id": 71,
+     "link": "https://www.artnews.com/art-news/news/report-details-minor-damage-bayeux-tapestry-following-journey-1234808106/"
+    },
+    {
+     "title": "브뤼셀 카날(Kanal) 미술관 구 시트로엥 차고에 개관",
+     "summary": "퐁피두 센터와 협력해 구 시트로엥 차고를 리모델링한 2억5200만 유로 규모의 현대미술관이 수년간 논쟁 끝에 문을 열었다.",
+     "source": "The Guardian, The Art Newspaper, NYT",
+     "id": 214,
+     "link": "https://www.theguardian.com/artanddesign/2026/nov/27/a-true-city-within-a-city-how-will-brussels-fill-its-colossal-new-culture-palace-kanal"
+    },
+    {
+     "title": "크리스티 경매 마리 앙투아네트 '브레스트 볼' 247만 달러 낙찰",
+     "summary": "파리 쿠토-베가리 경매에서 마리 앙투아네트 소장 '브레스트 볼'이 상한 추정가 200만 유로를 넘어 225만 유로(약 247만 달러)에 낙찰됐다.",
+     "source": "ARTnews",
+     "id": 504,
+     "link": "https://www.artnews.com/art-news/market/marie-antoinette-breast-bowl-hammers-past-estimate-rare-1234808074/"
+    }
+   ],
+   "id": "culture"
+  },
+  {
+   "topic": "AI",
+   "overview": "국내 해커톤에서 AI 안경을 이용한 부정행위 시연이 방어 기법을 무력화했고, 대통령실 AI수석은 국제적 공조 필요성을 언급했습니다. 미국 언론은 한국 수능 현장의 금속탐지기와 바디캠 도입을 보도했고, 경북교육청은 금속탐지기 1600대를 확보했으며 국가시험장에 방호복 형태 수술가운까지 도입됐습니다. 여야와 교육부는 현장 여건을 고려한 대책을 주문했고, 수능 만점자들은 AI 컨닝 의혹으로 인터뷰를 기피했습니다. 미국에서는 GPT-6의 단백질 설계 능력이 입증됐고, 구글 제미나이 4 기반 에이전트가 소인수분해 34년 기록 경신을 주장했습니다.",
+   "items": [
+    {
+     "title": "AI 안경 부정행위 해커톤서 방어 기법 대부분 무력화",
+     "summary": "커뮤니티 '다스 누미너스' 주최 해커톤에서 공격조가 AI 안경으로 시험지 경고문과 방어 장치를 우회해 문제를 풀어내는 데 성공했다.",
+     "source": "AI타임스",
+     "id": 7,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217874"
+    },
+    {
+     "title": "청와대 AI수석 \"AI 부정행위 세계적 공조 점검\"",
+     "summary": "대통령실 AI수석이 AI 부정행위 대응을 위한 국제적 공조 필요성을 언급하며 관련 대책을 검토 중이라고 밝혔다.",
+     "source": "연합뉴스TV",
+     "id": 21,
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9XTk9wNW40OXZZaWV2bEdkcEpnRDg4RHlYcU9nWTROc2pmeFdzRVJBeHFkT25hSHdORjdUZFNmZlFvWmo1Ukg1NkVpSmxSYTljeV96TEoxaFBpa2ctb2ZscmlKbUVCQWs?oc=5"
+    },
+    {
+     "title": "워싱턴포스트 \"한국, 금속탐지기·바디캠으로 AI 부정행위 단속\"",
+     "summary": "미국 매체가 한국 수능·국가시험 현장에 금속탐지기와 바디캠 등 물리적 보안 장비가 도입된 상황을 상세히 보도했다.",
+     "source": "The Washington Post",
+     "id": 22,
+     "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMzJ0MHlPSlY5eEJ0QTUxa283YlJ0RWVpUnlyQlU3UktfMFZGM3lzOEJCd0EtdEN1bUFuRFpGbHBuME5ITy04VUJrTmptLUFHcHkxajFmWV9GNlhlN01qUW40cTU3SXUzS3E3Vkx3bzNJWDAwZHRLdzJxVEpCT2VTZkZqUmdFMGtyZEFzR21Rc0NBOEVNdGtfSTN0UXhvLXdvMjUyRE9TblktQldGakotbUlLSm5JTDZmN3VSS0VRSUs?oc=5"
+    },
+    {
+     "title": "경북교육청 금속탐지기 1600대 확보해 AI 부정행위 방지",
+     "summary": "경북교육청이 올해 치러지는 각종 시험에 투입할 금속탐지기 1600대를 구비해 시험장 보안을 강화했다.",
+     "source": "안동MBC",
+     "id": 366,
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5TN0JKZGV3azJydHhibVJQdGpSbXZBU3R1Q2hKeF9tcmR3SXo0eUVWcWRCUnZfZVI2b1Y3cnJOdUM3a0xveEtyRnVmX3hLRFJudFU1OVlqOWZ6VkszcUJ1VlAwbEpIY0h0?oc=5"
+    },
+    {
+     "title": "MBC 단독 \"국가시험에 방호복 형태 수술가운까지 도입\"",
+     "summary": "국가시험장에서 AI 기기 반입을 막기 위해 금속탐지기 외에 방호복 형태 수술가운 착용 등 복장 규제까지 시행 중이다.",
+     "source": "MBC 뉴스",
+     "id": 140,
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE83T1BOUFM2U2puWVF6eDhjV0JtX1IxNDFTRHpJTWVObnRxREZaWmtQenNtUTJTVGpHdmN3aG1JaWsyQ25lYWJpaGR3X2dIaW43b2VOQzFYRlFlN1JWSDNzZUZBYW5QNVBrdnVTX0xwMzdMSzFzdnA40gF3QVVfeXFMTXdUbUEtNzBtd0tqZnhLWTZCTDN5c2tITi1Qb0l1TTB2MFZ5WEVJbDlXSGVBem9CU0dzbGU1cUJ4am9QSWQwZTlXS084dnVPamp3ZVFLeDMyV2ZyMGNlT09BTFZFSm4yaVZHNlRZOWJTUjRZTmhVVnc?oc=5"
+    },
+    {
+     "title": "여야·교육부 \"AI 부정행위 대책 현장 여건 고려해야\" 한목소리",
+     "summary": "국회 교육위에서 여야 의원들이 교육부 대책이 현장 교사 부담만 늘린다며 실효성 있는 방안 마련을 주문했다.",
+     "source": "KBS 뉴스",
+     "id": 256,
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9MbGVpYTNlMHItelNsaWM3QURYRHpkTy1mWTI0M09ZVmpkbWZkaU8tYkdZX1ptWWRlTEdmUlU2VDVXMVcwaW81OE9iSVlZSzZVcERVS3NuOXZlMlE?oc=5"
+    },
+    {
+     "title": "CSAT 만점자들 AI 부정행위 의심에 인터뷰 기피",
+     "summary": "수능 만점자들이 AI 컨닝 의혹 여파로 언론 노출을 꺼리며 수상 소감 등 공식 일정을 거절하고 있다.",
+     "source": "The Korea Times, 조선일보",
+     "id": 257,
+     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPaW5hODl0bXlRM0pLaXZZcXZ1X2FiLUVLb3gxX2d4eHFzWER2MC1LZ1RRdHVpeWxiaWlpY1lqaERwOUt5TmZGVGJzdXVjeXFBb2ZmbGl5TEs4VVpDTGhnYkZVb1ktWl9BOGlkRDFiV0FhRkFhaGNMQ0l0MXo1WkQzR2J0R1lDZEUtNnc5SlY2OFNzajZ2YURXRGlKdnpFRTZwYXROWFRKVnE2LTViLWo5ZFBUT0RnekhHNFNpRnBtUdIBxAFBVV95cUxOaDNrR2piVmdNdXRXdVJNSTZ0VVE2eE9jRFBVdXFaY2Vtak9hMjdveVpzTGMyU19NcVZhNE1OTjEwVUNTTnpwUTN0STZSUUhQcjQ5aGgyNl8zTElBYXMyeG4zZElEbUh0Z0F6SDFfdU4zR3BFb2RDZ0hPbVdPUmpUV3FrZllqNVEzVHk2Sk5nSndEOUY5WWttdVd1NnpRQzZJZmN2OU51azRSN1lyRHhiRmE3SnB6Tk1TWlcxeHpuUFN1R3dC?oc=5"
+    },
+    {
+     "title": "GPT-6 모델 단백질 설계 능력 입증…실험실 결합 검증",
+     "summary": "오픈AI가 GPT-6 모델이 추론과 코드 작성으로 단백질 구조·서열을 설계하고 5개 표적에서 결합 증거를 확인했다고 발표했다.",
+     "source": "OpenAI",
+     "id": 8,
+     "link": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities"
+    },
+    {
+     "title": "구글 제미나이 4 기반 수학 에이전트 '코젠틱' 소인수분해 34년 기록 경신 주장",
+     "summary": "구글 리서치가 제미나이 4 기반 에이전트 시스템 '코젠틱'이 작성한 수학 논문 6편을 공개하며 소인수분해 등 난제 해결 성과를 주장했다.",
+     "source": "AI타임스",
+     "id": 360,
+     "link": "https://www.aitimes.com/news/articleView.html?idxno=217867"
+    }
+   ],
+   "id": "ai"
+  },
+  {
+   "topic": "정치·사회",
+   "overview": "더불어민주당 윤리심판원이 최민희 최고위원에게 당원 자격정지 2년을 의결해 차기 총선 출마가 불가능해졌고, 박홍근 장관과 서영교 법사위원장 충돌로 법사위 전체회의가 파행했습니다. 홍익표 통일부 장관 후보자는 65억 원 재산 신고와 주식 처분 소송 패소 사실이 드러났고, 인터넷우체국 해킹으로 등기우편 고객 11만3천여 명의 개인정보가 유출됐습니다.",
+   "items": [
+    {
+     "title": "민주당 윤리심판원, 최민희 최고위원 '당원 자격정지 2년' 중징계 의결",
+     "summary": "더불어민주당 윤리심판원이 최민희 최고위원에게 당원 자격정지 2년 징계를 의결해 차기 총선 출마가 불가능해졌습니다.",
+     "source": "경향신문, 한겨레",
+     "id": 384,
+     "link": "https://www.khan.co.kr/article/202611271807001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "박홍근 장관-서영교 법사위원장 충돌로 법사위 전체회의 파행",
+     "summary": "박홍근 기획예산처 장관과 서영교 국회 법제사법위원장의 설전으로 27일 법사위 전체회의가 중단됐습니다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 5,
+     "link": "https://www.yna.co.kr/view/AKR20261127130152001"
+    },
+    {
+     "title": "홍익표 통일부 장관 후보자, 재산 65억 신고·주식 처분 소송 패소",
+     "summary": "홍익표 후보자가 본인·배우자 명의 64억9천만원 재산을 신고했고, 과거 직무관련 주식 처분 소송에서 패소한 사실이 드러났습니다.",
+     "source": "경향신문, 연합뉴스",
+     "id": 41,
+     "link": "https://www.khan.co.kr/article/202611272058001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=politic_news"
+    },
+    {
+     "title": "인터넷우체국 해킹으로 등기우편 고객 11만3천여 명 개인정보 유출",
+     "summary": "해외 IP를 이용한 해킹 공격으로 인터넷우체국 등기우편 이용자 개인정보가 대량 유출됐습니다.",
+     "source": "연합뉴스, 한겨레",
+     "id": 463,
+     "link": "https://www.yna.co.kr/view/AKR20261128000900017"
+    }
+   ],
+   "id": "politics"
+  },
+  {
+   "topic": "IT·과학",
+   "overview": "미국 수출 금지 대상인 엔비디아 블랙웰 칩이 중국 상하이 데이터센터에서 발견됐고, 해커들이 미 공군 주력 클라우드 플랫폼 '클라우드 원'에 침투했습니다. 영국 자연보호기관이 AI 데이터센터 건설에 반대한 뒤 정부로부터 기관 폐지 압박을 받고 있습니다.",
+   "items": [
+    {
+     "title": "엔비디아 블랙웰 칩, 중국 상하이 데이터센터서 발견",
+     "summary": "미국 수출 금지 대상인 엔비디아 블랙웰 반도체가 앨리스 황 연관 중국 기업 데이터센터에 설치된 정황이 포착됐다.",
+     "source": "Decrypt, Bloomberg",
+     "id": 62,
+     "link": "https://decrypt.co/384153/nvidias-blackwell-chips-turn-up-in-china-as-trump-floats-government-stake"
+    },
+    {
+     "title": "해커들, 미 공군 주력 클라우드 '클라우드 원' 침투",
+     "summary": "전술·인사·군수 데이터가 오가는 미 공군 플래그십 클라우드 플랫폼이 해킹당해 보안 우려가 커지고 있다.",
+     "source": "The Guardian",
+     "id": 100,
+     "link": "https://www.theguardian.com/technology/2026/nov/27/hackers-breach-us-air-force-cloud-computing"
+    },
+    {
+     "title": "영국 자연보호기관, AI 데이터센터 반대 후 정부 압박 직면",
+     "summary": "자연잉글랜드가 브리스톨 인근 AI 데이터센터 건설에 반대 의견을 낸 지 몇 주 뒤 장관들이 기관 폐지 가능성을 거론하며 압박했다.",
+     "source": "The Guardian",
+     "id": 332,
+     "link": "https://www.theguardian.com/environment/2026/nov/27/natural-england-objected-datacentre-ministers-abolish-bristol"
+    }
+   ]
+  },
+  {
+   "topic": "스포츠",
+   "overview": "맨체스터 유나이티드가 주장 브루노 페르난데스와 계약을 2028년까지 1년 연장했고, 아스널은 시즌 초반 부진으로 르네 슬레거스 감독과 상호 합의하에 결별했습니다.",
+   "items": [
+    {
+     "title": "맨유, 주장 브루노 페르난데스 계약 2028년까지 1년 연장",
+     "summary": "맨체스터 유나이티드가 캡틴 브루노 페르난데스의 계약 연장 옵션을 실행해 2028년까지 묶었습니다.",
+     "source": "BBC",
+     "id": 93,
+     "link": "https://www.bbc.co.uk/sport/football/articles/c6d91j5geepqo?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "title": "아스널, 르네 슬레거스 감독과 상호 합의로 결별",
+     "summary": "아스널이 시즌 초반 부진을 이유로 르네 슬레거스 감독과 상호 합의하에 계약을 해지했습니다.",
+     "source": "BBC",
+     "id": 326,
+     "link": "https://www.bbc.co.uk/sport/football/articles/cmy49d5kpw78o?at_medium=RSS&at_campaign=rss"
+    }
+   ],
+   "id": "sports"
+  }
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "outlets": {
+  "국내": [
+   "연합뉴스",
+   "AI타임스",
+   "연합뉴스TV",
+   "한국경제",
+   "매일경제",
+   "뉴시스",
+   "헤럴드경제",
+   "한겨레",
+   "경향신문",
+   "조선일보",
+   "오마이뉴스",
+   "전자신문",
+   "블록미디어",
+   "Korea Times",
+   "Yonhap English",
+   "굿모닝베트남미디어",
+   "연합인포맥스",
+   "MBC 뉴스",
+   "파이낸셜뉴스",
+   "KBS 뉴스",
+   "센머니",
+   "Chosunbiz",
+   "안동MBC",
+   "CBC뉴스",
+   "산경투데이",
+   "동아일보",
+   "서울파이낸스",
+   "의협신문"
+  ],
+  "미국": [
+   "OpenAI",
+   "Google DeepMind",
+   "Google AI",
+   "Anthropic",
+   "Hugging Face",
+   "MIT Technology Review AI",
+   "TechCrunch AI",
+   "The Verge AI",
+   "Wired AI",
+   "Simon Willison",
+   "Latent Space",
+   "EdSurge",
+   "The Washington Post",
+   "NYT 교육",
+   "NYT",
+   "Bloomberg",
+   "MarketWatch",
+   "Investing.com",
+   "CoinDesk",
+   "Cointelegraph",
+   "Decrypt",
+   "The Block",
+   "Bitcoin Magazine",
+   "Reuters",
+   "CNBC",
+   "Investing.com 외환",
+   "Investing.com 원자재",
+   "ARTnews",
+   "Artnet News",
+   "Artsy",
+   "Colossal",
+   "Foreign Policy",
+   "Al-Monitor",
+   "CBS News",
+   "NBC News",
+   "ABC News",
+   "Fox News",
+   "The Hill",
+   "Politico",
+   "Axios",
+   "TechCrunch",
+   "The Verge",
+   "Wired",
+   "Ars Technica",
+   "Fortune",
+   "FXEmpire",
+   "The Korea Times",
+   "USA Today",
+   "FOREX.com",
+   "조선일보",
+   "BullionVault",
+   "KELO-AM",
+   "파이낸셜뉴스"
+  ],
+  "영국": [
+   "The Guardian AI",
+   "BBC 교육",
+   "BBC",
+   "The Guardian",
+   "Financial Times",
+   "Dezeen",
+   "The Art Newspaper",
+   "Middle East Eye",
+   "Sky News",
+   "The Independent",
+   "Daily Mail",
+   "New Scientist"
+  ],
+  "기타 해외": [
+   "Al Jazeera",
+   "DW",
+   "France 24",
+   "Euronews",
+   "CNA",
+   "Kyiv Independent",
+   "The Diplomat",
+   "Japan Times",
+   "SCMP",
+   "Nikkei Asia",
+   "ArtAsiaPacific",
+   "Designboom",
+   "ArchDaily"
+  ]
+ },
+ "weather": [
+  {
+   "city": "서울",
+   "date": "2026-11-28",
+   "sky": "흐림",
+   "now": "7°",
+   "lo": "1°",
+   "hi": "9°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −6°, 최저 −5°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "대체로 맑음 -2°/6°"
+  },
+  {
+   "city": "대구",
+   "date": "2026-11-28",
+   "sky": "강한 이슬비",
+   "now": "10°",
+   "lo": "4°",
+   "hi": "10°",
+   "mood": "어제보다 쌀쌀함",
+   "diff": "최고 −9°, 최저 −2°",
+   "precip": "비 예보(강수확률 70%, 약 1.5mm)",
+   "tomorrow": "대체로 맑음 1°/8°"
+  },
+  {
+   "city": "LA",
+   "date": "2026-11-27",
+   "sky": "흐림",
+   "now": "22°",
+   "lo": "13°",
+   "hi": "30°",
+   "mood": "어제보다 따뜻함",
+   "diff": "최고 +2°, 최저 +2°",
+   "precip": "강수 가능성 낮음(0%)",
+   "tomorrow": "안개 14°/25°"
+  }
+ ],
+ "message": {
+  "ko": "오늘이 평범한 하루처럼 보여도, 호기심 하나만 있으면 하루는 흥미로워져요. 오늘의 당신에게 박수를!",
+  "en": "Even if today looks like an ordinary day, with a single curiosity the day becomes interesting. Applause for today's you!"
+ },
+ "notices": [],
+ "meta": {
+  "articles": 524,
+  "outlets": 106,
+  "failed_feeds": [
+   "Import AI",
+   "토큰포스트",
+   "Hyperallergic"
+  ]
+ },
+ "sent": true,
+ "sent_at": "2026-11-27T17:37:56.495971+00:00"
+}
